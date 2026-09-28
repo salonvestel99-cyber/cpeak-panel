@@ -131,6 +131,7 @@ def index():
     return redirect(url_for("dashboard") if "user_id" in session else url_for("login"))
 
 @app.route("/giris", methods=["GET", "POST"])
+@app.limiter.limit("10 per minute", methods=["POST"])
 def login():
     if request.method == "POST":
         tc = request.form.get("tc", "").strip()
@@ -154,6 +155,7 @@ def login():
 # ============================================================
 
 @app.route("/sifremi-unuttum", methods=["POST"])
+@app.limiter.limit("3 per minute")
 def sifremi_unuttum():
     tc = request.form.get("tc", "").strip()
     email = request.form.get("email", "").strip()
@@ -1350,6 +1352,7 @@ from models import get_db as _get_db
 
 
 @app.route("/bildirim-gonder", methods=["POST"])
+@app.limiter.limit("5 per minute")
 def bildirim_gonder():
     """Kullanicidan bildirim al. CSRF Flask-WTF tarafindan korunur."""
     if not session.get("name"):
