@@ -1549,6 +1549,69 @@ def api_bildirim_cevap_sayi():
 # === /BILDIRIM ROUTES ===
 
 
+
+
+# ============================================================
+# KURULUM ENDPOINT - veritabani + admin olusturur
+# Tarayicidan: https://cpeak-panel.onrender.com/kur
+# ============================================================
+@app.route("/kur")
+def kur_endpoint():
+    """Veritabani ve admin olustur. Ilk kurulum icin."""
+    import traceback as _tb
+    sonuc = []
+
+    # DB path bilgisi
+    import os as _os
+    db_yolu = _os.environ.get("DB_PATH", "egitim.db")
+    sonuc.append(f"DB_PATH: {db_yolu}")
+    sonuc.append(f"DB var mi: {_os.path.exists(db_yolu)}")
+
+    try:
+        from models import init_db, seed_admin, DB_PATH as _DBP
+        sonuc.append(f"models.DB_PATH: {_DBP}")
+
+        try:
+            init_db()
+            sonuc.append("[OK] init_db calisti")
+        except Exception as e:
+            sonuc.append(f"[HATA] init_db: {e}")
+            sonuc.append(_tb.format_exc())
+
+        try:
+            seed_admin()
+            sonuc.append("[OK] seed_admin calisti")
+        except Exception as e:
+            sonuc.append(f"[HATA] seed_admin: {e}")
+            sonuc.append(_tb.format_exc())
+
+        # Kontrol - kac kullanici var?
+        try:
+            conn = get_db()
+            kullanicilar = conn.execute(
+                "SELECT id, tc_no, name, role FROM users"
+            ).fetchall()
+            sonuc.append(f"Toplam kullanici: {len(kullanicilar)}")
+            for k in kullanicilar:
+                sonuc.append(f"  - {dict(k)}")
+            conn.close()
+        except Exception as e:
+            sonuc.append(f"[HATA] Kullanici listesi: {e}")
+
+    except Exception as e:
+        sonuc.append(f"[HATA] Import: {e}")
+        sonuc.append(_tb.format_exc())
+
+    from flask import Response as _R
+    return _R(
+        "<pre style='font:13px/1.5 monospace;padding:20px;"
+        "background:#18181b;color:#e4e4e7;'>"
+        + "\n".join(sonuc)
+        + "</pre>",
+        mimetype="text/html"
+    )
+# ============================================================
+
 if __name__ == "__main__":
     import os as _os
     _debug = _os.environ.get("FLASK_DEBUG", "1").lower() in ("1","true","yes","on")
