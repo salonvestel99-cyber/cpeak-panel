@@ -15,26 +15,47 @@ load_dotenv()
 app = Flask(__name__)
 
 
-# ============================================================
-# Veritabani baslatma + admin seed (her baslangicta)
-# ============================================================
-with app.app_context():
-    from models import init_db, seed_admin
-    try:
-        init_db()
-        app.logger.info("[init] Veritabani hazir")
-    except Exception as e:
-        app.logger.exception("[init] init_db hatasi: %s", e)
-    try:
-        seed_admin()
-        app.logger.info("[init] seed_admin tamamlandi")
-    except Exception as e:
-        app.logger.exception("[init] seed_admin hatasi: %s", e)
 
 # ============================================================
 # --- Guvenlik katmanlari ---
 from security import init_security
 init_security(app)
+
+
+# ============================================================
+# Veritabani baslatma - GUNICORN ile de calisir
+# ============================================================
+# Absolute path kullan (Render'da /tmp yazilabilir)
+import os as _os
+_DB_YOL = _os.environ.get("DB_PATH", "")
+if _DB_YOL and not _os.path.isabs(_DB_YOL):
+    # Relative ise proje kokune sabitle
+    _DB_YOL = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), _DB_YOL)
+    _os.environ["DB_PATH"] = _DB_YOL
+print(f"[boot] DB_PATH={_os.environ.get('DB_PATH', 'egitim.db')}", flush=True)
+
+try:
+    with app.app_context():
+        from models import init_db, seed_admin
+        try:
+            init_db()
+            print("[boot] init_db OK", flush=True)
+        except Exception as e:
+            import traceback
+            print(f"[boot] init_db HATA: {e}", flush=True)
+            traceback.print_exc()
+        try:
+            seed_admin()
+            print("[boot] seed_admin OK", flush=True)
+        except Exception as e:
+            import traceback
+            print(f"[boot] seed_admin HATA: {e}", flush=True)
+            traceback.print_exc()
+except Exception as e:
+    import traceback
+    print(f"[boot] DIS HATA: {e}", flush=True)
+    traceback.print_exc()
+# ============================================================
 
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-change-me")
 app.permanent_session_lifetime = timedelta(days=30)
