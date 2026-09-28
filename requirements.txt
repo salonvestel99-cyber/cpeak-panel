@@ -28,3 +28,8 @@ python-dotenv>=1.0.0
 # --- Rate limiter deposu (uretim icin Redis) ---
 redis>=5.0.0
 psycopg2-binary>=2.9
+
+Flask-Limiter
+
+
+redis>=5.0
