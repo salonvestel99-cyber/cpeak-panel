@@ -1907,5 +1907,40 @@ html.dark .fb-cancel:hover {
   });
 })();
 </script>
+<!-- CKJS-INLINE -->
+<script>
+(function(){
+  "use strict";
+  var KEY = "cookie_consent_v1";
+  function init(){
+    var banner = document.getElementById("cookieBanner");
+    if (!banner) return;
+    try {
+      if (localStorage.getItem(KEY)) {
+        banner.style.display = "none";
+        return;
+      }
+    } catch(e){}
+    function kapat(secim){
+      try {
+        localStorage.setItem(KEY, secim);
+        localStorage.setItem("cookie_consent_tarih", new Date().toISOString());
+      } catch(e){}
+      banner.style.transition = "opacity .25s ease, transform .25s ease";
+      banner.style.opacity = "0";
+      banner.style.transform = "translateY(12px)";
+      setTimeout(function(){ banner.style.display = "none"; }, 260);
+    }
+    var b1 = banner.querySelector('[data-cookie="required"]');
+    var b2 = banner.querySelector('[data-cookie="all"]');
+    if (b1) b1.addEventListener("click", function(e){ e.preventDefault(); kapat("required"); });
+    if (b2) b2.addEventListener("click", function(e){ e.preventDefault(); kapat("all"); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+<!-- /CKJS-INLINE -->
+
 </body>
 </html>
