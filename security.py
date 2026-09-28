@@ -210,16 +210,16 @@ def init_security(app):
                 return f"<h1>{kod} {baslik}</h1><p>{mesaj}</p>", kod
         return handler
 
-    app.register_error_handler(400, _hata(400, "Gecersiz istek",
-        "Istek dogrulanamadi. Sayfayi yenileyip tekrar deneyin."))
-    app.register_error_handler(403, _hata(403, "Erisim reddedildi",
+    app.register_error_handler(400, _hata(400, "Geçersiz istek",
+        "İstek doğrulanamadı. Sayfayı yenileyip tekrar deneyin."))
+    app.register_error_handler(403, _hata(403, "Erişim reddedildi",
         "Bu sayfaya erisim yetkiniz yok."))
-    app.register_error_handler(404, _hata(404, "Sayfa bulunamadi",
-        "Aradiginiz sayfa tasinmis veya hic var olmamis olabilir."))
-    app.register_error_handler(429, _hata(429, "Cok fazla istek",
-        "Kisa sure icinde cok fazla istek gonderdiniz. Lutfen bekleyin."))
-    app.register_error_handler(500, _hata(500, "Sunucu hatasi",
-        "Beklenmeyen bir hata olustu. Ekibimiz bilgilendirildi."))
+    app.register_error_handler(404, _hata(404, "Sayfa bulunamadı",
+        "Aradığınız sayfa taşınmış veya hiç var olmamış olabilir."))
+    app.register_error_handler(429, _hata(429, "Çok fazla istek",
+        "Kısa süre içinde cok fazla istek gönderdiniz. Lütfen bekleyin."))
+    app.register_error_handler(500, _hata(500, "Sunucu hatası",
+        "Beklenmeyen bir hata oluştu. Ekibimiz bilgilendirildi."))
 
     app.logger.info("Guvenlik katmanlari hazir (uretim=%s)", uretim)
     return app
