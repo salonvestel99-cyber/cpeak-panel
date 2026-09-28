@@ -1,5 +1,5 @@
 /* =========================================================
-   THEME — Koyu / Aydınlık Mod Toggle
+   THEME - Koyu / Aydinlik Mod Toggle (tek anahtar: cpeak_theme)
    ========================================================= */
 (function () {
   "use strict";
@@ -13,31 +13,54 @@
     try { localStorage.setItem(KEY, v); } catch (e) {}
   }
   function apply(t) {
-    document.documentElement.setAttribute("data-theme", t);
+    var h = document.documentElement;
+    h.setAttribute("data-theme", t);
+    h.classList.toggle("dark", t === "dark");
+    // Diger bilesenlere haber ver
+    try {
+      window.dispatchEvent(new CustomEvent("themechange", { detail: { theme: t } }));
+    } catch (e) {}
   }
 
-  // Başlangıç: kaydedilmiş tema varsa uygula
+  // Baslangic: kaydedilmis tema varsa uygula, yoksa OS tercihine bak
   var saved = get();
-  if (saved) apply(saved);
+  if (saved) {
+    apply(saved);
+  } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    apply("dark");
+  }
 
-  // Toggle butonlarını bağla
-  document.addEventListener("DOMContentLoaded", function () {
-    var btns = document.querySelectorAll("[data-theme-toggle]");
+  // Tum toggle butonlarini bagla (tek sefer, capture phase ile)
+  function bagla() {
+    var btns = document.querySelectorAll("[data-theme-toggle], #udThemeToggle");
     btns.forEach(function (b) {
-      b.addEventListener("click", function () {
-        var cur = document.documentElement.getAttribute("data-theme") || "light";
+      if (b.__temaBagli) return;
+      b.__temaBagli = true;
+      b.addEventListener("click", function (e) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        var h = document.documentElement;
+        var cur = h.getAttribute("data-theme")
+                  || (h.classList.contains("dark") ? "dark" : "light");
         var next = cur === "light" ? "dark" : "light";
         apply(next);
         set(next);
-      });
+      }, true);
     });
-  });
+  }
 
-  // OS tercihini dinle (kullanıcı seçim yapmadıysa)
-  if (!saved && window.matchMedia) {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bagla);
+  } else {
+    bagla();
+  }
+  // Bazi butonlar sonradan olusabilir
+  setTimeout(bagla, 300);
+  setTimeout(bagla, 1200);
+
+  // OS tercihini dinle (kullanici manuel secim yapmadiysa)
+  if (window.matchMedia) {
     var mq = window.matchMedia("(prefers-color-scheme: dark)");
-    if (mq.matches) apply("dark");
-    // Değişirse otomatik uygula (kullanıcı manuel seçmediyse)
     var handler = function (e) {
       if (!get()) apply(e.matches ? "dark" : "light");
     };

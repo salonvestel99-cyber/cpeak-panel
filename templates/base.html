@@ -5,10 +5,13 @@
 (function () {
   try {
     var t = localStorage.getItem("cpeak_theme");
-    if (t) document.documentElement.setAttribute("data-theme", t);
-    else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
+  if (!t && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    t = "dark";
+  }
+  if (t) {
+    document.documentElement.setAttribute("data-theme", t);
+    document.documentElement.classList.toggle("dark", t === "dark");
+  }
   } catch (e) {}
 })();
 </script>
@@ -1345,7 +1348,7 @@ function rastgeleSifre(talepId) {
       h.setAttribute("data-theme", yeni);
       h.classList.toggle("dark", yeni === "dark");
       h.classList.toggle("light", yeni === "light");
-      try { localStorage.setItem("theme", yeni); } catch(e){}
+      try { localStorage.setItem("cpeak_theme", yeni); } catch(e){}
       try {
         window.dispatchEvent(new CustomEvent("themechange", { detail: { tema: yeni } }));
       } catch(e){}
@@ -1970,6 +1973,9 @@ html.dark .fb-cancel:hover {
 })();
 </script>
 <!-- /CKJS-INLINE -->
+    <!-- Dropdown duzeltmesi -->
+    <script src="{{ url_for('static', filename='dropdown-fix.js') }}" defer></script>
+
 
 </body>
 </html>
