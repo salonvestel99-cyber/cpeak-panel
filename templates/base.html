@@ -1097,7 +1097,7 @@ html.dark #cookieBanner .cookie-btn-primary {
     <p>Hesabınızdan çıkış yapmak istediğinize emin misiniz?</p>
     <div class="modal-actions">
       <button type="button" class="btn-cancel" id="cancelLogout">Vazgeç</button>
-      <a href="{{ url_for('logout') }}" class="btn-confirm">Evet, Çıkış Yap</a>
+      <form method="POST" action="/cikis" style="display:inline;margin:0;"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button type="submit" class="btn-confirm">Evet, Çıkış Yap</button></form>
     </div>
   </div>
 </div>
