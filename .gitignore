@@ -1,31 +1,44 @@
 @"
+# Sirlar
 .env
 *.env
-!.env.example
 
+# Veritabani
 egitim.db
 *.db
 *.sqlite
 *.sqlite3
 
+# Yedekler
 backups/
 _backups/
+*.bak
+*.bozuk*
+
+# Loglar ve cache
 logs/
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
+# Ortam
 .venv/
 venv/
 env/
 
+# IDE
 .vscode/
 .idea/
 *.swp
 
-security.py.bozuk
-*.bozuk
-
+# Proje ozel
+proje_haritasi.txt
 staff/
+duzelt_baglanti.py
+supabase_gecis.py
+yapi_tara.py
+auto_init.py
+a.py
+ck_premium.py
 "@ | Out-File -Encoding utf8 .gitignore
