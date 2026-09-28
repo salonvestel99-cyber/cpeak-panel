@@ -14,6 +14,24 @@ load_dotenv()
 
 app = Flask(__name__)
 
+
+# ============================================================
+# Veritabani baslatma + admin seed (her baslangicta)
+# ============================================================
+with app.app_context():
+    from models import init_db, seed_admin
+    try:
+        init_db()
+        app.logger.info("[init] Veritabani hazir")
+    except Exception as e:
+        app.logger.exception("[init] init_db hatasi: %s", e)
+    try:
+        seed_admin()
+        app.logger.info("[init] seed_admin tamamlandi")
+    except Exception as e:
+        app.logger.exception("[init] seed_admin hatasi: %s", e)
+
+# ============================================================
 # --- Guvenlik katmanlari ---
 from security import init_security
 init_security(app)
