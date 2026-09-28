@@ -202,7 +202,13 @@ def init_security(app):
     def _hata(kod, baslik, mesaj):
         def handler(e):
             if kod >= 500:
+                import traceback as _tb, sys as _sys2
+                # Hem log'a hem stdout'a
                 app.logger.exception("%s: %s", kod, e)
+                print(f"=== 500 HATA ===", file=_sys2.stderr, flush=True)
+                _tb.print_exception(type(e), e, e.__traceback__,
+                                    file=_sys2.stderr)
+                print(f"=== /500 HATA ===", file=_sys2.stderr, flush=True)
             try:
                 return render_template(f"errors/{kod}.html",
                                        baslik=baslik, mesaj=mesaj), kod
