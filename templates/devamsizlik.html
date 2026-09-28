@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Devamsızlık Detayı{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Devamsızlık Detayı</h1>
+  <p class="muted">{{ ogrenci.ad }} · {{ ogrenci.sinif }} / {{ ogrenci.numara }}</p>
+</div>
+
+<div class="stat-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+  <div class="stat-card"><div class="stat-card-head"><span class="stat-card-ico">📅</span><span class="stat-card-etiket">Toplam</span></div><div class="stat-card-deger">{{ sayilar.toplam }}</div></div>
+  <div class="stat-card"><div class="stat-card-head"><span class="stat-card-ico">🟢</span><span class="stat-card-etiket">Geldi</span></div><div class="stat-card-deger" style="color:#059669">{{ sayilar.geldi }}</div></div>
+  <div class="stat-card"><div class="stat-card-head"><span class="stat-card-ico">🔵</span><span class="stat-card-etiket">İzinli</span></div><div class="stat-card-deger" style="color:#2563eb">{{ sayilar.izinli }}</div></div>
+  <div class="stat-card"><div class="stat-card-head"><span class="stat-card-ico">🔴</span><span class="stat-card-etiket">Gelmedi</span></div><div class="stat-card-deger" style="color:#dc2626">{{ sayilar.gelmedi }}</div></div>
+</div>
+
+<div class="card">
+  <div class="card-head"><h3><span class="ico">📋</span> Tüm Kayıtlar</h3></div>
+  {% if kayitlar %}
+  <div class="table-wrap">
+    <table class="table">
+      <thead><tr><th>Tarih</th><th>Durum</th><th>Açıklama</th></tr></thead>
+      <tbody>
+        {% for k in kayitlar %}
+        <tr>
+          <td><strong>{{ k.tarih }}</strong></td>
+          <td>
+            {% if k.durum == 'geldi' %}<span class="durum-badge durum-iyi">Geldi</span>
+            {% elif k.durum == 'izinli' %}<span class="durum-badge durum-info">İzinli</span>
+            {% else %}<span class="durum-badge durum-kritik">Gelmedi</span>{% endif %}
+          </td>
+          <td>{{ k.aciklama or '—' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <p class="muted">Devamsızlık kaydı bulunmuyor. 🎉</p>
+  {% endif %}
+</div>
+
+<div style="margin-top:20px">
+  <a href="{{ url_for('dashboard') }}" class="btn-ghost" style="color:var(--navy);border-color:var(--line);background:#fff">← Panele Dön</a>
+</div>
+{% endblock %}

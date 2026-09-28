@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}{{ odev.baslik }}{% endblock %}
+{% block content %}
+
+<div class="panel-hero">
+  <div class="panel-hero-text">
+    <div class="panel-hero-eyebrow">{{ odev.ders }}</div>
+    <h1 class="panel-hero-greet">{{ odev.baslik }}</h1>
+    <p class="panel-hero-sub">{{ odev.ogretmen }} · Veriliş: {{ odev.verilis }}</p>
+  </div>
+  <div class="panel-hero-avatar">{{ session.name[0]|upper }}</div>
+</div>
+
+<div class="card">
+  <div class="card-head">
+    <h3>📅 Teslim Tarihi</h3>
+    <span class="odev-teslim-buyuk">{{ odev.teslim }}</span>
+  </div>
+  {% if odev.icerik %}
+  <div class="odev-icerik">{{ odev.icerik }}</div>
+  {% else %}
+  <p class="muted small">Bu ödev için ek açıklama yok.</p>
+  {% endif %}
+</div>
+
+{% if session.role == 'student' %}
+<div class="card">
+  {% if kendi_durum and kendi_durum.durum == 'yapildi' %}
+    <div class="alert alert-success" style="margin:0">
+      ✓ Bu ödevi <strong>{{ kendi_durum.tarih }}</strong> tarihinde yaptın olarak işaretledin.
+    </div>
+  {% else %}
+    <form method="post" action="{{ url_for('odev_teslim', hid=odev.id) }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <p class="muted small" style="margin-bottom:12px">Ödevi tamamladıysan aşağıdaki butona bas:</p>
+      <button type="submit" class="btn-primary" style="max-width:280px">✓ Ödevi Yaptım</button>
+    </form>
+  {% endif %}
+</div>
+{% endif %}
+
+{% if session.role in ('teacher', 'admin') %}
+<div class="card">
+  <div class="card-head">
+    <h3>👥 Teslim Edenler ({{ teslim_listesi|length }})</h3>
+  </div>
+  {% if teslim_listesi %}
+  <div class="table-wrap">
+    <table class="table compact-table">
+      <thead><tr><th>Ad Soyad</th><th>Sınıf</th><th>No</th><th>Tarih</th></tr></thead>
+      <tbody>
+        {% for t in teslim_listesi %}
+        <tr>
+          <td><strong>{{ t.ad }}</strong></td>
+          <td><span class="chip">{{ t.sinif }}</span></td>
+          <td>{{ t.numara }}</td>
+          <td class="mono small">{{ t.tarih }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="muted small">Henüz kimse teslim etmedi.</p>
+  {% endif %}
+</div>
+{% endif %}
+
+<div style="margin-top:20px">
+  <a href="{{ url_for('odevler') }}" class="btn-ghost">← Tüm Ödevler</a>
+</div>
+
+{% endblock %}

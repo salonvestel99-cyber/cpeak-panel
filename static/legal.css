@@ -1,0 +1,328 @@
+/* =========================================================
+   LEGAL SAYFALAR — KVKK, Çerez, Kullanım Şartları
+   ========================================================= */
+
+.legal-page {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 48px 0 80px;
+}
+
+/* ---------- Başlık ---------- */
+.legal-header {
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+}
+.legal-eyebrow {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 14px;
+}
+.legal-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+.legal-lead {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0 0 18px;
+  max-width: 680px;
+}
+.legal-meta {
+  font-size: .82rem;
+  color: var(--muted-2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.legal-dot { opacity: .4; }
+
+/* ---------- Sekmeler ---------- */
+.legal-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+.legal-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color .15s ease, border-color .15s ease;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+}
+.legal-tab:hover { color: var(--ink); }
+.legal-tab.is-active {
+  color: var(--ink);
+  border-bottom-color: var(--copper);
+  font-weight: 600;
+}
+
+/* ---------- Metin ---------- */
+.legal-body section {
+  margin-bottom: 40px;
+}
+.legal-body h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.legal-num {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--copper);
+  min-width: 24px;
+}
+.legal-body p {
+  font-size: .94rem;
+  line-height: 1.75;
+  color: var(--text);
+  margin: 0 0 14px;
+}
+.legal-body strong { color: var(--ink); font-weight: 600; }
+.legal-body em { color: var(--ink); font-style: italic; }
+.legal-body code {
+  font-family: 'SF Mono', Monaco, Consolas, monospace;
+  font-size: .84em;
+  background: var(--surface-2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--ink);
+}
+.legal-body a {
+  color: var(--copper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.legal-body a:hover { color: var(--copper-2); }
+
+/* ---------- Listeler ---------- */
+.legal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+}
+.legal-list li {
+  position: relative;
+  padding: 6px 0 6px 22px;
+  font-size: .93rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+.legal-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 15px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--copper);
+  opacity: .7;
+}
+.legal-list-num { counter-reset: ln; }
+.legal-list-num li {
+  counter-increment: ln;
+  padding-left: 34px;
+}
+.legal-list-num li::before {
+  content: counter(ln) ".";
+  background: none;
+  color: var(--copper);
+  font-weight: 600;
+  font-size: .85rem;
+  top: 8px;
+  left: 4px;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  opacity: 1;
+  font-family: 'Fraunces', serif;
+}
+.legal-list-x li::before {
+  content: "✕";
+  background: none;
+  color: var(--red);
+  font-size: .72rem;
+  font-weight: 700;
+  top: 10px;
+  left: 4px;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+}
+
+/* ---------- Notlar ---------- */
+.legal-note {
+  font-size: .88rem !important;
+  padding: 14px 18px;
+  border-left: 3px solid var(--copper);
+  background: rgba(180,83,9,.04);
+  border-radius: 0 8px 8px 0;
+  color: var(--text);
+  line-height: 1.65;
+  margin: 16px 0 !important;
+}
+.legal-note strong { color: var(--ink); }
+
+/* ---------- Tablo ---------- */
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 20px;
+  font-size: .88rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.legal-table th,
+.legal-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.55;
+}
+.legal-table th {
+  background: var(--surface-2);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.legal-table td strong { color: var(--ink); }
+.legal-table tr:last-child td { border-bottom: none; }
+.legal-table tr:hover td { background: #fefcf8; }
+
+/* ---------- Alt bilgi ---------- */
+.legal-footer {
+  margin-top: 60px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.legal-footer p {
+  margin: 0;
+  font-size: .85rem;
+  color: var(--muted);
+}
+.legal-footer a {
+  color: var(--copper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.legal-back {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: .86rem;
+  font-weight: 500;
+  transition: all .15s ease;
+}
+.legal-back:hover {
+  background: var(--surface-2);
+  border-color: var(--border-2);
+}
+
+/* ---------- Yazdırma ---------- */
+@media print {
+  .topbar, .legal-tabs, .legal-back, .cookie-banner, .whatsapp-float { display: none !important; }
+  .legal-page { max-width: 100%; padding: 0; }
+  .legal-body { page-break-after: always; }
+  body { background: #fff; }
+}
+
+/* ---------- Mobil ---------- */
+@media (max-width: 720px) {
+  .legal-page { padding: 28px 0 60px; }
+  .legal-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .legal-tab { padding: 10px 14px; font-size: .82rem; white-space: nowrap; }
+  .legal-title { font-size: 1.5rem; }
+  .legal-body h2 { font-size: 1.05rem; }
+  .legal-table { font-size: .82rem; }
+  .legal-table th, .legal-table td { padding: 10px 10px; }
+  .legal-footer { flex-direction: column; align-items: flex-start; }
+}
+
+
+/* --- DROPDOWN HOVER KAPANMA ENGELLEYİCİ KÖPRÜ --- */
+.user-profile-dropdown,
+.profile-dropdown-menu {
+  position: relative !important;
+}
+
+.profile-dropdown-menu::before {
+  content: "" !important;
+  position: absolute !important;
+  top: -20px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 25px !important;
+  display: block !important;
+  background: transparent !important;
+  z-index: 9999 !important;
+}
+
+
+/* --- DROPDOWN TAM KONUMLANDIRMA DÜZELTMESİ --- */
+.user-profile-dropdown {
+  position: relative !important;
+  display: inline-block !important;
+}
+
+.profile-dropdown-menu {
+  position: absolute !important;
+  top: 100% !important;
+  right: 0 !important;
+  left: auto !important;
+  margin-top: 8px !important;
+  z-index: 99999 !important;
+}
+
+/* Kapanmayı önleyen görünmez alan */
+.profile-dropdown-menu::before {
+  content: "" !important;
+  position: absolute !important;
+  top: -15px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 15px !important;
+  display: block !important;
+}

@@ -1,0 +1,389 @@
+/* =========================================================
+   ÖĞRENCİ PANELİ — bağımsız stil
+   ========================================================= */
+
+/* ---------- HERO ---------- */
+.st-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 36px 0 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+.st-hero-text { min-width: 0; }
+.st-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 12px;
+}
+.st-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--copper);
+}
+.st-hero-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.st-hero-sub {
+  font-size: .94rem;
+  color: var(--muted);
+  margin: 0;
+}
+.st-hero-sub strong { color: var(--ink); font-weight: 600; }
+.st-hero-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px; height: 64px;
+  border-radius: 18px;
+  background: var(--ink);
+  color: #fff;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+/* ---------- HIZLI ERİŞİM ---------- */
+.st-quick {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.st-quick-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: all .18s ease;
+}
+.st-quick-card:hover {
+  border-color: var(--copper);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(180,83,9,.10);
+}
+.st-quick-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--surface-2);
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+.st-quick-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.st-quick-label {
+  font-size: .92rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.st-quick-desc {
+  font-size: .78rem;
+  color: var(--muted);
+}
+
+/* ---------- İSTATİSTİK ŞERİDİ ---------- */
+.st-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.st-stat {
+  padding: 20px 22px;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+.st-stat:last-child { border-right: none; }
+.st-stat-label {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.st-stat-value {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.035em;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 8px;
+}
+.st-stat-value small {
+  font-family: 'Inter', sans-serif;
+  font-size: .78rem;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0;
+  font-variant-numeric: normal;
+}
+.st-stat-value.is-iyi { color: #059669; }
+.st-stat-value.is-dikkat { color: #d97706; }
+.st-stat-value.is-uyari { color: #ea580c; }
+.st-stat-value.is-kritik { color: #dc2626; }
+
+.st-stat-meta {
+  font-size: .78rem;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  line-height: 1.4;
+}
+.st-pin {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.st-pin-yes { background: #10b981; }
+.st-pin-no { background: #dc2626; }
+
+.st-bar {
+  height: 3px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+.st-bar-fill {
+  height: 100%;
+  background: #10b981;
+  border-radius: 999px;
+  transition: width .6s ease;
+}
+.st-bar-fill.is-dikkat { background: #f59e0b; }
+.st-bar-fill.is-uyari { background: #ea580c; }
+.st-bar-fill.is-kritik { background: #dc2626; }
+
+/* ---------- BÖLÜM ---------- */
+.st-block { margin-bottom: 40px; }
+.st-block-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.st-block-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0;
+}
+.st-block-meta {
+  font-size: .82rem;
+  color: var(--muted);
+}
+
+/* ---------- DERSLER ---------- */
+.st-ders-liste {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.st-ders {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  transition: background .12s ease;
+}
+.st-ders:last-child { border-bottom: none; }
+.st-ders:hover { background: var(--surface-2); }
+.st-ders-ad {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  margin-bottom: 8px;
+}
+.st-ders-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.st-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  font-size: .78rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.st-chip em {
+  font-style: normal;
+  font-size: .66rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.st-ders-right {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.st-ders-ort {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  min-width: 40px;
+  text-align: right;
+}
+.st-ders-harf {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* ---------- DUYURULAR ---------- */
+.st-duyuru-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.st-duyuru {
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: border-color .15s ease;
+}
+.st-duyuru:hover { border-color: var(--border-2); }
+.st-duyuru-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+.st-duyuru-head h3 {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+.st-duyuru-head time {
+  font-size: .76rem;
+  color: var(--muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.st-duyuru p {
+  margin: 0;
+  font-size: .88rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ---------- BOŞ DURUM ---------- */
+.st-empty {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--surface);
+  border: 1px dashed var(--border-2);
+  border-radius: 12px;
+}
+.st-empty-ico {
+  display: inline-block;
+  font-size: 1.8rem;
+  opacity: .5;
+  margin-bottom: 10px;
+}
+.st-empty strong {
+  display: block;
+  color: var(--ink);
+  font-size: .95rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.st-empty p {
+  margin: 0;
+  font-size: .86rem;
+  color: var(--muted);
+}
+
+/* ---------- MOBİL ---------- */
+@media (max-width: 720px) {
+  .st-hero {
+    padding: 24px 0 20px;
+    margin-bottom: 20px;
+  }
+  .st-hero-avatar {
+    width: 52px; height: 52px;
+    font-size: 1.3rem;
+    border-radius: 14px;
+  }
+  .st-quick { grid-template-columns: 1fr; gap: 8px; }
+  .st-quick-card { padding: 14px 16px; }
+  .st-stats { grid-template-columns: 1fr 1fr; }
+  .st-stat { padding: 16px 18px; }
+  .st-stat:nth-child(2n) { border-right: none; }
+  .st-stat:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+  .st-stat-value { font-size: 1.65rem; }
+  .st-ders {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 14px 16px;
+  }
+  .st-ders-right { justify-content: space-between; }
+  .st-ders-harf { min-width: 0; }
+  .st-duyuru { padding: 14px 16px; }
+}

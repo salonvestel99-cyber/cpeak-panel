@@ -1,0 +1,319 @@
+:root {
+  /* ---------- KÖMÜR + BAKIR PALETİ ---------- */
+  --ink:        #18181b;   /* ana metin, topbar */
+  --ink-2:      #27272a;   /* ikincil koyu */
+  --muted:      #71717a;   /* soluk metin */
+  --muted-2:    #a1a1aa;   /* çok soluk */
+
+  --bg:         #fafaf9;   /* ana arka plan */
+  --surface:    #ffffff;   /* kart */
+  --surface-2:  #f4f4f5;   /* ikincil zemin */
+
+  --border:     #e4e4e7;   /* ince kenarlık */
+  --border-2:   #d4d4d8;   /* biraz koyu */
+
+  --copper:     #b45309;   /* TEK vurgu rengi */
+  --copper-2:   #92400e;   /* hover */
+  --copper-bg:  #fef3e2;   /* vurgu zemini */
+
+  --green:      #059669;
+  --red:        #dc2626;
+
+  /* Uyumluluk */
+  --navy:       var(--ink);
+  --navy-2:     var(--ink-2);
+  --amber:      var(--copper);
+  --amber-2:    var(--copper-2);
+  --line:       var(--border);
+  --paper:      var(--surface);
+  --cream:      var(--bg);
+  --forest:     var(--ink);
+  --forest-2:   var(--ink);
+  --forest-3:   var(--ink-2);
+  --forest-4:   var(--ink-2);
+  --coral:      var(--copper);
+  --coral-2:    var(--copper-2);
+  --coral-3:    #f5a173;
+  --sand:       var(--border);
+  --sand-2:     var(--border-2);
+  --cream-2:    var(--surface-2);
+
+  --radius:     10px;
+  --radius-lg:  14px;
+  --shadow-sm:  0 1px 2px rgba(24,24,27,.04);
+  --shadow-md:  0 4px 12px rgba(24,24,27,.06);
+  --shadow-lg:  0 12px 32px rgba(24,24,27,.08);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.55;
+  background: var(--bg);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h1, h2, h3, h4 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
+}
+.display {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+.muted { color: var(--muted); }
+.small { font-size: .82rem; }
+
+/* ---------- BUTONLAR ---------- */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%;
+  padding: 12px 20px;
+  border: none; border-radius: 10px;
+  background: var(--ink);
+  color: #fff; font-size: .94rem; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  letter-spacing: -0.005em;
+  transition: background .15s ease, transform .15s ease;
+}
+.btn-primary:hover { background: var(--ink-2); }
+.btn-primary:active { transform: scale(.99); }
+
+.btn-copper {
+  background: var(--copper);
+}
+.btn-copper:hover { background: var(--copper-2); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink); font-size: .86rem; font-weight: 500;
+  cursor: pointer; text-decoration: none;
+  font-family: inherit; transition: all .15s ease;
+}
+.btn-ghost:hover { background: var(--surface-2); border-color: var(--border-2); }
+
+/* ---------- UYARILAR ---------- */
+.alert {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  padding: 13px 16px;
+  border-radius: 10px;
+  margin: 16px 0;
+  font-size: .9rem;
+  border: 1px solid;
+  position: relative;
+}
+.alert-error { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+.alert-success { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+.alert-info { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+.alert-text { flex: 1; }
+.alert-close {
+  border: none; background: none; color: inherit;
+  font-size: 1.2rem; line-height: 1;
+  cursor: pointer; opacity: .5;
+  padding: 0 4px;
+  font-family: inherit;
+}
+.alert-close:hover { opacity: 1; }
+
+/* =========================================================
+   GENİŞLİK DÜZELTMESİ
+   body flex column olduğu için .container daralıyordu
+   ========================================================= */
+
+body > main {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body > main.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 28px;
+  padding-right: 28px;
+  box-sizing: border-box;
+}
+
+/* Topbar içeriği de tam genişlik (max-width kaldır) */
+.topbar .container {
+  max-width: none;
+  width: 100%;
+}
+
+/* =========================================================
+   SAYFA BAŞLIĞI — iç sayfalar (şifre değiştir, vs.)
+   ========================================================= */
+.page-header {
+  padding: 32px 0 24px;
+  border-bottom: 1px solid var(--border, #e4e4e7);
+  margin-bottom: 28px;
+}
+.page-header h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 0 0 6px;
+  line-height: 1.15;
+}
+.page-header p {
+  font-size: .92rem;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Panel header (aynı işi yapar — eski sayfalar için) */
+.page-head {
+  padding: 32px 0 24px;
+  border-bottom: 1px solid var(--border, #e4e4e7);
+  margin-bottom: 28px;
+}
+.page-head h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 0 0 6px;
+  line-height: 1.15;
+}
+.page-head p {
+  font-size: .92rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ghost buton düzeltmesi — panel içinde */
+.card .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-size: .88rem;
+  font-weight: 500;
+  text-decoration: none;
+  background: var(--surface, #fff);
+  border: 1.5px solid var(--border, #e4e4e7);
+  color: var(--ink);
+  transition: all .15s ease;
+  font-family: inherit;
+  line-height: 1;
+}
+.card .btn-ghost:hover {
+  background: var(--surface-2, #f4f4f5);
+  border-color: var(--border-2, #d4d4d8);
+}
+
+/* === HIDE .tp-hero-avatar (site geneli) === */
+.tp-hero-avatar,
+div.tp-hero-avatar,
+[class~="tp-hero-avatar"] {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+
+/* === COOKIE BANNER - DARK MODE FIX (notr) === */
+
+/* Sadece koyu modda devreye girer; acik modda hicbir seye dokunmaz.
+   Renkleri zorlamaz - mevcut tema degiskenlerine birakir. */
+
+@media (prefers-color-scheme: dark) {
+  .cookie-banner,
+  .cookie-consent,
+  .cookie-notice,
+  #cookie-banner,
+  #cookie-consent,
+  [class*="cookie" i][class*="banner" i],
+  [class*="cookie" i][class*="consent" i],
+  [class*="cookie" i][class*="notice" i],
+  [class*="cerez" i] {
+    background: #1f1f22 !important;
+    color: #e5e7eb !important;
+    border: 1px solid rgba(255, 255, 255, .1) !important;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .45) !important;
+  }
+  .cookie-banner *,
+  .cookie-consent *,
+  .cookie-notice *,
+  #cookie-banner *,
+  #cookie-consent *,
+  [class*="cookie" i][class*="banner" i] *,
+  [class*="cookie" i][class*="consent" i] *,
+  [class*="cookie" i][class*="notice" i] *,
+  [class*="cerez" i] * {
+    color: inherit !important;
+    border-color: rgba(255, 255, 255, .12) !important;
+  }
+  .cookie-banner a,
+  [class*="cookie" i] a {
+    color: #93c5fd !important;
+  }
+  /* Butonlar kendi temasindan gelsin; sadece okunabilirlik garantisi */
+  .cookie-banner button,
+  .cookie-consent button,
+  .cookie-notice button,
+  [class*="cookie" i] button {
+    border: 1px solid rgba(255, 255, 255, .18) !important;
+  }
+}
+
+/* data-theme / .dark ile gelen koyu mod */
+html.dark .cookie-banner,
+body.dark .cookie-banner,
+html.dark .cookie-consent,
+body.dark .cookie-consent,
+html.dark .cookie-notice,
+body.dark .cookie-notice,
+[data-theme="dark"] .cookie-banner,
+[data-theme="dark"] .cookie-consent,
+[data-theme="dark"] .cookie-notice,
+html.dark [class*="cookie" i][class*="banner" i],
+body.dark [class*="cookie" i][class*="consent" i],
+[data-theme="dark"] [class*="cookie" i][class*="notice" i] {
+  background: #1f1f22 !important;
+  color: #e5e7eb !important;
+  border: 1px solid rgba(255, 255, 255, .1) !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .45) !important;
+}
+
+html.dark .cookie-banner *,
+body.dark .cookie-banner *,
+[data-theme="dark"] .cookie-banner *,
+html.dark [class*="cookie" i] *,
+body.dark [class*="cookie" i] *,
+[data-theme="dark"] [class*="cookie" i] * {
+  color: inherit !important;
+  border-color: rgba(255, 255, 255, .12) !important;
+}
+
+html.dark .cookie-banner a,
+body.dark .cookie-banner a,
+[data-theme="dark"] .cookie-banner a,
+html.dark [class*="cookie" i] a,
+body.dark [class*="cookie" i] a,
+[data-theme="dark"] [class*="cookie" i] a {
+  color: #93c5fd !important;
+}

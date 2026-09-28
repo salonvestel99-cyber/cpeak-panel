@@ -1,0 +1,478 @@
+{% extends "base.html" %}
+{% block title %}Şifre Değiştir — C · Peak English{% endblock %}
+
+{% block head %}
+<style>
+/* ============================================================
+   SIFRE DEGISTIR SAYFASI
+   ============================================================ */
+.pwd-page {
+  max-width: 520px;
+  margin: 48px auto 72px;
+  padding: 0 4px;
+}
+
+.pwd-header {
+  margin-bottom: 28px;
+  text-align: center;
+}
+.pwd-eyebrow {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #d97706;
+  margin-bottom: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(217,119,6,.10);
+}
+.pwd-header h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--ink, #18181b);
+  margin: 0 0 8px;
+}
+.pwd-header p {
+  font-size: .92rem;
+  color: var(--muted, #71717a);
+  margin: 0;
+}
+
+.pwd-card {
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #e4e4e7);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow:
+    0 1px 3px rgba(24,24,27,.04),
+    0 8px 32px -12px rgba(24,24,27,.08);
+}
+
+.pwd-field { margin-bottom: 22px; }
+.pwd-field:last-of-type { margin-bottom: 26px; }
+
+.pwd-label {
+  display: block;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--ink-2, #27272a);
+  margin-bottom: 8px;
+  letter-spacing: -0.005em;
+}
+
+.pwd-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.pwd-input {
+  width: 100%;
+  padding: 12px 46px 12px 14px;
+  font-family: inherit;
+  font-size: .95rem;
+  color: var(--ink, #18181b);
+  background: var(--bg, #fafafa);
+  border: 1.5px solid var(--border, #e4e4e7);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color .15s ease, background-color .15s ease,
+              box-shadow .15s ease;
+  box-sizing: border-box;
+}
+.pwd-input:focus {
+  border-color: #d97706;
+  background: var(--surface, #fff);
+  box-shadow: 0 0 0 3px rgba(217,119,6,.13);
+}
+.pwd-input::placeholder { color: rgba(24,24,27,.32); }
+
+.pwd-eye {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  color: rgba(24,24,27,.45);
+  transition: background-color .15s ease, color .15s ease;
+  padding: 0;
+}
+.pwd-eye:hover {
+  background: rgba(217,119,6,.10);
+  color: #b45309;
+}
+.pwd-eye svg { width: 18px; height: 18px; display: block; }
+.pwd-eye .eye-off { display: none; }
+.pwd-eye.is-visible .eye-on  { display: none; }
+.pwd-eye.is-visible .eye-off { display: block; }
+
+/* --- Guc gostergesi --- */
+.pwd-strength { margin-top: 10px; }
+.pwd-strength-bar { display: flex; gap: 4px; margin-bottom: 6px; }
+.pwd-strength-seg {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(24,24,27,.09);
+  transition: background-color .25s ease;
+}
+.pwd-strength-lbl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .74rem;
+  font-weight: 500;
+}
+.pwd-strength-lbl .lvl { color: rgba(24,24,27,.45); transition: color .25s ease; }
+.pwd-strength-lbl .txt { color: rgba(24,24,27,.55); }
+
+.pwd-strength.s1 .pwd-strength-seg:nth-child(1) { background: #dc2626; }
+.pwd-strength.s1 .lvl { color: #dc2626; }
+.pwd-strength.s2 .pwd-strength-seg:nth-child(-n+2) { background: #f59e0b; }
+.pwd-strength.s2 .lvl { color: #d97706; }
+.pwd-strength.s3 .pwd-strength-seg:nth-child(-n+3) { background: #10b981; }
+.pwd-strength.s3 .lvl { color: #059669; }
+.pwd-strength.s4 .pwd-strength-seg { background: #059669; }
+.pwd-strength.s4 .lvl { color: #059669; }
+
+/* --- Kurallar listesi --- */
+.pwd-rules {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 14px;
+}
+.pwd-rules li {
+  font-size: .76rem;
+  color: rgba(24,24,27,.55);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: color .2s ease;
+}
+.pwd-rules li::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(24,24,27,.10);
+  display: inline-block;
+  flex-shrink: 0;
+  transition: background-color .2s ease, background-image .2s ease;
+}
+.pwd-rules li.ok { color: #059669; font-weight: 500; }
+.pwd-rules li.ok::before {
+  background-color: #059669;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+  background-size: 9px 9px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.pwd-msg {
+  margin: 8px 0 0;
+  font-size: .78rem;
+  color: #dc2626;
+  min-height: 1em;
+  transition: color .2s ease;
+}
+.pwd-msg.ok { color: #059669; }
+
+.pwd-actions {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+  margin-top: 4px;
+}
+.pwd-submit {
+  flex: 1;
+  padding: 13px 22px;
+  background: linear-gradient(135deg, #b45309, #d97706);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: .9rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.2) inset,
+    0 6px 18px -6px rgba(217,119,6,.45);
+  transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+}
+.pwd-submit:hover:not(:disabled) {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.2) inset,
+    0 10px 24px -6px rgba(217,119,6,.55);
+}
+.pwd-submit:active:not(:disabled) { transform: translateY(0); }
+.pwd-submit:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  filter: grayscale(.4);
+  box-shadow: none;
+}
+.pwd-back {
+  padding: 13px 20px;
+  background: transparent;
+  color: var(--ink-2, #27272a);
+  border: 1.5px solid var(--border, #e4e4e7);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: .88rem;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color .15s ease, border-color .15s ease;
+  white-space: nowrap;
+}
+.pwd-back:hover {
+  background: rgba(24,24,27,.04);
+  border-color: rgba(24,24,27,.16);
+}
+
+/* --- Koyu mod --- */
+[data-theme="dark"] .pwd-card {
+  background: #131316;
+  border-color: rgba(255,255,255,.07);
+  box-shadow:
+    0 1px 3px rgba(0,0,0,.3),
+    0 12px 40px -12px rgba(0,0,0,.5);
+}
+[data-theme="dark"] .pwd-label,
+[data-theme="dark"] .pwd-header h1 { color: #fafafa; }
+[data-theme="dark"] .pwd-header p { color: rgba(255,255,255,.5); }
+[data-theme="dark"] .pwd-input {
+  background: #0a0a0b;
+  border-color: rgba(255,255,255,.09);
+  color: #fafafa;
+}
+[data-theme="dark"] .pwd-input:focus {
+  background: #0a0a0b;
+  border-color: #d97706;
+}
+[data-theme="dark"] .pwd-input::placeholder { color: rgba(255,255,255,.3); }
+[data-theme="dark"] .pwd-eye { color: rgba(255,255,255,.45); }
+[data-theme="dark"] .pwd-eye:hover {
+  background: rgba(217,119,6,.18);
+  color: #fbbf24;
+}
+[data-theme="dark"] .pwd-strength-seg { background: rgba(255,255,255,.08); }
+[data-theme="dark"] .pwd-strength-lbl .txt,
+[data-theme="dark"] .pwd-strength-lbl .lvl { color: rgba(255,255,255,.45); }
+[data-theme="dark"] .pwd-rules li { color: rgba(255,255,255,.55); }
+[data-theme="dark"] .pwd-rules li::before { background-color: rgba(255,255,255,.1); }
+[data-theme="dark"] .pwd-rules li.ok { color: #34d399; }
+[data-theme="dark"] .pwd-rules li.ok::before { background-color: #059669; }
+[data-theme="dark"] .pwd-back {
+  color: #fafafa;
+  border-color: rgba(255,255,255,.12);
+}
+[data-theme="dark"] .pwd-back:hover {
+  background: rgba(255,255,255,.05);
+  border-color: rgba(255,255,255,.2);
+}
+
+@media (max-width: 560px) {
+  .pwd-page { margin: 28px auto 48px; }
+  .pwd-card { padding: 22px 18px; border-radius: 14px; }
+  .pwd-rules { grid-template-columns: 1fr; }
+  .pwd-actions { flex-direction: column-reverse; }
+  .pwd-back { width: 100%; box-sizing: border-box; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="pwd-page">
+
+  <header class="pwd-header">
+    <span class="pwd-eyebrow">Güvenlik</span>
+    <h1>Şifre Değiştir</h1>
+    <p>Hesabınızı korumak için güçlü bir şifre belirleyin.</p>
+  </header>
+
+  <form method="post" action="{{ url_for('sifre_degistir') }}" class="pwd-card" id="pwdForm" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <div class="pwd-field">
+      <label class="pwd-label" for="eskiSifre">Mevcut şifreniz</label>
+      <div class="pwd-input-wrap">
+        <input class="pwd-input" type="password" name="eski" id="eskiSifre" required autocomplete="current-password" placeholder="Mevcut şifrenizi girin">
+        <button type="button" class="pwd-eye" data-target="eskiSifre" aria-label="Şifreyi göster">
+          <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="pwd-field">
+      <label class="pwd-label" for="yeniSifre">Yeni şifreniz</label>
+      <div class="pwd-input-wrap">
+        <input class="pwd-input" type="password" name="yeni" id="yeniSifre" required minlength="5" autocomplete="new-password" placeholder="Yeni şifrenizi girin">
+        <button type="button" class="pwd-eye" data-target="yeniSifre" aria-label="Şifreyi göster">
+          <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        </button>
+      </div>
+
+      <div class="pwd-strength s0" id="pwdStrength">
+        <div class="pwd-strength-bar">
+          <div class="pwd-strength-seg"></div>
+          <div class="pwd-strength-seg"></div>
+          <div class="pwd-strength-seg"></div>
+          <div class="pwd-strength-seg"></div>
+        </div>
+        <div class="pwd-strength-lbl">
+          <span class="txt">Şifre gücü</span>
+          <span class="lvl" id="pwdStrengthLbl">—</span>
+        </div>
+      </div>
+
+      <ul class="pwd-rules" id="pwdRules">
+        <li data-rule="len">En az 5 karakter</li>
+        <li data-rule="upper">Büyük harf (A-Z)</li>
+        <li data-rule="lower">Küçük harf (a-z)</li>
+        <li data-rule="digit">Rakam (0-9)</li>
+        <li data-rule="special">Özel karakter (!@#...)</li>
+      </ul>
+    </div>
+
+    <div class="pwd-field">
+      <label class="pwd-label" for="yeniSifre2">Yeni şifreniz (tekrar)</label>
+      <div class="pwd-input-wrap">
+        <input class="pwd-input" type="password" name="yeni2" id="yeniSifre2" required minlength="5" autocomplete="new-password" placeholder="Yeni şifrenizi tekrar girin">
+        <button type="button" class="pwd-eye" data-target="yeniSifre2" aria-label="Şifreyi göster">
+          <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        </button>
+      </div>
+      <p class="pwd-msg" id="pwdMatchMsg"></p>
+    </div>
+
+    <div class="pwd-actions">
+      <button type="submit" class="pwd-submit" id="pwdSubmit" disabled>Şifreyi Güncelle</button>
+      <a href="{{ url_for('dashboard') }}" class="pwd-back">Vazgeç</a>
+    </div>
+  </form>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* --- Goz simgesi --- */
+  document.querySelectorAll(".pwd-eye").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var input = document.getElementById(this.dataset.target);
+      if (!input) return;
+      var gorunur = input.type === "text";
+      input.type = gorunur ? "password" : "text";
+      this.classList.toggle("is-visible", !gorunur);
+      this.setAttribute("aria-label", gorunur ? "Şifreyi göster" : "Şifreyi gizle");
+      input.focus();
+    });
+  });
+
+  var input    = document.getElementById("yeniSifre");
+  var input2   = document.getElementById("yeniSifre2");
+  var bar      = document.getElementById("pwdStrength");
+  var lbl      = document.getElementById("pwdStrengthLbl");
+  var matchMsg = document.getElementById("pwdMatchMsg");
+  var submit   = document.getElementById("pwdSubmit");
+  var rulesUl  = document.getElementById("pwdRules");
+  if (!input || !bar || !lbl) return;
+
+  var LEVELS = [
+    { text: "Çok zayıf", cls: "s1" },
+    { text: "Zayıf",     cls: "s1" },
+    { text: "Orta",      cls: "s2" },
+    { text: "Güçlü",     cls: "s3" },
+    { text: "Çok güçlü", cls: "s4" }
+  ];
+
+  function hesapla(s){
+    var sonuc = {
+      len:     s.length >= 5,
+      upper:   /[A-Z]/.test(s),
+      lower:   /[a-z]/.test(s),
+      digit:   /[0-9]/.test(s),
+      special: /[^A-Za-z0-9]/.test(s)
+    };
+    var skor = 0;
+    if (s.length >= 5)  skor++;
+    if (s.length >= 8)  skor++;
+    if (s.length >= 12) skor++;
+    if (sonuc.upper)   skor++;
+    if (sonuc.lower)   skor++;
+    if (sonuc.digit)   skor++;
+    if (sonuc.special) skor++;
+    var tipler = [sonuc.upper, sonuc.lower, sonuc.digit, sonuc.special].filter(Boolean).length;
+    if (s.length > 0 && tipler <= 1) skor = Math.min(skor, 1);
+    if (s.length === 0) skor = 0;
+    return { skor: skor, sonuc: sonuc };
+  }
+
+  function seviye(skor, uzunluk){
+    if (uzunluk === 0) return 0;
+    if (skor <= 1) return 0;
+    if (skor <= 3) return 1;
+    if (skor <= 4) return 2;
+    if (skor <= 6) return 3;
+    return 4;
+  }
+
+  function guncelle(){
+    var s = input.value;
+    var r = hesapla(s);
+    var lvl = seviye(r.skor, s.length);
+    var L = LEVELS[lvl];
+
+    bar.classList.remove("s0","s1","s2","s3","s4");
+    if (s.length > 0) bar.classList.add(L.cls);
+    lbl.textContent = s.length > 0 ? L.text : "—";
+
+    rulesUl.querySelectorAll("li").forEach(function(li){
+      li.classList.toggle("ok", r.sonuc[li.dataset.rule] === true);
+    });
+
+    if (input2.value.length > 0) {
+      if (input.value === input2.value) {
+        matchMsg.textContent = "Şifreler eşleşiyor.";
+        matchMsg.className = "pwd-msg ok";
+      } else {
+        matchMsg.textContent = "Şifreler eşleşmiyor.";
+        matchMsg.className = "pwd-msg";
+      }
+    } else {
+      matchMsg.textContent = "";
+    }
+
+    var kurallarOk = r.sonuc.len && r.sonuc.upper && r.sonuc.lower && (r.sonuc.digit || r.sonuc.special);
+    var esit = s.length > 0 && s === input2.value;
+    submit.disabled = !(kurallarOk && esit);
+  }
+
+  input.addEventListener("input", guncelle);
+  input2.addEventListener("input", guncelle);
+  guncelle();
+})();
+</script>
+{% endblock %}

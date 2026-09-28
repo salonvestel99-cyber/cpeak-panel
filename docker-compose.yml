@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      RATELIMIT_STORAGE_URI: redis://redis:6379/0
+    depends_on:
+      redis:
+        condition: service_healthy
+    expose:
+      - "8000"
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - arka
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis-veri:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    networks:
+      - arka
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./static:/var/www/site/static:ro
+      - ./certbot/conf:/etc/letsencrypt:ro
+    depends_on:
+      - web
+    networks:
+      - arka
+
+volumes:
+  redis-veri:
+
+networks:
+  arka:
+    driver: bridge

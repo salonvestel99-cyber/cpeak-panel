@@ -1,0 +1,321 @@
+/* =========================================================
+   WHATSAPP — Sağ kenar sekmesi
+   Desktop: dikey tab, hover'da sola açılır
+   Mobil: sağ alt köşede küçük yuvarlak
+   ========================================================= */
+
+/* Eski nabız atan ::before kaldır */
+.whatsapp-float svg,
+/* Hover — sola doğru açılır */
+/* Yazı — başta gizli, hover'da açılır */
+.whatsapp-tip,
+/* =========================================================
+   MOBİL — sağ altta küçük yuvarlak
+   ========================================================= */
+@media (max-width: 768px) {
+  .whatsapp-float {
+    top: auto;
+    bottom: 18px;
+    right: 16px;
+    transform: none;
+    padding: 12px;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    justify-content: center;
+    box-shadow:
+      0 8px 22px rgba(18,140,126,.40),
+      0 2px 6px rgba(0,0,0,.15);
+  }
+  .whatsapp-float svg {
+    width: 26px;
+    height: 26px;
+  }
+  .whatsapp-float:hover {
+    padding: 12px;
+    transform: scale(1.06);
+    box-shadow:
+      0 10px 28px rgba(18,140,126,.55),
+      0 2px 8px rgba(0,0,0,.20);
+  }
+  .whatsapp-tip {
+    display: none !important;
+  }
+}
+
+/* Çok küçük mobil */
+@media (max-width: 360px) {
+  .whatsapp-float {
+    width: 48px;
+    height: 48px;
+    bottom: 14px;
+    right: 14px;
+  }
+  .whatsapp-float svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* =========================================================
+   DARK MOD — ufak tefek ince ayarlar
+   ========================================================= */
+/* =========================================================
+   YAZDIRMA — gizle
+   ========================================================= */
+@media print {
+  .whatsapp-float { display: none !important; }
+}
+
+/* === WHATSAPP TIP MINIMAL === */
+/* Varsayilan: GIZLI. Sadece login sayfasinda hover ile acilir */
+.whatsapp-tip,
+/* Login sayfasinda hover ile acilma */
+
+/* === WHATSAPP FLOAT - TAMAMEN GIZLI === */
+.whatsapp-float,
+a.whatsapp-float,
+
+/* === WHATSAPP FLOAT - SADECE LOGIN SAYFASI === */
+@media (max-width: 480px) {
+  .whatsapp-float {
+    width: 48px;
+    height: 48px;
+    bottom: 18px;
+    right: 18px;
+  }
+  .whatsapp-float svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* ============================================================
+   WHATSAPP FLOAT - SADECE LOGIN SAYFASI
+   Sag kenarda gizli tab. Uzerine gelince sola dogru acilir.
+   ============================================================ */
+
+/* Uzerine gelince tamamen ac */
+.whatsapp-float:hover,
+/* Ikon */
+/* Etiket - gizliyken yok, hover'da gorunur */
+.whatsapp-float:hover .whatsapp-float__label,
+/* Mobilde daha kompakt */
+@media (max-width: 480px) {
+  .whatsapp-float {
+    padding: 10px 12px 10px 10px;
+    font-size: 13px;
+  }
+  .whatsapp-float__icon,
+  .whatsapp-float__icon svg {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+  }
+}
+
+/* Kullanici animasyon istemiyorsa */
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float,
+  .whatsapp-float__label {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   WHATSAPP FLOAT - Sag kenarda gizli tab
+   Collapsed: 44px yesil serit gorunur (ikon dahil)
+   Hover: sola dogru tam acilir, "Bize yazin" metni cikar
+   ============================================================ */
+
+.whatsapp-float:hover,
+/* Etiket - collapsed iken 0 genislik, hover'da acilir */
+.whatsapp-float:hover .whatsapp-float__label,
+@media (max-width: 480px) {
+  .whatsapp-float {
+    transform: translate(calc(100% - 38px), -50%);
+    padding: 10px 14px 10px 10px;
+    font-size: 13px;
+  }
+  .whatsapp-float__icon,
+  .whatsapp-float__icon svg {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float,
+  .whatsapp-float__label {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   WHATSAPP FLOAT - SAG ALT KOSE
+   Collapsed: 56px daire buton, sadece ikon
+   Hover: saga dogru yumusak sekilde pill'e donusur
+   ============================================================ */
+
+.whatsapp-float:hover,
+/* Ikon */
+/* Etiket */
+.whatsapp-float:hover .whatsapp-float__label,
+/* Mobilde biraz kucult */
+@media (max-width: 480px) {
+  .whatsapp-float {
+    bottom: 18px;
+    right: 18px;
+    height: 50px;
+    padding: 0 14px 0 13px;
+    max-width: 50px;
+  }
+  .whatsapp-float:hover,
+  .whatsapp-float:focus-visible {
+    max-width: 200px;
+  }
+  .whatsapp-float__icon,
+  .whatsapp-float__icon svg {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float,
+  .whatsapp-float__label {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   WHATSAPP FLOAT - SAG ALTTA, KENARDA GIZLI
+   Collapsed: butonun sadece 56px'i ekranda (ikon), gerisi sagda
+   Hover: transform ile sola kayip tam acilir (GPU, akici)
+   ============================================================ */
+
+.whatsapp-float:hover,
+/* Ikon kutusu tam 56px -> collapsed halde tam da bu gorunur */
+/* Etiket ikonun sAginda, sadece expanded'da gorunur alanda */
+@media (max-width: 480px) {
+  .whatsapp-float {
+    height: 50px;
+    bottom: 18px;
+    transform: translateX(calc(100% - 50px));
+    border-radius: 25px 0 0 25px;
+  }
+  .whatsapp-float__icon {
+    flex-basis: 50px;
+    width: 50px;
+    height: 50px;
+  }
+  .whatsapp-float__icon svg {
+    width: 22px;
+    height: 22px;
+  }
+  .whatsapp-float__label {
+    padding-right: 16px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float { transition: none; }
+}
+
+/* ============================================================
+   WHATSAPP FLOAT - Sag altta sabit daire buton.
+   Buton hareket ETMEZ. Hover'da yaninda beyaz tooltip belirir.
+   ============================================================ */
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+
+  display: inline-flex;
+  flex-direction: row-reverse;   /* ikon sagda, label solda */
+  align-items: center;
+
+  text-decoration: none;
+  font-family: inherit;
+  z-index: 99999;
+}
+
+/* ---- Daire buton (ikon) ---- */
+.whatsapp-float__icon {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 6px 18px rgba(37, 211, 102, .35),
+    0 2px 6px rgba(0, 0, 0, .18);
+  transition: transform .22s ease, box-shadow .22s ease;
+  will-change: transform;
+}
+.whatsapp-float__icon svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+/* Hover'da ikon sadece %5 buyur - cok hafif */
+.whatsapp-float:hover .whatsapp-float__icon,
+.whatsapp-float:focus-visible .whatsapp-float__icon {
+  transform: scale(1.05);
+  box-shadow:
+    0 8px 22px rgba(37, 211, 102, .45),
+    0 2px 8px rgba(0, 0, 0, .22);
+}
+
+/* ---- Yanindaki beyaz tooltip ---- */
+.whatsapp-float__label {
+  background: #ffffff;
+  color: #0f172a;
+  padding: 9px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, .14),
+    0 1px 3px rgba(0, 0, 0, .08);
+  margin-right: 12px;
+
+  /* Baslangicta gorunmez, biraz sagda */
+  opacity: 0;
+  transform: translateX(6px) scale(.96);
+  transform-origin: right center;
+  pointer-events: none;
+
+  transition: opacity .22s ease,
+              transform .22s cubic-bezier(.2, .8, .2, 1);
+}
+
+.whatsapp-float:hover .whatsapp-float__label,
+.whatsapp-float:focus-visible .whatsapp-float__label {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* Mobilde biraz kucult */
+@media (max-width: 480px) {
+  .whatsapp-float { bottom: 18px; right: 18px; }
+  .whatsapp-float__icon { flex-basis: 50px; width: 50px; height: 50px; }
+  .whatsapp-float__icon svg { width: 22px; height: 22px; }
+  .whatsapp-float__label { font-size: 12px; padding: 7px 12px; margin-right: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float__icon,
+  .whatsapp-float__label { transition: none; }
+}

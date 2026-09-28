@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Öğrenci Düzenle{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Öğrenci Düzenle</h1>
+  <p class="muted">{{ ogrenci.ad }} · {{ ogrenci.sinif }} / {{ ogrenci.numara }}</p>
+</div>
+
+<form method="post" class="admin-form">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="card">
+    <div class="card-head"><h3><span class="ico">🎓</span> Öğrenci Bilgileri</h3></div>
+    <div class="form-row">
+      <label><span>Ad Soyad</span><input name="ad" value="{{ ogrenci.ad }}" required></label>
+      <label><span>T.C. Kimlik No</span><input name="tc" maxlength="11" value="{{ ogrenci.tc_no }}" required></label>
+    </div>
+    <div class="form-row">
+      <label><span>Sınıf</span><input name="sinif" value="{{ ogrenci.sinif }}" required></label>
+      <label><span>Numara</span><input name="numara" type="number" value="{{ ogrenci.numara }}" required></label>
+      <label><span>Yeni Şifre (boş bırakılırsa değişmez)</span><input name="yeni_sifre" type="text" placeholder="••••••"></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3><span class="ico">👨‍👩‍👧</span> Veli Bilgileri</h3></div>
+    {% if veli %}
+      <p class="muted small">Mevcut veli: <strong>{{ veli.name }}</strong> ({{ veli.tc_no }})</p>
+      <div class="form-row">
+        <label><span>Veli Ad Soyad</span><input name="veli_ad" value="{{ veli.name }}"></label>
+        <label><span>Veli T.C.</span><input name="veli_tc" maxlength="11" value="{{ veli.tc_no }}"></label>
+        <label><span>Veli Yeni Şifre (boş = değişmez)</span><input name="veli_sifre" type="text" placeholder="••••••"></label>
+      </div>
+    {% else %}
+      <p class="muted small">Bu öğrenciye bağlı veli yok. Yeni veli eklemek için doldurun:</p>
+      <div class="form-row">
+        <label><span>Veli Ad Soyad</span><input name="veli_ad"></label>
+        <label><span>Veli T.C.</span><input name="veli_tc" maxlength="11"></label>
+        <label><span>Veli Şifre</span><input name="veli_sifre" type="text"></label>
+      </div>
+    {% endif %}
+  </div>
+
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+    <button type="submit" class="btn-primary" style="max-width:240px">Kaydet</button>
+    <a href="{{ url_for('admin_panel') }}" class="btn-ghost" style="color:var(--navy);border-color:var(--line);background:#fff">İptal</a>
+  </div>
+</form>
+
+<div class="card" style="border-color:#fecaca;margin-top:24px">
+  <div class="card-head"><h3 style="color:#b91c1c"><span class="ico">⚠️</span> Tehlikeli Bölge</h3></div>
+  <p class="muted small">Bu öğrenciyi ve tüm not/devamsızlık kayıtlarını kalıcı olarak siler. Geri alınamaz.</p>
+  <form method="post" action="{{ url_for('admin_delete', tip='ogrenci', oid=ogrenci.id) }}" data-confirm="{{ ogrenci.ad }} kalıcı olarak silinsin mi?">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="btn-danger">Öğrenciyi Sil</button>
+  </form>
+</div>
+{% endblock %}

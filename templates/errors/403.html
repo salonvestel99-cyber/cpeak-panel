@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>403 - Erisim reddedildi</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+        background:var(--bg,#fafaf9);color:var(--ink,#18181b);
+        display:flex;min-height:100vh;align-items:center;justify-content:center;
+        padding:24px;}
+  .hata{max-width:520px;text-align:center;}
+  .hata-kod{font-size:88px;font-weight:800;line-height:1;
+             color:var(--copper,#b45309);letter-spacing:-.04em;}
+  .hata-baslik{font-size:22px;font-weight:700;margin:12px 0 8px;}
+  .hata-mesaj{color:var(--muted,#71717a);line-height:1.6;margin-bottom:24px;}
+  .hata-btn{display:inline-block;padding:10px 20px;border-radius:10px;
+             background:var(--copper,#b45309);color:#fff;text-decoration:none;
+             font-weight:600;font-size:14px;}
+  .hata-btn:hover{background:var(--copper-2,#92400e);}
+</style>
+</head>
+<body>
+  <div class="hata">
+    <div class="hata-kod">403</div>
+    <div class="hata-baslik">Erisim reddedildi</div>
+    <p class="hata-mesaj">Bu sayfaya erisim yetkiniz yok.</p>
+    <a class="hata-btn" href="/">Ana sayfaya don</a>
+  </div>
+</body>
+</html>

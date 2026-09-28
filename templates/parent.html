@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Veli Paneli{% endblock %}
+{% block content %}
+<div class="panel-hero">
+  <div class="panel-hero-text">
+    <div class="panel-hero-greet">Hoş geldiniz, {{ session.name }}</div>
+    <div class="panel-hero-sub">Öğrenciniz: {{ ogrenci_ad }} · {{ ogrenci.sinif }} / {{ ogrenci.numara }}</div>
+  </div>
+  <div class="panel-hero-avatar">{{ session.name[0]|upper }}</div>
+</div>
+
+<div class="alert alert-info"><strong>{{ ogrenci_ad }}</strong> adlı öğrencinin bilgilerini görüntülüyorsunuz.</div>
+
+<div class="stat-grid">
+  <div class="stat-card devamsizlik {% if devamsizlik.toplam <= 5 %}durum-iyi{% elif devamsizlik.toplam <= 10 %}durum-dikkat{% elif devamsizlik.toplam <= 15 %}durum-uyari{% else %}durum-kritik{% endif %}">
+    <div class="stat-card-head"><span class="stat-card-ico">📅</span><span class="stat-card-etiket">Devamsızlık</span></div>
+    <div class="stat-card-deger">{{ devamsizlik.toplam }} <small>gün</small></div>
+    <div class="progress"><div class="progress-bar" style="width:{{ [100, (devamsizlik.toplam / 20 * 100)]|min }}%"></div></div>
+    <div class="stat-card-alt">
+      <span><span class="dot ozurlu"></span>İzinli: {{ devamsizlik.izinli }}</span>
+      <span><span class="dot ozursuz"></span>Gelmedi: {{ devamsizlik.gelmedi }}</span>
+    </div>
+    <a href="{{ url_for('devamsizlik_detay', sid=ogrenci.id) }}" class="stat-card-link">Detayları gör →</a>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card-head"><span class="stat-card-ico">📊</span><span class="stat-card-etiket">Ortalama</span></div>
+    <div class="stat-card-deger">{{ ortalama }}</div>
+    <div class="stat-card-alt">{{ dersler|length }} ders</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-head"><h3><span class="ico">📚</span> Notlar</h3></div>
+  {% if dersler %}
+  <div class="ders-grid">
+    {% for ders, sinavlar in dersler.items() %}
+      {% set ort = (sinavlar|map(attribute='puan')|sum) / (sinavlar|length) %}
+      <div class="ders-card">
+        <div class="ders-head"><span class="ders-ad">{{ ders }}</span><span class="ders-harf">{{ ort|round(1) }}</span></div>
+        <div class="ders-chips">{% for s in sinavlar %}<span class="sinav-chip"><em>{{ s.sinav }}</em>{{ s.puan }}</span>{% endfor %}</div>
+        <div class="ders-bar"><div class="ders-bar-fill" style="width:{{ ort }}%"></div></div>
+      </div>
+    {% endfor %}
+  </div>
+  {% else %}<p class="muted">Henüz not kaydı yok.</p>{% endif %}
+</div>
+
+<div class="card">
+  <div class="card-head"><h3><span class="ico">📢</span> Duyurular</h3></div>
+  {% if duyurular %}
+  <div class="timeline">
+    {% for d in duyurular %}
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-body">
+        <div class="timeline-head"><strong>{{ d.baslik }}</strong><span class="timeline-tarih">{{ d.tarih }}</span></div>
+        <p>{{ d.icerik }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}<p class="muted">Duyuru yok.</p>{% endif %}
+</div>
+{% endblock %}

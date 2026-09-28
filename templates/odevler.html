@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Ödevler{% endblock %}
+{% block content %}
+
+<div class="panel-hero">
+  <div class="panel-hero-text">
+    <div class="panel-hero-eyebrow">Ödevler</div>
+    <h1 class="panel-hero-greet">
+      {% if role == 'student' %}Ödevlerim{% elif role == 'teacher' %}Verdiğim Ödevler{% else %}Tüm Ödevler{% endif %}
+    </h1>
+    <p class="panel-hero-sub">{{ odevler|length }} ödev</p>
+  </div>
+  <div class="panel-hero-avatar">{{ session.name[0]|upper }}</div>
+</div>
+
+{% if role == 'teacher' %}
+<div style="margin-bottom:16px">
+  <a href="{{ url_for('ogretmen_odev_ver') }}" class="btn-primary" style="display:inline-block;width:auto;padding:11px 22px;text-decoration:none">
+    + Yeni Ödev Ver
+  </a>
+</div>
+{% endif %}
+
+{% if odevler %}
+<div class="odev-grid">
+  {% for o in odevler %}
+  <a href="{{ url_for('odev_detay', hid=o.id) }}" class="odev-card {% if o.get('durum') == 'yapildi' %}odev-yapildi{% endif %}">
+    <div class="odev-head">
+      <span class="odev-ders">{{ o.ders }}</span>
+      {% if o.get('durum') == 'yapildi' %}
+        <span class="odev-rozet odev-rozet-ok">✓ Yapıldı</span>
+      {% elif role == 'student' %}
+        <span class="odev-rozet odev-rozet-bekliyor">Bekliyor</span>
+      {% endif %}
+      {% if role == 'teacher' and o.get('teslim_sayisi') is not none %}
+        <span class="odev-rozet">{{ o.teslim_sayisi }} teslim</span>
+      {% endif %}
+    </div>
+    <h3 class="odev-baslik">{{ o.baslik }}</h3>
+    <div class="odev-meta">
+      <span>📅 Teslim: <strong>{{ o.teslim }}</strong></span>
+      {% if o.sinif %}<span>🎓 {{ o.sinif }}</span>{% endif %}
+      {% if o.ogretmen %}<span>👤 {{ o.ogretmen }}</span>{% endif %}
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+  <strong>Henüz ödev yok</strong>
+  <p>{% if role == 'student' %}Öğretmenleriniz ödev verdiğinde burada görünecek.{% else %}Henüz ödev vermediniz.{% endif %}</p>
+</div>
+{% endif %}
+
+<div style="margin-top:20px">
+  <a href="{{ url_for('dashboard') }}" class="btn-ghost">← Panele Dön</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Haftalık Ders Programı{% endblock %}
+{% block content %}
+
+<div class="panel-hero">
+  <div class="panel-hero-text">
+    <div class="panel-hero-eyebrow">Ders Programı</div>
+    <h1 class="panel-hero-greet">Haftalık Program</h1>
+    <p class="panel-hero-sub">
+      {% if sinif %}<strong>{{ sinif }}</strong> sınıfı için haftalık ders programı{% else %}Sınıf seçiniz{% endif %}
+    </p>
+  </div>
+  <div class="panel-hero-avatar">{{ session.name[0]|upper }}</div>
+</div>
+
+{% if session.role in ('admin', 'teacher') and sinif %}
+<div style="margin-bottom:20px">
+  <a href="{{ url_for('ders_programi_duzenle', sinif=sinif) }}" class="btn-primary" style="display:inline-block;width:auto;padding:11px 22px;text-decoration:none;text-align:center">
+    ✎ Ders Programını Düzenle →
+  </a>
+</div>
+{% endif %}
+
+{% if session.role in ('admin', 'teacher') %}
+<div class="card">
+  <form method="get" class="not-filter-form">
+    <input type="hidden" name="duzenle" value="1">
+    <div class="form-row" style="grid-template-columns: 1fr auto">
+      <label>
+        <span>Sınıf</span>
+        <select name="sinif" onchange="this.form.submit()">
+          <option value="">— Seçiniz —</option>
+          {% for s in siniflar %}
+          <option value="{{ s }}" {% if sinif == s %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
+  </form>
+</div>
+{% endif %}
+
+{% if sinif %}
+<div class="card">
+  <div class="card-head">
+    <h3>{{ sinif }} · Haftalık Program</h3>
+  </div>
+  <div class="table-wrap">
+    <table class="ders-programi-tablo">
+      <thead>
+        <tr>
+          <th style="width:60px">Saat</th>
+          {% for g, ad in gunler.items() %}
+          <th>{{ ad }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for saat in saatler %}
+        <tr>
+          <td class="saat-cell">{{ saat }}</td>
+          {% for g in gunler.keys() %}
+          <td class="ders-cell">
+            {% if program.get((g, saat)) %}
+              <span class="ders-chip">{{ program[(g, saat)] }}</span>
+            {% else %}
+              <span class="bos-chip">—</span>
+            {% endif %}
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<div class="card bilgi">
+  <p class="muted">Henüz sınıfınıza ait ders programı yok.</p>
+</div>
+{% endif %}
+
+<div style="margin-top:20px">
+  <a href="{{ url_for('dashboard') }}" class="btn-ghost">← Panele Dön</a>
+</div>
+
+{% endblock %}

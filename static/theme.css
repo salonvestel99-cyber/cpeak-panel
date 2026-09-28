@@ -1,0 +1,1360 @@
+/* =========================================================
+   THEME — Koyu / Aydınlık Mod
+   ========================================================= */
+
+/* ---------- Aydınlık (varsayılan) ---------- */
+:root {
+  /* tema geçiş animasyonu */
+  --theme-transition: background-color .28s ease, color .28s ease, border-color .28s ease;
+}
+body,
+body * {
+  transition: background-color .22s ease, color .22s ease, border-color .22s ease;
+}
+/* Ama animasyonu kapatmak istemediğimiz şeyler */
+body .theme-toggle,
+body .theme-toggle * {
+  transition: opacity .15s ease, transform .15s ease;
+}
+
+/* =========================================================
+   KOYU MOD
+   ========================================================= */
+[data-theme="dark"] {
+  --ink:        #f4f4f5;
+  --ink-2:      #e4e4e7;
+  --muted:      #a1a1aa;
+  --muted-2:    #71717a;
+
+  --bg:         #0f0f10;
+  --surface:    #18181b;
+  --surface-2:  #232326;
+
+  --border:     #27272a;
+  --border-2:   #3f3f46;
+
+  --copper:     #f59e0b;
+  --copper-2:   #d97706;
+  --copper-bg:  #2a1f10;
+
+  --green:      #10b981;
+  --red:        #f87171;
+
+  /* ---- Uyumluluk takma adları ---- */
+  --navy:       var(--ink);
+  --navy-2:     var(--ink-2);
+  --amber:      var(--copper);
+  --amber-2:    var(--copper-2);
+  --line:       var(--border);
+  --paper:      var(--surface);
+  --cream:      var(--bg);
+  --forest:     var(--ink);
+  --forest-2:   var(--ink);
+  --forest-3:   var(--ink-2);
+  --forest-4:   var(--ink-2);
+  --coral:      var(--copper);
+  --coral-2:    var(--copper-2);
+  --coral-3:    #fbbf24;
+  --sand:       var(--border);
+  --sand-2:     var(--border-2);
+  --cream-2:    var(--surface-2);
+
+  --shadow-sm:  0 1px 2px rgba(0,0,0,.30);
+  --shadow-md:  0 4px 12px rgba(0,0,0,.40);
+  --shadow-lg:  0 12px 32px rgba(0,0,0,.50);
+}
+
+/* =========================================================
+   HARDCODED RENK DÜZELTMELERİ
+   ========================================================= */
+
+/* Sayfa arka planı */
+[data-theme="dark"] body {
+  background: var(--bg);
+  color: var(--ink);
+}
+[data-theme="dark"] .panel-page {
+  background: var(--bg);
+}
+
+/* Topbar */
+[data-theme="dark"] .topbar {
+  background: #0a0a0b;
+  border-bottom-color: rgba(255,255,255,.04);
+}
+
+/* Footer */
+[data-theme="dark"] .login-footer-bar {
+  background: #131316;
+  border-top-color: var(--border);
+}
+[data-theme="dark"] .footer-copy {
+  color: var(--muted);
+}
+[data-theme="dark"] .footer-copy strong {
+  color: var(--ink);
+}
+[data-theme="dark"] .social-icon {
+  color: var(--muted);
+}
+[data-theme="dark"] .footer-contact {
+  color: var(--muted);
+}
+[data-theme="dark"] .footer-sep {
+  color: var(--border-2);
+}
+
+/* Stat card hover */
+[data-theme="dark"] .stat-card:hover,
+[data-theme="dark"] .stat-item:hover {
+  background: var(--surface-2);
+}
+
+/* Ders card */
+[data-theme="dark"] .ders-card {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .ders-card:hover {
+  background: var(--surface);
+}
+
+/* Card */
+[data-theme="dark"] .card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .card.bilgi {
+  background: linear-gradient(135deg, #2a1f10 0%, #241a0c 100%);
+  border-color: #3f2c14;
+}
+
+/* Tablo */
+[data-theme="dark"] .table th {
+  background: var(--surface-2);
+  color: var(--muted);
+}
+[data-theme="dark"] .table tr:hover td {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .compact-table tr:hover td {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .not-table th {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .not-table tr:hover td {
+  background: var(--surface-2);
+}
+
+/* Chip */
+[data-theme="dark"] .chip {
+  background: var(--surface-2);
+  color: var(--ink-2);
+  border-color: var(--border-2);
+}
+[data-theme="dark"] .chip-buyuk {
+  background: #2a1f10;
+  color: #f59e0b;
+  border-color: #3f2c14;
+}
+
+/* Etiketler */
+[data-theme="dark"] .durum-badge.durum-iyi {
+  background: #052e20; color: #6ee7b7; border-color: #065f46;
+}
+[data-theme="dark"] .durum-badge.durum-info {
+  background: #0c1f3d; color: #93c5fd; border-color: #1e40af;
+}
+[data-theme="dark"] .durum-badge.durum-kritik {
+  background: #2d1214; color: #fca5a5; border-color: #7f1d1d;
+}
+
+/* Alert */
+[data-theme="dark"] .alert-error {
+  background: #2d1214; color: #fca5a5; border-color: #7f1d1d;
+}
+[data-theme="dark"] .alert-success {
+  background: #052e20; color: #6ee7b7; border-color: #065f46;
+}
+[data-theme="dark"] .alert-info {
+  background: #0c1f3d; color: #93c5fd; border-color: #1e40af;
+}
+
+/* Login form alanı */
+[data-theme="dark"] .login-main {
+  background: var(--bg);
+}
+[data-theme="dark"] .login-card input {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border-2);
+}
+[data-theme="dark"] .login-card input:focus {
+  background: var(--surface);
+  border-color: var(--copper);
+}
+
+/* Modal */
+[data-theme="dark"] .modal-card,
+[data-theme="dark"] .premium-modal-card {
+  background: var(--surface);
+  color: var(--ink);
+}
+[data-theme="dark"] .premium-modal-card h3 {
+  color: var(--ink);
+}
+[data-theme="dark"] .premium-modal-card p {
+  color: var(--muted);
+}
+[data-theme="dark"] .modal-card input {
+  background: var(--surface-2);
+  color: var(--ink);
+  border-color: var(--border-2);
+}
+[data-theme="dark"] .btn-cancel {
+  background: var(--surface-2);
+  color: var(--ink-2);
+}
+
+/* Coyote banner */
+[data-theme="dark"] /* Cam ustune ince highlight - gercek cam gorunumu */
+/* Marka renginde cok hafif renkli isik - glass "tint" */
+/* Dropdown */
+[data-theme="dark"] .profile-dropdown-menu {
+  background: rgba(20, 20, 23, 0.98);
+  border-color: rgba(255,255,255,.08);
+}
+
+/* Panel hero */
+[data-theme="dark"] .panel-hero {
+  background: none;
+  border-bottom-color: var(--border);
+}
+
+/* Öğrenci paneli */
+[data-theme="dark"] .st-hero {
+  border-bottom-color: var(--border);
+}
+[data-theme="dark"] .st-hero-avatar {
+  background: var(--surface-2);
+  color: var(--ink);
+  border: 1px solid var(--border-2);
+}
+[data-theme="dark"] .st-quick-card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .st-quick-card:hover {
+  border-color: var(--copper);
+}
+[data-theme="dark"] .st-quick-ico {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .st-stats {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .st-stat {
+  border-right-color: var(--border);
+}
+[data-theme="dark"] .st-ders-liste {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .st-ders {
+  border-bottom-color: var(--border);
+}
+[data-theme="dark"] .st-ders:hover {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .st-chip {
+  background: var(--surface-2);
+  color: var(--ink-2);
+}
+[data-theme="dark"] .st-duyuru {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .st-empty {
+  background: var(--surface);
+  border-color: var(--border-2);
+}
+
+/* Admin */
+[data-theme="dark"] .admin-head {
+  border-bottom-color: var(--border);
+}
+[data-theme="dark"] .as-item {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .admin-tabs {
+  border-bottom-color: var(--border);
+}
+[data-theme="dark"] .tab-badge {
+  background: var(--surface-2);
+  color: var(--ink-2);
+}
+[data-theme="dark"] .mini-card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .mini-card-warn {
+  background: linear-gradient(135deg, #2a1f10 0%, #241a0c 100%);
+  border-color: #3f2c14;
+}
+[data-theme="dark"] .qa-btn {
+  background: var(--surface-2);
+  border-color: var(--border);
+  color: var(--ink-2);
+}
+[data-theme="dark"] .qa-btn:hover {
+  background: var(--surface);
+  border-color: var(--copper);
+}
+[data-theme="dark"] .add-card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .add-card[open] {
+  border-color: var(--copper);
+}
+[data-theme="dark"] .add-card > summary:hover {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .search-input {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border);
+}
+[data-theme="dark"] .compact-form input,
+[data-theme="dark"] .compact-form select,
+[data-theme="dark"] .compact-form textarea,
+[data-theme="dark"] .not-filter-form select {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border-2);
+}
+[data-theme="dark"] .puan-input,
+[data-theme="dark"] .mini-input {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border-2);
+}
+[data-theme="dark"] .btn-mini {
+  background: var(--surface);
+  color: var(--ink-2);
+  border-color: var(--border-2);
+}
+[data-theme="dark"] .btn-mini:hover {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+[data-theme="dark"] .btn-mini-danger {
+  background: #2d1214;
+  color: #fca5a5;
+  border-color: #7f1d1d;
+}
+[data-theme="dark"] .btn-mini-danger:hover {
+  background: #dc2626;
+  color: #fff;
+  border-color: #dc2626;
+}
+[data-theme="dark"] .empty-state {
+  background: var(--surface);
+  border-color: var(--border-2);
+}
+
+/* Ders programı */
+[data-theme="dark"] .ders-programi-tablo th {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .saat-cell {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .hucre-select:hover {
+  background: var(--surface-2);
+}
+
+/* Ödev kartları */
+[data-theme="dark"] .odev-card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .odev-yapildi {
+  background: linear-gradient(135deg, #052e20 0%, #064e3b 100%);
+  border-color: #065f46;
+}
+[data-theme="dark"] .odev-rozet {
+  background: var(--surface-2);
+  color: var(--ink-2);
+}
+[data-theme="dark"] .odev-rozet-ok {
+  background: #052e20;
+  color: #6ee7b7;
+}
+[data-theme="dark"] .odev-rozet-bekliyor {
+  background: #2a1f10;
+  color: #fbbf24;
+}
+
+/* Yoklama pill */
+[data-theme="dark"] .durum-group {
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+
+/* KVKK */
+[data-theme="dark"] .legal-table th {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .legal-table tr:hover td {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .legal-note {
+  background: rgba(245,158,11,.06);
+}
+[data-theme="dark"] .legal-back {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border);
+}
+[data-theme="dark"] .legal-back:hover {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .btn-ghost {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border);
+}
+[data-theme="dark"] .btn-ghost:hover {
+  background: var(--surface-2);
+}
+
+/* Footer */
+[data-theme="dark"] .login-footer-bar {
+  background: #0a0a0b;
+}
+
+/* Input genel */
+[data-theme="dark"] input[type="date"] {
+  color-scheme: dark;
+}
+
+/* Sosyal ikonlar */
+[data-theme="dark"] .social-icon:hover {
+  background: var(--copper);
+  color: #fff;
+}
+
+/* =========================================================
+   TEMA TOGGLE BUTONU
+   ========================================================= */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.75);
+  cursor: pointer;
+  transition: all .18s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  background: rgba(255,255,255,.10);
+  color: #fff;
+  border-color: rgba(255,255,255,.20);
+}
+.theme-toggle svg {
+  width: 17px;
+  height: 17px;
+  display: block;
+}
+
+/* Hangi ikon görünecek — aydınlıkta ay, koyu modda güneş */
+.theme-toggle .ico-sun { display: none; }
+.theme-toggle .ico-moon { display: block; }
+[data-theme="dark"] .theme-toggle .ico-sun { display: block; }
+[data-theme="dark"] .theme-toggle .ico-moon { display: none; }
+
+/* Login sayfası için floating toggle */
+.theme-toggle-float {
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  z-index: 100;
+  background: rgba(0,0,0,.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-color: rgba(255,255,255,.14);
+}
+.theme-toggle-float:hover {
+  background: rgba(0,0,0,.6);
+}
+
+@media (max-width: 720px) {
+  .theme-toggle-float {
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* =========================================================
+   LOGIN HERO — KOYU MOD
+   Zemin koyulaşınca hero kayboluyordu
+   ========================================================= */
+
+/* Sol panel — sağdan daha koyu, ayrı bir "bölme" hissi */
+[data-theme="dark"] .login-hero {
+  background:
+    radial-gradient(circle at 20% 25%, rgba(245,158,11,.14), transparent 55%),
+    radial-gradient(circle at 90% 90%, rgba(99,102,241,.10), transparent 55%),
+    linear-gradient(160deg,
+      #050507 0%,
+      #0a0a0c 55%,
+      #0d0d10 100%);
+  border-right: 1px solid rgba(245,158,11,.10);
+}
+
+/* Logo arka plan watermarkı biraz daha az belirgin */
+[data-theme="dark"] .login-hero::before {
+  opacity: .045;
+}
+
+/* Hero orb — daha yumuşak */
+[data-theme="dark"] .hero-orb {
+  background: radial-gradient(circle, rgba(245,158,11,.20), transparent 70%);
+}
+
+/* Logo halesi — daha yumuşak, daha az parlak */
+[data-theme="dark"] .hero-brand-mark::before {
+  background: radial-gradient(ellipse at center,
+    rgba(245,158,11,.22) 0%,
+    rgba(245,158,11,.08) 40%,
+    transparent 72%);
+}
+
+/* Logo drop-shadow biraz kısılsın */
+[data-theme="dark"] .hero-brand-mark img {
+  filter: brightness(1.05) contrast(1.04) saturate(1.05)
+    drop-shadow(0 0 20px rgba(245,158,11,.35))
+    drop-shadow(0 0 60px rgba(245,158,11,.18));
+}
+
+/* Eyebrow (üst etiket) */
+[data-theme="dark"] .hero-eyebrow {
+  background: rgba(245,158,11,.10);
+  border-color: rgba(245,158,11,.28);
+}
+
+/* Sağ form tarafı — daha da koyu */
+[data-theme="dark"] .login-main {
+  background: #0a0a0c;
+}
+
+/* Sağ form başlığı */
+[data-theme="dark"] .login-card h2 {
+  color: var(--ink);
+}
+[data-theme="dark"] .login-card .lead {
+  color: var(--muted);
+}
+[data-theme="dark"] .login-card label > span {
+  color: var(--ink-2);
+}
+
+/* İnput'lar */
+[data-theme="dark"] .login-card input {
+  background: #131316;
+  color: var(--ink);
+  border-color: #2a2a2e;
+}
+[data-theme="dark"] .login-card input:focus {
+  background: #131316;
+  border-color: var(--copper);
+  box-shadow: 0 0 0 4px rgba(245,158,11,.15);
+}
+[data-theme="dark"] .login-card input::placeholder {
+  color: #5a5a5f;
+}
+
+/* İkonlu input ikonu */
+[data-theme="dark"] .input-icon {
+  color: #5a5a5f;
+}
+[data-theme="dark"] .input-wrap:focus-within .input-icon {
+  color: var(--copper);
+}
+
+/* Göz butonu */
+[data-theme="dark"] .input-eye {
+  color: #5a5a5f;
+}
+[data-theme="dark"] .input-eye:hover {
+  color: var(--copper);
+  background: rgba(245,158,11,.08);
+}
+
+/* Beni hatırla checkbox */
+[data-theme="dark"] .check-premium .check-box {
+  background: #131316;
+  border-color: #2a2a2e;
+}
+[data-theme="dark"] .check-premium .check-label {
+  color: var(--ink-2);
+}
+
+/* Şifremi unuttum */
+[data-theme="dark"] .link-premium {
+  color: var(--muted);
+}
+[data-theme="dark"] .link-premium:hover {
+  color: var(--copper);
+}
+
+/* Statlar (login hero'daki) */
+[data-theme="dark"] .hero-stat strong {
+  color: #fff;
+}
+[data-theme="dark"] .hero-stat span {
+  color: rgba(255,255,255,.55);
+}
+[data-theme="dark"] .hero-list li {
+  color: rgba(255,255,255,.78);
+}
+[data-theme="dark"] .hero-lead {
+  color: rgba(255,255,255,.65);
+}
+[data-theme="dark"] .login-hero h1 {
+  color: #fff;
+}
+
+/* Üst barda logo text rengi */
+[data-theme="dark"] .hero-brand-title {
+  color: #fff;
+}
+[data-theme="dark"] .hero-brand-title::first-letter {
+  color: var(--copper);
+}
+
+/* =========================================================
+   LOGIN SAYFASI GENEL (KOYU)
+   ========================================================= */
+[data-theme="dark"] .login-wrap {
+  background: #0a0a0c;
+}
+
+/* Footer'ı da login'de hafif ayır */
+[data-theme="dark"] body.login-page .login-footer-bar {
+  background: #050507;
+  border-top-color: #1e1e21;
+}
+
+/* =========================================================
+   MODAL (şifremi unuttum, KVKK) KOYU
+   ========================================================= */
+[data-theme="dark"] .modal {
+  background: rgba(0,0,0,.72);
+}
+[data-theme="dark"] .modal-card {
+  background: #18181b;
+  border-top-color: var(--copper);
+  box-shadow: 0 30px 70px rgba(0,0,0,.6);
+}
+[data-theme="dark"] .modal-card h3 {
+  color: var(--ink);
+}
+[data-theme="dark"] .modal-card label span {
+  color: var(--ink-2);
+}
+[data-theme="dark"] .modal-card input {
+  background: #131316;
+  color: var(--ink);
+  border-color: #2a2a2e;
+}
+[data-theme="dark"] .modal-card input:focus {
+  background: #131316;
+  border-color: var(--copper);
+}
+[data-theme="dark"] .modal-close {
+  background: #232326;
+  color: var(--muted);
+}
+[data-theme="dark"] .modal-close:hover {
+  background: #2d1214;
+  color: #fca5a5;
+}
+
+/* KVKK metin */
+[data-theme="dark"] .kvkk-text {
+  color: var(--ink-2);
+}
+
+/* WhatsApp */
+[data-theme="dark"] .whatsapp-tip {
+  background: #18181b;
+}
+
+/* =========================================================
+   DARK MODE BUTON DÜZELTMESİ
+   --ink beyaza döndüğü için buton metni kaybolıyordu
+   ========================================================= */
+
+/* Birincil buton — bakır zemin + kömür yazı */
+[data-theme="dark"] .btn-primary {
+  background: var(--copper);
+  color: #0f0f10;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(245,158,11,.28);
+}
+[data-theme="dark"] .btn-primary:hover {
+  background: var(--copper-2);
+  box-shadow: 0 10px 26px rgba(245,158,11,.38);
+  transform: translateY(-1px);
+}
+[data-theme="dark"] .btn-primary:active {
+  transform: translateY(0);
+}
+[data-theme="dark"] .btn-primary:disabled {
+  background: #3f3f46;
+  color: #a1a1aa;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* btn-copper (varsa) */
+[data-theme="dark"] .btn-copper {
+  background: var(--copper);
+  color: #0f0f10;
+}
+[data-theme="dark"] .btn-copper:hover {
+  background: var(--copper-2);
+}
+
+/* Büyük sil butonu */
+[data-theme="dark"] .btn-danger {
+  background: #dc2626;
+  color: #fff;
+}
+[data-theme="dark"] .btn-danger:hover {
+  background: #b91c1c;
+}
+
+/* Ghost butonu zaten düzeltilmişti, teyit */
+[data-theme="dark"] .btn-ghost {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border);
+}
+[data-theme="dark"] .btn-ghost:hover {
+  background: var(--surface-2);
+  border-color: var(--border-2);
+}
+
+/* login-extra'daki "şifremi unuttum" linki dark modda */
+[data-theme="dark"] .link-premium {
+  color: var(--muted);
+}
+[data-theme="dark"] .link-premium:hover {
+  color: var(--copper);
+  background: rgba(245,158,11,.08);
+}
+
+/* =========================================================
+   ÖĞRETMEN PANELİ — KOYU MOD
+   ========================================================= */
+[data-theme="dark"] .tp-hero {
+  border-bottom-color: var(--border);
+}
+[data-theme="dark"] .tp-hero-eyebrow {
+  color: var(--copper);
+}
+[data-theme="dark"] .tp-dot {
+  background: var(--copper);
+}
+[data-theme="dark"] .tp-hero-title {
+  color: var(--ink);
+}
+[data-theme="dark"] .tp-hero-sub {
+  color: var(--muted);
+}
+[data-theme="dark"] .tp-hero-sub strong {
+  color: var(--ink);
+}
+[data-theme="dark"] .tp-hero-avatar {
+  background: var(--surface-2);
+  color: var(--ink);
+  border: 1px solid var(--border-2);
+}
+
+/* Hızlı işlem kartları */
+[data-theme="dark"] .tp-quick-card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .tp-quick-card:hover {
+  border-color: var(--copper);
+  background: var(--surface-2);
+  box-shadow: 0 8px 20px rgba(0,0,0,.40);
+}
+[data-theme="dark"] .tp-quick-ico {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+[data-theme="dark"] .tp-quick-card:hover .tp-quick-ico {
+  background: var(--copper);
+  color: #0f0f10;
+}
+[data-theme="dark"] .tp-quick-label {
+  color: var(--ink);
+}
+[data-theme="dark"] .tp-quick-desc {
+  color: var(--muted);
+}
+
+/* İstatistikler */
+[data-theme="dark"] .tp-stats {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .tp-stat {
+  border-right-color: var(--border);
+}
+[data-theme="dark"] .tp-stat-label {
+  color: var(--muted);
+}
+[data-theme="dark"] .tp-stat-value {
+  color: var(--ink);
+}
+[data-theme="dark"] .tp-stat-meta {
+  color: var(--muted);
+}
+
+/* Bölüm */
+[data-theme="dark"] .tp-block-title {
+  color: var(--ink);
+}
+[data-theme="dark"] .tp-block-meta {
+  color: var(--muted);
+}
+[data-theme="dark"] .tp-block-link {
+  color: var(--copper);
+}
+
+/* Dersler */
+[data-theme="dark"] .tp-ders-list {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .tp-ders-item {
+  border-bottom-color: var(--border);
+}
+[data-theme="dark"] .tp-ders-item:hover {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .tp-ders-ad {
+  color: var(--ink);
+}
+[data-theme="dark"] .tp-ders-link {
+  color: var(--copper);
+}
+
+/* Son ödevler */
+[data-theme="dark"] .tp-odev-item {
+  background: var(--surface);
+  border-color: var(--border);
+}
+[data-theme="dark"] .tp-odev-item:hover {
+  border-color: var(--copper);
+  background: var(--surface-2);
+}
+[data-theme="dark"] .tp-odev-baslik {
+  color: var(--ink);
+}
+[data-theme="dark"] .tp-odev-meta {
+  color: var(--muted);
+}
+[data-theme="dark"] .tp-odev-rozet {
+  background: var(--surface-2);
+  color: var(--ink-2);
+}
+
+/* Filtre */
+[data-theme="dark"] .tp-search,
+[data-theme="dark"] .tp-sinif-filter {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border);
+}
+[data-theme="dark"] .tp-search::placeholder {
+  color: var(--muted-2);
+}
+[data-theme="dark"] .tp-search:focus,
+[data-theme="dark"] .tp-sinif-filter:focus {
+  border-color: var(--copper);
+}
+
+/* Boş durum */
+[data-theme="dark"] .tp-empty {
+  background: var(--surface);
+  border-color: var(--border-2);
+}
+[data-theme="dark"] .tp-empty strong {
+  color: var(--ink);
+}
+[data-theme="dark"] .tp-empty p {
+  color: var(--muted);
+}
+
+/* =========================================================
+   GENEL — RENK OKUNURLUĞU DÜZELTMELERİ
+   ========================================================= */
+
+/* Stat kart etiketleri — daha okunur */
+[data-theme="dark"] .stat-card-etiket,
+[data-theme="dark"] .stat-label,
+[data-theme="dark"] .st-stat-label,
+[data-theme="dark"] .as-lbl,
+[data-theme="dark"] .section-meta,
+[data-theme="dark"] .st-block-meta {
+  color: #a1a1aa;
+}
+
+/* Table header */
+[data-theme="dark"] .table th {
+  color: #a1a1aa;
+  border-bottom-color: var(--border);
+}
+[data-theme="dark"] .compact-table th {
+  color: #a1a1aa;
+}
+
+/* Card meta */
+[data-theme="dark"] .card-head .muted.small,
+[data-theme="dark"] .muted.small {
+  color: #a1a1aa;
+}
+
+/* Footer linkler */
+[data-theme="dark"] .footer-contact a {
+  color: #a1a1aa;
+}
+[data-theme="dark"] .footer-contact a:hover {
+  color: var(--copper);
+}
+
+/* Admin form etiketleri */
+[data-theme="dark"] .admin-form label > span,
+[data-theme="dark"] .compact-form label > span,
+[data-theme="dark"] .not-filter-form label > span,
+[data-theme="dark"] .tp-block-title {
+  color: #d4d4d8;
+}
+
+/* Chip */
+[data-theme="dark"] .chip {
+  color: #e4e4e7;
+}
+
+/* Panel hero sub */
+[data-theme="dark"] .panel-hero-sub {
+  color: #a1a1aa;
+}
+[data-theme="dark"] .panel-hero-sub strong {
+  color: var(--ink);
+}
+
+/* Search inputlar */
+[data-theme="dark"] .search-input,
+[data-theme="dark"] .mini-input,
+[data-theme="dark"] .puan-input {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border-2);
+}
+[data-theme="dark"] .search-input::placeholder,
+[data-theme="dark"] .mini-input::placeholder,
+[data-theme="dark"] .puan-input::placeholder {
+  color: var(--muted-2);
+}
+
+/* Ders row */
+[data-theme="dark"] .st-ders-ad,
+[data-theme="dark"] .ders-ad {
+  color: var(--ink);
+}
+[data-theme="dark"] .st-ders-ort,
+[data-theme="dark"] .ders-ort,
+[data-theme="dark"] .st-ders-harf,
+[data-theme="dark"] .ders-harf {
+  color: var(--ink);
+}
+
+/* Duyurular */
+[data-theme="dark"] .st-duyuru-head h3,
+[data-theme="dark"] .duyuru-baslik,
+[data-theme="dark"] .timeline-head strong {
+  color: var(--ink);
+}
+[data-theme="dark"] .st-duyuru p,
+[data-theme="dark"] .duyuru-item p,
+[data-theme="dark"] .timeline-body p {
+  color: #a1a1aa;
+}
+
+/* Boş durumlar */
+[data-theme="dark"] .st-empty strong,
+[data-theme="dark"] .empty-state strong {
+  color: var(--ink);
+}
+[data-theme="dark"] .st-empty p,
+[data-theme="dark"] .empty-state p {
+  color: var(--muted);
+}
+
+/* Card başlığı */
+[data-theme="dark"] .card h3,
+[data-theme="dark"] .mini-card-head h3 {
+  color: var(--ink);
+}
+
+/* Admin quick actions */
+[data-theme="dark"] .qa-btn {
+  color: var(--ink);
+}
+[data-theme="dark"] .qa-btn:hover {
+  color: var(--ink);
+}
+
+/* Modal */
+[data-theme="dark"] .modal-card h3,
+[data-theme="dark"] .premium-modal-card h3 {
+  color: var(--ink);
+}
+[data-theme="dark"] .modal-card label > span {
+  color: #d4d4d8;
+}
+
+/* Buton — ghost */
+[data-theme="dark"] .btn-ghost {
+  color: var(--ink);
+}
+
+/* Form açıklamaları */
+[data-theme="dark"] .compact-form label > span em {
+  color: var(--muted-2);
+}
+
+/* Admin stats */
+[data-theme="dark"] .as-num {
+  color: var(--ink);
+}
+
+/* Admin tab */
+[data-theme="dark"] .admin-tab {
+  color: var(--muted);
+}
+[data-theme="dark"] .admin-tab:hover {
+  color: var(--ink);
+}
+[data-theme="dark"] .admin-tab.is-active {
+  color: var(--ink);
+}
+
+/* Legal */
+[data-theme="dark"] .legal-body p,
+[data-theme="dark"] .legal-body li {
+  color: #d4d4d8;
+}
+[data-theme="dark"] .legal-body strong {
+  color: var(--ink);
+}
+[data-theme="dark"] .legal-num {
+  color: var(--copper);
+}
+[data-theme="dark"] .legal-lead {
+  color: var(--muted);
+}
+
+/* Dropdown öğeleri */
+[data-theme="dark"] .dropdown-item {
+  color: #d4d4d8;
+}
+[data-theme="dark"] .dropdown-item:hover {
+  color: #fff;
+  background: rgba(255,255,255,.08);
+}
+
+/* Not giriş form */
+[data-theme="dark"] .not-filter-form select {
+  color: var(--ink);
+}
+
+/* Legal tablo */
+[data-theme="dark"] .legal-table td {
+  color: #d4d4d8;
+}
+[data-theme="dark"] .legal-table td strong {
+  color: var(--ink);
+}
+[data-theme="dark"] .legal-table th {
+  color: #a1a1aa;
+}
+
+/* Genel muted */
+[data-theme="dark"] .muted {
+  color: #a1a1aa;
+}
+[data-theme="dark"] .small {
+  color: inherit;
+}
+
+/* =========================================================
+   FORM ELEMANLARI — KOYU MOD
+   admin.css'te background: #fff hardcoded kalmış
+   ========================================================= */
+
+/* Admin form (ödev ver, öğrenci ekle, not vs) */
+[data-theme="dark"] .admin-form input,
+[data-theme="dark"] .admin-form select,
+[data-theme="dark"] .admin-form textarea,
+[data-theme="dark"] .compact-form input,
+[data-theme="dark"] .compact-form select,
+[data-theme="dark"] .compact-form textarea,
+[data-theme="dark"] .not-filter-form input,
+[data-theme="dark"] .not-filter-form select,
+[data-theme="dark"] .not-form input,
+[data-theme="dark"] .not-form select {
+  background: #131316 !important;
+  color: #f4f4f5 !important;
+  border-color: #3f3f46 !important;
+}
+
+[data-theme="dark"] .admin-form input::placeholder,
+[data-theme="dark"] .admin-form textarea::placeholder,
+[data-theme="dark"] .compact-form input::placeholder,
+[data-theme="dark"] .compact-form textarea::placeholder {
+  color: #71717a !important;
+}
+
+[data-theme="dark"] .admin-form input:focus,
+[data-theme="dark"] .admin-form select:focus,
+[data-theme="dark"] .admin-form textarea:focus,
+[data-theme="dark"] .compact-form input:focus,
+[data-theme="dark"] .compact-form select:focus,
+[data-theme="dark"] .compact-form textarea:focus,
+[data-theme="dark"] .not-filter-form select:focus {
+  background: #131316 !important;
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 0 3px rgba(245,158,11,.15) !important;
+}
+
+/* Date input */
+[data-theme="dark"] input[type="date"],
+[data-theme="dark"] input[type="number"] {
+  background: #131316 !important;
+  color: #f4f4f5 !important;
+  border-color: #3f3f46 !important;
+  color-scheme: dark;
+}
+[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(.7);
+  cursor: pointer;
+}
+
+/* Select option'ları (açılır liste) */
+[data-theme="dark"] select option {
+  background: #18181b;
+  color: #f4f4f5;
+}
+
+/* Textarea */
+[data-theme="dark"] textarea {
+  background: #131316 !important;
+  color: #f4f4f5 !important;
+  border-color: #3f3f46 !important;
+}
+
+/* Label (üst yazılar) */
+[data-theme="dark"] .admin-form label > span,
+[data-theme="dark"] .admin-form label span,
+[data-theme="dark"] .compact-form label > span {
+  color: #a1a1aa !important;
+}
+
+/* Ödev ver sayfası ekstra — kart zemini */
+[data-theme="dark"] .card input,
+[data-theme="dark"] .card select,
+[data-theme="dark"] .card textarea {
+  background: #131316 !important;
+  color: #f4f4f5 !important;
+  border-color: #3f3f46 !important;
+}
+
+/* KVKK modal input */
+[data-theme="dark"] .modal-card input,
+[data-theme="dark"] .modal-card textarea {
+  background: #131316 !important;
+  color: #f4f4f5 !important;
+  border-color: #3f3f46 !important;
+}
+
+/* Login input */
+[data-theme="dark"] .login-card input {
+  background: #131316 !important;
+  color: #f4f4f5 !important;
+}
+
+/* Şifre değiştir input */
+[data-theme="dark"] input[type="password"] {
+  background: #131316 !important;
+  color: #f4f4f5 !important;
+  border-color: #3f3f46 !important;
+}
+
+/* =========================================================
+   PAGE HEADER + GHOST — KOYU MOD
+   ========================================================= */
+[data-theme="dark"] .page-header,
+[data-theme="dark"] .page-head {
+  border-bottom-color: var(--border);
+}
+[data-theme="dark"] .page-header h1,
+[data-theme="dark"] .page-head h1 {
+  color: var(--ink);
+}
+[data-theme="dark"] .page-header p,
+[data-theme="dark"] .page-head p {
+  color: var(--muted);
+}
+
+/* Ghost buton koyu mod */
+[data-theme="dark"] .card .btn-ghost,
+[data-theme="dark"] .btn-ghost {
+  background: var(--surface) !important;
+  border-color: var(--border-2) !important;
+  color: var(--ink) !important;
+}
+[data-theme="dark"] .card .btn-ghost:hover,
+[data-theme="dark"] .btn-ghost:hover {
+  background: var(--surface-2) !important;
+  border-color: var(--copper) !important;
+  color: var(--copper) !important;
+}
+
+/* Şifre değiştir form stilleri — daraltılmış kural */
+[data-theme="dark"] .admin-form .form-row {
+  margin-bottom: 14px;
+}
+
+/* Card içinde input odak */
+[data-theme="dark"] .admin-form input:focus {
+  border-color: var(--copper);
+  box-shadow: 0 0 0 3px rgba(245,158,11,.15);
+}
+
+/* === TEMALI SCROLLBAR === */
+/* Genel sayfa scrollbar - temaya uyumlu */
+html, body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(217,119,6,.30) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(217,119,6,.28);
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(217,119,6,.55);
+  background-clip: content-box;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(217,119,6,.42);
+  background-clip: content-box;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(217,119,6,.70);
+  background-clip: content-box;
+}
+
+/* ============================================================
+   KOYU MOD
+   ============================================================ */
+/* Sistem koyu, site acik ise */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .cookie-banner,
+  body:not([data-theme="light"]) html:not([data-theme="light"]) .cookie-text,
+  body:not([data-theme="light"]) html:not([data-theme="light"]) .cookie-text a,
+  body:not([data-theme="light"]) .cookie-text a { color: #f59e0b !important; }
+  html:not([data-theme="light"]) .cookie-icon,
+  body:not([data-theme="light"]) }
+
+/* Mobil */
+@media (max-width: 520px) {
+  }
+
+/* ============================================================
+   .tp-hero-avatar - site genelinde gizli
+   ============================================================ */
+.tp-hero-avatar,
+div.tp-hero-avatar,
+[class~="tp-hero-avatar"] {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ============================================================
+   KOYU MOD
+   ============================================================ */
+/* Sistem koyu, site acik ise */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .cookie-banner,
+  body:not([data-theme="light"]) html:not([data-theme="light"]) .cookie-text,
+  body:not([data-theme="light"]) html:not([data-theme="light"]) .cookie-text a,
+  body:not([data-theme="light"]) .cookie-text a { color: #f59e0b !important; }
+  html:not([data-theme="light"]) .cookie-icon,
+  body:not([data-theme="light"]) html:not([data-theme="light"]) .cookie-btn-primary,
+  body:not([data-theme="light"]) }
+
+/* Mobil */
+@media (max-width: 520px) {
+  }
+
+/* ============================================================
+   .tp-hero-avatar gizle
+   ============================================================ */
+.tp-hero-avatar,
+div.tp-hero-avatar,
+[class~="tp-hero-avatar"] {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}

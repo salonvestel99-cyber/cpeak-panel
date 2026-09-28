@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Ders Programı Düzenle{% endblock %}
+{% block content %}
+
+<div class="panel-hero">
+  <div class="panel-hero-text">
+    <div class="panel-hero-eyebrow">
+      {% if role == 'teacher' %}Öğretmen{% else %}Yönetici{% endif %}
+    </div>
+    <h1 class="panel-hero-greet">Ders Programı Düzenle</h1>
+    <p class="panel-hero-sub">
+      {% if role == 'teacher' %}
+        Sınıf seçin · sadece kendi derslerinizi ekleyebilirsiniz
+      {% else %}
+        Sınıf seçin · hücrelere ders ekleyin
+      {% endif %}
+    </p>
+  </div>
+  <div class="panel-hero-avatar">{{ session.name[0]|upper }}</div>
+</div>
+
+<div class="card">
+  <form method="get" action="{{ url_for('ders_programi_duzenle') }}" class="not-filter-form">
+    <div class="form-row" style="grid-template-columns: 1fr auto">
+      <label>
+        <span>Sınıf</span>
+        <select name="sinif" onchange="this.form.submit()">
+          <option value="">— Seçiniz —</option>
+          {% for s in siniflar %}
+          <option value="{{ s }}" {% if sinif == s %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="filter-button">
+        <span>&nbsp;</span>
+        <a href="{{ url_for('ders_programi', sinif=sinif) }}" class="btn-ghost" style="text-decoration:none;padding:11px 18px;text-align:center">
+          Görüntüle →
+        </a>
+      </label>
+    </div>
+  </form>
+</div>
+
+{% if sinif %}
+<div class="card">
+  <div class="card-head">
+    <h3>{{ sinif }} · Program</h3>
+    <span class="muted small">{{ dersler|length }} ders seçilebilir</span>
+  </div>
+
+  <p class="muted small" style="margin-bottom:16px">
+    Bir hücreye tıklayıp ders seçin. Aynı hücreye yeni kayıt ekleyince eski kayıt güncellenir.
+    {% if role == 'teacher' %}Sadece kendi dersleriniz listede görünür.{% endif %}
+  </p>
+
+  <div class="table-wrap">
+    <table class="ders-programi-tablo admin-yonetim">
+      <thead>
+        <tr>
+          <th style="width:60px">Saat</th>
+          {% for g, ad in gunler.items() %}
+          <th>{{ ad }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for saat in saatler %}
+        <tr>
+          <td class="saat-cell">{{ saat }}</td>
+          {% for g in gunler.keys() %}
+          <td class="ders-cell">
+            {% set mevcut = program.get((g, saat)) %}
+            <form method="post" class="hucre-form">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="sinif" value="{{ sinif }}">
+              <input type="hidden" name="gun" value="{{ g }}">
+              <input type="hidden" name="saat" value="{{ saat }}">
+              <select name="ders_id" onchange="this.form.submit()" class="hucre-select {% if mevcut %}dolu{% endif %}">
+                <option value="">—</option>
+                {% for d in dersler %}
+                <option value="{{ d.id }}" {% if mevcut and mevcut.ders == d.ad %}selected{% endif %}>{{ d.ad }}</option>
+                {% endfor %}
+              </select>
+            </form>
+            {% if mevcut %}
+            <form method="post" action="{{ url_for('ders_programi_sil', sid=mevcut.id) }}" class="hucre-sil-form" data-confirm="{{ mevcut.ders }} kaydı silinsin mi?">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="sinif" value="{{ sinif }}">
+              <button type="submit" class="hucre-sil" title="Sil">×</button>
+            </form>
+            {% endif %}
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<div class="card bilgi">
+  <p class="muted">Önce bir sınıf seçin.</p>
+</div>
+{% endif %}
+
+<div style="margin-top:20px">
+  <a href="{{ url_for('dashboard') }}" class="btn-ghost">← Panele Dön</a>
+</div>
+
+{% endblock %}

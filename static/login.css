@@ -1,0 +1,845 @@
+/* =========================================================
+   LOGIN — Premium layout
+   ========================================================= */
+
+.login-page { margin: 0; padding: 0; overflow-x: hidden; }
+
+.login-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+.login-wrap {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 0;
+}
+
+/* ---------- SOL HERO ---------- */
+.login-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 80px 70px;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(circle at 20% 25%, rgba(232,118,90,.22), transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(26,122,88,.16), transparent 50%),
+    linear-gradient(140deg, var(--navy) 0%, var(--navy-2) 55%, #0a2e20 100%);
+  color: #fff;
+}
+.login-hero::before {
+  content: "";
+  position: absolute;
+  right: -18%; bottom: -22%;
+  width: 95%; aspect-ratio: 1 / 1;
+  background: url("logo.png") center/contain no-repeat;
+  opacity: .07;
+  filter: blur(1.5px) saturate(1.4);
+  transform: rotate(-9deg);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-content { position: relative; z-index: 2; max-width: 520px; }
+.hero-orb {
+  position: absolute; right: -100px; bottom: -100px;
+  width: 380px; height: 380px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,118,90,.35), transparent 70%);
+  pointer-events: none;
+}
+
+/* ---------- PREMIUM SAAT ---------- */
+.hero-clock {
+  position: absolute;
+  top: 52px; right: 60px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  pointer-events: none;
+}
+.clock-line {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  line-height: 1;
+}
+.clock-time {
+  font-size: 1.05rem;
+  font-weight: 300;
+  letter-spacing: .02em;
+  color: rgba(255,255,255,.92);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.clock-sec {
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: #e8765a;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  opacity: .85;
+}
+.clock-date {
+  font-size: .68rem;
+  font-weight: 400;
+  color: rgba(255,255,255,.42);
+  letter-spacing: .04em;
+  line-height: 1;
+}
+
+/* ---------- Eyebrow ---------- */
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 8px 18px 8px 15px;
+  border: 1px solid rgba(232,118,90,.35);
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  color: #e8765a;
+  background: rgba(232,118,90,.07);
+  position: relative;
+  z-index: 2;
+}
+.hero-eyebrow-dot {
+  position: relative;
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #e8765a;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(232,118,90,.9);
+}
+.hero-eyebrow-dot::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: #e8765a;
+  animation: eyebrowPulse 2s ease-out infinite;
+}
+@keyframes eyebrowPulse {
+  0%   { transform: scale(1);   opacity: .9; }
+  70%  { transform: scale(2.6); opacity: 0; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* ---------- Marka bloğu ---------- */
+.hero-brand {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  margin: 0 0 46px;
+  z-index: 2;
+}
+.hero-brand-mark { position: relative; flex-shrink: 0; }
+.hero-brand-mark::before {
+  content: "";
+  position: absolute;
+  inset: -60px -70px;
+  background: radial-gradient(ellipse at center,
+    rgba(232,118,90,.34) 0%,
+    rgba(232,118,90,.14) 38%,
+    transparent 72%);
+  filter: blur(20px);
+  z-index: 0;
+  pointer-events: none;
+  animation: logoGlow 6s ease-in-out infinite alternate;
+}
+@keyframes logoGlow {
+  0%   { opacity: .72; transform: scale(1); }
+  100% { opacity: 1;   transform: scale(1.08); }
+}
+.hero-brand-mark img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: clamp(96px, 11vw, 132px);
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter: brightness(1.10) contrast(1.06) saturate(1.12)
+    drop-shadow(0 0 26px rgba(232,118,90,.50))
+    drop-shadow(0 0 80px rgba(232,118,90,.24));
+}
+.hero-brand-text { display: flex; flex-direction: column; line-height: 1; }
+.hero-brand-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 3.2vw, 2.9rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1;
+}
+.hero-brand-title::first-letter { color: #e8765a; }
+.hero-brand-sub {
+  margin-top: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(.7rem, 1vw, .85rem);
+  font-weight: 600;
+  letter-spacing: .44em;
+  color: #e8765a;
+  opacity: .92;
+}
+.hero-brand-anim {
+  animation: logoGiris .9s cubic-bezier(.2,.9,.3,1.05) both;
+}
+@keyframes logoGiris {
+  0%   { opacity: 0; transform: translateX(-30px) scale(.94); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+.hero-brand-anim .hero-brand-mark img {
+  animation: logoParlak 4s ease-in-out infinite alternate;
+}
+@keyframes logoParlak {
+  0%   { filter: brightness(1.05) contrast(1.06) saturate(1.12) drop-shadow(0 0 20px rgba(232,118,90,.40)) drop-shadow(0 0 60px rgba(232,118,90,.18)); }
+  100% { filter: brightness(1.12) contrast(1.07) saturate(1.18) drop-shadow(0 0 30px rgba(232,118,90,.55)) drop-shadow(0 0 90px rgba(232,118,90,.28)); }
+}
+
+.login-hero h1 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 20px;
+  color: #fff;
+}
+.hero-lead {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,.78);
+  margin: 0 0 30px;
+  max-width: 460px;
+}
+.hero-list {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.hero-list li {
+  position: relative;
+  padding-left: 28px;
+  color: rgba(255,255,255,.88);
+  font-size: .98rem;
+}
+.hero-list li::before {
+  content: "\2605";
+  position: absolute; left: 0;
+  color: #e8765a;
+  font-size: .9rem;
+}
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px 32px;
+  margin-top: 44px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255,255,255,.10);
+  position: relative;
+  z-index: 2;
+}
+.hero-stat { display: flex; flex-direction: column; gap: 4px; }
+.hero-stat strong {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: baseline;
+}
+.hero-stat strong em {
+  font-style: normal;
+  color: #e8765a;
+  font-size: .75em;
+  margin-left: 2px;
+}
+.hero-stat span {
+  font-size: .78rem;
+  color: rgba(255,255,255,.62);
+}
+
+/* ---------- SAĞ FORM ---------- */
+.login-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+}
+.login-card { width: 100%; max-width: 400px; }
+.login-card h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 2rem;
+  margin: 0 0 6px;
+  color: var(--navy);
+}
+.login-card h2::after {
+  content: "";
+  display: block;
+  width: 42px; height: 3px;
+  margin-top: 12px;
+  background: var(--amber);
+  border-radius: 3px;
+}
+.login-card .lead {
+  margin: 14px 0 30px;
+  color: var(--muted);
+  font-size: .98rem;
+}
+.login-card label { display: block; margin-bottom: 18px; }
+.login-card label > span {
+  display: block;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--navy-2);
+  margin-bottom: 8px;
+}
+.login-card input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--paper);
+  color: var(--ink);
+  transition: all .16s ease;
+}
+.login-card input:focus {
+  outline: none;
+  border-color: var(--amber);
+  box-shadow: 0 0 0 4px rgba(232,118,90,.15);
+}
+
+.input-wrap { position: relative; display: block; }
+.input-wrap.icon-left input { padding-left: 46px !important; }
+.input-wrap input { padding-right: 48px !important; }
+.input-icon {
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%);
+  width: 18px; height: 18px;
+  color: #9ca3af;
+  pointer-events: none;
+  transition: color .15s ease;
+}
+.input-wrap:focus-within .input-icon { color: var(--amber); }
+
+.input-eye {
+  position: absolute;
+  top: 50%; right: 8px;
+  transform: translateY(-50%);
+  width: 38px; height: 38px;
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s ease;
+}
+.input-eye:hover { color: #e8765a; background: rgba(232,118,90,.08); }
+.input-eye .eye-closed { display: none; }
+.input-eye.is-visible .eye-open { display: none; }
+.input-eye.is-visible .eye-closed { display: block; }
+
+.login-extra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0 16px;
+}
+.check-inline {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: .88rem !important;
+  color: var(--navy-2) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  font-weight: 500 !important;
+  margin-bottom: 0 !important;
+}
+.check-inline input[type="checkbox"] {
+  width: 16px !important;
+  height: 16px;
+  accent-color: var(--amber);
+  cursor: pointer;
+  padding: 0 !important;
+  margin: 0;
+}
+.check-inline span { font-size: .88rem; }
+
+.kvkk-line {
+  display: flex !important;
+  margin: 4px 0 18px !important;
+  align-items: flex-start !important;
+  line-height: 1.5;
+}
+.kvkk-line input[type="checkbox"] { margin-top: 3px; flex-shrink: 0; }
+.kvkk-line span { font-size: .82rem !important; color: #4b5563 !important; }
+.kvkk-line a {
+  color: var(--navy-2);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(232,118,90,.6);
+  text-underline-offset: 2px;
+}
+.kvkk-line a:hover { color: var(--amber); }
+
+.link-btn {
+  border: none;
+  background: none;
+  color: var(--navy-2);
+  font-family: inherit;
+  font-size: .88rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+  position: relative;
+  transition: color .15s ease;
+}
+.link-btn::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .2s ease;
+}
+.link-btn:hover { color: var(--amber); }
+.link-btn:hover::after { transform: scaleX(1); }
+
+/* ---------- MODAL ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(10,46,32,.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn .2s ease;
+}
+.modal[hidden] { display: none; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-card {
+  position: relative;
+  background: #fff;
+  border-radius: 22px;
+  padding: 32px 30px 26px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 70px rgba(10,46,32,.30);
+  border-top: 3px solid var(--amber);
+  animation: pop .22s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes pop {
+  from { transform: scale(.94); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+.modal-card h3 {
+  margin: 0 0 6px;
+  font-family: 'Fraunces', serif;
+  font-size: 1.45rem;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+}
+.modal-card p.muted.small {
+  margin: 0 0 22px;
+  font-size: .88rem;
+  line-height: 1.55;
+}
+.modal-card label { display: block; margin-bottom: 14px; }
+.modal-card label span {
+  display: block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--navy-2);
+  margin-bottom: 6px;
+}
+.modal-card input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  font-size: .96rem;
+  font-family: inherit;
+  background: #fafafa;
+  transition: all .15s ease;
+}
+.modal-card input:focus {
+  outline: none;
+  border-color: var(--amber);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(232,118,90,.15);
+}
+.modal-card .btn-primary {
+  margin-top: 8px;
+  padding: 13px 20px;
+  font-size: .96rem;
+}
+.modal-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .15s ease;
+}
+.modal-close:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  transform: rotate(90deg);
+}
+.kvkk-text {
+  font-size: .88rem;
+  line-height: 1.65;
+  color: #4b5563;
+  max-height: 55vh;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+.kvkk-text p { margin: 0 0 14px; }
+.kvkk-text strong { color: var(--navy); }
+
+/* ---------- MOBİL ---------- */
+@media (max-width: 900px) {
+  .login-wrap { grid-template-columns: 1fr; }
+  .login-hero { padding: 50px 30px; min-height: auto; }
+  .login-main { padding: 40px 24px; }
+  .hero-clock { top: 26px; right: 26px; }
+  .clock-time { font-size: .95rem; }
+  .clock-sec { font-size: .62rem; }
+  .clock-date { font-size: .62rem; }
+  .footer-inner { flex-direction: column; gap: 10px; text-align: center; }
+  .login-footer-bar { padding: 10px 20px; }
+  .footer-contact { flex-wrap: wrap; justify-content: center; }
+}
+
+@media (max-width: 600px) {
+  .login-hero { padding: 40px 22px; }
+  .login-hero h1 { font-size: 1.6rem; }
+  .hero-brand-mark img { height: 72px; }
+  .hero-stats { gap: 20px 24px; margin-top: 32px; padding-top: 22px; }
+  .hero-stat strong { font-size: 1.3rem; }
+  .hero-stat span { font-size: .72rem; }
+  .hero-clock { top: 18px; right: 18px; gap: 4px; }
+  .clock-time { font-size: .85rem; }
+  .clock-sec { font-size: .58rem; }
+  .clock-date { font-size: .56rem; }
+  
+  
+  .modal-card { padding: 26px 22px 22px; border-radius: 18px; }
+  .footer-copy { font-size: .68rem; }
+  .footer-contact { font-size: .68rem; }
+}
+
+/* ---------- Hata mesajı (dismissible) ---------- */
+.alert-dismissible {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  position: relative;
+  padding-right: 40px;
+}
+.alert-dismissible .alert-text {
+  flex: 1;
+  line-height: 1.45;
+}
+.alert-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 6px;
+  opacity: .55;
+  transition: opacity .15s ease, background .15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-family: inherit;
+}
+.alert-close:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, .06);
+}
+
+/* =========================================================
+   LOGIN EXTRA — PREMIUM
+   ========================================================= */
+
+.login-extra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin: 4px 0 22px;
+  padding: 14px 0;
+  border-top: 1px dashed var(--border);
+  border-bottom: 1px dashed var(--border);
+}
+
+/* ---------- Beni hatırla (özel checkbox) ---------- */
+.check-premium {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-weight: 500 !important;
+  font-size: .88rem !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--text) !important;
+}
+.check-premium input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+.check-premium .check-box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid var(--border-2);
+  background: var(--surface);
+  flex-shrink: 0;
+  transition: all .18s cubic-bezier(.2,.9,.3,1.2);
+}
+.check-premium .check-box svg {
+  width: 11px;
+  height: 11px;
+  color: #fff;
+  opacity: 0;
+  transform: scale(.4);
+  transition: opacity .15s ease, transform .18s cubic-bezier(.2,.9,.3,1.4);
+}
+.check-premium .check-label {
+  color: var(--text);
+  transition: color .15s ease;
+}
+/* Hover */
+.check-premium:hover .check-box {
+  border-color: var(--copper);
+}
+.check-premium:hover .check-label {
+  color: var(--ink);
+}
+/* Checked */
+.check-premium input:checked + .check-box {
+  background: var(--copper);
+  border-color: var(--copper);
+  box-shadow: 0 0 0 3px rgba(180,83,9,.12);
+}
+.check-premium input:checked + .check-box svg {
+  opacity: 1;
+  transform: scale(1);
+}
+.check-premium input:checked ~ .check-label {
+  color: var(--ink);
+  font-weight: 600;
+}
+/* Focus */
+.check-premium input:focus-visible + .check-box {
+  box-shadow: 0 0 0 3px rgba(180,83,9,.22);
+}
+
+/* ---------- Şifremi unuttum (premium link) ---------- */
+.link-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  margin-right: -8px;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: .86rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color .15s ease, background .15s ease;
+}
+.link-premium svg {
+  width: 14px;
+  height: 14px;
+  opacity: .8;
+  transition: opacity .15s ease, transform .2s ease;
+}
+.link-premium span {
+  position: relative;
+}
+.link-premium span::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: var(--copper);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .22s cubic-bezier(.2,.9,.3,1);
+}
+.link-premium:hover {
+  color: var(--copper);
+  background: rgba(180,83,9,.05);
+}
+.link-premium:hover svg {
+  opacity: 1;
+  transform: rotate(-8deg);
+}
+.link-premium:hover span::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Mobil ---------- */
+@media (max-width: 480px) {
+  .login-extra {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 0;
+  }
+  .link-premium {
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .link-premium:hover { background: none; }
+}
+
+
+/* === CLOCK MINIMAL SAYDAM === */
+/* Sadece gorsel sifirlama - konumlandirmaya/padding'e DOKUNMAZ */
+.hero-clock {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  outline: 0 !important;
+}
+.hero-clock::before,
+.hero-clock::after {
+  content: none !important;
+  display: none !important;
+}
+.hero-clock:hover {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+
+/* === SADECE ARKA PLAN SAYDAM === */
+/* Konumlandirmaya, renge, boyuta DOKUNMAZ. Sadece kutuyu kaldirir. */
+.login-hero .hero-clock {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.login-hero .hero-clock::before,
+.login-hero .hero-clock::after {
+  content: none !important;
+  display: none !important;
+}
+
+
+/* === BUYUK SAAT === */
+/* Konumu bozmadan sadece boyut ve araliklari buyutur */
+
+.login-hero .hero-clock .clock-time {
+  font-size: 2.6rem !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1 !important;
+}
+
+.login-hero .hero-clock .clock-sec {
+  font-size: 1.05rem !important;
+  font-weight: 500 !important;
+  color: rgba(255,255,255,.55) !important;
+  padding-left: 4px !important;
+}
+
+.login-hero .hero-clock .clock-date {
+  font-size: .92rem !important;
+  font-weight: 500 !important;
+  letter-spacing: .10em !important;
+  color: rgba(255,255,255,.68) !important;
+  margin-top: 4px !important;
+}
+
+.login-hero .hero-clock .clock-line {
+  gap: 6px !important;
+}
+
+/* Mobil - biraz daha kucuk ama yine buyuk */
+@media (max-width: 900px) {
+  .login-hero .hero-clock .clock-time { font-size: 1.8rem !important; }
+  .login-hero .hero-clock .clock-sec  { font-size: .85rem !important; }
+  .login-hero .hero-clock .clock-date { font-size: .78rem !important; }
+}
+@media (max-width: 600px) {
+  .login-hero .hero-clock .clock-time { font-size: 1.4rem !important; }
+  .login-hero .hero-clock .clock-sec  { font-size: .72rem !important; }
+  .login-hero .hero-clock .clock-date { font-size: .68rem !important; }
+}

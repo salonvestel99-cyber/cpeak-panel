@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Ödev Ver{% endblock %}
+{% block content %}
+
+<div class="panel-hero">
+  <div class="panel-hero-text">
+    <div class="panel-hero-eyebrow">Öğretmen</div>
+    <h1 class="panel-hero-greet">Yeni Ödev Ver</h1>
+    <p class="panel-hero-sub">Ders ve sınıf seç, ödev bilgilerini gir</p>
+  </div>
+  <div class="panel-hero-avatar">{{ session.name[0]|upper }}</div>
+</div>
+
+<div class="card">
+  <form method="post" class="admin-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="form-row">
+      <label><span>Ders</span>
+        <select name="ders_id" required>
+          <option value="">— Seçiniz —</option>
+          {% for d in dersler %}<option value="{{ d.id }}">{{ d.ad }}</option>{% endfor %}
+        </select>
+      </label>
+      <label><span>Sınıf (opsiyonel)</span>
+        <select name="sinif">
+          <option value="">— Tüm Sınıflar —</option>
+          {% for s in siniflar %}<option value="{{ s }}">{{ s }}</option>{% endfor %}
+        </select>
+      </label>
+      <label><span>Teslim Tarihi</span>
+        <input name="teslim" type="date" required>
+      </label>
+    </div>
+    <div class="form-row">
+      <label class="full"><span>Ödev Başlığı</span>
+        <input name="baslik" required placeholder="Örn: Unit 3 - Vocabulary Worksheet">
+      </label>
+    </div>
+    <div class="form-row">
+      <label class="full"><span>Açıklama</span>
+        <textarea name="icerik" rows="4" placeholder="Ödevin detayları, sayfa numaraları, vs."></textarea>
+      </label>
+    </div>
+    <div class="form-actions" style="justify-content:flex-end">
+      <button class="btn-primary" type="submit" style="max-width:240px">Ödevi Yayınla</button>
+    </div>
+  </form>
+</div>
+
+<div style="margin-top:20px">
+  <a href="{{ url_for('odevler') }}" class="btn-ghost">← Verdiğim Ödevler</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,458 @@
+{% extends "base.html" %}
+{% block title %}Öğrenci Paneli{% endblock %}
+{% block content %}
+<style>
+.st-layout {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+  transition: grid-template-columns .28s cubic-bezier(.16,1,.3,1);
+  position: relative;
+}
+.st-layout.st-kapali { grid-template-columns: 0 minmax(0, 1fr); gap: 0; }
+
+.st-sidebar {
+  position: sticky; top: 90px; align-self: start;
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #e4e4e7);
+  border-radius: 14px;
+  padding: 12px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  transition: opacity .22s ease, transform .28s ease;
+  box-shadow: 0 4px 20px -8px rgba(24,24,27,.08);
+}
+.st-layout.st-kapali .st-sidebar {
+  opacity: 0; transform: translateX(-20px); pointer-events: none;
+}
+
+.st-sidebar-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 4px 8px 10px;
+  border-bottom: 1px solid var(--border, #e4e4e7);
+  margin-bottom: 8px;
+}
+.st-sidebar-title {
+  font-size: 12px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--muted, #71717a);
+}
+.st-sidebar-close {
+  background: transparent; border: none; padding: 4px;
+  border-radius: 6px; cursor: pointer;
+  color: var(--muted, #71717a);
+  display: inline-flex;
+  transition: background-color .14s ease, color .14s ease;
+}
+.st-sidebar-close:hover { background: var(--surface-2, #f4f4f5); color: var(--ink, #18181b); }
+
+.st-nav { display: flex; flex-direction: column; gap: 2px; }
+.st-nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 10px;
+  background: transparent; border: none;
+  color: var(--ink, #18181b);
+  font-family: inherit; font-size: 13.5px; font-weight: 500;
+  text-align: left; cursor: pointer;
+  transition: background-color .14s ease, color .14s ease;
+}
+.st-nav-item:hover { background: var(--surface-2, #f4f4f5); }
+.st-nav-item.is-active {
+  background: rgba(180,83,9,.09);
+  color: var(--copper, #b45309);
+  font-weight: 600;
+}
+.st-nav-ic {
+  width: 16px; height: 16px; flex: 0 0 16px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--muted, #71717a);
+}
+.st-nav-item.is-active .st-nav-ic { color: var(--copper, #b45309); }
+.st-nav-ic svg { width: 16px; height: 16px; display: block; }
+.st-nav-tx { flex: 1 1 auto; }
+
+.st-sidebar-open {
+  position: fixed; top: 90px; left: 16px;
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #e4e4e7);
+  color: var(--ink, #18181b);
+  display: none; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 100;
+  box-shadow: 0 4px 14px -6px rgba(24,24,27,.15);
+  transition: transform .14s ease, background-color .14s ease;
+}
+.st-sidebar-open:hover { background: var(--surface-2, #f4f4f5); transform: translateY(-1px); }
+.st-layout.st-kapali ~ .st-sidebar-open { display: inline-flex; }
+
+.st-sidebar-overlay {
+  position: fixed; inset: 0;
+  background: rgba(15,15,17,.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 998; opacity: 0; pointer-events: none;
+  transition: opacity .2s ease;
+}
+.st-sidebar-overlay.acik { opacity: 1; pointer-events: auto; }
+
+.st-main > [data-st-cat] { display: none; }
+.st-main > [data-st-cat].st-aktif {
+  display: block;
+  animation: st-fade-in .28s ease both;
+}
+@keyframes st-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .st-main > [data-st-cat].st-aktif { animation: none; }
+  .st-layout { transition: none; }
+}
+
+@media (max-width: 900px) {
+  .st-layout { grid-template-columns: 1fr; padding: 16px; gap: 0; }
+  .st-layout.st-kapali { grid-template-columns: 1fr; }
+  .st-sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: 280px; max-height: 100vh; border-radius: 0;
+    z-index: 999; transform: translateX(-100%);
+    transition: transform .28s cubic-bezier(.16,1,.3,1);
+    opacity: 1; padding: 20px 14px;
+  }
+  .st-layout.st-kapali .st-sidebar { transform: translateX(-100%); opacity: 1; }
+  .st-sidebar.acik { transform: translateX(0); }
+  .st-sidebar-open {
+    top: auto; left: 16px; bottom: 16px;
+    display: inline-flex !important;
+    width: 48px; height: 48px; border-radius: 50%;
+    box-shadow: 0 8px 24px -6px rgba(24,24,27,.3);
+  }
+}
+
+html[data-theme="dark"] .st-sidebar,
+html.dark .st-sidebar { background: #18181b; border-color: #27272a; }
+html[data-theme="dark"] .st-nav-item,
+html.dark .st-nav-item { color: #e4e4e7; }
+html[data-theme="dark"] .st-nav-item:hover,
+html.dark .st-nav-item:hover { background: #27272a; }
+html[data-theme="dark"] .st-nav-item.is-active,
+html.dark .st-nav-item.is-active { background: rgba(245,158,11,.12); color: #f59e0b; }
+html[data-theme="dark"] .st-nav-item.is-active .st-nav-ic,
+html.dark .st-nav-item.is-active .st-nav-ic { color: #f59e0b; }
+html[data-theme="dark"] .st-sidebar-head,
+html.dark .st-sidebar-head { border-bottom-color: #27272a; }
+html[data-theme="dark"] .st-sidebar-open,
+html.dark .st-sidebar-open { background: #18181b; border-color: #27272a; color: #e4e4e7; }
+html[data-theme="dark"] .st-sidebar-close:hover,
+html.dark .st-sidebar-close:hover { background: #27272a; color: #fafaf9; }
+</style>
+
+
+
+{% set saat = now_hour|default(12) %}
+{% if saat < 6 %}{% set selam = "İyi geceler" %}
+{% elif saat < 12 %}{% set selam = "Günaydın" %}
+{% elif saat < 18 %}{% set selam = "İyi günler" %}
+{% else %}{% set selam = "İyi akşamlar" %}{% endif %}
+
+<div class="st-layout" id="stLayout">
+
+  <aside class="st-sidebar" id="stSidebar">
+    <div class="st-sidebar-head">
+      <span class="st-sidebar-title">Menü</span>
+      <button type="button" class="st-sidebar-close" id="stSidebarClose" aria-label="Kapat">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <nav class="st-nav">
+      <button type="button" class="st-nav-item is-active" data-st-git="genel">
+        <span class="st-nav-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg></span>
+        <span class="st-nav-tx">Genel Bakış</span>
+      </button>
+
+      <button type="button" class="st-nav-item" data-st-git="notlar">
+        <span class="st-nav-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+        <span class="st-nav-tx">Notlarım</span>
+      </button>
+
+      <button type="button" class="st-nav-item" data-st-git="duyurular">
+        <span class="st-nav-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></span>
+        <span class="st-nav-tx">Duyurular</span>
+      </button>
+    </nav>
+  </aside>
+
+  <button type="button" class="st-sidebar-open" id="stSidebarOpen" aria-label="Menüyü aç">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+
+  <div class="st-sidebar-overlay" id="stSidebarOverlay"></div>
+
+  <main class="st-main" id="stMain">
+
+
+  </main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  function init(){
+    var layout = document.getElementById("stLayout");
+    var sidebar = document.getElementById("stSidebar");
+    var btnKapat = document.getElementById("stSidebarClose");
+    var btnAc = document.getElementById("stSidebarOpen");
+    var overlay = document.getElementById("stSidebarOverlay");
+    var navItems = document.querySelectorAll(".st-nav-item");
+    if (!layout || !sidebar) return;
+
+    var STORAGE = "st_sidebar_kapali";
+    var AKTIF   = "st_aktif_kategori";
+
+    function mobilMi(){ return window.matchMedia("(max-width: 900px)").matches; }
+
+    function kapat(){
+      if (mobilMi()) {
+        sidebar.classList.remove("acik");
+        if (overlay) overlay.classList.remove("acik");
+      } else {
+        layout.classList.add("st-kapali");
+        try { localStorage.setItem(STORAGE, "1"); } catch(e){}
+      }
+    }
+    function ac(){
+      if (mobilMi()) {
+        sidebar.classList.add("acik");
+        if (overlay) overlay.classList.add("acik");
+      } else {
+        layout.classList.remove("st-kapali");
+        try { localStorage.setItem(STORAGE, "0"); } catch(e){}
+      }
+    }
+
+    if (btnKapat) btnKapat.addEventListener("click", kapat);
+    if (btnAc) btnAc.addEventListener("click", ac);
+    if (overlay) overlay.addEventListener("click", kapat);
+    document.addEventListener("keydown", function(e){ if (e.key === "Escape") kapat(); });
+
+    if (!mobilMi()) {
+      try { if (localStorage.getItem(STORAGE) === "1") layout.classList.add("st-kapali"); } catch(e){}
+    }
+
+    var sections = document.querySelectorAll(".st-main > [data-st-cat]");
+
+    function goster(kat){
+      sections.forEach(function(s){
+        s.classList.toggle("st-aktif", s.getAttribute("data-st-cat") === kat);
+      });
+      navItems.forEach(function(n){
+        n.classList.toggle("is-active", n.getAttribute("data-st-git") === kat);
+      });
+      try { localStorage.setItem(AKTIF, kat); } catch(e){}
+      if (mobilMi()) kapat();
+    }
+
+    navItems.forEach(function(item){
+      item.addEventListener("click", function(){
+        var kat = item.getAttribute("data-st-git");
+        if (kat) goster(kat);
+      });
+    });
+
+    var baslangic = "genel";
+    try { var k = localStorage.getItem(AKTIF); if (k) baslangic = k; } catch(e){}
+    var varMi = false;
+    sections.forEach(function(s){ if (s.getAttribute("data-st-cat") === baslangic) varMi = true; });
+    if (!varMi) baslangic = "genel";
+    goster(baslangic);
+
+    var sonMobil = mobilMi();
+    window.addEventListener("resize", function(){
+      var suAn = mobilMi();
+      if (suAn !== sonMobil) {
+        sidebar.classList.remove("acik");
+        if (overlay) overlay.classList.remove("acik");
+        layout.classList.remove("st-kapali");
+        if (!suAn) {
+          try { if (localStorage.getItem(STORAGE) === "1") layout.classList.add("st-kapali"); } catch(e){}
+        }
+        sonMobil = suAn;
+      }
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else { init(); }
+})();
+</script>
+
+{% endblock %}
+{% block content %}
+
+{% set saat = now_hour|default(12) %}
+{% if saat < 6 %}{% set selam = "İyi geceler" %}
+{% elif saat < 12 %}{% set selam = "Günaydın" %}
+{% elif saat < 18 %}{% set selam = "İyi günler" %}
+{% else %}{% set selam = "İyi akşamlar" %}{% endif %}
+
+{# ============================================================
+   HERO — karşılama
+   ============================================================ #}
+<section class="st-hero">
+  <div class="st-hero-text">
+    <div class="st-hero-eyebrow">
+      <span class="st-dot"></span>
+      <span>Öğrenci Paneli</span>
+    </div>
+    <h1 class="st-hero-title">{{ selam }}, {{ session.name.split(' ')[0] }}.</h1>
+    <p class="st-hero-sub">
+      <strong>{{ ogrenci.sinif }}</strong> sınıfı · <strong>{{ ogrenci.numara }}</strong> numaralı öğrenci
+    </p>
+  </div>
+</section>
+
+{# ============================================================
+   HIZLI ERİŞİM — 3 kart
+   ============================================================ #}
+<section class="st-quick">
+  <a href="{{ url_for('ders_programi') }}" class="st-quick-card">
+    <span class="st-quick-ico">🗓</span>
+    <span class="st-quick-body">
+      <span class="st-quick-label">Ders Programım</span>
+      <span class="st-quick-desc">Haftalık ders takvimi</span>
+    </span>
+  </a>
+  <a href="{{ url_for('odevler') }}" class="st-quick-card">
+    <span class="st-quick-ico">📋</span>
+    <span class="st-quick-body">
+      <span class="st-quick-label">Ödevlerim</span>
+      <span class="st-quick-desc">Teslim edilecek ödevler</span>
+    </span>
+  </a>
+  <a href="{{ url_for('devamsizlik_detay', sid=ogrenci.id) }}" class="st-quick-card">
+    <span class="st-quick-ico">📅</span>
+    <span class="st-quick-body">
+      <span class="st-quick-label">Devamsızlık</span>
+      <span class="st-quick-desc">Detaylı katılım kaydı</span>
+    </span>
+  </a>
+</section>
+
+{# ============================================================
+   İSTATİSTİK ŞERİDİ
+   ============================================================ #}
+{% set dev = devamsizlik %}
+{% if dev.toplam <= 5 %}{% set dev_sinif = "is-iyi" %}
+{% elif dev.toplam <= 10 %}{% set dev_sinif = "is-dikkat" %}
+{% elif dev.toplam <= 15 %}{% set dev_sinif = "is-uyari" %}
+{% else %}{% set dev_sinif = "is-kritik" %}{% endif %}
+
+<section class="st-stats">
+  <div class="st-stat">
+    <div class="st-stat-label">Devamsızlık</div>
+    <div class="st-stat-value {{ dev_sinif }}">{{ dev.toplam }}<small>gün</small></div>
+    <div class="st-stat-meta">
+      <span><span class="st-pin st-pin-yes"></span>İzinli {{ dev.izinli }}</span>
+      <span><span class="st-pin st-pin-no"></span>Gelmedi {{ dev.gelmedi }}</span>
+    </div>
+    <div class="st-bar"><div class="st-bar-fill {{ dev_sinif }}" style="width:{{ [100, (dev.toplam / 20 * 100)]|min }}%"></div></div>
+  </div>
+
+  <div class="st-stat">
+    <div class="st-stat-label">Ortalama</div>
+    <div class="st-stat-value">{{ ortalama }}</div>
+    <div class="st-stat-meta">{{ dersler|length }} dersten hesaplandı</div>
+  </div>
+
+  <div class="st-stat">
+    <div class="st-stat-label">Aktif Ders</div>
+    <div class="st-stat-value">{{ dersler|length }}</div>
+    <div class="st-stat-meta">{% if dersler %}Devam ediyor{% else %}—{% endif %}</div>
+  </div>
+
+  <div class="st-stat">
+    <div class="st-stat-label">Duyuru</div>
+    <div class="st-stat-value">{{ duyurular|length }}</div>
+    <div class="st-stat-meta">{% if duyurular %}Yayında{% else %}—{% endif %}</div>
+  </div>
+</section>
+
+{# ============================================================
+   NOTLAR
+   ============================================================ #}
+<section class="st-block">
+  <header class="st-block-head">
+    <h2 class="st-block-title">Notlarım</h2>
+    {% if dersler %}<span class="st-block-meta">{{ dersler|length }} ders</span>{% endif %}
+  </header>
+
+  {% if dersler %}
+  <div class="st-ders-liste">
+    {% for ders, sinavlar in dersler.items() %}
+      {% set ort = (sinavlar|map(attribute='puan')|sum) / (sinavlar|length) %}
+      {% if ort >= 85 %}{% set harf = "AA" %}{% set renk = "#059669" %}
+      {% elif ort >= 80 %}{% set harf = "BA" %}{% set renk = "#0369a1" %}
+      {% elif ort >= 75 %}{% set harf = "BB" %}{% set renk = "#1d4ed8" %}
+      {% elif ort >= 70 %}{% set harf = "CB" %}{% set renk = "#4338ca" %}
+      {% elif ort >= 65 %}{% set harf = "CC" %}{% set renk = "#c2410c" %}
+      {% elif ort >= 50 %}{% set harf = "DD" %}{% set renk = "#b45309" %}
+      {% else %}{% set harf = "FF" %}{% set renk = "#dc2626" %}{% endif %}
+      <div class="st-ders">
+        <div class="st-ders-left">
+          <div class="st-ders-ad">{{ ders }}</div>
+          <div class="st-ders-chips">
+            {% for s in sinavlar %}
+              <span class="st-chip"><em>{{ s.sinav }}</em>{{ s.puan }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="st-ders-right">
+          <span class="st-ders-ort">{{ ort|round(1) }}</span>
+          <span class="st-ders-harf" style="color:{{ renk }}">{{ harf }}</span>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="st-empty">
+    <span class="st-empty-ico">📖</span>
+    <strong>Henüz not kaydı yok</strong>
+    <p>Öğretmenleriniz not girdikçe burada görünecek.</p>
+  </div>
+  {% endif %}
+</section>
+
+{# ============================================================
+   DUYURULAR
+   ============================================================ #}
+<section class="st-block">
+  <header class="st-block-head">
+    <h2 class="st-block-title">Duyurular</h2>
+    {% if duyurular %}<span class="st-block-meta">{{ duyurular|length }} güncel</span>{% endif %}
+  </header>
+
+  {% if duyurular %}
+  <div class="st-duyuru-liste">
+    {% for d in duyurular %}
+    <article class="st-duyuru">
+      <header class="st-duyuru-head">
+        <h3>{{ d.baslik }}</h3>
+        <time>{{ d.tarih }}</time>
+      </header>
+      <p>{{ d.icerik }}</p>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="st-empty">
+    <span class="st-empty-ico">📭</span>
+    <strong>Henüz duyuru yok</strong>
+    <p>Okuldan yeni duyurular burada görünecek.</p>
+  </div>
+  {% endif %}
+</section>
+
+{% endblock %}

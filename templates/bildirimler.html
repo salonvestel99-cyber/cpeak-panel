@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% block title %}Bildirimler{% endblock %}
+{% block content %}
+
+<style>
+.bl-wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+.bl-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.bl-title { font-size: 22px; font-weight: 700; color: var(--ink, #18181b); margin: 0; }
+.bl-sub { font-size: 13px; color: var(--muted, #71717a); margin-top: 4px; }
+
+.bl-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+.bl-tab {
+  padding: 8px 14px; border-radius: 10px;
+  background: rgba(0,0,0,.04); color: var(--ink, #18181b);
+  text-decoration: none; font-size: 13px; font-weight: 500;
+  transition: background-color .14s, color .14s;
+}
+.bl-tab:hover { background: rgba(0,0,0,.08); }
+.bl-tab.is-active { background: rgba(180,83,9,.12); color: #b45309; font-weight: 600; }
+.bl-tab .bl-badge { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 999px; background: #dc2626; color: #fff; font-size: 11px; font-weight: 700; }
+
+.bl-liste { display: flex; flex-direction: column; gap: 10px; }
+.bl-kart {
+  background: var(--surface, #fff); border: 1px solid var(--border, #e4e4e7);
+  border-radius: 12px; padding: 16px;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px;
+}
+.bl-kart.bl-yeni { border-left: 3px solid #dc2626; }
+.bl-kart.bl-okundu { border-left: 3px solid #f59e0b; }
+.bl-kart.bl-cozuldu { border-left: 3px solid #059669; }
+.bl-kart > * { min-width: 0; overflow-wrap: anywhere; word-break: break-word; }
+
+.bl-kart-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+.bl-tur {
+  padding: 2px 8px; border-radius: 6px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+}
+.bl-tur-hata { background: rgba(220,38,38,.1); color: #b91c1c; }
+.bl-tur-oneri { background: rgba(5,150,105,.1); color: #047857; }
+.bl-tur-diger { background: rgba(100,116,139,.1); color: #475569; }
+.bl-baslik { font-size: 14.5px; font-weight: 600; color: var(--ink, #18181b); margin: 0; }
+.bl-meta { font-size: 11.5px; color: var(--muted, #71717a); margin-top: 2px; }
+.bl-mesaj { font-size: 13.5px; color: var(--ink, #18181b); line-height: 1.6; margin: 8px 0; white-space: pre-wrap; }
+.bl-url { font-size: 11.5px; color: var(--muted, #71717a); word-break: break-all; }
+.bl-url code { background: rgba(0,0,0,.05); padding: 1px 6px; border-radius: 4px; }
+
+.bl-aksiyonlar { display: flex; flex-direction: column; gap: 6px; justify-content: flex-start; align-items: stretch; min-width: 110px; flex-shrink: 0; }
+.bl-aksiyonlar form { margin: 0; }
+.bl-btn {
+  width: 100%; padding: 8px 12px; border-radius: 8px;
+  font-family: inherit; font-size: 12.5px; font-weight: 600;
+  cursor: pointer; border: 1px solid transparent;
+  transition: background-color .14s, color .14s, border-color .14s;
+}
+.bl-btn-coz { background: rgba(5,150,105,.1); color: #047857; border-color: rgba(5,150,105,.25); }
+.bl-btn-coz:hover { background: rgba(5,150,105,.18); }
+.bl-btn-sil { background: rgba(220,38,38,.08); color: #b91c1c; border-color: rgba(220,38,38,.2); }
+.bl-btn-sil:hover { background: rgba(220,38,38,.15); }
+.bl-btn-oku { background: rgba(245,158,11,.1); color: #b45309; border-color: rgba(245,158,11,.25); }
+.bl-btn-oku:hover { background: rgba(245,158,11,.18); }
+
+.bl-empty { text-align: center; padding: 60px 20px; color: var(--muted, #71717a); }
+
+/* ============================================================
+   CEVAP BLOGU
+   ============================================================ */
+.bl-cevap-blok { grid-column: 1 / -1; margin-top: 4px; }
+
+.bl-cevap-goster {
+  padding: 12px 14px;
+  background: rgba(5,150,105,.07);
+  border-left: 3px solid #059669;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-2, #27272a);
+}
+.bl-cevap-head {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11.5px; font-weight: 700;
+  color: #059669;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 6px;
+}
+.bl-cevap-tarih {
+  font-size: 11px; font-weight: 400;
+  color: var(--muted, #71717a);
+  text-transform: none; letter-spacing: 0;
+  margin-left: auto;
+}
+.bl-cevap-body { white-space: pre-wrap; }
+
+.bl-cevap-form { display: flex; flex-direction: column; gap: 8px; }
+.bl-cevap-input {
+  width: 100%; min-height: 70px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--border, #e4e4e7);
+  border-radius: 10px;
+  background: var(--bg, #fafafa);
+  font-family: inherit; font-size: 13px;
+  color: var(--ink, #18181b);
+  resize: vertical; box-sizing: border-box;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.bl-cevap-input:focus {
+  outline: none; border-color: #d97706;
+  box-shadow: 0 0 0 3px rgba(217,119,6,.12);
+  background: var(--surface, #fff);
+}
+.bl-cevap-input::placeholder { color: rgba(24,24,27,.35); }
+.bl-cevap-btn {
+  align-self: flex-end;
+  padding: 9px 20px;
+  background: linear-gradient(135deg, #b45309, #d97706);
+  color: #fff; border: none; border-radius: 9px;
+  font-family: inherit; font-size: 12.5px; font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px -3px rgba(180,83,9,.45);
+  transition: filter .15s ease, transform .15s ease, box-shadow .2s ease;
+}
+.bl-cevap-btn:hover { filter: brightness(1.06); transform: translateY(-1px); box-shadow: 0 6px 16px -3px rgba(180,83,9,.55); }
+.bl-cevap-btn:active { transform: translateY(0); }
+
+/* Koyu mod */
+html[data-theme="dark"] .bl-kart, html.dark .bl-kart { background: #18181b; border-color: #27272a; }
+html[data-theme="dark"] .bl-title, html.dark .bl-title { color: #fafaf9; }
+html[data-theme="dark"] .bl-baslik, html.dark .bl-baslik { color: #fafaf9; }
+html[data-theme="dark"] .bl-mesaj, html.dark .bl-mesaj { color: #e4e4e7; }
+html[data-theme="dark"] .bl-tab, html.dark .bl-tab { background: rgba(255,255,255,.06); color: #e4e4e7; }
+html[data-theme="dark"] .bl-tab:hover, html.dark .bl-tab:hover { background: rgba(255,255,255,.1); }
+html[data-theme="dark"] .bl-tab.is-active, html.dark .bl-tab.is-active { background: rgba(245,158,11,.15); color: #f59e0b; }
+html[data-theme="dark"] .bl-url code, html.dark .bl-url code { background: rgba(255,255,255,.06); color: #a1a1aa; }
+html[data-theme="dark"] .bl-cevap-goster, html.dark .bl-cevap-goster {
+  background: rgba(52,211,153,.10);
+  border-left-color: #34d399;
+  color: #e4e4e7;
+}
+html[data-theme="dark"] .bl-cevap-head, html.dark .bl-cevap-head { color: #34d399; }
+html[data-theme="dark"] .bl-cevap-input, html.dark .bl-cevap-input {
+  background: rgba(255,255,255,.03);
+  border-color: rgba(255,255,255,.1);
+  color: #fafaf9;
+}
+html[data-theme="dark"] .bl-cevap-input:focus, html.dark .bl-cevap-input:focus {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245,158,11,.15);
+}
+
+@media (max-width: 720px) {
+  .bl-kart { grid-template-columns: 1fr; }
+  .bl-aksiyonlar { flex-direction: row; flex-wrap: wrap; }
+  .bl-aksiyonlar form { flex: 1 1 0; min-width: 100px; }
+}
+</style>
+
+<div class="bl-wrap">
+  <div class="bl-head">
+    <div>
+      <h1 class="bl-title">Bildirimler</h1>
+      <p class="bl-sub">Kullanıcılardan gelen sorun, öneri ve geri bildirimler</p>
+    </div>
+  </div>
+
+  <div class="bl-tabs">
+    <a class="bl-tab {% if filtre == 'tumu' %}is-active{% endif %}" href="{{ url_for('admin_bildirimler') }}">
+      Tümü <span style="opacity:.7">({{ toplam }})</span>
+    </a>
+    <a class="bl-tab {% if filtre == 'yeni' %}is-active{% endif %}" href="{{ url_for('admin_bildirimler', durum='yeni') }}">
+      Yeni {% if yeni_sayi %}<span class="bl-badge">{{ yeni_sayi }}</span>{% endif %}
+    </a>
+    <a class="bl-tab {% if filtre == 'okundu' %}is-active{% endif %}" href="{{ url_for('admin_bildirimler', durum='okundu') }}">
+      Okundu <span style="opacity:.7">({{ okundu_sayi }})</span>
+    </a>
+    <a class="bl-tab {% if filtre == 'cozuldu' %}is-active{% endif %}" href="{{ url_for('admin_bildirimler', durum='cozuldu') }}">
+      Çözüldü <span style="opacity:.7">({{ cozuldu_sayi }})</span>
+    </a>
+  </div>
+
+  {% if bildirimler %}
+  <div class="bl-liste">
+    {% for b in bildirimler %}
+    <article class="bl-kart bl-{{ b.durum }}">
+      <div>
+        <div class="bl-kart-head">
+          <span class="bl-tur bl-tur-{{ b.tur }}">
+            {% if b.tur == 'hata' %}🐞 Hata
+            {% elif b.tur == 'oneri' %}💡 Öneri
+            {% else %}💬 Diğer{% endif %}
+          </span>
+          <h3 class="bl-baslik">{{ b.baslik }}</h3>
+        </div>
+        <div class="bl-meta">
+          {% if b.user_name %}<strong>{{ b.user_name }}</strong>{% endif %}
+          {% if b.role %} · {{ b.role }}{% endif %}
+          {% if b.user_tc %} · TC: {{ b.user_tc }}{% endif %}
+          · {{ b.tarih }}
+        </div>
+        <p class="bl-mesaj">{{ b.mesaj }}</p>
+        {% if b.sayfa_url %}
+        <div class="bl-url">Sayfa: <code>{{ b.sayfa_url }}</code></div>
+        {% endif %}
+      </div>
+      <div class="bl-aksiyonlar">
+        {% if b.durum == 'yeni' %}
+        <form method="post" action="{{ url_for('admin_bildirim_oku', bid=b.id) }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="bl-btn bl-btn-oku">Okundu</button>
+        </form>
+        {% endif %}
+        {% if b.durum != 'cozuldu' %}
+        <form method="post" action="{{ url_for('admin_bildirim_coz', bid=b.id) }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="bl-btn bl-btn-coz">Çözüldü</button>
+        </form>
+        {% endif %}
+        <form method="post" action="{{ url_for('admin_bildirim_sil', bid=b.id) }}"
+              onsubmit="return confirm('Bu bildirimi silmek istiyor musunuz?');">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="bl-btn bl-btn-sil">Sil</button>
+        </form>
+      </div>
+
+      <div class="bl-cevap-blok">
+        {% if b.cevap %}
+        <div class="bl-cevap-goster">
+          <div class="bl-cevap-head">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Cevabınız
+            {% if b.cevap_tarih %}<span class="bl-cevap-tarih">{{ b.cevap_tarih }}</span>{% endif %}
+          </div>
+          <div class="bl-cevap-body">{{ b.cevap }}</div>
+        </div>
+        {% endif %}
+
+        <form method="post" action="{{ url_for('admin_bildirim_cevapla', bid=b.id) }}" class="bl-cevap-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <textarea class="bl-cevap-input" name="cevap" placeholder="Kullanıcıya cevabınızı yazın..." maxlength="2000" required>{{ b.cevap or '' }}</textarea>
+          <button type="submit" class="bl-cevap-btn">
+            {% if b.cevap %}Cevabı Güncelle{% else %}Cevap Gönder{% endif %}
+          </button>
+        </form>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="bl-empty">
+    <p style="font-size:48px;margin:0">📭</p>
+    <p>Bu kategoride bildirim yok.</p>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block title %}Toplu Devamsızlık{% endblock %}
+{% block content %}
+
+<div class="panel-hero">
+  <div class="panel-hero-text">
+    <div class="panel-hero-eyebrow">Yoklama</div>
+    <h1 class="panel-hero-greet">Toplu Devamsızlık Girişi</h1>
+    <p class="panel-hero-sub">Tarih ve sınıf seçin — her öğrenci için tek tık ile işaretleyin.</p>
+  </div>
+  <div class="panel-hero-avatar">{{ session.name[0]|upper }}</div>
+</div>
+
+{# ---------- Adım 1: Tarih + Sınıf ---------- #}
+<div class="card">
+  <div class="card-head">
+    <h3>🔍 Tarih ve Sınıf Seçimi</h3>
+    {% if students %}
+      <button type="button" class="btn-mini" id="tumuGeldi">Tümü Geldi</button>
+    {% endif %}
+  </div>
+  <form method="get" action="{{ url_for('devamsizlik_giris') }}" class="not-filter-form">
+    <div class="form-row" style="grid-template-columns: 1fr 1fr auto">
+      <label>
+        <span>Tarih</span>
+        <input type="date" name="tarih" value="{{ tarih }}" required>
+      </label>
+      <label>
+        <span>Sınıf (opsiyonel)</span>
+        <select name="sinif">
+          <option value="">— Tüm Sınıflar —</option>
+          {% for s in siniflar %}
+          <option value="{{ s }}" {% if secili_sinif == s %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="filter-button">
+        <span>&nbsp;</span>
+        <button type="submit" class="btn-primary">Listeyi Getir</button>
+      </label>
+    </div>
+  </form>
+</div>
+
+{# ---------- Adım 2: Yoklama Listesi ---------- #}
+{% if students %}
+<div class="card">
+  <div class="card-head">
+    <h3>📋 Yoklama — {{ tarih }}</h3>
+    <span class="muted small">{{ students|length }} öğrenci</span>
+  </div>
+
+  <p class="muted small" style="margin-bottom:16px">
+    Her öğrenci için <strong>Geldi</strong>, <strong>Gelmedi</strong> veya <strong>İzinli</strong>'yi seçin.
+    Boş bırakılanlar atlanır. Aynı gün için tekrar kaydettiğinizde önceki kayıt güncellenir.
+  </p>
+
+  <form method="post" action="{{ url_for('devamsizlik_kaydet') }}" class="yoklama-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="tarih" value="{{ tarih }}">
+    <input type="hidden" name="sinif" value="{{ secili_sinif }}">
+
+    <div class="not-table-wrap">
+      <table class="not-table yoklama-table">
+        <thead>
+          <tr>
+            <th style="width:56px">#</th>
+            <th>Ad Soyad</th>
+            <th style="width:110px">Sınıf</th>
+            <th style="width:280px">Durum</th>
+            <th>Açıklama</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for o in students %}
+          {% set m = mevcut.get(o.id, {}) %}
+          {% set d = m.get('durum', '') %}
+          <tr>
+            <td class="muted small">{{ loop.index }}</td>
+            <td><strong>{{ o.ad }}</strong></td>
+            <td><span class="chip">{{ o.sinif }} / {{ o.numara }}</span></td>
+            <td>
+              <div class="durum-group">
+                <label class="durum-pill durum-geldi {% if d == 'geldi' %}is-active{% endif %}">
+                  <input type="radio" name="durum_{{ o.id }}" value="geldi" {% if d == 'geldi' %}checked{% endif %}>
+                  <span>Geldi</span>
+                </label>
+                <label class="durum-pill durum-gelmedi {% if d == 'gelmedi' %}is-active{% endif %}">
+                  <input type="radio" name="durum_{{ o.id }}" value="gelmedi" {% if d == 'gelmedi' %}checked{% endif %}>
+                  <span>Gelmedi</span>
+                </label>
+                <label class="durum-pill durum-izinli {% if d == 'izinli' %}is-active{% endif %}">
+                  <input type="radio" name="durum_{{ o.id }}" value="izinli" {% if d == 'izinli' %}checked{% endif %}>
+                  <span>İzinli</span>
+                </label>
+              </div>
+            </td>
+            <td>
+              <input type="text" name="aciklama_{{ o.id }}" value="{{ m.get('aciklama') or '' }}" class="mini-input" style="width:100%">
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="not-form-actions">
+      <button type="submit" class="btn-primary">Yoklamayı Kaydet</button>
+    </div>
+  </form>
+</div>
+{% else %}
+<div class="card bilgi">
+  <p class="muted">
+    Başlamak için yukarıdan bir <strong>tarih</strong> seçip <strong>Listeyi Getir</strong>'e basın.
+    İsterseniz sınıf filtresi de ekleyebilirsiniz.
+  </p>
+</div>
+{% endif %}
+
+<div style="margin-top:20px">
+  <a href="{{ url_for('dashboard') }}" class="btn-ghost">← Panele Dön</a>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // "Tümü Geldi" — tüm öğrencileri tek tıkla Geldi yap
+  var btn = document.getElementById("tumuGeldi");
+  if (btn) {
+    btn.addEventListener("click", function () {
+      document.querySelectorAll('.durum-pill.durum-geldi input[type="radio"]').forEach(function (r) {
+        r.checked = true;
+        // Aktif sınıfı güncelle
+        document.querySelectorAll(".durum-pill").forEach(function (p) { p.classList.remove("is-active"); });
+      });
+      document.querySelectorAll(".durum-pill").forEach(function (p) {
+        var inp = p.querySelector("input");
+        if (inp && inp.checked) p.classList.add("is-active");
+      });
+    });
+  }
+
+  // Her radio değiştiğinde pill aktifliğini güncelle
+  document.querySelectorAll(".durum-pill input[type='radio']").forEach(function (inp) {
+    inp.addEventListener("change", function () {
+      var name = this.name;
+      document.querySelectorAll('input[name="' + name + '"]').forEach(function (r) {
+        r.closest(".durum-pill").classList.toggle("is-active", r.checked);
+      });
+    });
+  });
+})();
+</script>
+
+{% endblock %}

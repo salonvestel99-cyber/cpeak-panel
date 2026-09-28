@@ -1,0 +1,796 @@
+/* =========================================================
+   RESPONSIVE — Tüm site mobil uyumluluk
+   Breakpoint'ler: 1024px (tablet), 768px (mobil), 480px (küçük)
+   ========================================================= */
+
+/* ---------- Global ---------- */
+* { -webkit-tap-highlight-color: rgba(0,0,0,.05); }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  overflow-x: hidden;
+}
+img, svg { max-width: 100%; height: auto; }
+
+/* Container'lar */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 28px;
+  box-sizing: border-box;
+}
+
+/* Tüm inputlar iOS'ta zoom yapmasın (16px min) */
+@media (max-width: 720px) {
+  input, select, textarea, button {
+    font-size: 16px !important;
+  }
+}
+
+/* Touch-friendly butonlar */
+@media (hover: none) and (pointer: coarse) {
+  .btn-primary,
+  .btn-ghost,
+  .btn-mini,
+  .admin-tab,
+  .qa-btn,
+  .st-quick-card,
+  .theme-toggle {
+    min-height: 44px;
+  }
+  .btn-mini {
+    min-height: 36px;
+    padding: 8px 14px;
+  }
+}
+
+/* =========================================================
+   TABLET (<= 1024px)
+   ========================================================= */
+@media (max-width: 1024px) {
+  .container { padding: 0 22px; }
+
+  /* Login hero ve form üst üste */
+  .login-wrap {
+    grid-template-columns: 1fr !important;
+  }
+  .login-hero {
+    padding: 60px 40px !important;
+    min-height: auto !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+  }
+  .login-main {
+    padding: 44px 28px !important;
+  }
+
+  /* İstatistikler 3'lü */
+  .st-stats,
+  .stat-row,
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .st-stat:nth-child(2n),
+  .stat-item:nth-child(2n),
+  .stat-card:nth-child(2n) {
+    border-right: none !important;
+  }
+
+  /* Admin grid 1 sütuna */
+  .admin-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Ders programı tablosu - küçük font */
+  .ders-programi-tablo th,
+  .ders-programi-tablo td {
+    padding: 8px 6px !important;
+    font-size: .82rem !important;
+  }
+}
+
+/* =========================================================
+   MOBİL (<= 768px)
+   ========================================================= */
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+
+  /* ---------- Topbar ---------- */
+  .topbar-inner {
+    padding: 0 14px !important;
+    height: 58px !important;
+    gap: 10px !important;
+  }
+  .topbar-brand {
+    gap: 8px !important;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+  .topbar-brand-mark {
+    width: 34px !important;
+    height: 34px !important;
+  }
+  .topbar-brand-mark img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+  .topbar-brand-title {
+    font-size: 1rem !important;
+  }
+  .topbar-brand-sep,
+  .topbar-brand-sub { display: none !important; }
+
+  .topbar-user { gap: 6px !important; }
+  .topbar-user-name { display: none !important; }
+  .topbar-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: .8rem !important;
+  }
+  .profile-trigger {
+    padding: 4px 6px 4px 4px !important;
+  }
+  .dropdown-chevron { display: none !important; }
+  .theme-toggle {
+    width: 34px !important;
+    height: 34px !important;
+  }
+  .topbar-action {
+    padding: 8px 10px !important;
+    font-size: .82rem !important;
+  }
+
+  /* Dropdown menü */
+  .profile-dropdown-menu {
+    width: 200px !important;
+    right: -8px !important;
+  }
+
+  /* ---------- Panel Hero ---------- */
+  .panel-hero {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 22px 0 18px !important;
+    margin-bottom: 20px !important;
+    gap: 12px !important;
+  }
+  .panel-hero-greet {
+    font-size: 1.5rem !important;
+    line-height: 1.2 !important;
+  }
+  .panel-hero-sub {
+    font-size: .88rem !important;
+  }
+  .panel-hero-avatar {
+    width: 52px !important;
+    height: 52px !important;
+    font-size: 1.4rem !important;
+    align-self: flex-end;
+  }
+
+  /* ---------- Öğrenci Hero ---------- */
+  .st-hero {
+    flex-direction: row !important;
+    padding: 20px 0 18px !important;
+    margin-bottom: 20px !important;
+    gap: 14px !important;
+  }
+  .st-hero-title { font-size: 1.45rem !important; }
+  .st-hero-sub { font-size: .86rem !important; }
+  .st-hero-avatar {
+    width: 52px !important;
+    height: 52px !important;
+    font-size: 1.4rem !important;
+    border-radius: 14px !important;
+  }
+
+  /* ---------- Hızlı Kartlar ---------- */
+  .st-quick,
+  .quick-actions {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  .st-quick-card,
+  .qa-btn {
+    padding: 14px 16px !important;
+    min-height: 60px;
+  }
+
+  /* ---------- İstatistikler ---------- */
+  .st-stats,
+  .stat-row,
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    border-radius: 10px !important;
+  }
+  .st-stat,
+  .stat-item,
+  .stat-card {
+    padding: 16px 14px !important;
+    border-radius: 0 !important;
+  }
+  .st-stat-value,
+  .stat-value,
+  .stat-card-deger {
+    font-size: 1.6rem !important;
+    letter-spacing: -0.03em !important;
+  }
+  .st-stat-value small,
+  .stat-value small,
+  .stat-card-deger small {
+    font-size: .78rem !important;
+  }
+  .st-stat-label,
+  .stat-label,
+  .stat-card-etiket {
+    font-size: .64rem !important;
+    letter-spacing: .1em !important;
+    margin-bottom: 10px !important;
+  }
+  .st-stat-meta,
+  .stat-meta,
+  .stat-card-alt {
+    font-size: .72rem !important;
+    gap: 8px !important;
+  }
+  /* 2 sütun için border ayarları */
+  .st-stat:nth-child(2n),
+  .stat-item:nth-child(2n),
+  .stat-card:nth-child(2n) {
+    border-right: none !important;
+  }
+  .st-stat:nth-child(-n+2),
+  .stat-item:nth-child(-n+2),
+  .stat-card:nth-child(-n+2) {
+    border-bottom: 1px solid var(--border) !important;
+  }
+
+  /* ---------- Bölümler ---------- */
+  .section { margin-bottom: 28px !important; }
+  .st-block { margin-bottom: 28px !important; }
+  .section-head,
+  .st-block-head {
+    margin-bottom: 12px !important;
+    flex-wrap: wrap;
+    gap: 6px !important;
+  }
+  .section-title,
+  .st-block-title {
+    font-size: 1rem !important;
+  }
+
+  /* ---------- Dersler ---------- */
+  .st-ders,
+  .ders-row {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    padding: 14px 16px !important;
+  }
+  .st-ders-right,
+  .ders-row-right {
+    justify-content: space-between !important;
+    width: 100%;
+  }
+  .st-ders-ort,
+  .ders-ort {
+    text-align: left !important;
+    font-size: 1rem !important;
+  }
+  .st-ders-harf,
+  .ders-harf {
+    text-align: right !important;
+    font-size: 1.2rem !important;
+  }
+  .st-ders-chips,
+  .ders-chips {
+    gap: 4px !important;
+  }
+  .st-chip,
+  .sinav-chip {
+    font-size: .72rem !important;
+    padding: 3px 8px !important;
+  }
+
+  /* ---------- Duyurular ---------- */
+  .st-duyuru,
+  .duyuru-item {
+    padding: 14px 16px !important;
+  }
+  .st-duyuru-head,
+  .duyuru-head {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+  .st-duyuru-head h3,
+  .duyuru-baslik {
+    font-size: .94rem !important;
+  }
+
+  /* ---------- Card ---------- */
+  .card {
+    padding: 18px 16px !important;
+    border-radius: 12px !important;
+    margin-bottom: 14px !important;
+  }
+  .card h3 {
+    font-size: .98rem !important;
+  }
+  .card-head {
+    flex-wrap: wrap;
+    gap: 8px !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* ---------- Formlar ---------- */
+  .admin-form .form-row,
+  .compact-form .form-row,
+  .not-filter-form .form-row {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .admin-form label > span,
+  .compact-form label > span {
+    font-size: .68rem !important;
+  }
+  .admin-form input,
+  .admin-form select,
+  .admin-form textarea,
+  .compact-form input,
+  .compact-form select,
+  .compact-form textarea,
+  .not-filter-form select,
+  .puan-input,
+  .mini-input {
+    padding: 11px 13px !important;
+    font-size: 16px !important;
+    border-radius: 10px !important;
+  }
+  .admin-form .btn-primary,
+  .compact-form .btn-primary,
+  .not-form-actions .btn-primary {
+    max-width: none !important;
+    width: 100% !important;
+  }
+  .compact-form .form-actions {
+    justify-content: stretch !important;
+  }
+  .not-filter-form .filter-button {
+    min-width: 0 !important;
+  }
+
+  /* ---------- Tablolar ---------- */
+  .table-wrap,
+  .not-table-wrap {
+    margin: 0 -16px !important;
+    padding: 0 16px !important;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+  .table th,
+  .table td,
+  .compact-table th,
+  .compact-table td,
+  .not-table th,
+  .not-table td {
+    padding: 10px 8px !important;
+    font-size: .82rem !important;
+    white-space: nowrap;
+  }
+  .compact-table .mono {
+    font-size: .78rem !important;
+  }
+
+  /* ---------- Mini butonlar ---------- */
+  .islem-hucre {
+    justify-content: flex-start !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
+  .btn-mini {
+    padding: 6px 10px !important;
+    font-size: .72rem !important;
+    min-height: 34px !important;
+  }
+  .mini-input {
+    width: 100% !important;
+    max-width: 140px;
+  }
+  .inline-form {
+    flex-wrap: wrap !important;
+  }
+
+  /* ---------- Admin sekmeleri ---------- */
+  .admin-tabs {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+    margin-bottom: 16px !important;
+    scrollbar-width: none;
+  }
+  .admin-tabs::-webkit-scrollbar { display: none; }
+  .admin-tab {
+    padding: 10px 14px !important;
+    font-size: .84rem !important;
+    min-height: 42px !important;
+  }
+  .admin-title {
+    font-size: 1.4rem !important;
+  }
+  .admin-stats-row {
+    gap: 6px !important;
+  }
+  .as-item {
+    padding: 5px 10px !important;
+  }
+  .as-num { font-size: .95rem !important; }
+  .as-lbl { font-size: .66rem !important; }
+
+  /* ---------- Modallar ---------- */
+  .modal,
+  .premium-modal-overlay {
+    padding: 12px !important;
+  }
+  .modal-card,
+  .premium-modal-card {
+    padding: 22px 18px 18px !important;
+    border-radius: 16px !important;
+    max-width: none !important;
+    width: 100% !important;
+    max-height: 92vh !important;
+  }
+  .modal-card h3,
+  .premium-modal-card h3 {
+    font-size: 1.2rem !important;
+  }
+  .modal-actions {
+    flex-direction: column-reverse;
+    gap: 8px !important;
+  }
+  .modal-actions button,
+  .modal-actions a {
+    width: 100%;
+    min-height: 44px;
+  }
+  .kvkk-text {
+    max-height: 55vh !important;
+    font-size: .86rem !important;
+  }
+
+  /* ---------- Ödev kartları ---------- */
+  .odev-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .odev-card {
+    padding: 14px 16px !important;
+  }
+  .odev-baslik { font-size: .98rem !important; }
+  .odev-meta {
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
+
+  /* ---------- Ders programı ---------- */
+  .ders-programi-tablo {
+    font-size: .7rem !important;
+  }
+  .ders-programi-tablo th,
+  .ders-programi-tablo td {
+    padding: 5px 3px !important;
+    font-size: .66rem !important;
+  }
+  .saat-cell {
+    font-size: .72rem !important;
+    width: 34px !important;
+  }
+  .ders-chip {
+    padding: 3px 6px !important;
+    font-size: .64rem !important;
+  }
+  .hucre-select {
+    font-size: .68rem !important;
+    padding: 5px 3px !important;
+  }
+
+  /* ---------- Yoklama ---------- */
+  .durum-group {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+  .durum-pill span {
+    padding: 6px 10px !important;
+    font-size: .72rem !important;
+  }
+
+  /* ---------- Footer ---------- */
+  .login-footer-bar {
+    padding: 16px 16px !important;
+  }
+  .footer-inner {
+    flex-direction: column !important;
+    gap: 12px !important;
+    text-align: center;
+  }
+  .footer-copy,
+  .footer-contact {
+    font-size: .72rem !important;
+  }
+  .footer-contact {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .footer-social {
+    order: -1;
+  }
+  .social-icon {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  /* ---------- WhatsApp float ---------- */
+  .whatsapp-float {
+    width: 50px !important;
+    height: 50px !important;
+    bottom: 16px !important;
+    right: 14px !important;
+  }
+  .whatsapp-tip { display: none !important; }
+  .whatsapp-float svg { width: 22px !important; height: 22px !important; }
+
+  /* ---------- Login ---------- */
+  .login-hero {
+    padding: 40px 22px 32px !important;
+  }
+  .hero-content { max-width: 100% !important; }
+  .login-hero h1 {
+    font-size: 1.55rem !important;
+    line-height: 1.2 !important;
+  }
+  .hero-lead {
+    font-size: .94rem !important;
+    margin-bottom: 22px !important;
+  }
+  .hero-list { gap: 8px !important; }
+  .hero-list li { font-size: .9rem !important; }
+  .hero-stats {
+    gap: 18px 22px !important;
+    margin-top: 28px !important;
+    padding-top: 22px !important;
+  }
+  .hero-stat strong { font-size: 1.3rem !important; }
+  .hero-stat span { font-size: .7rem !important; }
+  .hero-brand-mark img { height: 68px !important; }
+  .hero-brand-title { font-size: 1.7rem !important; }
+  .hero-brand-sub { letter-spacing: .3em !important; }
+
+  .login-main {
+    padding: 32px 20px !important;
+  }
+  .login-card h2 {
+    font-size: 1.6rem !important;
+  }
+  .login-card .lead {
+    font-size: .9rem !important;
+    margin-bottom: 22px !important;
+  }
+  .login-card label > span {
+    font-size: .72rem !important;
+  }
+  .login-card input {
+    padding: 12px 14px !important;
+    font-size: 16px !important;
+  }
+  .login-extra {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    padding: 12px 0 !important;
+  }
+  .kvkk-line {
+    font-size: .78rem !important;
+  }
+  .link-premium {
+    font-size: .82rem !important;
+  }
+  .btn-primary {
+    padding: 13px 18px !important;
+    font-size: .95rem !important;
+  }
+
+  /* ---------- KVKK / Legal ---------- */
+  .legal-page { padding: 22px 0 50px !important; }
+  .legal-title { font-size: 1.35rem !important; }
+  .legal-lead { font-size: .9rem !important; }
+  .legal-tabs {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .legal-tabs::-webkit-scrollbar { display: none; }
+  .legal-tab {
+    padding: 10px 14px !important;
+    font-size: .82rem !important;
+    white-space: nowrap;
+  }
+  .legal-body h2 { font-size: 1.02rem !important; }
+  .legal-body p { font-size: .88rem !important; }
+  .legal-list li { font-size: .86rem !important; padding-left: 20px !important; }
+  .legal-table {
+    font-size: .78rem !important;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+  .legal-table th,
+  .legal-table td {
+    padding: 9px 10px !important;
+  }
+  .legal-footer {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+  .legal-footer p { font-size: .8rem !important; }
+  .legal-back {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ---------- Cookie banner ---------- */
+  .cookie-banner {
+    left: 10px !important;
+    right: 10px !important;
+    bottom: 10px !important;
+    padding: 14px 16px !important;
+    border-radius: 12px !important;
+  }
+  .cookie-banner-inner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+  .cookie-icon { display: none !important; }
+  .cookie-actions {
+    width: 100% !important;
+    flex-direction: row !important;
+  }
+  .cookie-btn {
+    flex: 1 !important;
+    padding: 12px 14px !important;
+    font-size: .86rem !important;
+    min-height: 44px;
+  }
+
+  /* ---------- Öğrenci paneli ekstra ---------- */
+  .st-quick-ico {
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 1.1rem !important;
+  }
+  .st-ders-liste {
+    border-radius: 10px !important;
+  }
+  .st-empty {
+    padding: 32px 18px !important;
+  }
+  .st-empty-ico { font-size: 1.6rem !important; }
+
+  /* ---------- Sayfa başlığı ---------- */
+  .page-head {
+    padding: 22px 0 18px !important;
+    margin-bottom: 20px !important;
+  }
+  .page-head h1 {
+    font-size: 1.4rem !important;
+  }
+}
+
+/* =========================================================
+   KÜÇÜK MOBİL (<= 480px)
+   ========================================================= */
+@media (max-width: 480px) {
+  .container { padding: 0 14px; }
+
+  /* İstatistikler artık 1 sütuna */
+  .st-stats,
+  .stat-row,
+  .stat-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Çok küçük ekranda 4'lü stat ise 2 sütuna sabit */
+  .stat-grid.grid-4 {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Topbar metni */
+  .topbar-brand-title {
+    font-size: .94rem !important;
+  }
+
+  /* Panel hero */
+  .panel-hero-greet { font-size: 1.3rem !important; }
+  .st-hero-title { font-size: 1.25rem !important; }
+
+  /* Login hero daha da küçük */
+  .login-hero { padding: 34px 18px 26px !important; }
+  .login-hero h1 { font-size: 1.35rem !important; }
+  .hero-lead { font-size: .88rem !important; }
+  .hero-list li { font-size: .86rem !important; }
+  .hero-stat strong { font-size: 1.15rem !important; }
+  .hero-brand-mark img { height: 60px !important; }
+  .hero-brand-title { font-size: 1.5rem !important; }
+
+  /* Modal */
+  .modal-card h3,
+  .premium-modal-card h3 { font-size: 1.1rem !important; }
+  .modal-card p,
+  .premium-modal-card p { font-size: .88rem !important; }
+
+  /* Butonlar */
+  .btn-primary {
+    padding: 12px 16px !important;
+    font-size: .92rem !important;
+  }
+
+  /* KVKK */
+  .legal-title { font-size: 1.2rem !important; }
+  .legal-tab { font-size: .76rem !important; padding: 9px 12px !important; }
+
+  /* Cookie */
+  .cookie-actions { flex-direction: column !important; }
+  .cookie-btn { width: 100% !important; }
+
+  /* Tablolar */
+  .table th,
+  .table td,
+  .compact-table th,
+  .compact-table td {
+    font-size: .76rem !important;
+    padding: 8px 6px !important;
+  }
+}
+
+/* =========================================================
+   ÇOK KÜÇÜK (<= 360px)
+   ========================================================= */
+@media (max-width: 360px) {
+  .container { padding: 0 12px; }
+  .topbar-brand-title { font-size: .88rem !important; }
+  .topbar-brand-mark { width: 30px !important; height: 30px !important; }
+  .topbar-brand-mark img { width: 22px !important; height: 22px !important; }
+  .st-stat-value,
+  .stat-value { font-size: 1.4rem !important; }
+}
+
+/* =========================================================
+   YATAY MOD (mobil yatay)
+   ========================================================= */
+@media (max-width: 900px) and (orientation: landscape) {
+  .login-hero {
+    padding: 30px 28px !important;
+  }
+  .login-hero h1 { font-size: 1.3rem !important; }
+  .hero-brand-mark img { height: 55px !important; }
+  .hero-stats { margin-top: 20px !important; padding-top: 16px !important; }
+}
+
+/* =========================================================
+   YAZDIRMA
+   ========================================================= */
+@media print {
+  .topbar,
+  .theme-toggle,
+  .cookie-banner,
+  .whatsapp-float,
+  .login-footer-bar,
+  .footer-social { display: none !important; }
+  body { background: #fff !important; color: #000 !important; }
+  .card { box-shadow: none !important; border: 1px solid #ccc !important; }
+  .container { max-width: 100% !important; padding: 0 !important; }
+}

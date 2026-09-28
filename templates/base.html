@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("cpeak_theme");
+    if (t) document.documentElement.setAttribute("data-theme", t);
+    else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  } catch (e) {}
+})();
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>{% block title %}C · Peak English{% endblock %}</title>
+<link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='logochrome.png') }}">
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='hero.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='panel.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='legal.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='footer.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='student.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='teacher.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='responsive.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='whatsapp.css') }}?v=20260928_062847">
+<style>
+/* Buton olarak kullanilan .topbar-action icin reset */
+button.topbar-action {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: rgba(255,255,255,.55);
+  padding: 8px 12px;
+}
+button.topbar-action:hover {
+  color: #fff;
+  background: rgba(255,255,255,.06);
+}
+button.topbar-action svg { display: block; }
+
+/* ============================================================
+   PREMIUM TOPBAR BRAND (v2 - kutusuz, altin cizgili)
+   ============================================================ */
+.topbar-brand {
+  position: relative;
+  padding: 8px 14px 8px 8px;
+  background: none !important;
+  border-radius: 0;
+  transition: none;
+}
+.topbar-brand:hover {
+  background: none !important;
+  opacity: 1 !important;
+}
+
+/* Hover'da alttan acilan altin cizgi */
+.topbar-brand::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 14px;
+  bottom: 0px;
+  height: 1.5px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(217,119,6,.9) 50%,
+    transparent 100%);
+  transform: scaleX(0);
+  transform-origin: center;
+  opacity: 0;
+  transition: transform .5s cubic-bezier(.4,0,.2,1), opacity .5s ease;
+  pointer-events: none;
+}
+.topbar-brand:hover::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* Logo */
+.topbar-brand-mark {
+  width: 44px;
+  height: 44px;
+  transition: transform .5s cubic-bezier(.34,1.56,.64,1);
+}
+.topbar-brand:hover .topbar-brand-mark {
+  transform: scale(1.07) rotate(-3deg);
+}
+
+/* Nefes alan altin halo */
+.topbar-brand-mark::before {
+  inset: -16px;
+  background: radial-gradient(circle,
+    rgba(217,119,6,.42) 0%,
+    rgba(217,119,6,.16) 44%,
+    transparent 74%);
+  filter: blur(16px);
+  opacity: .82;
+  animation: brandGlow 4.5s ease-in-out infinite;
+}
+@keyframes brandGlow {
+  0%, 100% { opacity: .72; transform: scale(1);    }
+  50%      { opacity: 1.00; transform: scale(1.09); }
+}
+.topbar-brand:hover .topbar-brand-mark::before {
+  opacity: 1;
+  filter: blur(20px);
+}
+
+/* "C · Peak" yazisi */
+.topbar-brand-title {
+  font-size: 1.22rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-shadow: 0 0 22px rgba(217,119,6,.14);
+  transition: text-shadow .4s ease;
+}
+.topbar-brand:hover .topbar-brand-title {
+  text-shadow: 0 0 36px rgba(217,119,6,.48);
+}
+.topbar-brand-title::first-letter {
+  color: #d97706;
+  font-weight: 700;
+}
+
+/* Ayrac */
+.topbar-brand-sep {
+  width: 1.5px;
+  height: 18px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(217,119,6,.65) 50%,
+    transparent 100%);
+  border-radius: 2px;
+}
+
+/* "ENGLISH" yazisi — Turkce locale'in noktali I uretmesini engelle */
+.topbar-brand-sub {
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  color: rgba(217,119,6,.82);
+  text-transform: none !important;
+  transition: color .3s ease, letter-spacing .45s ease;
+}
+.topbar-brand:hover .topbar-brand-sub {
+  color: #d97706;
+  letter-spacing: .32em;
+}
+
+/* ============================================================
+   KULLANICI DROPDOWN
+   ============================================================ */
+.user-dropdown { position: relative; }
+
+.user-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px 6px 6px;
+  border-radius: 10px;
+  color: inherit;
+  font: inherit;
+  transition: background .15s ease;
+}
+.user-dropdown-toggle:hover { background: rgba(255,255,255,.06); }
+[data-theme="light"] .user-dropdown-toggle:hover { background: rgba(0,0,0,.05); }
+
+.user-dropdown-toggle .chev {
+  width: 14px; height: 14px;
+  transition: transform .2s ease;
+  opacity: .55;
+  flex-shrink: 0;
+}
+.user-dropdown.open .user-dropdown-toggle .chev { transform: rotate(180deg); }
+
+.user-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 210px;
+  background: #1c1c20;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 14px 40px rgba(0,0,0,.45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .18s ease, visibility .18s ease, transform .18s ease;
+  z-index: 200;
+  font-size: .87rem;
+}
+.user-dropdown.open .user-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.user-dropdown-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: rgba(255,255,255,.85);
+  text-decoration: none;
+  font-size: .87rem;
+  font-weight: 500;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+}
+.user-dropdown-menu a:hover { background: rgba(255,255,255,.08); color: #fff; }
+.user-dropdown-menu a.danger:hover { background: rgba(220,38,38,.15); color: #f87171; }
+
+/* KRITIK: SVG boyutlarini zorla */
+.user-dropdown-menu a svg {
+  width: 15px !important;
+  height: 15px !important;
+  max-width: 15px !important;
+  max-height: 15px !important;
+  opacity: .7;
+  flex-shrink: 0;
+}
+
+[data-theme="light"] .user-dropdown-menu {
+  background: #fff;
+  border-color: #e4e4e7;
+  box-shadow: 0 14px 40px rgba(0,0,0,.10);
+}
+[data-theme="light"] .user-dropdown-menu a { color: #27272a; }
+[data-theme="light"] .user-dropdown-menu a:hover { background: #f4f4f5; color: #18181b; }
+[data-theme="light"] .user-dropdown-menu a.danger:hover { background: #fef2f2; color: #dc2626; }
+
+/* === PREMIUM THEME TOGGLE === */
+button.topbar-action[data-theme-toggle] {
+  position: relative;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px !important;
+  border-radius: 12px !important;
+  background: rgba(255,255,255,.04) !important;
+  border: 1px solid rgba(255,255,255,.06) !important;
+  color: rgba(255,255,255,.72) !important;
+  font-family: inherit;
+  font-size: .84rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background .3s ease, border-color .3s ease,
+              color .3s ease, transform .25s ease,
+              box-shadow .3s ease !important;
+}
+
+/* Ikon kutusu */
+button.topbar-action[data-theme-toggle] svg {
+  width: 15px !important;
+  height: 15px !important;
+  display: block;
+  flex-shrink: 0;
+  transition: transform .55s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;
+}
+
+/* Arka plan isik halkasi */
+button.topbar-action[data-theme-toggle]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center,
+    rgba(217,119,6,.24) 0%,
+    rgba(217,119,6,.06) 45%,
+    transparent 72%);
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+}
+
+/* Kenar isilti cizgisi */
+button.topbar-action[data-theme-toggle]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 1px;
+  background: linear-gradient(135deg,
+    rgba(217,119,6,.42) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(217,119,6,.20) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box,
+                linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+}
+
+button.topbar-action[data-theme-toggle]:hover {
+  background: rgba(217,119,6,.10) !important;
+  border-color: rgba(217,119,6,.32) !important;
+  color: #fbbf24 !important;
+  transform: translateY(-1px);
+  box-shadow:
+    0 6px 18px rgba(217,119,6,.18),
+    0 0 0 1px rgba(217,119,6,.06) inset !important;
+}
+button.topbar-action[data-theme-toggle]:hover::before { opacity: 1; }
+button.topbar-action[data-theme-toggle]:hover::after  { opacity: 1; }
+button.topbar-action[data-theme-toggle]:hover svg {
+  transform: rotate(180deg) scale(1.12);
+}
+
+button.topbar-action[data-theme-toggle]:active {
+  transform: translateY(0) scale(.97);
+}
+
+/* Mobilde yazi gizle */
+@media (max-width: 720px) {
+  button.topbar-action[data-theme-toggle] {
+    padding: 8px 10px !important;
+    gap: 0;
+  }
+  button.topbar-action[data-theme-toggle] span { display: none; }
+}
+
+/* === THEME TOGGLE COLOR FIX === */
+/* Topbar her zaman koyu -> buton daima acik renkli kalsin */
+button.topbar-action[data-theme-toggle],
+[data-theme="light"] button.topbar-action[data-theme-toggle],
+[data-theme="dark"]  button.topbar-action[data-theme-toggle],
+html[data-theme="light"] body button.topbar-action[data-theme-toggle],
+html[data-theme="dark"]  body button.topbar-action[data-theme-toggle] {
+  color: rgba(255,255,255,.72) !important;
+  background: rgba(255,255,255,.04) !important;
+  border-color: rgba(255,255,255,.06) !important;
+}
+
+button.topbar-action[data-theme-toggle]:hover,
+[data-theme="light"] button.topbar-action[data-theme-toggle]:hover,
+[data-theme="dark"]  button.topbar-action[data-theme-toggle]:hover {
+  color: #fbbf24 !important;
+  background: rgba(217,119,6,.10) !important;
+  border-color: rgba(217,119,6,.32) !important;
+}
+
+/* Buton icindeki span ve svg icin garanti */
+button.topbar-action[data-theme-toggle] span,
+button.topbar-action[data-theme-toggle] svg,
+button.topbar-action[data-theme-toggle] svg * {
+  color: inherit !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+button.topbar-action[data-theme-toggle] .ico-moon,
+button.topbar-action[data-theme-toggle] .ico-sun {
+  color: inherit !important;
+}
+
+/* === BILDIRIM ZILI === */
+.bell-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 6px;
+}
+.bell-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px; height: 38px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 11px;
+  color: rgba(255,255,255,.72);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color .2s ease, border-color .2s ease,
+              color .2s ease, transform .18s ease;
+}
+.bell-btn:hover {
+  background: rgba(217,119,6,.10);
+  border-color: rgba(217,119,6,.32);
+  color: #fbbf24;
+  transform: translateY(-1px);
+}
+.bell-btn:active { transform: translateY(0) scale(.96); }
+.bell-btn svg {
+  width: 17px; height: 17px;
+  display: block;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.bell-btn:hover svg { transform: rotate(-12deg); }
+
+/* Kirmizi rozet */
+.bell-badge {
+  position: absolute;
+  top: -4px; right: -4px;
+  min-width: 18px; height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #dc2626;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  font-family: 'Inter', system-ui, sans-serif;
+  box-shadow:
+    0 0 0 2px #131316,
+    0 2px 6px rgba(220,38,38,.5);
+  animation: bellPulse 2.4s ease-in-out infinite;
+}
+.bell-badge.bell-badge-sessiz {
+  animation: none;
+}
+.bell-badge[hidden] { display: none !important; }
+
+@keyframes bellPulse {
+  0%, 100% { transform: scale(1);    box-shadow: 0 0 0 2px #131316, 0 2px 6px rgba(220,38,38,.5); }
+  50%      { transform: scale(1.10); box-shadow: 0 0 0 2px #131316, 0 4px 14px rgba(220,38,38,.75); }
+}
+
+/* Aydinlik temada topbar hep koyu oldugu icin zil de ayni kalir */
+html[data-theme="light"] .bell-btn {
+  background: rgba(255,255,255,.04);
+  border-color: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.72);
+}
+
+@media (max-width: 720px) {
+  .bell-btn { width: 34px; height: 34px; border-radius: 10px; }
+  .bell-btn svg { width: 16px; height: 16px; }
+  .bell-badge { min-width: 16px; height: 16px; line-height: 16px; font-size: 10px; top: -3px; right: -3px; }
+}
+
+</style>
+{% block head %}{% endblock %}
+<!-- UDMIN-INLINE -->
+<style>
+.ud { position: relative; display: inline-block; }
+.ud .ud-t {
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px 6px 6px; border-radius: 999px;
+  user-select: none;
+  transition: background-color .18s ease;
+}
+.ud .ud-t:hover,
+.ud:hover .ud-t { background: rgba(0,0,0,.06); }
+
+.ud .chev {
+  transition: transform .22s ease;
+  width: 14px; height: 14px;
+}
+.ud:hover .chev { transform: rotate(180deg); }
+
+/* MENU - sadece hover'da acilir */
+.ud .ud-m {
+  position: absolute; top: calc(100% + 4px); right: 0; left: auto;
+  min-width: 240px; padding: 6px;
+  background: rgba(255,255,255,0.97);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
+  box-shadow: 0 18px 50px -18px rgba(24,24,27,0.35);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  z-index: 99999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s;
+}
+.ud:hover .ud-m,
+.ud:focus-within .ud-m {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Menu ile toggle arasinda kucuk bir bosluk var - kopru */
+.ud .ud-m::before {
+  content: "";
+  position: absolute;
+  top: -6px; left: 0; right: 0; height: 6px;
+}
+
+.ud .ud-h {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px; border-bottom: 1px solid rgba(0,0,0,0.06);
+  margin-bottom: 4px;
+}
+.ud .ud-h-av {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg,#b45309,#d97706);
+  color: #fff; font-weight: 700; font-size: 15px;
+}
+.ud .ud-h-in { display: flex; flex-direction: column; }
+.ud .ud-h-n { font-size: 13.5px; font-weight: 600; color: #18181b; }
+.ud .ud-h-r { font-size: 11.5px; color: #71717a; text-transform: uppercase; letter-spacing: .04em; }
+
+.ud .ud-i {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: 10px;
+  color: #18181b; text-decoration: none;
+  font-size: 13px; font-weight: 500; line-height: 1.2;
+  transition: background-color .14s ease, color .14s ease;
+  cursor: pointer; border: none; background: transparent;
+  width: 100%; font-family: inherit; text-align: left;
+  box-sizing: border-box;
+}
+.ud .ud-i:hover { background: rgba(180,83,9,0.09); color: #b45309; }
+.ud .ud-ic {
+  width: 18px; height: 18px; flex: 0 0 18px; color: #71717a;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.ud .ud-ic svg {
+  width: 18px !important; height: 18px !important;
+  max-width: 18px !important; max-height: 18px !important;
+  display: block;
+}
+.ud .ud-tx { flex: 1 1 auto; }
+.ud .ud-d { height: 1px; margin: 4px 8px; background: rgba(0,0,0,0.06); border: none; }
+.ud .ud-danger { color: #dc2626; }
+.ud .ud-danger .ud-ic { color: #dc2626; }
+.ud .ud-danger:hover { background: rgba(220,38,38,0.08); color: #dc2626; }
+
+html[data-theme="dark"] .ud .ud-m,
+html.dark .ud .ud-m {
+  background: rgba(24,24,27,0.97);
+  border-color: rgba(255,255,255,0.08);
+}
+html[data-theme="dark"] .ud .ud-h-n,
+html.dark .ud .ud-h-n { color: #fafaf9; }
+html[data-theme="dark"] .ud .ud-i,
+html.dark .ud .ud-i { color: #e4e4e7; }
+html[data-theme="dark"] .ud .ud-i:hover,
+html.dark .ud .ud-i:hover {
+  background: rgba(245,158,11,0.12); color: #f59e0b;
+}
+html[data-theme="dark"] .ud .ud-d,
+html.dark .ud .ud-d { background: rgba(255,255,255,0.08); }
+</style>
+<!-- /UDMIN-INLINE -->
+<!-- UDTEMA-INLINE -->
+<style>
+#udThemeToggle .ico-moon,
+#udThemeToggle .ico-sun {
+  width: 18px; height: 18px;
+  display: none;
+}
+html[data-theme="dark"] #udThemeToggle .ico-moon,
+html.dark #udThemeToggle .ico-moon { display: block; }
+html:not([data-theme="dark"]):not(.dark) #udThemeToggle .ico-sun { display: block; }
+
+#udThemeToggle .ud-ic {
+  position: relative;
+  width: 18px; height: 18px;
+  flex: 0 0 18px;
+}
+
+#udThemeToggle {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 9px 12px !important;
+  border-radius: 10px !important;
+  border: none !important;
+  background: transparent !important;
+  width: 100% !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #18181b !important;
+  cursor: pointer !important;
+  text-align: left !important;
+  transition: background-color .14s ease, color .14s ease !important;
+}
+#udThemeToggle:hover {
+  background: rgba(180,83,9,0.09) !important;
+  color: #b45309 !important;
+}
+html[data-theme="dark"] #udThemeToggle,
+html.dark #udThemeToggle { color: #e4e4e7 !important; }
+html[data-theme="dark"] #udThemeToggle:hover,
+html.dark #udThemeToggle:hover {
+  background: rgba(245,158,11,0.12) !important;
+  color: #f59e0b !important;
+}
+</style>
+<!-- /UDTEMA-INLINE -->
+</head>
+<body class="{% block body_class %}{% endblock %}">
+{% block body %}
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <a href="{{ url_for('index') }}" class="topbar-brand">
+      <span class="topbar-brand-mark">
+        <img src="{{ url_for('static', filename='logochrome.png') }}" alt="C · Peak English">
+      </span>
+      <span class="topbar-brand-text">
+        <span class="topbar-brand-title">C · Peak</span>
+        <span class="topbar-brand-sep"></span>
+        <span class="topbar-brand-sub" lang="en">ENGLISH</span>
+      </span>
+    </a>
+
+    <div class="topbar-user">
+      {# === BILDIRIM ZILI (herkese) === #}
+      {% if session.get('role') == 'admin' %}
+      <div class="bell-wrap">
+        <a href="{{ url_for('admin_bildirimler') }}" class="bell-btn" id="bellBtn" aria-label="Bildirimler" title="Bildirimler">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="bell-badge" id="bellBadge" hidden>0</span>
+        </a>
+      </div>
+      {% elif session.get('user_id') %}
+      <div class="bell-wrap">
+        <a href="{{ url_for('bildirimlerim') }}" class="bell-btn" id="bellBtn" aria-label="Bildirimlerim" title="Bildirimlerim">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="bell-badge" id="bellBadge" hidden>0</span>
+        </a>
+      </div>
+      {% endif %}
+      <div class="ud">
+        <div class="ud-t" role="button" tabindex="0">
+          <span class="topbar-avatar">{{ (session.name or "K")[0]|upper }}</span>
+          <span class="topbar-user-name">{{ session.name or 'Kullanıcı' }}</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="ud-m">
+          <div class="ud-h">
+            <span class="ud-h-av">{{ (session.name or "K")[0]|upper }}</span>
+            <div class="ud-h-in">
+              <span class="ud-h-n">{{ session.name or "Kullanıcı" }}</span>
+              <span class="ud-h-r">{% set r = session.role %}{% if r == "admin" %}Yönetici{% elif r == "teacher" %}Öğretmen{% elif r == "student" %}Öğrenci{% elif r == "parent" %}Veli{% else %}Üye{% endif %}</span>
+            </div>
+          </div>
+          <a class="ud-i" href="/panel">
+            <span class="ud-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg></span>
+            <span class="ud-tx">Panel</span>
+          </a>
+          <a class="ud-i" href="/sifre-degistir">
+            <span class="ud-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+            <span class="ud-tx">Şifre değiştir</span>
+          </a>
+          <a class="ud-i" href="/kvkk">
+            <span class="ud-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+            <span class="ud-tx">Gizlilik &amp; KVKK</span>
+          </a>
+          <button type="button" class="ud-i" id="udThemeToggle">
+            <span class="ud-ic">
+              <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+              <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+              </svg>
+            </span>
+            <span class="ud-tx" id="udThemeLabel">Karanlık tema</span>
+          </button>
+
+          <hr class="ud-d">
+          <a class="ud-i ud-danger logout-item" href="#" data-logout id="udCikisBtn">
+            <span class="ud-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+            <span class="ud-tx">Çıkış yap</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-wrap container">
+      {% for cat, msg in messages %}
+        <div class="alert alert-dismissible alert-{{ cat }}">
+          <span class="alert-text">{{ msg }}</span>
+          <button type="button" class="alert-close" aria-label="Kapat">×</button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<main class="container">
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="login-footer-bar">
+  <div class="footer-inner">
+    <div class="footer-copy">
+      © 2026 <strong>C · Peak English</strong>
+    </div>
+
+    <div class="footer-social">
+      <a href="https://www.instagram.com/c_peak_english/" target="_blank" rel="noopener" class="social-icon social-instagram" aria-label="Instagram" title="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </a>
+      <a href="https://www.youtube.com/@c-peak-english" target="_blank" rel="noopener" class="social-icon social-youtube" aria-label="YouTube" title="YouTube">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+      </a>
+      <a href="https://wa.me/905421808402" target="_blank" rel="noopener" class="social-icon social-whatsapp" aria-label="WhatsApp" title="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
+      </a>
+    </div>
+
+    <div class="footer-contact">
+      <a href="/kvkk">KVKK</a>
+      <span class="footer-sep">·</span>
+      <a href="tel:+905421808402">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        0542 180 84 02
+      </a>
+      <span class="footer-sep">·</span>
+      <a href="mailto:info@cpeakenglish.com">info@cpeakenglish.com</a>
+    </div>
+  </div>
+</footer>
+
+{% endblock %}
+
+<div id="cookieBanner" class="cookie-banner" hidden>
+  <div class="cookie-banner-inner">
+    <div class="cookie-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/>
+        <path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/>
+        <path d="M11 17v.01"/><path d="M7 14v.01"/>
+      </svg>
+    </div>
+    <div class="cookie-text">
+      <strong>Çerezleri kullanıyoruz</strong>
+      <p>Size daha iyi hizmet verebilmek için zorunlu çerezler kullanıyoruz. Detaylar için
+        <a href="/kvkk">KVKK metnini</a> okuyabilirsiniz.</p>
+    </div>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn cookie-btn-secondary" data-cookie="required">Sadece gerekli olanlar</button>
+      <button type="button" class="cookie-btn cookie-btn-primary" data-cookie="all">Kabul Et</button>
+    </div>
+  </div>
+</div>
+
+<div id="logoutModal" class="premium-modal-overlay">
+  <div class="premium-modal-card">
+    <div class="modal-icon-wrapper">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    </div>
+    <h3>Oturumu Kapat</h3>
+    <p>Hesabınızdan çıkış yapmak istediğinize emin misiniz?</p>
+    <div class="modal-actions">
+      <button type="button" class="btn-cancel" id="cancelLogout">Vazgeç</button>
+      <a href="{{ url_for('logout') }}" class="btn-confirm">Evet, Çıkış Yap</a>
+    </div>
+  </div>
+</div>
+
+<div id="confirmModal" class="premium-modal-overlay">
+  <div class="premium-modal-card">
+    <div class="modal-icon-wrapper modal-icon-warn">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </div>
+    <h3 id="confirmTitle">Emin misiniz?</h3>
+    <p id="confirmMessage">Bu işlem geri alınamaz.</p>
+    <div class="modal-actions">
+      <button type="button" class="btn-cancel" id="confirmCancel">Vazgeç</button>
+      <button type="button" class="btn-confirm" id="confirmOk">Evet, Onayla</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var COOKIE_KEY = "cpeak_cookie_consent_v1";
+
+  var cModal = document.getElementById("confirmModal");
+  var cTitle = document.getElementById("confirmTitle");
+  var cMsg = document.getElementById("confirmMessage");
+  var cCancel = document.getElementById("confirmCancel");
+  var cOk = document.getElementById("confirmOk");
+  var pendingAction = null;
+
+  function openConfirm(message, onConfirm, title) {
+    if (!cModal) {
+      if (window.confirm(message)) onConfirm();
+      return;
+    }
+    cTitle.textContent = title || "Emin misiniz?";
+    cMsg.textContent = message;
+    pendingAction = onConfirm;
+    cModal.classList.add("active");
+  }
+  function closeConfirm() {
+    if (cModal) cModal.classList.remove("active");
+    pendingAction = null;
+  }
+  if (cCancel) cCancel.addEventListener("click", closeConfirm);
+  if (cOk) cOk.addEventListener("click", function () {
+    var fn = pendingAction;
+    closeConfirm();
+    if (fn) fn();
+  });
+  if (cModal) cModal.addEventListener("click", function (e) {
+    if (e.target === cModal) closeConfirm();
+  });
+
+  document.querySelectorAll("form[data-confirm]").forEach(function (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var f = this;
+      var msg = f.dataset.confirm || "Bu işlemi onaylıyor musunuz?";
+      openConfirm(msg, function () {
+        HTMLFormElement.prototype.submit.call(f);
+      });
+    });
+  });
+
+  document.querySelectorAll("a[data-confirm]").forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      var url = this.href;
+      var msg = this.dataset.confirm || "Bu işlemi onaylıyor musunuz?";
+      openConfirm(msg, function () { window.location.href = url; });
+    });
+  });
+
+  var banner = document.getElementById("cookieBanner");
+  function cookieKapat(tercih) {
+    localStorage.setItem(COOKIE_KEY, tercih);
+    if (!banner) return;
+    banner.style.transition = "transform .35s cubic-bezier(.4,0,.2,1), opacity .3s ease";
+    banner.style.transform = "translateY(110%)";
+    banner.style.opacity = "0";
+    setTimeout(function () { banner.hidden = true; }, 400);
+  }
+  if (banner && !localStorage.getItem(COOKIE_KEY)) {
+    setTimeout(function () {
+      banner.hidden = false;
+      requestAnimationFrame(function () {
+        banner.style.transform = "translateY(0)";
+        banner.style.opacity = "1";
+      });
+    }, 1400);
+  }
+  document.querySelectorAll("[data-cookie]").forEach(function (btn) {
+    btn.addEventListener("click", function () { cookieKapat(this.dataset.cookie); });
+  });
+
+  var modal = document.getElementById("logoutModal");
+  var cancelBtn = document.getElementById("cancelLogout");
+  document.querySelectorAll("[data-logout], .logout-item").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      e.preventDefault();
+      if (modal) modal.classList.add("active");
+    });
+  });
+  if (cancelBtn) cancelBtn.addEventListener("click", function () {
+    if (modal) modal.classList.remove("active");
+  });
+  if (modal) modal.addEventListener("click", function (e) {
+    if (e.target === modal) modal.classList.remove("active");
+  });
+
+  document.querySelectorAll(".alert-dismissible").forEach(function (a) {
+    var hataMi = a.classList.contains("alert-error");
+    var t = null;
+    if (!hataMi) t = setTimeout(function () { kapatAlert(a); }, 5000);
+    var x = a.querySelector(".alert-close");
+    if (x) x.addEventListener("click", function () {
+      if (t) clearTimeout(t);
+      kapatAlert(a);
+    });
+  });
+  function kapatAlert(el) {
+    el.style.transition = "opacity .25s, max-height .3s, margin .3s, padding .3s";
+    el.style.opacity = "0";
+    el.style.maxHeight = "0";
+    el.style.margin = "0";
+    el.style.padding = "0";
+    el.style.overflow = "hidden";
+    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 320);
+  }
+})();
+</script>
+
+<script src="{{ url_for('static', filename='theme.js') }}"></script>
+
+<script>
+function rastgeleSifre(talepId) {
+  var buyuk = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+  var kucuk = "abcdefghijkmnpqrstuvwxyz";
+  var rakam = "23456789";
+  var tum = buyuk + kucuk + rakam;
+  var sifre = "";
+  sifre += buyuk.charAt(Math.floor(Math.random() * buyuk.length));
+  sifre += kucuk.charAt(Math.floor(Math.random() * kucuk.length));
+  sifre += rakam.charAt(Math.floor(Math.random() * rakam.length));
+  for (var i = 0; i < 5; i++) {
+    sifre += tum.charAt(Math.floor(Math.random() * tum.length));
+  }
+  var arr = sifre.split("");
+  for (var j = arr.length - 1; j > 0; j--) {
+    var k = Math.floor(Math.random() * (j + 1));
+    var tmp = arr[j]; arr[j] = arr[k]; arr[k] = tmp;
+  }
+  sifre = arr.join("");
+  var input = document.getElementById("talepInput" + talepId);
+  if (input) {
+    input.value = sifre;
+    input.focus();
+    input.select();
+    try { if (navigator.clipboard) navigator.clipboard.writeText(sifre); } catch (e) {}
+  }
+}
+</script>
+<!-- zaten UD2-INLINE tarafindan yonetiliyor
+<script>
+/* theme-toggle icon swap */
+(function(){
+  function swap() {
+    var dark = document.documentElement.getAttribute("data-theme") === "dark";
+    document.querySelectorAll("button[data-theme-toggle]").forEach(function(btn){
+      var m = btn.querySelector(".ico-moon");
+      var s = btn.querySelector(".ico-sun");
+      if (!m || !s) return;
+      if (dark) {
+        m.style.display = "none";
+        s.style.display = "block";
+      } else {
+        m.style.display = "block";
+        s.style.display = "none";
+      }
+    });
+  }
+  // ilk yukleme
+  document.addEventListener("DOMContentLoaded", swap);
+  // buton tiklamasi
+  document.addEventListener("click", function(e){
+    if (e.target.closest("[data-theme-toggle]")) {
+      setTimeout(swap, 10);
+    }
+  });
+  // disaridan degisim (theme.js)
+  new MutationObserver(swap).observe(document.documentElement, {
+    attributes: true, attributeFilter: ["data-theme"]
+  });
+})();
+</script>
+
+{# --- WhatsApp butonu SADECE login sayfasinda --- #}
+{% set _is_login = (request.endpoint and ("login" in request.endpoint or "giris" in request.endpoint)) or (request.path and ("login" in request.path or "giris" in request.path)) %}
+{% if _is_login %}
+<a href="https://wa.me/905421808402" target="_blank" rel="noopener"
+   class="whatsapp-float" aria-label="WhatsApp ile yaz">
+  <span class="whatsapp-float__icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </span>
+  <span class="whatsapp-float__label">Bize yazın</span>
+</a>
+{% endif %}
+
+<!-- UDTEMA-JS -->
+<script>
+(function(){
+  "use strict";
+  function init(){
+    var btn   = document.getElementById("udThemeToggle");
+    var label = document.getElementById("udThemeLabel");
+    if (!btn) return;
+
+    function aktifTema(){
+      var h = document.documentElement;
+      if (h.hasAttribute("data-theme")) return h.getAttribute("data-theme");
+      if (h.classList.contains("dark")) return "dark";
+      if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
+      return "light";
+    }
+
+    function labelGuncelle(){
+      if (!label) return;
+      label.textContent = aktifTema() === "dark" ? "Aydınlık tema" : "Karanlık tema";
+    }
+
+    function temayıDegistir(){
+      var h = document.documentElement;
+      var suAn = aktifTema();
+      var yeni  = suAn === "dark" ? "light" : "dark";
+      h.setAttribute("data-theme", yeni);
+      h.classList.toggle("dark", yeni === "dark");
+      h.classList.toggle("light", yeni === "light");
+      try { localStorage.setItem("theme", yeni); } catch(e){}
+      try {
+        window.dispatchEvent(new CustomEvent("themechange", { detail: { tema: yeni } }));
+      } catch(e){}
+    }
+
+    btn.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      temayıDegistir();
+      setTimeout(labelGuncelle, 30);
+    });
+
+    labelGuncelle();
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+<!-- /UDTEMA-JS -->
+
+<!-- FB-INLINE -->
+<style>
+/* ============================================================
+   PREMIUM SORUN BILDIR MODAL
+   ============================================================ */
+.fb-fab {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 54px; height: 54px; border-radius: 50%;
+  background: linear-gradient(135deg, #b45309 0%, #d97706 50%, #f59e0b 100%);
+  color: #fff; border: none; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow:
+    0 8px 28px -6px rgba(180,83,9,.55),
+    0 2px 8px rgba(0,0,0,.18),
+    0 0 0 1px rgba(255,255,255,.10) inset;
+  z-index: 2147483000;
+  transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease;
+}
+.fb-fab::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(217,119,6,.28) 0%,
+    transparent 70%);
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+}
+.fb-fab:hover {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow:
+    0 14px 36px -8px rgba(180,83,9,.65),
+    0 3px 10px rgba(0,0,0,.22),
+    0 0 0 1px rgba(255,255,255,.14) inset;
+}
+.fb-fab:hover::after { opacity: 1; }
+.fb-fab:active { transform: translateY(0) scale(.97); }
+.fb-fab svg { width: 22px; height: 22px; position: relative; z-index: 1; }
+
+.fb-overlay {
+  position: fixed; inset: 0;
+  background: rgba(15,15,17,.58);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  z-index: 2147483001;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .22s ease;
+}
+.fb-overlay.fb-open { opacity: 1; pointer-events: auto; }
+.fb-overlay[hidden] { display: none; }
+
+.fb-modal {
+  position: relative;
+  width: min(500px, 100%);
+  background: rgba(255,255,255,.98);
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 20px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.9) inset,
+    0 40px 80px -20px rgba(24,24,27,.45),
+    0 16px 40px -12px rgba(24,24,27,.25);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  padding: 26px 26px 22px;
+  transform: translateY(14px) scale(.96);
+  transition: transform .28s cubic-bezier(.16,1,.3,1);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.fb-modal::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #b45309 30%,
+    #d97706 50%,
+    #f59e0b 70%,
+    transparent 100%);
+  border-radius: 20px 20px 0 0;
+  opacity: .85;
+}
+.fb-overlay.fb-open .fb-modal { transform: translateY(0) scale(1); }
+
+/* --- Baslik --- */
+.fb-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 22px; gap: 12px;
+}
+.fb-head-left { display: flex; gap: 14px; align-items: flex-start; }
+.fb-head-ico {
+  width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(180,83,9,.14), rgba(217,119,6,.08));
+  color: #b45309;
+  border: 1px solid rgba(180,83,9,.16);
+}
+.fb-head-ico svg { width: 22px; height: 22px; }
+.fb-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.15rem; font-weight: 600;
+  color: #18181b; margin: 0; letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.fb-sub {
+  font-size: 12.5px; color: #71717a;
+  margin: 4px 0 0; line-height: 1.5;
+}
+.fb-close {
+  background: transparent; border: none; padding: 8px;
+  border-radius: 9px; cursor: pointer; color: #71717a;
+  transition: background-color .15s ease, color .15s ease, transform .2s ease;
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.fb-close:hover {
+  background: rgba(0,0,0,.06); color: #18181b;
+  transform: rotate(90deg);
+}
+.fb-close svg { width: 18px; height: 18px; display: block; }
+
+/* --- Alanlar --- */
+.fb-row { margin-bottom: 16px; }
+.fb-label {
+  display: block; font-size: 12.5px; font-weight: 600;
+  color: #18181b; margin-bottom: 8px; letter-spacing: -0.005em;
+}
+.fb-label small { font-weight: 400; color: #71717a; }
+
+/* --- Tur secici (pill) --- */
+.fb-turler { display: flex; gap: 8px; }
+.fb-turler input { position: absolute; opacity: 0; pointer-events: none; }
+.fb-turler label {
+  flex: 1 1 0; padding: 11px 14px; border-radius: 12px;
+  background: rgba(0,0,0,.035); border: 1.5px solid rgba(0,0,0,.06);
+  font-size: 13px; font-weight: 500; color: #52525b;
+  text-align: center; cursor: pointer;
+  transition: all .2s ease;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  user-select: none;
+}
+.fb-turler label:hover {
+  background: rgba(180,83,9,.06);
+  border-color: rgba(180,83,9,.22);
+  color: #b45309;
+}
+.fb-turler input:checked + label {
+  background: linear-gradient(135deg, rgba(180,83,9,.14), rgba(217,119,6,.10));
+  color: #b45309;
+  border-color: rgba(180,83,9,.42);
+  font-weight: 600;
+  box-shadow:
+    0 4px 12px -4px rgba(180,83,9,.30),
+    0 0 0 3px rgba(217,119,6,.08);
+  transform: translateY(-1px);
+}
+
+/* --- Input & textarea --- */
+.fb-input, .fb-textarea {
+  width: 100%; padding: 12px 14px;
+  border: 1.5px solid rgba(0,0,0,.10); border-radius: 11px;
+  background: rgba(0,0,0,.015); color: #18181b;
+  font-family: inherit; font-size: 13.5px; line-height: 1.5;
+  transition: border-color .15s ease, box-shadow .15s ease,
+              background-color .15s ease;
+  box-sizing: border-box;
+}
+.fb-textarea { min-height: 120px; resize: vertical; }
+.fb-input:hover, .fb-textarea:hover { border-color: rgba(180,83,9,.24); }
+.fb-input:focus, .fb-textarea:focus {
+  outline: none; border-color: #d97706;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(217,119,6,.12);
+}
+.fb-input::placeholder, .fb-textarea::placeholder { color: rgba(24,24,27,.35); }
+
+.fb-char {
+  display: flex; justify-content: flex-end;
+  font-size: 11px; color: rgba(24,24,27,.42);
+  margin-top: 6px; font-variant-numeric: tabular-nums;
+}
+.fb-char b { color: #b45309; font-weight: 600; }
+
+/* --- Mesaj --- */
+.fb-msg {
+  margin-top: 6px; padding: 11px 14px;
+  border-radius: 10px; font-size: 13px; line-height: 1.5;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.fb-msg-ok {
+  background: rgba(5,150,105,.08);
+  color: #047857;
+  border: 1px solid rgba(5,150,105,.22);
+}
+.fb-msg-err {
+  background: rgba(220,38,38,.07);
+  color: #b91c1c;
+  border: 1px solid rgba(220,38,38,.20);
+}
+.fb-msg svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* --- Butonlar --- */
+.fb-actions {
+  display: flex; gap: 10px; margin-top: 22px;
+}
+.fb-actions button {
+  flex: 1 1 0; padding: 12px 18px;
+  border-radius: 11px; font-family: inherit;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; line-height: 1; border: 1.5px solid transparent;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  transition: all .18s ease;
+  letter-spacing: -0.005em;
+}
+.fb-actions button:active:not(:disabled) { transform: translateY(1px); }
+.fb-actions button svg { width: 15px; height: 15px; }
+
+.fb-cancel {
+  background: rgba(0,0,0,.035);
+  color: #52525b;
+  border-color: rgba(0,0,0,.08);
+}
+.fb-cancel:hover { background: rgba(0,0,0,.07); color: #18181b; }
+
+.fb-send {
+  background: linear-gradient(135deg, #b45309, #d97706 60%, #f59e0b);
+  color: #fff;
+  border-color: transparent;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.25) inset,
+    0 8px 20px -6px rgba(180,83,9,.55);
+}
+.fb-send:hover:not(:disabled) {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.25) inset,
+    0 12px 26px -6px rgba(180,83,9,.65);
+}
+.fb-send:disabled {
+  opacity: .55; cursor: wait;
+  filter: grayscale(.25);
+}
+
+/* ============================================================
+   KOYU MOD
+   ============================================================ */
+html[data-theme="dark"] .fb-modal,
+html.dark .fb-modal {
+  background: rgba(24,24,27,.98);
+  border-color: rgba(255,255,255,.08);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.05) inset,
+    0 40px 80px -20px rgba(0,0,0,.7),
+    0 16px 40px -12px rgba(0,0,0,.5);
+}
+html[data-theme="dark"] .fb-title,
+html.dark .fb-title { color: #fafaf9; }
+html[data-theme="dark"] .fb-label,
+html.dark .fb-label { color: #e4e4e7; }
+html[data-theme="dark"] .fb-sub,
+html.dark .fb-sub { color: #a1a1aa; }
+html[data-theme="dark"] .fb-head-ico,
+html.dark .fb-head-ico {
+  background: linear-gradient(135deg, rgba(245,158,11,.18), rgba(217,119,6,.10));
+  color: #f59e0b;
+  border-color: rgba(245,158,11,.25);
+}
+html[data-theme="dark"] .fb-close,
+html.dark .fb-close { color: #a1a1aa; }
+html[data-theme="dark"] .fb-close:hover,
+html.dark .fb-close:hover {
+  background: rgba(255,255,255,.07);
+  color: #fafaf9;
+}
+html[data-theme="dark"] .fb-turler label,
+html.dark .fb-turler label {
+  background: rgba(255,255,255,.04);
+  border-color: rgba(255,255,255,.08);
+  color: #a1a1aa;
+}
+html[data-theme="dark"] .fb-turler label:hover,
+html.dark .fb-turler label:hover {
+  background: rgba(245,158,11,.10);
+  border-color: rgba(245,158,11,.25);
+  color: #f59e0b;
+}
+html[data-theme="dark"] .fb-turler input:checked + label,
+html.dark .fb-turler input:checked + label {
+  background: linear-gradient(135deg, rgba(245,158,11,.18), rgba(217,119,6,.12));
+  color: #fbbf24;
+  border-color: rgba(245,158,11,.45);
+  box-shadow:
+    0 4px 12px -4px rgba(245,158,11,.30),
+    0 0 0 3px rgba(245,158,11,.10);
+}
+html[data-theme="dark"] .fb-input,
+html[data-theme="dark"] .fb-textarea,
+html.dark .fb-input,
+html.dark .fb-textarea {
+  background: rgba(255,255,255,.03);
+  color: #fafaf9;
+  border-color: rgba(255,255,255,.09);
+}
+html[data-theme="dark"] .fb-input:hover,
+html[data-theme="dark"] .fb-textarea:hover,
+html.dark .fb-input:hover,
+html.dark .fb-textarea:hover { border-color: rgba(245,158,11,.32); }
+html[data-theme="dark"] .fb-input:focus,
+html[data-theme="dark"] .fb-textarea:focus,
+html.dark .fb-input:focus,
+html.dark .fb-textarea:focus {
+  background: rgba(255,255,255,.05);
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 4px rgba(245,158,11,.15);
+}
+html[data-theme="dark"] .fb-input::placeholder,
+html[data-theme="dark"] .fb-textarea::placeholder,
+html.dark .fb-input::placeholder,
+html.dark .fb-textarea::placeholder { color: rgba(255,255,255,.3); }
+html[data-theme="dark"] .fb-char,
+html.dark .fb-char { color: rgba(255,255,255,.4); }
+html[data-theme="dark"] .fb-char b,
+html.dark .fb-char b { color: #f59e0b; }
+html[data-theme="dark"] .fb-cancel,
+html.dark .fb-cancel {
+  background: rgba(255,255,255,.05);
+  color: #a1a1aa;
+  border-color: rgba(255,255,255,.09);
+}
+html[data-theme="dark"] .fb-cancel:hover,
+html.dark .fb-cancel:hover {
+  background: rgba(255,255,255,.10);
+  color: #fafaf9;
+}
+
+@media (max-width: 520px) {
+  .fb-fab { bottom: 18px; right: 18px; width: 50px; height: 50px; }
+  .fb-modal { padding: 22px 18px 18px; border-radius: 16px; }
+  .fb-turler { flex-direction: column; }
+  .fb-turler label { padding: 10px 14px; }
+  .fb-title { font-size: 1.05rem; }
+}
+</style>
+
+<button type="button" class="fb-fab" id="fbFab" aria-label="Sorun bildir">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    <line x1="12" y1="8" x2="12" y2="12"></line>
+    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+  </svg>
+</button>
+
+<div class="fb-overlay" id="fbOverlay" hidden>
+  <div class="fb-modal" role="dialog" aria-modal="true" aria-labelledby="fbTitle">
+
+    <div class="fb-head">
+      <div class="fb-head-left">
+        <div class="fb-head-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <div>
+          <h3 class="fb-title" id="fbTitle">Sorun / öneri bildir</h3>
+          <p class="fb-sub">Mesajınız yöneticilere iletilir. Genellikle 1-2 gün içinde cevaplanır.</p>
+        </div>
+      </div>
+      <button type="button" class="fb-close" id="fbClose" aria-label="Kapat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <form id="fbForm" autocomplete="off">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+      <div class="fb-row">
+        <span class="fb-label">Tür</span>
+        <div class="fb-turler">
+          <input type="radio" name="tur" id="fbTurHata" value="hata" checked>
+          <label for="fbTurHata">🐞 Hata</label>
+          <input type="radio" name="tur" id="fbTurOneri" value="oneri">
+          <label for="fbTurOneri">💡 Öneri</label>
+          <input type="radio" name="tur" id="fbTurDiger" value="diger">
+          <label for="fbTurDiger">💬 Diğer</label>
+        </div>
+      </div>
+
+      <div class="fb-row">
+        <label class="fb-label" for="fbBaslik">Başlık</label>
+        <input class="fb-input" type="text" name="baslik" id="fbBaslik" maxlength="120" required placeholder="Kısa bir başlık">
+        <div class="fb-char"><span><b id="fbBaslikSay">0</b> / 120</span></div>
+      </div>
+
+      <div class="fb-row">
+        <label class="fb-label" for="fbMesaj">Açıklama <small>(ne oldu, ne bekliyordunuz?)</small></label>
+        <textarea class="fb-textarea" name="mesaj" id="fbMesaj" maxlength="2000" required placeholder="Örn: Öğrenci panelinde notlar bölümü açılmıyor..."></textarea>
+        <div class="fb-char"><span><b id="fbMesajSay">0</b> / 2000</span></div>
+      </div>
+
+      <div id="fbSonuc" class="fb-msg" style="display:none;"></div>
+
+      <div class="fb-actions">
+        <button type="button" class="fb-cancel" id="fbIptal">Vazgeç</button>
+        <button type="submit" class="fb-send" id="fbGonder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          <span>Gönder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  function init(){
+    var fab = document.getElementById("fbFab");
+    var ov  = document.getElementById("fbOverlay");
+    var kapatBtn = document.getElementById("fbClose");
+    var iptal = document.getElementById("fbIptal");
+    var form = document.getElementById("fbForm");
+    var sonuc = document.getElementById("fbSonuc");
+    var gonder = document.getElementById("fbGonder");
+    var baslik = document.getElementById("fbBaslik");
+    var mesaj = document.getElementById("fbMesaj");
+    var baslikSay = document.getElementById("fbBaslikSay");
+    var mesajSay = document.getElementById("fbMesajSay");
+
+    if (!fab || !ov || !form) return;
+
+    function ac(){
+      ov.hidden = false;
+      requestAnimationFrame(function(){ ov.classList.add("fb-open"); });
+      setTimeout(function(){ if (baslik) baslik.focus(); }, 60);
+    }
+    function kapat(){
+      ov.classList.remove("fb-open");
+      setTimeout(function(){ ov.hidden = true; }, 220);
+    }
+    fab.addEventListener("click", ac);
+    if (kapatBtn) kapatBtn.addEventListener("click", kapat);
+    if (iptal) iptal.addEventListener("click", kapat);
+    ov.addEventListener("click", function(e){ if (e.target === ov) kapat(); });
+    document.addEventListener("keydown", function(e){ if (e.key === "Escape" && !ov.hidden) kapat(); });
+
+    if (baslik && baslikSay) baslik.addEventListener("input", function(){ baslikSay.textContent = this.value.length; });
+    if (mesaj && mesajSay) mesaj.addEventListener("input", function(){ mesajSay.textContent = this.value.length; });
+
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      var fd = new FormData(form);
+      fd.append("sayfa", location.pathname + location.search);
+
+      gonder.disabled = true;
+      var eskiHTML = gonder.innerHTML;
+      gonder.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="32"><animate attributeName="stroke-dashoffset" from="32" to="0" dur=".8s" repeatCount="indefinite"/></circle></svg><span>Gönderiliyor...</span>';
+      sonuc.style.display = "none";
+
+      fetch("/bildirim-gonder", {
+        method: "POST",
+        body: fd,
+        credentials: "same-origin",
+      })
+      .then(function(r){ return r.json().then(function(d){ return { ok: r.ok, d: d }; }); })
+      .then(function(r){
+        var d = r.d || {};
+        if (r.ok && d.ok) {
+          sonuc.className = "fb-msg fb-msg-ok";
+          sonuc.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>' + (d.mesaj || "Bildiriminiz alındı.") + '</span>';
+          sonuc.style.display = "flex";
+          form.reset();
+          if (baslikSay) baslikSay.textContent = 0;
+          if (mesajSay) mesajSay.textContent = 0;
+          setTimeout(kapat, 1600);
+        } else {
+          sonuc.className = "fb-msg fb-msg-err";
+          sonuc.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>' + (d.hata || "Bir sorun oluştu, tekrar deneyin.") + '</span>';
+          sonuc.style.display = "flex";
+        }
+      })
+      .catch(function(){
+        sonuc.className = "fb-msg fb-msg-err";
+        sonuc.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Bağlantı hatası. İnternetinizi kontrol edin.</span>';
+        sonuc.style.display = "flex";
+      })
+      .finally(function(){
+        gonder.disabled = false;
+        gonder.innerHTML = eskiHTML;
+      });
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+<!-- /FB-INLINE -->
+
+<script>
+/* BILDIRIM ZILI POLL */
+(function(){
+  "use strict";
+  var btn = document.getElementById("bellBtn");
+  var badge = document.getElementById("bellBadge");
+  if (!btn || !badge) return;
+
+  var adminMi = {{ 'true' if session.get('role') == 'admin' else 'false' }};
+  var url = adminMi ? "/api/yeni-bildirim-sayi" : "/api/bildirim-cevap-sayi";
+
+  function guncelle(){
+    fetch(url, { credentials: "same-origin", cache: "no-store" })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){
+      if (!d || !d.ok) return;
+      var n = parseInt(d.sayi || 0, 10);
+      if (n > 0) {
+        badge.textContent = n > 99 ? "99+" : n;
+        badge.hidden = false;
+      } else {
+        badge.hidden = true;
+      }
+    })
+    .catch(function(){});
+  }
+
+  setTimeout(guncelle, 800);
+  setInterval(guncelle, 30000);
+  document.addEventListener("visibilitychange", function(){
+    if (!document.hidden) guncelle();
+  });
+})();
+</script>
+</body>
+</html>

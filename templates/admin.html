@@ -1,0 +1,463 @@
+{% extends "base.html" %}
+{% block title %}Yönetim Paneli{% endblock %}
+{% block content %}
+
+{# ---------- Kompakt Başlık + Stats ---------- #}
+<div class="admin-head">
+  <h1 class="admin-title">Yönetim Paneli</h1>
+  <div class="admin-stats-row">
+    <div class="as-item"><span class="as-num">{{ sayilar.ogrenci }}</span><span class="as-lbl">Öğrenci</span></div>
+    <div class="as-item"><span class="as-num">{{ sayilar.ogretmen }}</span><span class="as-lbl">Öğretmen</span></div>
+    <div class="as-item"><span class="as-num">{{ sayilar.veli }}</span><span class="as-lbl">Veli</span></div>
+    <div class="as-item"><span class="as-num">{{ sayilar.ders }}</span><span class="as-lbl">Ders</span></div>
+    <div class="as-item"><span class="as-num">{{ sayilar.not }}</span><span class="as-lbl">Not</span></div>
+    <div class="as-item"><span class="as-num">{{ sayilar.devamsizlik }}</span><span class="as-lbl">Devamsızlık</span></div>
+  </div>
+</div>
+
+{# ---------- Sekmeler ---------- #}
+<nav class="admin-tabs" role="tablist">
+  <button class="admin-tab is-active" data-tab="genel" type="button">Genel</button>
+  <button class="admin-tab" data-tab="ogrenciler" type="button">
+    Öğrenciler <span class="tab-badge">{{ sayilar.ogrenci }}</span>
+  </button>
+  <button class="admin-tab" data-tab="ogretmenler" type="button">
+    Öğretmenler <span class="tab-badge">{{ sayilar.ogretmen }}</span>
+  </button>
+  <button class="admin-tab" data-tab="dersler" type="button">
+    Dersler <span class="tab-badge">{{ sayilar.ders }}</span>
+  </button>
+  <button class="admin-tab" data-tab="duyurular" type="button">
+    Duyurular {% if duyurular %}<span class="tab-badge">{{ duyurular|length }}</span>{% endif %}
+  </button>
+  {% if talepler and talepler|length %}
+  <button class="admin-tab admin-tab-alert" data-tab="talepler" type="button">
+    Talepler <span class="tab-badge tab-badge-alert">{{ talepler|length }}</span>
+  </button>
+  {% endif %}
+</nav>
+
+<div class="admin-panels">
+
+  {# ============================================================
+     GENEL BAKIŞ
+     ============================================================ #}
+  <section class="admin-panel is-active" data-panel="genel">
+    <div class="admin-grid-2">
+
+      {# Kısayollar #}
+      <div class="mini-card">
+        <div class="mini-card-head"><h3>Hızlı İşlemler</h3></div>
+        <div class="quick-actions">
+          <button class="qa-btn" data-goto="ogrenciler" type="button">
+            <span class="qa-ico">👥</span>
+            <span>Öğrenci Ekle</span>
+          </button>
+          <button class="qa-btn" data-goto="ogretmenler" type="button">
+            <span class="qa-ico">👨‍🏫</span>
+            <span>Öğretmen Ekle</span>
+          </button>
+          <button class="qa-btn" data-goto="dersler" type="button">
+            <span class="qa-ico">📘</span>
+            <span>Ders Ekle</span>
+          </button>
+          <button class="qa-btn" data-goto="duyurular" type="button">
+            <span class="qa-ico">📢</span>
+            <span>Duyuru Yayınla</span>
+          </button>
+          <a class="qa-btn" href="{{ url_for('not_giris') }}">
+            <span class="qa-ico">📝</span>
+            <span>Toplu Not Girişi</span>
+          </a>
+          <a class="qa-btn" href="{{ url_for('devamsizlik_giris') }}">
+            <span class="qa-ico">📅</span>
+            <span>Toplu Devamsızlık</span>
+          </a>
+          <a class="qa-btn" href="{{ url_for('admin_ders_programi') }}">
+            <span class="qa-ico">🗓</span>
+            <span>Ders Programı</span>
+          </a>
+          <a class="qa-btn" href="{{ url_for('odevler') }}">
+            <span class="qa-ico">📋</span>
+            <span>Ödevler</span>
+          </a>
+        </div>
+      </div>
+
+      {# Son Duyurular #}
+      <div class="mini-card">
+        <div class="mini-card-head">
+          <h3>Son Duyurular</h3>
+          <button class="mini-link" data-goto="duyurular" type="button">Tümü →</button>
+        </div>
+        {% if duyurular %}
+          <ul class="mini-list">
+            {% for d in duyurular[:4] %}
+            <li>
+              <span class="mini-list-title">{{ d.baslik }}</span>
+              <span class="mini-list-date">{{ d.tarih }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="muted small">Henüz duyuru yok.</p>
+        {% endif %}
+      </div>
+
+    </div>
+
+    {% if talepler and talepler|length %}
+    <div class="mini-card mini-card-warn">
+      <div class="mini-card-head">
+        <h3>🔔 Şifre Sıfırlama Talepleri</h3>
+        <button class="mini-link" data-goto="talepler" type="button">Tümü →</button>
+      </div>
+      <p class="muted small">{{ talepler|length }} bekleyen talep var.</p>
+    </div>
+    {% endif %}
+  </section>
+
+  {# ============================================================
+     ÖĞRENCİLER
+     ============================================================ #}
+  <section class="admin-panel" data-panel="ogrenciler">
+
+    <details class="add-card">
+      <summary>
+        <span class="add-card-plus">+</span>
+        <span>Yeni Öğrenci Ekle</span>
+        <span class="add-card-chev">▾</span>
+      </summary>
+      <form method="post" action="{{ url_for('admin_add_student') }}" class="admin-form compact-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-row">
+          <label><span>Ad Soyad</span><input name="ad" required></label>
+          <label><span>T.C. Kimlik No</span><input name="tc" maxlength="11" required></label>
+          <label><span>Şifre</span><input name="sifre" required></label>
+          <label><span>Sınıf</span><input name="sinif" placeholder="9-A" required></label>
+          <label><span>Numara</span><input name="numara" type="number" required></label>
+        </div>
+        <div class="form-row form-row-sub">
+          <label><span>Veli Ad Soyad <em>(opsiyonel)</em></span><input name="veli_ad"></label>
+          <label><span>Veli T.C.</span><input name="veli_tc" maxlength="11"></label>
+          <label><span>Veli Şifre</span><input name="veli_sifre"></label>
+        </div>
+        <div class="form-actions">
+          <button class="btn-primary" type="submit">Kaydet</button>
+        </div>
+      </form>
+    </details>
+
+    <div class="list-toolbar">
+      <input type="text" class="search-input" placeholder="Öğrenci ara — ad, T.C. veya sınıf..." data-search="ogrTable">
+      <span class="list-count">{{ ogrenciler|length }} kayıt</span>
+    </div>
+
+    {% if ogrenciler %}
+    <div class="table-wrap">
+      <table class="table compact-table" id="ogrTable">
+        <thead>
+          <tr>
+            <th>Ad Soyad</th>
+            <th>T.C.</th>
+            <th>Sınıf</th>
+            <th>No</th>
+            <th class="col-actions">İşlem</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for o in ogrenciler %}
+          <tr>
+            <td><strong>{{ o.ad }}</strong></td>
+            <td class="mono">{{ o.tc_no }}</td>
+            <td><span class="chip">{{ o.sinif }}</span></td>
+            <td>{{ o.numara }}</td>
+            <td class="islem-hucre">
+              <a href="{{ url_for('admin_edit_student', sid=o.id) }}" class="btn-mini">Düzenle</a>
+              <a href="{{ url_for('devamsizlik_detay', sid=o.id) }}" class="btn-mini">Devamsızlık</a>
+              <form method="post" action="{{ url_for('admin_sifre_sifirla', uid=o.uid) }}" class="inline-form" data-confirm="{{ o.ad }} için yeni şifre belirlenecek.">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="text" name="yeni_sifre" placeholder="Yeni şifre" required minlength="5" class="mini-input">
+                <button type="submit" class="btn-mini">Şifre</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <div class="empty-state">
+        <strong>Henüz öğrenci eklenmemiş</strong>
+        <p>Yukarıdan "Yeni Öğrenci Ekle" ile başlayın.</p>
+      </div>
+    {% endif %}
+  </section>
+
+  {# ============================================================
+     ÖĞRETMENLER
+     ============================================================ #}
+  <section class="admin-panel" data-panel="ogretmenler">
+
+    <details class="add-card">
+      <summary>
+        <span class="add-card-plus">+</span>
+        <span>Yeni Öğretmen Ekle</span>
+        <span class="add-card-chev">▾</span>
+      </summary>
+      <form method="post" action="{{ url_for('admin_add_teacher') }}" class="admin-form compact-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-row">
+          <label><span>Ad Soyad</span><input name="ad" required></label>
+          <label><span>T.C. Kimlik No</span><input name="tc" maxlength="11" required></label>
+          <label><span>Şifre</span><input name="sifre" required></label>
+        </div>
+        <div class="form-actions">
+          <button class="btn-primary" type="submit">Kaydet</button>
+        </div>
+      </form>
+    </details>
+
+    <div class="list-toolbar">
+      <input type="text" class="search-input" placeholder="Öğretmen ara..." data-search="ogrTableT">
+      <span class="list-count">{{ ogretmenler|length }} kayıt</span>
+    </div>
+
+    {% if ogretmenler %}
+    <div class="table-wrap">
+      <table class="table compact-table" id="ogrTableT">
+        <thead><tr><th>Ad Soyad</th><th>T.C.</th><th class="col-actions">İşlem</th></tr></thead>
+        <tbody>
+        {% for o in ogretmenler %}
+          <tr>
+            <td><strong>{{ o.name }}</strong></td>
+            <td class="mono">{{ o.tc_no }}</td>
+            <td class="islem-hucre">
+              <form method="post" action="{{ url_for('admin_sifre_sifirla', uid=o.id) }}" class="inline-form" data-confirm="{{ o.name }} için yeni şifre belirlenecek.">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="text" name="yeni_sifre" placeholder="Yeni şifre" required minlength="5" class="mini-input">
+                <button type="submit" class="btn-mini">Şifre</button>
+              </form>
+              <form method="post" action="{{ url_for('admin_delete', tip='ogretmen', oid=o.id) }}" data-confirm="{{ o.name }} kalıcı olarak silinsin mi?">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn-mini btn-mini-danger">Sil</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <div class="empty-state"><strong>Henüz öğretmen eklenmemiş</strong></div>
+    {% endif %}
+  </section>
+
+  {# ============================================================
+     DERSLER
+     ============================================================ #}
+  <section class="admin-panel" data-panel="dersler">
+
+    <details class="add-card">
+      <summary>
+        <span class="add-card-plus">+</span>
+        <span>Yeni Ders Ekle</span>
+        <span class="add-card-chev">▾</span>
+      </summary>
+      <form method="post" action="{{ url_for('admin_add_course') }}" class="admin-form compact-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-row">
+          <label><span>Ders Adı</span><input name="ad" required></label>
+          <label><span>Öğretmen</span>
+            <select name="ogretmen_id">
+              <option value="">— Seçiniz —</option>
+              {% for o in ogretmenler %}<option value="{{ o.id }}">{{ o.name }}</option>{% endfor %}
+            </select>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button class="btn-primary" type="submit">Kaydet</button>
+        </div>
+      </form>
+    </details>
+
+    <div class="list-toolbar">
+      <input type="text" class="search-input" placeholder="Ders ara..." data-search="dersTable">
+      <span class="list-count">{{ dersler|length }} kayıt</span>
+    </div>
+
+    {% if dersler %}
+    <div class="table-wrap">
+      <table class="table compact-table" id="dersTable">
+        <thead><tr><th>Ders</th><th>Öğretmen</th><th class="col-actions">İşlem</th></tr></thead>
+        <tbody>
+        {% for d in dersler %}
+          <tr>
+            <td><strong>{{ d.ad }}</strong></td>
+            <td>{{ d.ogretmen or '—' }}</td>
+            <td>
+              <form method="post" action="{{ url_for('admin_delete', tip='ders', oid=d.id) }}" data-confirm="{{ d.ad }} dersi silinsin mi?">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn-mini btn-mini-danger">Sil</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <div class="empty-state"><strong>Henüz ders eklenmemiş</strong></div>
+    {% endif %}
+  </section>
+
+  {# ============================================================
+     DUYURULAR
+     ============================================================ #}
+  <section class="admin-panel" data-panel="duyurular">
+
+    <details class="add-card">
+      <summary>
+        <span class="add-card-plus">+</span>
+        <span>Yeni Duyuru Yayınla</span>
+        <span class="add-card-chev">▾</span>
+      </summary>
+      <form method="post" action="{{ url_for('admin_add_announcement') }}" class="admin-form compact-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-row">
+          <label class="full"><span>Başlık</span><input name="baslik" required></label>
+        </div>
+        <div class="form-row">
+          <label class="full"><span>İçerik</span><textarea name="icerik" rows="3" required></textarea></label>
+        </div>
+        <div class="form-actions">
+          <button class="btn-primary" type="submit">Yayınla</button>
+        </div>
+      </form>
+    </details>
+
+    <div class="list-toolbar">
+      <input type="text" class="search-input" placeholder="Duyuru ara..." data-search="duyTable">
+      <span class="list-count">{{ duyurular|length if duyurular else 0 }} kayıt</span>
+    </div>
+
+    {% if duyurular %}
+    <div class="table-wrap">
+      <table class="table compact-table" id="duyTable">
+        <thead><tr><th>Başlık</th><th>İçerik</th><th>Tarih</th><th class="col-actions">İşlem</th></tr></thead>
+        <tbody>
+        {% for d in duyurular %}
+          <tr>
+            <td><strong>{{ d.baslik }}</strong></td>
+            <td class="muted small">{{ d.icerik[:80] }}{% if d.icerik|length > 80 %}...{% endif %}</td>
+            <td class="mono small">{{ d.tarih }}</td>
+            <td>
+              <form method="post" action="{{ url_for('admin_delete', tip='duyuru', oid=d.id) }}" data-confirm="Bu duyuru silinsin mi?">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn-mini btn-mini-danger">Sil</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <div class="empty-state"><strong>Henüz duyuru yok</strong></div>
+    {% endif %}
+  </section>
+
+  {# ============================================================
+     TALEPLER
+     ============================================================ #}
+  {% if talepler and talepler|length %}
+  <section class="admin-panel" data-panel="talepler">
+    <div class="mini-card mini-card-warn" style="margin-bottom:16px">
+      <p class="muted small">{{ talepler|length }} kişi şifre sıfırlama talebinde bulundu.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="table compact-table">
+        <thead><tr><th>T.C.</th><th>Ad Soyad</th><th>Rol</th><th>E-posta</th><th>Tarih</th><th class="col-actions">İşlem</th></tr></thead>
+        <tbody>
+        {% for t in talepler %}
+          <tr>
+            <td class="mono">{{ t.tc_no }}</td>
+            <td>{{ t.user_name or '—' }}</td>
+            <td><span class="chip">{{ t.role or '—' }}</span></td>
+            <td class="small">{{ t.email or '—' }}</td>
+            <td class="mono small">{{ t.tarih }}</td>
+            <td>
+              <div class="talep-islem">
+                <form method="post" action="{{ url_for('admin_talep_coz', tid=t.id) }}" class="talep-form" data-confirm="{{ t.user_name or t.tc_no }} için yeni şifre atanacak. Onaylıyor musunuz?">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <input type="text" name="yeni_sifre" id="talepInput{{ t.id }}" required minlength="5" class="mini-input" placeholder="Yeni şifre">
+                  <button type="button" class="btn-mini" onclick="rastgeleSifre('{{ t.id }}')" title="Rastgele güvenli şifre üret">⚄</button>
+                  <button type="submit" class="btn-mini">Şifre Ata</button>
+                </form>
+                <form method="post" action="{{ url_for('admin_talep_sil', tid=t.id) }}" data-confirm="Bu talep kapatılsın mı?">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn-mini btn-mini-danger">Kapat</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  {% endif %}
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------- Sekme geçişi ----------
+  var tabs = document.querySelectorAll(".admin-tab");
+  var panels = document.querySelectorAll(".admin-panel");
+
+  function go(tabAdi) {
+    tabs.forEach(function (t) { t.classList.toggle("is-active", t.dataset.tab === tabAdi); });
+    panels.forEach(function (p) { p.classList.toggle("is-active", p.dataset.panel === tabAdi); });
+    try { localStorage.setItem("cpeak_admin_tab", tabAdi); } catch (e) {}
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function () { go(this.dataset.tab); });
+  });
+
+  // ---------- Hızlı işlem butonları ----------
+  document.querySelectorAll("[data-goto]").forEach(function (btn) {
+    btn.addEventListener("click", function () { go(this.dataset.goto); });
+  });
+
+  // ---------- Son aktif sekmeyi hatırla ----------
+  try {
+    var son = localStorage.getItem("cpeak_admin_tab");
+    if (son) {
+      var varMi = false;
+      tabs.forEach(function (t) { if (t.dataset.tab === son) varMi = true; });
+      if (varMi) go(son);
+    }
+  } catch (e) {}
+
+  // ---------- Arama ----------
+  document.querySelectorAll("[data-search]").forEach(function (input) {
+    var tabloId = input.dataset.search;
+    var tablo = document.getElementById(tabloId);
+    if (!tablo) return;
+    input.addEventListener("input", function () {
+      var q = this.value.toLowerCase().trim();
+      tablo.querySelectorAll("tbody tr").forEach(function (tr) {
+        var metin = tr.textContent.toLowerCase();
+        tr.hidden = (q && metin.indexOf(q) === -1);
+      });
+    });
+  });
+
+})();
+</script>
+
+{% endblock %}

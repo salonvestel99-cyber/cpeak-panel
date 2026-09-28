@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block title %}Öğrenci Paneli{% endblock %}
+{% block content %}
+
+{% set saat = now_hour|default(12) %}
+{% if saat < 6 %}{% set selam = "İyi geceler" %}
+{% elif saat < 12 %}{% set selam = "Günaydın" %}
+{% elif saat < 18 %}{% set selam = "İyi günler" %}
+{% else %}{% set selam = "İyi akşamlar" %}{% endif %}
+
+{# ============================================================
+   HERO — karşılama
+   ============================================================ #}
+<section class="st-hero">
+  <div class="st-hero-text">
+    <div class="st-hero-eyebrow">
+      <span class="st-dot"></span>
+      <span>Öğrenci Paneli</span>
+    </div>
+    <h1 class="st-hero-title">{{ selam }}, {{ session.name.split(' ')[0] }}.</h1>
+    <p class="st-hero-sub">
+      {% set _s = ogrenci.sinif|string %}<strong>{{ _s if _s.endswith('.') else _s ~ '.' }}</strong> sınıf · <strong>{{ ogrenci.numara }}</strong> numaralı öğrenci
+    </p>
+  </div>
+</section>
+
+{# ============================================================
+   HIZLI ERİŞİM — 3 kart
+   ============================================================ #}
+<section class="st-quick">
+  <a href="{{ url_for('ders_programi') }}" class="st-quick-card">
+    <span class="st-quick-ico">🗓</span>
+    <span class="st-quick-body">
+      <span class="st-quick-label">Ders Programım</span>
+      <span class="st-quick-desc">Haftalık ders takvimi</span>
+    </span>
+  </a>
+  <a href="{{ url_for('odevler') }}" class="st-quick-card">
+    <span class="st-quick-ico">📋</span>
+    <span class="st-quick-body">
+      <span class="st-quick-label">Ödevlerim</span>
+      <span class="st-quick-desc">Teslim edilecek ödevler</span>
+    </span>
+  </a>
+  <a href="{{ url_for('devamsizlik_detay', sid=ogrenci.id) }}" class="st-quick-card">
+    <span class="st-quick-ico">📅</span>
+    <span class="st-quick-body">
+      <span class="st-quick-label">Devamsızlık</span>
+      <span class="st-quick-desc">Detaylı katılım kaydı</span>
+    </span>
+  </a>
+</section>
+
+{# ============================================================
+   İSTATİSTİK ŞERİDİ
+   ============================================================ #}
+{% set dev = devamsizlik %}
+{% if dev.toplam <= 5 %}{% set dev_sinif = "is-iyi" %}
+{% elif dev.toplam <= 10 %}{% set dev_sinif = "is-dikkat" %}
+{% elif dev.toplam <= 15 %}{% set dev_sinif = "is-uyari" %}
+{% else %}{% set dev_sinif = "is-kritik" %}{% endif %}
+
+<section class="st-stats">
+  <div class="st-stat">
+    <div class="st-stat-label">Devamsızlık</div>
+    <div class="st-stat-value {{ dev_sinif }}">{{ dev.toplam }}<small>gün</small></div>
+    <div class="st-stat-meta">
+      <span><span class="st-pin st-pin-yes"></span>İzinli {{ dev.izinli }}</span>
+      <span><span class="st-pin st-pin-no"></span>Gelmedi {{ dev.gelmedi }}</span>
+    </div>
+    <div class="st-bar"><div class="st-bar-fill {{ dev_sinif }}" style="width:{{ [100, (dev.toplam / 20 * 100)]|min }}%"></div></div>
+  </div>
+
+  <div class="st-stat">
+    <div class="st-stat-label">Ortalama</div>
+    <div class="st-stat-value">{{ ortalama }}</div>
+    <div class="st-stat-meta">{{ dersler|length }} dersten hesaplandı</div>
+  </div>
+
+  <div class="st-stat">
+    <div class="st-stat-label">Aktif Ders</div>
+    <div class="st-stat-value">{{ dersler|length }}</div>
+    <div class="st-stat-meta">{% if dersler %}Devam ediyor{% else %}—{% endif %}</div>
+  </div>
+
+  <div class="st-stat">
+    <div class="st-stat-label">Duyuru</div>
+    <div class="st-stat-value">{{ duyurular|length }}</div>
+    <div class="st-stat-meta">{% if duyurular %}Yayında{% else %}—{% endif %}</div>
+  </div>
+</section>
+
+{# ============================================================
+   NOTLAR
+   ============================================================ #}
+<section class="st-block">
+  <header class="st-block-head">
+    <h2 class="st-block-title">Notlarım</h2>
+    {% if dersler %}<span class="st-block-meta">{{ dersler|length }} ders</span>{% endif %}
+  </header>
+
+  {% if dersler %}
+  <div class="st-ders-liste">
+    {% for ders, sinavlar in dersler.items() %}
+      {% set ort = (sinavlar|map(attribute='puan')|sum) / (sinavlar|length) %}
+      {% if ort >= 85 %}{% set harf = "AA" %}{% set renk = "#059669" %}
+      {% elif ort >= 80 %}{% set harf = "BA" %}{% set renk = "#0369a1" %}
+      {% elif ort >= 75 %}{% set harf = "BB" %}{% set renk = "#1d4ed8" %}
+      {% elif ort >= 70 %}{% set harf = "CB" %}{% set renk = "#4338ca" %}
+      {% elif ort >= 65 %}{% set harf = "CC" %}{% set renk = "#c2410c" %}
+      {% elif ort >= 50 %}{% set harf = "DD" %}{% set renk = "#b45309" %}
+      {% else %}{% set harf = "FF" %}{% set renk = "#dc2626" %}{% endif %}
+      <div class="st-ders">
+        <div class="st-ders-left">
+          <div class="st-ders-ad">{{ ders }}</div>
+          <div class="st-ders-chips">
+            {% for s in sinavlar %}
+              <span class="st-chip"><em>{{ s.sinav }}</em>{{ s.puan }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="st-ders-right">
+          <span class="st-ders-ort">{{ ort|round(1) }}</span>
+          <span class="st-ders-harf" style="color:{{ renk }}">{{ harf }}</span>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="st-empty">
+    <span class="st-empty-ico">📖</span>
+    <strong>Henüz not kaydı yok</strong>
+    <p>Öğretmenleriniz not girdikçe burada görünecek.</p>
+  </div>
+  {% endif %}
+</section>
+
+{# ============================================================
+   DUYURULAR
+   ============================================================ #}
+<section class="st-block">
+  <header class="st-block-head">
+    <h2 class="st-block-title">Duyurular</h2>
+    {% if duyurular %}<span class="st-block-meta">{{ duyurular|length }} güncel</span>{% endif %}
+  </header>
+
+  {% if duyurular %}
+  <div class="st-duyuru-liste">
+    {% for d in duyurular %}
+    <article class="st-duyuru">
+      <header class="st-duyuru-head">
+        <h3>{{ d.baslik }}</h3>
+        <time>{{ d.tarih }}</time>
+      </header>
+      <p>{{ d.icerik }}</p>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="st-empty">
+    <span class="st-empty-ico">📭</span>
+    <strong>Henüz duyuru yok</strong>
+    <p>Okuldan yeni duyurular burada görünecek.</p>
+  </div>
+  {% endif %}
+</section>
+
+{% endblock %}

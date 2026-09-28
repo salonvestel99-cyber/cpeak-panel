@@ -1,0 +1,536 @@
+/* =========================================================
+   FOOTER — İnce, düzenli, marka renkli sosyal ikonlar
+   ========================================================= */
+
+/* Sayfa iskeleti: footer en altta */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body > main,
+body > .login-shell,
+body > .legal-page {
+  flex: 1 0 auto;
+}
+body > .login-footer-bar {
+  flex-shrink: 0;
+  margin-top: auto;
+}
+body.login-page > .login-footer-bar {
+  margin-top: 0;
+}
+
+/* ---------- Footer bar ---------- */
+.login-footer-bar {
+  background: #faf7f0;
+  border-top: 1px solid var(--border, #e4e4e7);
+  padding: 10px 28px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+/* ---------- Copyright ---------- */
+.footer-copy {
+  font-size: .74rem;
+  color: var(--muted, #71717a);
+  letter-spacing: .01em;
+  line-height: 1.4;
+}
+.footer-copy strong {
+  color: var(--ink-2, #27272a);
+  font-weight: 600;
+}
+
+/* =========================================================
+   SOSYAL İKONLAR — kompakt, marka renkli
+   ========================================================= */
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.social-icon svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+  transition: transform .2s ease;
+}
+
+/* ---------- INSTAGRAM ---------- */
+.social-instagram {
+  color: #d62976;
+  background: rgba(214,41,118,.10);
+}
+.social-instagram:hover {
+  transform: translateY(-2px);
+  background: rgba(214,41,118,.18);
+  box-shadow: 0 4px 14px rgba(214,41,118,.42);
+}
+.social-instagram:hover svg {
+  transform: scale(1.12);
+}
+
+/* ---------- YOUTUBE ---------- */
+.social-youtube {
+  color: #ff0000;
+  background: rgba(255,0,0,.08);
+}
+.social-youtube:hover {
+  transform: translateY(-2px);
+  background: rgba(255,0,0,.16);
+  box-shadow: 0 4px 14px rgba(255,0,0,.42);
+}
+.social-youtube:hover svg {
+  transform: scale(1.12);
+}
+
+/* ---------- WHATSAPP ---------- */
+.social-whatsapp {
+  color: #25D366;
+  background: rgba(37,211,102,.10);
+}
+.social-whatsapp:hover {
+  transform: translateY(-2px);
+  background: rgba(37,211,102,.18);
+  box-shadow: 0 4px 14px rgba(37,211,102,.42);
+}
+.social-whatsapp:hover svg {
+  transform: scale(1.12);
+}
+
+/* =========================================================
+   İLETİŞİM — telefon, e-posta, KVKK
+   ========================================================= */
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .74rem;
+  color: rgba(24,24,27,.68);
+  flex-wrap: wrap;
+  line-height: 1.4;
+}
+.footer-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .15s ease;
+}
+.footer-contact a:hover {
+  color: var(--copper, #b45309);
+}
+.footer-contact svg {
+  color: var(--copper, #b45309);
+  flex-shrink: 0;
+}
+.footer-sep {
+  color: #cbd5e1;
+}
+
+/* =========================================================
+   KOYU MOD
+   ========================================================= */
+[data-theme="dark"] .login-footer-bar {
+  background: #0a0a0b;
+  border-top-color: var(--border);
+}
+[data-theme="dark"] .footer-copy {
+  color: var(--muted);
+}
+[data-theme="dark"] .footer-copy strong {
+  color: var(--ink);
+}
+[data-theme="dark"] .footer-contact {
+  color: var(--muted);
+}
+[data-theme="dark"] .footer-contact a:hover {
+  color: var(--copper);
+}
+[data-theme="dark"] .footer-contact svg {
+  color: var(--copper);
+}
+[data-theme="dark"] .footer-sep {
+  color: var(--border-2);
+}
+[data-theme="dark"] .social-instagram {
+  background: rgba(214,41,118,.14);
+}
+[data-theme="dark"] .social-youtube {
+  background: rgba(255,0,0,.12);
+}
+[data-theme="dark"] .social-whatsapp {
+  background: rgba(37,211,102,.14);
+}
+[data-theme="dark"] .social-instagram:hover {
+  background: rgba(214,41,118,.28);
+  color: #ff4f9a;
+}
+[data-theme="dark"] .social-youtube:hover {
+  background: rgba(255,0,0,.26);
+  color: #ff4444;
+}
+[data-theme="dark"] .social-whatsapp:hover {
+  background: rgba(37,211,102,.28);
+  color: #25D366;
+}
+
+/* =========================================================
+   MOBİL
+   ========================================================= */
+@media (max-width: 720px) {
+  .login-footer-bar {
+    padding: 12px 16px;
+  }
+  .footer-inner {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  .footer-copy,
+  .footer-contact {
+    font-size: .72rem;
+  }
+  .footer-contact {
+    justify-content: center;
+  }
+  .footer-social {
+    justify-content: center;
+    gap: 8px;
+  }
+  .social-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+  .social-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* === INCE PREMIUM FOOTER (v2) === */
+
+/* ============================================================
+   INCE PREMIUM FOOTER (v2)
+   ============================================================ */
+.login-footer-bar {
+  padding: 6px 28px !important;
+  background: rgba(250,247,240,.65) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(24,24,27,.06) !important;
+}
+
+.footer-inner {
+  gap: 14px !important;
+  min-height: 32px;
+}
+
+/* --- Copyright --- */
+.footer-copy {
+  font-size: .72rem !important;
+  letter-spacing: .015em !important;
+  color: rgba(24,24,27,.55) !important;
+  line-height: 1 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color .3s ease;
+}
+.footer-copy strong {
+  font-weight: 600 !important;
+  background: linear-gradient(90deg,
+    #b45309 0%,
+    #d97706 45%,
+    #f59e0b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  letter-spacing: .01em;
+  transition: filter .3s ease;
+}
+.login-footer-bar:hover .footer-copy strong {
+  filter: brightness(1.15) drop-shadow(0 0 6px rgba(217,119,6,.35));
+}
+
+/* --- Sosyal ikonlar daha ince --- */
+.social-icon {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 7px !important;
+}
+.social-icon svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* --- Iletisim yazilari daha kucuk --- */
+.footer-contact {
+  font-size: .71rem !important;
+  gap: 5px !important;
+  color: rgba(24,24,27,.55) !important;
+}
+.footer-contact a {
+  gap: 4px !important;
+  font-weight: 500;
+}
+.footer-sep {
+  font-size: .9em;
+  color: rgba(24,24,27,.22) !important;
+}
+
+/* ============================================================
+   KOYU MOD
+   ============================================================ */
+[data-theme="dark"] .login-footer-bar {
+  background: rgba(10,10,11,.75) !important;
+  border-top-color: rgba(255,255,255,.05) !important;
+}
+[data-theme="dark"] .footer-copy {
+  color: rgba(255,255,255,.42) !important;
+}
+[data-theme="dark"] .footer-copy strong {
+  background: linear-gradient(90deg,
+    #d97706 0%,
+    #f59e0b 50%,
+    #fbbf24 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+[data-theme="dark"] .login-footer-bar:hover .footer-copy strong {
+  filter: brightness(1.25) drop-shadow(0 0 8px rgba(217,119,6,.55));
+}
+[data-theme="dark"] .footer-contact {
+  color: rgba(255,255,255,.42) !important;
+}
+[data-theme="dark"] .footer-sep {
+  color: rgba(255,255,255,.18) !important;
+}
+
+/* ============================================================
+   MOBIL
+   ============================================================ */
+@media (max-width: 720px) {
+  .login-footer-bar {
+    padding: 10px 14px !important;
+  }
+  .footer-inner {
+    gap: 8px !important;
+  }
+  .footer-copy,
+  .footer-contact {
+    font-size: .68rem !important;
+  }
+  .social-icon {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .social-icon svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+}
+
+/* === FOOTER COPY GLOW v3 === */
+
+/* === FOOTER COPY GLOW v3 === */
+/* Metin parlamasi iptal */
+.login-footer-bar .footer-copy strong {
+  filter: none !important;
+}
+.login-footer-bar:hover .footer-copy strong {
+  filter: none !important;
+}
+
+/* Yazinin arkasinda yumusak, uygulama-renkli aydinlanma */
+.login-footer-bar .footer-copy {
+  position: relative;
+  padding: 4px 10px;
+  border-radius: 9px;
+  isolation: isolate;
+  cursor: default;
+}
+.login-footer-bar .footer-copy::before {
+  content: "";
+  position: absolute;
+  inset: -3px -8px;
+  border-radius: 10px;
+  background: radial-gradient(ellipse at center,
+    rgba(217,119,6,.16) 0%,
+    rgba(217,119,6,.05) 42%,
+    transparent 74%);
+  opacity: 0;
+  transition: opacity .38s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.login-footer-bar .footer-copy:hover::before {
+  opacity: 1;
+}
+
+/* Koyu modda biraz daha belirgin */
+[data-theme="dark"] .login-footer-bar .footer-copy::before {
+  background: radial-gradient(ellipse at center,
+    rgba(217,119,6,.24) 0%,
+    rgba(217,119,6,.07) 45%,
+    transparent 78%);
+}
+
+/* Mobilde fazla yer kaplamasin */
+@media (max-width: 720px) {
+  .login-footer-bar .footer-copy {
+    padding: 3px 8px;
+  }
+}
+
+/* === FOOTER COPY GLOW v4 === */
+
+/* === FOOTER COPY GLOW v4 === */
+/* Turuncu metin gradyanini iptal et -> notr renk */
+.login-footer-bar .footer-copy strong,
+[data-theme="dark"] .login-footer-bar .footer-copy strong {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: inherit !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* Yazinin kendisi notr, hafif koyu */
+.login-footer-bar .footer-copy {
+  color: rgba(24,24,27,.55) !important;
+}
+.login-footer-bar .footer-copy strong {
+  color: rgba(24,24,27,.85) !important;
+  font-weight: 600 !important;
+}
+[data-theme="dark"] .login-footer-bar .footer-copy {
+  color: rgba(255,255,255,.42) !important;
+}
+[data-theme="dark"] .login-footer-bar .footer-copy strong {
+  color: rgba(255,255,255,.88) !important;
+}
+
+/* Sadece arka planda yumusak bakir aydinlanma */
+.login-footer-bar .footer-copy::before {
+  background: radial-gradient(ellipse at center,
+    rgba(217,119,6,.14) 0%,
+    rgba(180,83,9,.05) 45%,
+    transparent 76%) !important;
+}
+[data-theme="dark"] .login-footer-bar .footer-copy::before {
+  background: radial-gradient(ellipse at center,
+    rgba(217,119,6,.20) 0%,
+    rgba(180,83,9,.06) 48%,
+    transparent 80%) !important;
+}
+
+/* === SOSYAL IKON v2 === */
+
+/* === SOSYAL IKON v2 === */
+/* Tum ikonlar sakin, ince; hover'da marka rengi belirginlesir */
+
+.social-icon {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 7px !important;
+  background: rgba(120,120,120,.06) !important;
+  color: rgba(24,24,27,.45) !important;
+  transition: background .25s ease, color .25s ease,
+              transform .25s ease, box-shadow .25s ease !important;
+}
+.social-icon svg {
+  width: 12px !important;
+  height: 12px !important;
+  transition: transform .25s ease;
+}
+
+/* --- INSTAGRAM --- */
+.social-icon.social-instagram:hover {
+  background: rgba(214,41,118,.14) !important;
+  color: #d62976 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(214,41,118,.28);
+}
+.social-icon.social-instagram:hover svg { transform: scale(1.1); }
+
+/* --- YOUTUBE --- */
+.social-icon.social-youtube:hover {
+  background: rgba(220,38,38,.12) !important;
+  color: #dc2626 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(220,38,38,.26);
+}
+.social-icon.social-youtube:hover svg { transform: scale(1.1); }
+
+/* --- WHATSAPP --- */
+.social-icon.social-whatsapp:hover {
+  background: rgba(37,211,102,.14) !important;
+  color: #25D366 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(37,211,102,.28);
+}
+.social-icon.social-whatsapp:hover svg { transform: scale(1.1); }
+
+/* ============================================================
+   KOYU MOD
+   ============================================================ */
+[data-theme="dark"] .social-icon {
+  background: rgba(255,255,255,.04) !important;
+  color: rgba(255,255,255,.42) !important;
+}
+[data-theme="dark"] .social-icon.social-instagram:hover {
+  background: rgba(214,41,118,.18) !important;
+  color: #f472b6 !important;
+}
+[data-theme="dark"] .social-icon.social-youtube:hover {
+  background: rgba(220,38,38,.16) !important;
+  color: #ef4444 !important;
+}
+[data-theme="dark"] .social-icon.social-whatsapp:hover {
+  background: rgba(37,211,102,.16) !important;
+  color: #25D366 !important;
+}
+
+/* Mobilde dokunma alani biraz daha buyuk */
+@media (max-width: 720px) {
+  .social-icon {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 8px !important;
+  }
+  .social-icon svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+}

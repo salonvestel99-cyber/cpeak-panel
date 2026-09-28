@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Toplu Not Girişi{% endblock %}
+{% block content %}
+
+<div class="panel-hero">
+  <div class="panel-hero-text">
+    <div class="panel-hero-eyebrow">Not Yönetimi</div>
+    <h1 class="panel-hero-greet">Toplu Not Girişi</h1>
+    <p class="panel-hero-sub">Ders ve sınav türü seçin — tüm öğrencilerin notlarını tek ekranda girin.</p>
+  </div>
+  <div class="panel-hero-avatar">{{ session.name[0]|upper }}</div>
+</div>
+
+{# ---------- Adım 1: Seçim ---------- #}
+<div class="card">
+  <div class="card-head">
+    <h3><span class="ico">🔍</span> Ders ve Sınav Seçimi</h3>
+    {% if secili_course and secili_sinav %}
+      <a href="{{ url_for('not_giris') }}" class="btn-mini">Yeni Seçim</a>
+    {% endif %}
+  </div>
+  <form method="get" action="{{ url_for('not_giris') }}" class="not-filter-form">
+    <div class="form-row">
+      <label>
+        <span>Ders</span>
+        <select name="course_id" required>
+          <option value="">— Ders Seçin —</option>
+          {% for c in courses %}
+          <option value="{{ c.id }}" {% if secili_course == c.id %}selected{% endif %}>{{ c.ad }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>
+        <span>Sınav Türü</span>
+        <select name="sinav" required>
+          <option value="">— Sınav Seçin —</option>
+          {% for s in ["1. Sınav", "2. Sınav", "Sözlü", "Ödev", "Proje", "Vize", "Final"] %}
+          <option value="{{ s }}" {% if secili_sinav == s %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="filter-button">
+        <span>&nbsp;</span>
+        <button type="submit" class="btn-primary">Notları Getir</button>
+      </label>
+    </div>
+  </form>
+</div>
+
+{# ---------- Adım 2: Not Tablosu ---------- #}
+{% if secili_course and secili_sinav %}
+<div class="card">
+  <div class="card-head">
+    <h3><span class="ico">📝</span> Not Girişi</h3>
+    <span class="muted small">{{ students|length }} öğrenci · {{ mevcut_notlar|length }} mevcut kayıt</span>
+  </div>
+
+  <p class="muted small" style="margin-bottom:16px">
+    Sadece not girmek istediğiniz öğrencilerin alanını doldurun. Boş bırakılanlar atlanır.
+    Aynı sınav için tekrar kaydettiğinizde eski not güncellenir.
+  </p>
+
+  <form method="post" action="{{ url_for('not_ekle_toplu') }}" class="not-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="course_id" value="{{ secili_course }}">
+    <input type="hidden" name="sinav" value="{{ secili_sinav }}">
+
+    <div class="not-table-wrap">
+      <table class="not-table">
+        <thead>
+          <tr>
+            <th style="width:56px">#</th>
+            <th>Ad Soyad</th>
+            <th style="width:110px">Sınıf</th>
+            <th style="width:150px">Puan</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for o in students %}
+          <tr>
+            <td class="muted small">{{ loop.index }}</td>
+            <td><strong>{{ o.ad }}</strong></td>
+            <td><span class="chip">{{ o.sinif }} / {{ o.numara }}</span></td>
+            <td>
+              <input type="number" name="puan_{{ o.id }}" min="0" max="100" step="0.1" class="puan-input">
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="not-form-actions">
+      <button type="submit" class="btn-primary">Tüm Notları Kaydet</button>
+    </div>
+  </form>
+</div>
+
+{% else %}
+<div class="card bilgi">
+  <p class="muted">Başlamak için yukarıdan ders ve sınav türü seçip <strong>Notları Getir</strong>'e basın.</p>
+</div>
+{% endif %}
+
+<div style="margin-top:20px">
+  <a href="{{ url_for('dashboard') }}" class="btn-ghost">← Panele Dön</a>
+</div>
+
+{% endblock %}

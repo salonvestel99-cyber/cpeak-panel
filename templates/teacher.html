@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% block title %}Öğretmen Paneli{% endblock %}
+{% block content %}
+
+{# ============================================================
+   HERO
+   ============================================================ #}
+<section class="tp-hero">
+  <div class="tp-hero-text">
+    <div class="tp-hero-eyebrow">
+      <span class="tp-dot"></span>
+      <span>Öğretmen Paneli</span>
+    </div>
+    <h1 class="tp-hero-title">Merhaba, {{ session.name.split(' ')[0] }}.</h1>
+    <p class="tp-hero-sub">
+      Bugün <strong>{{ bugun_gun }}</strong>
+      · <strong>{{ ogrenci_sayisi }}</strong> öğrenci
+      · <strong>{{ dersler|length }}</strong> ders
+    </p>
+  </div>
+  <div class="tp-hero-avatar">{{ session.name[0]|upper }}</div>
+</section>
+
+{# ============================================================
+   HIZLI İŞLEMLER
+   ============================================================ #}
+<section class="tp-quick">
+  <a href="{{ url_for('not_giris') }}" class="tp-quick-card">
+    <span class="tp-quick-ico">📝</span>
+    <span class="tp-quick-body">
+      <span class="tp-quick-label">Toplu Not Girişi</span>
+      <span class="tp-quick-desc">Sınıfın notlarını tek ekranda gir</span>
+    </span>
+  </a>
+  <a href="{{ url_for('devamsizlik_giris') }}" class="tp-quick-card">
+    <span class="tp-quick-ico">📅</span>
+    <span class="tp-quick-body">
+      <span class="tp-quick-label">Yoklama Al</span>
+      <span class="tp-quick-desc">Bugünün katılımını işaretle</span>
+    </span>
+  </a>
+  <a href="{{ url_for('ogretmen_odev_ver') }}" class="tp-quick-card">
+    <span class="tp-quick-ico">📋</span>
+    <span class="tp-quick-body">
+      <span class="tp-quick-label">Ödev Ver</span>
+      <span class="tp-quick-desc">Yeni ödev yayınla</span>
+    </span>
+  </a>
+  <a href="{{ url_for('ders_programi_duzenle') }}" class="tp-quick-card">
+    <span class="tp-quick-ico">🗓</span>
+    <span class="tp-quick-body">
+      <span class="tp-quick-label">Ders Programı</span>
+      <span class="tp-quick-desc">Düzenle veya görüntüle</span>
+    </span>
+  </a>
+</section>
+
+{# ============================================================
+   İSTATİSTİK ŞERİDİ
+   ============================================================ #}
+<section class="tp-stats">
+  <div class="tp-stat">
+    <div class="tp-stat-label">Öğrenci</div>
+    <div class="tp-stat-value">{{ ogrenci_sayisi }}</div>
+    <div class="tp-stat-meta">Toplam kayıtlı</div>
+  </div>
+  <div class="tp-stat">
+    <div class="tp-stat-label">Ders</div>
+    <div class="tp-stat-value">{{ dersler|length }}</div>
+    <div class="tp-stat-meta">Size atanmış</div>
+  </div>
+  <div class="tp-stat">
+    <div class="tp-stat-label">Sınıf</div>
+    <div class="tp-stat-value">{{ siniflar|length }}</div>
+    <div class="tp-stat-meta">Aktif şube</div>
+  </div>
+  <div class="tp-stat">
+    <div class="tp-stat-label">Bugün Yoklama</div>
+    <div class="tp-stat-value">{{ bugun_yoklama }}</div>
+    <div class="tp-stat-meta">{{ yoklama_metni }}</div>
+  </div>
+</section>
+
+{# ============================================================
+   DERSLERİM
+   ============================================================ #}
+<section class="tp-block">
+  <header class="tp-block-head">
+    <h2 class="tp-block-title">Verdiğim Dersler</h2>
+    {% if dersler %}<span class="tp-block-meta">{{ dersler|length }} ders</span>{% endif %}
+  </header>
+
+  {% if dersler %}
+  <div class="tp-ders-list">
+    {% for d in dersler %}
+    <div class="tp-ders-item">
+      <span class="tp-ders-ad">{{ d.ad }}</span>
+      <a href="{{ url_for('not_giris') }}" class="tp-ders-link">Not Gir →</a>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="tp-empty">
+    <span class="tp-empty-ico">📚</span>
+    <strong>Size atanmış ders yok</strong>
+    <p>Yönetim panelinden ders ataması bekleyin.</p>
+  </div>
+  {% endif %}
+</section>
+
+{# ============================================================
+   SON ÖDEVLERİM
+   ============================================================ #}
+{% if odevler %}
+<section class="tp-block">
+  <header class="tp-block-head">
+    <h2 class="tp-block-title">Son Ödevlerim</h2>
+    <a href="{{ url_for('odevler') }}" class="tp-block-link">Tümü →</a>
+  </header>
+  <div class="tp-odev-list">
+    {% for o in odevler %}
+    <a href="{{ url_for('odev_detay', hid=o.id) }}" class="tp-odev-item">
+      <div class="tp-odev-sol">
+        <span class="tp-odev-baslik">{{ o.baslik }}</span>
+        <span class="tp-odev-meta">Teslim: {{ o.teslim }}</span>
+      </div>
+      <span class="tp-odev-rozet">{{ o.teslim_sayisi }} teslim</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{# ============================================================
+   ÖĞRENCİ LİSTESİ
+   ============================================================ #}
+<section class="tp-block">
+  <header class="tp-block-head">
+    <h2 class="tp-block-title">Öğrenciler</h2>
+    <span class="tp-block-meta">{{ ogrenci_sayisi }} kayıt</span>
+  </header>
+
+  {% if ogrenciler %}
+  <div class="tp-filtre">
+    <input type="text" class="tp-search" id="tpSearch" placeholder="İsim veya sınıf ara...">
+    <select class="tp-sinif-filter" id="tpSinif">
+      <option value="">Tüm Sınıflar</option>
+      {% for s in siniflar %}
+      <option value="{{ s }}">{{ s }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table compact-table" id="tpTable">
+      <thead>
+        <tr>
+          <th>Ad Soyad</th>
+          <th>Sınıf</th>
+          <th>No</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for o in ogrenciler %}
+      <tr data-sinif="{{ o.sinif }}">
+        <td><strong>{{ o.ad }}</strong></td>
+        <td><span class="chip">{{ o.sinif }}</span></td>
+        <td>{{ o.numara }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="tp-empty">
+    <span class="tp-empty-ico">👥</span>
+    <strong>Kayıtlı öğrenci yok</strong>
+  </div>
+  {% endif %}
+</section>
+
+<script>
+(function () {
+  "use strict";
+  var search = document.getElementById("tpSearch");
+  var sinif = document.getElementById("tpSinif");
+  var tablo = document.getElementById("tpTable");
+  if (!tablo) return;
+
+  function filtrele() {
+    var q = search ? search.value.toLowerCase().trim() : "";
+    var s = sinif ? sinif.value : "";
+    tablo.querySelectorAll("tbody tr").forEach(function (tr) {
+      var metin = tr.textContent.toLowerCase();
+      var trSinif = tr.dataset.sinif || "";
+      var uygun = (!q || metin.indexOf(q) !== -1) && (!s || trSinif === s);
+      tr.hidden = !uygun;
+    });
+  }
+
+  if (search) search.addEventListener("input", filtrele);
+  if (sinif) sinif.addEventListener("change", filtrele);
+})();
+</script>
+
+{% endblock %}

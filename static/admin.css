@@ -1,0 +1,101 @@
+/* ADMIN FORM */
+
+.admin-form .form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px; margin-bottom: 14px;
+}
+.admin-form .form-row .full { grid-column: 1 / -1; }
+.admin-form label { display: block; font-size: .82rem; }
+.admin-form label span {
+  display: block; font-size: .72rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--navy-2); margin-bottom: 6px;
+}
+.admin-form input, .admin-form select, .admin-form textarea {
+  width: 100%; padding: 11px 13px;
+  border: 1.5px solid var(--line); border-radius: 10px;
+  font-size: .94rem; font-family: inherit;
+  background: #fff; color: var(--ink);
+  transition: all .15s ease;
+}
+.admin-form input:focus, .admin-form select:focus, .admin-form textarea:focus {
+  outline: none; border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(232,118,90,.15);
+}
+.admin-form textarea { resize: vertical; min-height: 70px; }
+.admin-form .btn-primary { margin-top: 6px; max-width: 240px; }
+.admin-form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 38px;
+}
+
+
+/* === SCROLLBAR GIZLE === */
+/* Admin tab menu ve tabs benzeri yatay alanlar */
+.admin-tabs,
+.tabs,
+.tabs-nav,
+.nav-tabs,
+[class*="tabs"] {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+.admin-tabs::-webkit-scrollbar,
+.tabs::-webkit-scrollbar,
+.tabs-nav::-webkit-scrollbar,
+.nav-tabs::-webkit-scrollbar,
+[class*="tabs"]::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Ice tablo/liste alanlari icin ince scrollbar */
+.admin-panel,
+.tab-panel,
+.tab-content,
+.admin-content,
+.table-wrap,
+.not-table-wrap {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(217,119,6,.35) transparent;
+}
+.admin-panel::-webkit-scrollbar,
+.tab-panel::-webkit-scrollbar,
+.tab-content::-webkit-scrollbar,
+.admin-content::-webkit-scrollbar,
+.table-wrap::-webkit-scrollbar,
+.not-table-wrap::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+.admin-panel::-webkit-scrollbar-track,
+.tab-panel::-webkit-scrollbar-track,
+.tab-content::-webkit-scrollbar-track,
+.admin-content::-webkit-scrollbar-track,
+.table-wrap::-webkit-scrollbar-track,
+.not-table-wrap::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+.admin-panel::-webkit-scrollbar-thumb,
+.tab-panel::-webkit-scrollbar-thumb,
+.tab-content::-webkit-scrollbar-thumb,
+.admin-content::-webkit-scrollbar-thumb,
+.table-wrap::-webkit-scrollbar-thumb,
+.not-table-wrap::-webkit-scrollbar-thumb {
+  background: rgba(217,119,6,.35) !important;
+  border-radius: 3px !important;
+}
+.admin-panel::-webkit-scrollbar-thumb:hover,
+.tab-panel::-webkit-scrollbar-thumb:hover,
+.tab-content::-webkit-scrollbar-thumb:hover,
+.admin-content::-webkit-scrollbar-thumb:hover,
+.table-wrap::-webkit-scrollbar-thumb:hover,
+.not-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: rgba(217,119,6,.60) !important;
+}
