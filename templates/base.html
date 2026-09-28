@@ -14,7 +14,7 @@
 </script>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
 <title>{% block title %}C · Peak English{% endblock %}</title>
 <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='logochrome.png') }}">
 <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -925,6 +925,9 @@ html.dark #cookieBanner .cookie-btn-primary {
 }
 </style>
 <!-- /CKPREM-INLINE -->
+    <!-- Mobile optimizasyon - sadece mobilde aktif -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobile.css') }}">
+
 </head>
 <body class="{% block body_class %}{% endblock %}">
 {% block body %}
