@@ -1557,6 +1557,9 @@ def api_bildirim_cevap_sayi():
 # ============================================================
 @app.route("/kur")
 def kur_endpoint():
+    import os as _os_kur
+    if _os_kur.environ.get("KUR_AKTIF") != "1":
+        return "Bu sayfa devre disi.", 403
     """Veritabani ve admin olustur. Ilk kurulum icin."""
     import traceback as _tb
     sonuc = []
