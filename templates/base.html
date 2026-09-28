@@ -608,6 +608,323 @@ html.dark #udThemeToggle:hover {
 }
 </style>
 <!-- /UDTEMA-INLINE -->
+<!-- CKPREM-INLINE -->
+<style>
+/* ============================================================
+   COOKIE BANNER - PREMIUM GLASSMORPHISM
+   ============================================================ */
+
+#cookieBanner.cookie-banner {
+  position: fixed !important;
+  bottom: 24px !important;
+  left: 24px !important;
+  right: auto !important;
+  top: auto !important;
+  width: min(440px, calc(100vw - 32px)) !important;
+  max-width: 440px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  /* Glassmorphism */
+  background: rgba(255, 255, 255, 0.72) !important;
+  color: #18181b !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  border-radius: 18px !important;
+
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.85) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+    0 20px 50px -20px rgba(24, 24, 27, 0.35),
+    0 8px 24px -12px rgba(24, 24, 27, 0.22) !important;
+
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+
+  z-index: 2147483646 !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  transition: background-color .28s ease, border-color .28s ease,
+              box-shadow .28s ease !important;
+}
+
+/* Ust kenar isik cizgisi */
+#cookieBanner.cookie-banner::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 16px !important;
+  right: 16px !important;
+  height: 1px !important;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.95),
+    transparent) !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
+}
+
+/* Kose isik - copper tint */
+#cookieBanner.cookie-banner::after {
+  content: "" !important;
+  position: absolute !important;
+  top: -60px !important;
+  right: -60px !important;
+  width: 180px !important;
+  height: 180px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle,
+    rgba(180, 83, 9, 0.16),
+    transparent 70%) !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  filter: blur(10px) !important;
+}
+
+#cookieBanner .cookie-banner-inner {
+  position: relative !important;
+  z-index: 1 !important;
+  display: grid !important;
+  grid-template-columns: 40px 1fr !important;
+  gap: 14px 14px !important;
+  align-items: start !important;
+  padding: 20px 22px 18px !important;
+  background: transparent !important;
+}
+
+/* Ikon - yumusak copper kare */
+#cookieBanner .cookie-icon {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: linear-gradient(135deg,
+    rgba(180, 83, 9, 0.14),
+    rgba(217, 119, 6, 0.10)) !important;
+  color: #b45309 !important;
+  flex: 0 0 40px !important;
+  box-shadow: 0 0 0 1px rgba(180, 83, 9, 0.1) inset !important;
+}
+#cookieBanner .cookie-icon svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+/* Metin */
+#cookieBanner .cookie-text {
+  color: #3f3f46 !important;
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+  padding-top: 2px !important;
+}
+#cookieBanner .cookie-text strong {
+  display: block !important;
+  color: #18181b !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  margin-bottom: 4px !important;
+}
+#cookieBanner .cookie-text p {
+  margin: 0 !important;
+  color: #52525b !important;
+}
+#cookieBanner .cookie-text a {
+  color: #b45309 !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(180, 83, 9, 0.35) !important;
+  padding-bottom: 1px !important;
+  transition: border-color .15s ease, color .15s ease !important;
+}
+#cookieBanner .cookie-text a:hover {
+  color: #92400e !important;
+  border-bottom-color: #92400e !important;
+}
+
+/* Butonlar - tam genislik, esit agirlik */
+#cookieBanner .cookie-actions {
+  grid-column: 1 / -1 !important;
+  display: flex !important;
+  gap: 8px !important;
+  justify-content: stretch !important;
+  padding: 0 !important;
+  margin-top: 6px !important;
+}
+
+#cookieBanner .cookie-btn {
+  flex: 1 1 0 !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 11px 14px !important;
+  border-radius: 11px !important;
+  cursor: pointer !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  transition: background-color .15s ease, color .15s ease,
+              border-color .15s ease, box-shadow .15s ease,
+              transform .1s ease !important;
+  letter-spacing: 0.01em !important;
+}
+#cookieBanner .cookie-btn:active {
+  transform: translateY(1px) !important;
+}
+
+/* Ikincil - cam uzerinde */
+#cookieBanner .cookie-btn-secondary {
+  background: rgba(255, 255, 255, 0.55) !important;
+  color: #3f3f46 !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+#cookieBanner .cookie-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.85) !important;
+  color: #18181b !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Birincil - marka rengi + golge */
+#cookieBanner .cookie-btn-primary {
+  background: linear-gradient(135deg, #b45309, #d97706) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(180, 83, 9, 0.9) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 8px 18px -8px rgba(180, 83, 9, 0.6),
+    0 2px 6px -2px rgba(180, 83, 9, 0.4) !important;
+}
+#cookieBanner .cookie-btn-primary:hover {
+  background: linear-gradient(135deg, #92400e, #b45309) !important;
+  border-color: #92400e !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.28) inset,
+    0 10px 22px -8px rgba(180, 83, 9, 0.7),
+    0 3px 8px -2px rgba(180, 83, 9, 0.5) !important;
+}
+
+/* ============================================================
+   KOYU MOD
+   ============================================================ */
+html[data-theme="dark"] #cookieBanner.cookie-banner,
+html.dark #cookieBanner.cookie-banner,
+body.dark #cookieBanner.cookie-banner {
+  background: rgba(24, 24, 27, 0.78) !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+    0 20px 50px -20px rgba(0, 0, 0, 0.7),
+    0 8px 24px -12px rgba(0, 0, 0, 0.5) !important;
+}
+html[data-theme="dark"] #cookieBanner.cookie-banner::before,
+html.dark #cookieBanner.cookie-banner::before {
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent) !important;
+}
+html[data-theme="dark"] #cookieBanner.cookie-banner::after,
+html.dark #cookieBanner.cookie-banner::after {
+  background: radial-gradient(circle,
+    rgba(245, 158, 11, 0.20),
+    transparent 70%) !important;
+}
+html[data-theme="dark"] #cookieBanner .cookie-icon,
+html.dark #cookieBanner .cookie-icon {
+  background: linear-gradient(135deg,
+    rgba(245, 158, 11, 0.18),
+    rgba(217, 119, 6, 0.14)) !important;
+  color: #f59e0b !important;
+  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.15) inset !important;
+}
+html[data-theme="dark"] #cookieBanner .cookie-text,
+html.dark #cookieBanner .cookie-text {
+  color: #d4d4d8 !important;
+}
+html[data-theme="dark"] #cookieBanner .cookie-text strong,
+html.dark #cookieBanner .cookie-text strong {
+  color: #fafaf9 !important;
+}
+html[data-theme="dark"] #cookieBanner .cookie-text p,
+html.dark #cookieBanner .cookie-text p {
+  color: #a1a1aa !important;
+}
+html[data-theme="dark"] #cookieBanner .cookie-text a,
+html.dark #cookieBanner .cookie-text a {
+  color: #f59e0b !important;
+  border-bottom-color: rgba(245, 158, 11, 0.45) !important;
+}
+html[data-theme="dark"] #cookieBanner .cookie-text a:hover,
+html.dark #cookieBanner .cookie-text a:hover {
+  color: #fbbf24 !important;
+  border-bottom-color: #fbbf24 !important;
+}
+html[data-theme="dark"] #cookieBanner .cookie-btn-secondary,
+html.dark #cookieBanner .cookie-btn-secondary {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #d4d4d8 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+html[data-theme="dark"] #cookieBanner .cookie-btn-secondary:hover,
+html.dark #cookieBanner .cookie-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #fafaf9 !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+html[data-theme="dark"] #cookieBanner .cookie-btn-primary,
+html.dark #cookieBanner .cookie-btn-primary {
+  background: linear-gradient(135deg, #d97706, #f59e0b) !important;
+  border-color: rgba(217, 119, 6, 0.9) !important;
+}
+
+/* Sistem tercihi koyu */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) #cookieBanner.cookie-banner,
+  body:not([data-theme="light"]) #cookieBanner.cookie-banner {
+    background: rgba(24, 24, 27, 0.78) !important;
+    border-color: rgba(255, 255, 255, 0.10) !important;
+  }
+}
+
+/* Mobil */
+@media (max-width: 520px) {
+  #cookieBanner.cookie-banner {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    width: auto !important;
+    max-width: none !important;
+    border-radius: 16px !important;
+  }
+  #cookieBanner .cookie-banner-inner {
+    padding: 18px !important;
+    grid-template-columns: 36px 1fr !important;
+    gap: 12px !important;
+  }
+  #cookieBanner .cookie-icon {
+    width: 36px !important;
+    height: 36px !important;
+    flex-basis: 36px !important;
+    border-radius: 10px !important;
+  }
+  #cookieBanner .cookie-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  #cookieBanner .cookie-actions {
+    flex-direction: column-reverse !important;
+  }
+  #cookieBanner .cookie-btn {
+    width: 100% !important;
+  }
+}
+</style>
+<!-- /CKPREM-INLINE -->
 </head>
 <body class="{% block body_class %}{% endblock %}">
 {% block body %}
