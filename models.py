@@ -113,7 +113,16 @@ class PgCursor:
 # ============================================================
 class PgConn:
     def __init__(self, url):
-        self._pg = psycopg2.connect(url)
+        # URL'i manuel ayristir: postgresql://user:pass@host:port/db
+        from urllib.parse import urlparse, unquote
+        p = urlparse(url)
+        self._pg = psycopg2.connect(
+            dbname=p.path.lstrip("/") or "postgres",
+            user=unquote(p.username or "postgres"),
+            password=unquote(p.password or ""),
+            host=p.hostname,
+            port=p.port or 5432,
+        )
         self._pg.autocommit = False
 
     def execute(self, sql, params=None):
