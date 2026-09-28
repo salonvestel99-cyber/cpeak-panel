@@ -644,8 +644,8 @@ html.dark #udThemeToggle:hover {
   overflow: hidden !important;
   isolation: isolate !important;
 
-  transform: translateY(0) !important;
-  opacity: 1 !important;
+  
+  
   transition: background-color .28s ease, border-color .28s ease,
               box-shadow .28s ease !important;
 }
@@ -1067,7 +1067,7 @@ html.dark #cookieBanner .cookie-btn-primary {
 
 {% endblock %}
 
-<div id="cookieBanner" class="cookie-banner" hidden>
+<div id="cookieBanner" class="cookie-banner" hidden style="display:none;">
   <div class="cookie-banner-inner">
     <div class="cookie-icon">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -1912,32 +1912,58 @@ html.dark .fb-cancel:hover {
 (function(){
   "use strict";
   var KEY = "cookie_consent_v1";
+
+  function goster(banner){
+    banner.style.display = "";
+    // Animasyon icin
+    banner.style.opacity = "0";
+    banner.style.transform = "translateY(12px)";
+    requestAnimationFrame(function(){
+      banner.style.transition = "opacity .3s ease, transform .3s ease";
+      banner.style.opacity = "1";
+      banner.style.transform = "translateY(0)";
+    });
+  }
+
+  function gizle(banner){
+    banner.style.transition = "opacity .25s ease, transform .25s ease";
+    banner.style.opacity = "0";
+    banner.style.transform = "translateY(12px)";
+    setTimeout(function(){ banner.style.display = "none"; }, 260);
+  }
+
   function init(){
     var banner = document.getElementById("cookieBanner");
     if (!banner) return;
-    try {
-      if (localStorage.getItem(KEY)) {
-        banner.style.display = "none";
-        return;
-      }
-    } catch(e){}
+
+    var kayitli = null;
+    try { kayitli = localStorage.getItem(KEY); } catch(e){}
+
+    if (!kayitli) {
+      // Ilk ziyaret -> banner'i goster
+      goster(banner);
+    }
+    // kayitli varsa HTML zaten display:none, hicbir sey yapma
+
     function kapat(secim){
       try {
         localStorage.setItem(KEY, secim);
         localStorage.setItem("cookie_consent_tarih", new Date().toISOString());
       } catch(e){}
-      banner.style.transition = "opacity .25s ease, transform .25s ease";
-      banner.style.opacity = "0";
-      banner.style.transform = "translateY(12px)";
-      setTimeout(function(){ banner.style.display = "none"; }, 260);
+      gizle(banner);
     }
+
     var b1 = banner.querySelector('[data-cookie="required"]');
     var b2 = banner.querySelector('[data-cookie="all"]');
     if (b1) b1.addEventListener("click", function(e){ e.preventDefault(); kapat("required"); });
     if (b2) b2.addEventListener("click", function(e){ e.preventDefault(); kapat("all"); });
   }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
 </script>
 <!-- /CKJS-INLINE -->
