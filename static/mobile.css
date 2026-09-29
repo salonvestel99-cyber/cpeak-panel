@@ -1187,3 +1187,75 @@ html[data-theme="light"] .quick-actions * {
 html[data-theme="light"] body {
   color: #18181b;
 }
+
+
+
+
+/* ============================================================
+   SORUN BILDIR - TOPBAR BUTONU
+   ============================================================ */
+
+/* Topbar'a gomulu minimal buton */
+button.topbar-action.fb-topbar-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  padding: 0 !important;
+  border-radius: 10px !important;
+  background: transparent !important;
+  color: inherit !important;
+  border: none !important;
+  opacity: 0.7 !important;
+  transition: all 0.18s ease !important;
+  cursor: pointer !important;
+}
+
+button.topbar-action.fb-topbar-btn svg {
+  width: 19px !important;
+  height: 19px !important;
+  stroke-width: 2 !important;
+}
+
+button.topbar-action.fb-topbar-btn:hover {
+  opacity: 1 !important;
+  background: rgba(245, 158, 11, 0.12) !important;
+  color: #f59e0b !important;
+  transform: translateY(-1px) !important;
+}
+
+button.topbar-action.fb-topbar-btn:active {
+  transform: translateY(0) scale(0.96) !important;
+}
+
+/* Dark temada uyum */
+html[data-theme="dark"] button.topbar-action.fb-topbar-btn,
+html.dark button.topbar-action.fb-topbar-btn {
+  color: #e4e4e7 !important;
+}
+html[data-theme="dark"] button.topbar-action.fb-topbar-btn:hover,
+html.dark button.topbar-action.fb-topbar-btn:hover {
+  background: rgba(245, 158, 11, 0.18) !important;
+  color: #fbbf24 !important;
+}
+
+/* Light temada uyum */
+html[data-theme="light"] button.topbar-action.fb-topbar-btn,
+html:not([data-theme="dark"]):not(.dark) button.topbar-action.fb-topbar-btn {
+  color: #52525b !important;
+}
+
+/* Mobil */
+@media (max-width: 768px) {
+  button.topbar-action.fb-topbar-btn {
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+  }
+  button.topbar-action.fb-topbar-btn svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}

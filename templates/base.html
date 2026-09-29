@@ -990,7 +990,14 @@ html.dark #cookieBanner .cookie-btn-primary {
           <span class="bell-badge" id="bellBadge" hidden>0</span>
         </a>
       </div>
-      {% endif %}
+      {% endif %}      <button type="button" class="topbar-action fb-topbar-btn" id="fbFab" aria-label="Sorun bildir" title="Sorun bildir">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </button>
+
       <div class="ud">
         <div class="ud-t" role="button" tabindex="0">
           <span class="topbar-avatar">{{ (session.name or "K")[0]|upper }}</span>
@@ -1749,13 +1756,7 @@ html.dark .fb-cancel:hover {
 }
 </style>
 
-<button type="button" class="fb-fab" id="fbFab" aria-label="Sorun bildir">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-    <line x1="12" y1="8" x2="12" y2="12"></line>
-    <line x1="12" y1="16" x2="12.01" y2="16"></line>
-  </svg>
-</button>
+
 
 <div class="fb-overlay" id="fbOverlay" hidden>
   <div class="fb-modal" role="dialog" aria-modal="true" aria-labelledby="fbTitle">
