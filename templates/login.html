@@ -5,8 +5,8 @@
 
 <style>
 /* ============================================================
-   CPEAK_MOBILE_LOGIN_V3
-   Mobil: masaüstü temasıyla uyumlu, dikey ortalı, taşmasız.
+   CPEAK_MOBILE_LOGIN_V4
+   Premium splash — mobil.
    Masaüstü: hiçbir kural bu media query dışına çıkmaz.
    ============================================================ */
 @media (max-width: 768px) {
@@ -34,137 +34,131 @@
     grid-template-columns: none !important;
   }
 
-  /* ---------- HERO ---------- */
+  /* ---------- HERO: TAM EKRAN SPLASH ---------- */
   body.login-page .login-hero {
     flex: 1 1 auto !important;
     min-height: 0 !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
-    align-items: stretch !important;
-    padding: 20px 22px !important;
-    padding-top: max(20px, env(safe-area-inset-top)) !important;
-    padding-bottom: max(20px, env(safe-area-inset-bottom)) !important;
-    overflow: visible !important;
+    justify-content: space-between !important;   /* içerik orta, CTA en altta */
+    align-items: center !important;
+    padding: 32px 24px !important;
+    padding-top: max(32px, env(safe-area-inset-top)) !important;
+    padding-bottom: max(28px, env(safe-area-inset-bottom)) !important;
+    overflow: hidden !important;
   }
 
-  body.login-page .hero-clock,
-  body.login-page .hero-orb { display: none !important; }
-
+  /* İçerik: dikey ortalanmış, ortalanmış metin */
   body.login-page .hero-content {
-    max-width: 440px !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
     width: 100% !important;
-    margin: 0 auto !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
   }
 
-  /* İçeriği görünür yap (bozuk animasyonlara karşı) */
-  body.login-page .login-hero .hero-content,
-  body.login-page .login-hero .hero-content *:not(.tw-cursor) {
+  /* Splash'te yeri olmayanlar */
+  body.login-page .hero-clock,
+  body.login-page .hero-orb,
+  body.login-page .hero-eyebrow,
+  body.login-page .hero-lead,
+  body.login-page .hero-list,
+  body.login-page .hero-stats { display: none !important; }
+
+  /* Görünürlük garantisi (bozuk animasyonlar kalıntısı) */
+  body.login-page .hero-content,
+  body.login-page .hero-content .hero-brand,
+  body.login-page .hero-content .hero-brand *,
+  body.login-page .hero-content .hero-typewriter {
     opacity: 1 !important;
     visibility: visible !important;
   }
-  /* İmleç animasyonu korunsun */
+  /* İmleç yanıp sönsün */
   body.login-page .hero-typewriter .tw-cursor {
-    animation: ml3-blink 1s step-end infinite !important;
+    animation: ml4-blink 1s step-end infinite !important;
   }
-  @keyframes ml3-blink {
+  @keyframes ml4-blink {
     0%, 50%       { opacity: 1; }
     50.01%, 100%  { opacity: 0; }
   }
 
-  /* ---------- EYEBROW ---------- */
-  body.login-page .hero-eyebrow {
-    font-size: .62rem !important;
-    flex-wrap: wrap !important;
-    gap: 6px !important;
-    margin: 0 0 16px !important;
-  }
-
-  /* ---------- BRAND ---------- */
+  /* ---------- MARKA (logo + isim) dikey, ortada ---------- */
   body.login-page .hero-brand {
-    margin: 0 0 20px !important;
-    gap: 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 18px !important;
+    margin: 0 0 40px !important;
+  }
+  body.login-page .hero-brand-mark {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   body.login-page .hero-brand-mark img {
-    height: clamp(60px, 16vw, 80px) !important;
+    height: clamp(84px, 26vw, 120px) !important;
+    width: auto !important;
+    display: block !important;
+    filter: brightness(1.10) contrast(1.05) saturate(1.12)
+            drop-shadow(0 0 22px rgba(232,118,90,.42)) !important;
   }
-  body.login-page .hero-brand-title { font-size: 1.55rem !important; }
-  body.login-page .hero-brand-sub   { font-size: .76rem !important; letter-spacing: .14em; }
+  body.login-page .hero-brand-text {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    line-height: 1 !important;
+  }
+  body.login-page .hero-brand-title {
+    font-family: 'Fraunces', Georgia, serif !important;
+    font-size: 1.75rem !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+    color: #fff !important;
+  }
+  body.login-page .hero-brand-sub {
+    font-size: .72rem !important;
+    letter-spacing: .32em !important;
+    text-transform: uppercase !important;
+    color: rgba(255,255,255,.62) !important;
+    margin-top: 6px !important;
+  }
 
-  /* ---------- BAŞLIK / TYPEWRITER ---------- */
+  /* ---------- DAKTİLO BAŞLIK ---------- */
   body.login-page .hero-typewriter,
   body.login-page .hero-content h1 {
     font-size: 1.42rem !important;
-    line-height: 1.32 !important;
-    letter-spacing: -0.02em !important;
-    margin: 0 0 14px !important;
-    min-height: 4em !important; /* yazarken zıplama olmasın */
-  }
-
-  /* ---------- LEAD ---------- */
-  body.login-page .hero-lead {
-    font-size: .9rem !important;
-    line-height: 1.6 !important;
-    margin: 0 0 16px !important;
-  }
-
-  /* ---------- LİSTE ---------- */
-  body.login-page .hero-list {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-    margin: 0 0 22px !important;
-    padding: 0 !important;
-  }
-  body.login-page .hero-list li {
-    font-size: .88rem !important;
-    line-height: 1.5 !important;
-  }
-
-  /* ---------- İSTATİSTİKLER (kart) ---------- */
-  body.login-page .hero-stats {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 10px !important;
-    width: 100% !important;
-    margin: 0 0 22px !important;
-  }
-  body.login-page .hero-stat {
-    padding: 12px 14px !important;
-    background: rgba(255,255,255,.07) !important;
-    border: 1px solid rgba(255,255,255,.14) !important;
-    border-radius: 12px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-  }
-  body.login-page .hero-stat strong {
-    display: block !important;
-    font-size: 1.12rem !important;
-    font-weight: 600 !important;
+    line-height: 1.35 !important;
+    letter-spacing: -0.015em !important;
+    font-weight: 500 !important;
+    max-width: 320px !important;
+    margin: 0 auto !important;
+    min-height: 3.6em !important;   /* yazarken zıplama olmasın */
     color: #fff !important;
-    margin: 0 0 3px !important;
-    line-height: 1.15 !important;
   }
-  body.login-page .hero-stat span {
-    display: block !important;
-    font-size: .68rem !important;
-    letter-spacing: .06em !important;
-    text-transform: uppercase !important;
-    color: rgba(255,255,255,.78) !important;
-    line-height: 1.25 !important;
+  body.login-page .hero-typewriter .tw-text { color: #fff !important; }
+  body.login-page .hero-typewriter .tw-cursor {
+    color: var(--copper, #f59e0b) !important;
+    font-weight: 300 !important;
   }
 
-  /* ---------- CTA ---------- */
-  .ml3-cta { display: none !important; }
-  body.login-page .ml3-cta {
+  /* ---------- CTA (splash'in en altında) ---------- */
+  .ml4-cta { display: none !important; }
+  body.login-page .ml4-cta {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 10px !important;
+    flex: 0 0 auto !important;
     width: 100% !important;
-    margin: 0 !important;
-    padding: 16px 22px !important;
+    max-width: 380px !important;
+    margin: 0 auto !important;
+    padding: 18px 24px !important;
     background: linear-gradient(
       135deg,
       var(--copper, #b45309) 0%,
@@ -172,23 +166,23 @@
     ) !important;
     color: #fff !important;
     border: none !important;
-    border-radius: 14px !important;
+    border-radius: 16px !important;
     font-family: inherit !important;
-    font-size: 1rem !important;
+    font-size: 1.05rem !important;
     font-weight: 600 !important;
     letter-spacing: .01em !important;
     cursor: pointer !important;
     box-shadow:
-      0 10px 26px rgba(180,83,9,.30),
-      0 2px 6px rgba(0,0,0,.08) !important;
+      0 14px 30px -8px rgba(180,83,9,.55),
+      0 2px 8px rgba(0,0,0,.10) !important;
     -webkit-tap-highlight-color: transparent !important;
     transition: transform .14s ease, box-shadow .14s ease !important;
   }
-  body.login-page .ml3-cta:active {
+  body.login-page .ml4-cta:active {
     transform: scale(.985) !important;
-    box-shadow: 0 6px 18px rgba(180,83,9,.28) !important;
+    box-shadow: 0 8px 20px -6px rgba(180,83,9,.45) !important;
   }
-  body.login-page .ml3-cta svg { width: 18px !important; height: 18px !important; }
+  body.login-page .ml4-cta svg { width: 18px !important; height: 18px !important; }
 
   /* ---------- FORM EKRANI ---------- */
   body.login-page .login-main {
@@ -220,12 +214,12 @@
   body.login-page .login-card input,
   body.login-page .login-card select { font-size: 16px !important; }
 
-  body.login-page.ml3-form-active .login-hero { display: none !important; }
-  body.login-page.ml3-form-active .login-main { display: flex !important; }
+  body.login-page.ml4-form-active .login-hero { display: none !important; }
+  body.login-page.ml4-form-active .login-main { display: flex !important; }
 
   /* ---------- GERİ BUTONU ---------- */
-  .ml3-back { display: none !important; }
-  body.login-page.ml3-form-active .ml3-back {
+  .ml4-back { display: none !important; }
+  body.login-page.ml4-form-active .ml4-back {
     display: inline-flex !important;
     position: fixed;
     top: max(14px, env(safe-area-inset-top));
@@ -248,8 +242,8 @@
     -webkit-tap-highlight-color: transparent;
     transition: transform .15s ease;
   }
-  body.login-page.ml3-form-active .ml3-back:active { transform: scale(.96); }
-  body.login-page.ml3-form-active .ml3-back svg { width: 16px; height: 16px; }
+  body.login-page.ml4-form-active .ml4-back:active { transform: scale(.96); }
+  body.login-page.ml4-form-active .ml4-back svg { width: 16px; height: 16px; }
 
   /* ---------- FOOTER ---------- */
   body.login-page .login-footer-bar { padding: 10px 16px !important; }
@@ -258,14 +252,22 @@
 </style>
 <script>
 /* ============================================================
-   CPEAK_MOBILE_LOGIN_V3 — davranış katmanı
+   CPEAK_MOBILE_LOGIN_V4 — davranış
    1) Typewriter (masaüstü + mobil)
-   2) Hero istatistik sayaç animasyonu
-   3) Mobil hero→form geçiş butonu + geri
-   Masaüstünde sadece (1) ve (2) çalışır — layout'a dokunulmaz.
+   2) Sayaç (masaüstü)
+   3) Mobil hero→form geçişi
+   Eski ml3-* kalıntıları temizlenir.
    ============================================================ */
 (function () {
   "use strict";
+
+  /* ---------- TEMİZLİK: eski ml3 kalıntıları ---------- */
+  (function temizle() {
+    ["ml3-cta", "ml3-back"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el && el.parentNode) el.parentNode.removeChild(el);
+    });
+  })();
 
   /* ---------- 1) TYPEWRITER ---------- */
   (function typewriter() {
@@ -281,7 +283,7 @@
         span.className = "tw-text";
         h1.insertBefore(span, h1.firstChild);
       }
-      if (span.textContent === hedef) return true; // zaten yazılmış
+      if (span.textContent === hedef) return true;
 
       span.textContent = "";
       var i = 0, hiz = 42;
@@ -295,14 +297,11 @@
       setTimeout(yaz, 260);
       return true;
     }
-
     function dene() {
       if (calistir()) return;
-      // DOM geç yüklenmiş olabilir
       setTimeout(calistir, 400);
       setTimeout(calistir, 1200);
     }
-
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", dene);
     } else {
@@ -310,7 +309,7 @@
     }
   })();
 
-  /* ---------- 2) SAYAÇ (data-count) ---------- */
+  /* ---------- 2) SAYAÇ ---------- */
   (function counter() {
     var oynadi = false;
     function baslat() {
@@ -327,7 +326,7 @@
         function adim(t) {
           var gecen = Math.min(t - t0, sure);
           var oran = gecen / sure;
-          var ease = 1 - Math.pow(1 - oran, 3); // easeOutCubic
+          var ease = 1 - Math.pow(1 - oran, 3);
           el.textContent = Math.round(hedef * ease) + suffix;
           if (gecen < sure) requestAnimationFrame(adim);
           else el.textContent = hedef + suffix;
@@ -342,29 +341,27 @@
     }
   })();
 
-  /* ---------- 3) MOBİL HERO → FORM GEÇİŞİ ---------- */
+  /* ---------- 3) MOBİL GEÇİŞ ---------- */
   (function mobilGecis() {
     function isMobile() {
       return window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
     }
-
     function kur() {
       if (!isMobile()) return;
       var body = document.body;
       if (!body.classList.contains("login-page")) return;
 
       var hero = document.querySelector(".login-hero");
-      var heroContent = document.querySelector(".login-hero .hero-content");
       var main = document.querySelector(".login-main");
       var card = document.querySelector(".login-card");
       if (!hero || !main) return;
 
-      // CTA
-      if (!document.getElementById("ml3-cta")) {
+      // CTA — doğrudan hero'nun çocuğu (space-between alt öğe olarak dursun)
+      if (!document.getElementById("ml4-cta")) {
         var cta = document.createElement("button");
         cta.type = "button";
-        cta.id = "ml3-cta";
-        cta.className = "ml3-cta";
+        cta.id = "ml4-cta";
+        cta.className = "ml4-cta";
         cta.innerHTML =
           '<span>Giriş Yap</span>' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
@@ -372,7 +369,7 @@
           '<line x1="5" y1="12" x2="19" y2="12"></line>' +
           '<polyline points="12 5 19 12 12 19"></polyline></svg>';
         cta.addEventListener("click", function () {
-          body.classList.add("ml3-form-active");
+          body.classList.add("ml4-form-active");
           window.scrollTo(0, 0);
           var input = document.getElementById("tcInput");
           if (input) {
@@ -381,15 +378,15 @@
             }, 240);
           }
         });
-        (heroContent || hero).appendChild(cta);
+        hero.appendChild(cta);
       }
 
       // Geri
-      if (!document.getElementById("ml3-back")) {
+      if (!document.getElementById("ml4-back")) {
         var back = document.createElement("button");
         back.type = "button";
-        back.id = "ml3-back";
-        back.className = "ml3-back";
+        back.id = "ml4-back";
+        back.className = "ml4-back";
         back.setAttribute("aria-label", "Geri dön");
         back.innerHTML =
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
@@ -398,14 +395,13 @@
           '<polyline points="12 19 5 12 12 5"></polyline></svg>' +
           '<span>Geri</span>';
         back.addEventListener("click", function () {
-          body.classList.remove("ml3-form-active");
+          body.classList.remove("ml4-form-active");
           window.scrollTo(0, 0);
         });
         if (card && card.parentNode) card.parentNode.insertBefore(back, card);
         else main.insertBefore(back, main.firstChild);
       }
     }
-
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", function () { setTimeout(kur, 50); });
     } else {
@@ -414,23 +410,20 @@
     setTimeout(kur, 350);
     setTimeout(kur, 1200);
 
-    // Ekran döndürme / boyut değişimi
+    // resize
     var sonMobil = isMobile();
     window.addEventListener("resize", function () {
       var simdi = isMobile();
       if (simdi !== sonMobil) {
         sonMobil = simdi;
         if (simdi) kur();
-        else {
-          var b = document.body;
-          b.classList.remove("ml3-form-active");
-        }
+        else document.body.classList.remove("ml4-form-active");
       }
     });
   })();
 })();
 </script>
-<!-- /CPEAK_MOBILE_LOGIN_V3 -->
+<!-- /CPEAK_MOBILE_LOGIN_V4 -->
 
 
 <a href="#" class="theme-toggle theme-toggle-float" data-theme-toggle aria-label="Tema değiştir" title="Koyu / Aydınlık mod" onclick="event.preventDefault();">
