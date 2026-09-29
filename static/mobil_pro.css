@@ -1,30 +1,53 @@
 /* ============================================================
-   C-Peak · MOBİL PRO KATMANI v1
+   C-Peak · MOBİL PRO KATMANI v2 — AKIŞKAN (FLUID)
    Tüm kurallar @media (max-width: 900px) içinde.
    Masaüstü düzeni HİÇ etkilenmez.
+   Prensip: px yerine clamp(min, ideal, max) — her telefonda
+   aynı oranı korur, okunabilirliği sabit tutar.
    ============================================================ */
 
-/* ---------- 0) AYARLAR ---------- */
+/* ---------- AKIŞKAN ÖLÇEK (mobil kurallarda kullanılır) ---------- */
 :root {
-  --mpro-tab-h: 62px;
-  --mpro-topbar-h: 56px;
+  /* Tipografi */
+  --f-xs:  clamp(0.66rem, 0.60rem + 0.28vw, 0.76rem);
+  --f-sm:  clamp(0.76rem, 0.70rem + 0.30vw, 0.88rem);
+  --f-md:  clamp(0.86rem, 0.80rem + 0.32vw, 0.98rem);
+  --f-lg:  clamp(1.00rem, 0.92rem + 0.42vw, 1.16rem);
+  --f-xl:  clamp(1.18rem, 1.02rem + 0.80vw, 1.48rem);
+  --f-2xl: clamp(1.42rem, 1.20rem + 1.10vw, 1.85rem);
+  --f-3xl: clamp(1.70rem, 1.35rem + 1.75vw, 2.30rem);
+
+  /* Boşluk */
+  --sp-1:  clamp(3px, 0.7vw, 5px);
+  --sp-2:  clamp(6px, 1.4vw, 10px);
+  --sp-3:  clamp(10px, 2.2vw, 16px);
+  --sp-4:  clamp(14px, 3.0vw, 22px);
+  --sp-5:  clamp(18px, 4.0vw, 28px);
+  --sp-6:  clamp(24px, 5.2vw, 38px);
+  --sp-7:  clamp(32px, 6.6vw, 48px);
+
+  /* Bileşen ölçüleri */
+  --radius-sm: clamp(8px, 1.6vw, 10px);
+  --radius-md: clamp(12px, 2.4vw, 16px);
+  --radius-lg: clamp(16px, 3vw, 22px);
+
+  --mpro-tab-h: clamp(56px, 15vw, 66px);
+  --mpro-topbar-h: clamp(52px, 14vw, 60px);
 }
 
 @media (max-width: 900px) {
 
   /* ---------- 0.1) SAFE-AREA + TEMEL ---------- */
-  html {
-    -webkit-text-size-adjust: 100%;
-  }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     padding-bottom: env(safe-area-inset-bottom) !important;
     overflow-x: hidden !important;
+    font-size: var(--f-md) !important;
   }
-  /* Topbar ve tab bar hariç tüm main içerik tab bar'ın üstünde kalsın */
   body.mpro-has-tab main,
   body.mpro-has-tab .container,
   body.mpro-has-tab .wrapper {
-    padding-bottom: calc(var(--mpro-tab-h) + env(safe-area-inset-bottom) + 16px) !important;
+    padding-bottom: calc(var(--mpro-tab-h) + env(safe-area-inset-bottom) + var(--sp-4)) !important;
   }
 
   /* ---------- 0.2) DOKUNMA GERİ BİLDİRİMİ ---------- */
@@ -48,92 +71,84 @@
     padding-top: env(safe-area-inset-top) !important;
   }
   .topbar-inner {
-    padding: 0 14px !important;
+    padding: 0 var(--sp-3) !important;
     height: var(--mpro-topbar-h) !important;
-    gap: 10px !important;
+    gap: var(--sp-2) !important;
   }
 
-  /* Hamburger butonu (JS ekler) */
   .mpro-hamburger {
     display: none;
     align-items: center; justify-content: center;
     width: 42px; height: 42px;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     background: rgba(255,255,255,.06);
     border: 1px solid rgba(255,255,255,.10);
-    color: #fff;
-    cursor: pointer;
-    flex-shrink: 0;
-    padding: 0;
+    color: #fff; cursor: pointer; flex-shrink: 0; padding: 0;
   }
   body.mpro-has-nav .mpro-hamburger { display: inline-flex; }
   .mpro-hamburger:active { transform: scale(.94); background: rgba(255,255,255,.12); }
   .mpro-hamburger svg { width: 20px; height: 20px; }
 
-  /* Masaüstü nav'ı mobilde gizle */
   body.mpro-has-nav .topbar-nav { display: none !important; }
   body.mpro-has-nav .topbar-user-info { display: none !important; }
 
-  /* ---------- 0.4) DRAWER (slide-in) ---------- */
+  /* ---------- 0.4) DRAWER ---------- */
   .mpro-backdrop {
     position: fixed; inset: 0;
     background: rgba(0,0,0,.5);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0; pointer-events: none;
     transition: opacity .22s ease;
     z-index: 1800;
   }
   body.mpro-drawer-open .mpro-backdrop,
   body.mpro-sheet-open .mpro-backdrop {
-    opacity: 1;
-    pointer-events: auto;
+    opacity: 1; pointer-events: auto;
   }
 
   .mpro-drawer {
     position: fixed;
     top: 0; left: 0; bottom: 0;
-    width: min(82vw, 320px);
+    width: min(84vw, 330px);
     background: #131316;
     border-right: 1px solid rgba(255,255,255,.06);
-    padding: calc(env(safe-area-inset-top) + 20px) 20px 24px;
+    padding: calc(env(safe-area-inset-top) + var(--sp-5)) var(--sp-5) var(--sp-5);
     transform: translateX(-100%);
     transition: transform .26s cubic-bezier(.22,.9,.28,1);
-    z-index: 1900;
-    overflow-y: auto;
+    z-index: 1900; overflow-y: auto;
     box-shadow: 8px 0 32px rgba(0,0,0,.28);
-    display: flex; flex-direction: column;
-    gap: 4px;
+    display: flex; flex-direction: column; gap: var(--sp-1);
   }
   body.mpro-drawer-open .mpro-drawer { transform: translateX(0); }
 
   .mpro-drawer-head {
-    display: flex; align-items: center; gap: 12px;
-    padding-bottom: 16px; margin-bottom: 12px;
+    display: flex; align-items: center; gap: var(--sp-3);
+    padding-bottom: var(--sp-4); margin-bottom: var(--sp-3);
     border-bottom: 1px solid rgba(255,255,255,.08);
   }
-  .mpro-drawer-head img { height: 36px; width: auto; }
+  .mpro-drawer-head img { height: clamp(30px, 8vw, 38px); width: auto; }
   .mpro-drawer-head .mpro-drawer-title {
     font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.1rem; font-weight: 600;
+    font-size: var(--f-lg); font-weight: 600;
     color: #fff; line-height: 1.1;
     display: flex; flex-direction: column;
   }
   .mpro-drawer-head .mpro-drawer-sub {
     font-family: 'Inter', sans-serif;
-    font-size: .58rem; letter-spacing: .28em; text-transform: uppercase;
+    font-size: var(--f-xs);
+    letter-spacing: .28em; text-transform: uppercase;
     opacity: .55; font-weight: 500; margin-top: 4px;
   }
 
   .mpro-drawer a,
   .mpro-drawer button.mpro-drawer-item {
-    display: flex; align-items: center; gap: 12px;
-    padding: 13px 14px;
-    border-radius: 10px;
+    display: flex; align-items: center; gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-3);
+    border-radius: var(--radius-sm);
     color: rgba(255,255,255,.82);
     text-decoration: none;
-    font-family: inherit; font-size: .95rem; font-weight: 500;
+    font-family: inherit; font-size: var(--f-md); font-weight: 500;
     background: none; border: none;
     text-align: left; width: 100%;
     cursor: pointer;
@@ -142,22 +157,19 @@
   }
   .mpro-drawer a:hover,
   .mpro-drawer button.mpro-drawer-item:hover {
-    background: rgba(255,255,255,.06);
-    color: #fff;
+    background: rgba(255,255,255,.06); color: #fff;
   }
   .mpro-drawer a:active,
   .mpro-drawer button.mpro-drawer-item:active {
-    transform: scale(.98);
-    background: rgba(255,255,255,.10);
+    transform: scale(.98); background: rgba(255,255,255,.10);
   }
   .mpro-drawer a.mpro-active,
   .mpro-drawer button.mpro-active {
-    background: rgba(217,119,6,.14);
-    color: #f59e0b;
+    background: rgba(217,119,6,.14); color: #f59e0b;
   }
   .mpro-drawer-sep {
     height: 1px; background: rgba(255,255,255,.08);
-    margin: 10px 6px;
+    margin: var(--sp-2) 6px;
   }
 
   /* ---------- 0.5) BOTTOM TAB BAR ---------- */
@@ -170,8 +182,7 @@
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
     border-top: 1px solid rgba(255,255,255,.07);
-    z-index: 1700;
-    display: none;
+    z-index: 1700; display: none;
     box-shadow: 0 -4px 18px rgba(0,0,0,.22);
   }
   body.mpro-has-tab .mpro-tabbar { display: flex; }
@@ -187,7 +198,7 @@
     gap: 3px;
     color: rgba(255,255,255,.55);
     text-decoration: none;
-    font-family: inherit; font-size: .62rem; font-weight: 500;
+    font-family: inherit; font-size: var(--f-xs); font-weight: 500;
     letter-spacing: .01em;
     padding: 6px 4px;
     border: none; background: none; cursor: pointer;
@@ -196,17 +207,14 @@
     position: relative;
   }
   .mpro-tab svg {
-    width: 20px; height: 20px;
-    stroke: currentColor; fill: none;
-    stroke-width: 1.9;
+    width: clamp(18px, 5vw, 22px);
+    height: clamp(18px, 5vw, 22px);
+    stroke: currentColor; fill: none; stroke-width: 1.9;
   }
   .mpro-tab:active { transform: scale(.94); }
-  .mpro-tab.mpro-active {
-    color: #f59e0b;
-  }
+  .mpro-tab.mpro-active { color: #f59e0b; }
   .mpro-tab.mpro-active::before {
-    content: "";
-    position: absolute; top: 4px;
+    content: ""; position: absolute; top: 4px;
     width: 22px; height: 2px;
     background: #f59e0b; border-radius: 2px;
     box-shadow: 0 0 12px rgba(245,158,11,.6);
@@ -222,8 +230,8 @@
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    border-radius: 22px 22px 0 0 !important;
-    padding: 22px 20px calc(20px + env(safe-area-inset-bottom)) !important;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
+    padding: var(--sp-5) var(--sp-4) calc(var(--sp-4) + env(safe-area-inset-bottom)) !important;
     max-height: 88dvh !important;
     overflow-y: auto !important;
     transform: translateY(100%);
@@ -231,28 +239,25 @@
     will-change: transform;
   }
   body.mpro-sheet-open .modal-card { transform: translateY(0); }
-  /* Modal içi kapatma tırtığı */
+
   .mpro-sheet-handle {
     width: 40px; height: 4px;
     background: rgba(0,0,0,.14);
     border-radius: 4px;
-    margin: 0 auto 12px;
+    margin: 0 auto var(--sp-3);
     display: block;
   }
   [data-theme="dark"] .mpro-sheet-handle,
   html.dark .mpro-sheet-handle { background: rgba(255,255,255,.20); }
 
   /* ---------- 0.7) TABLOLAR → KART ---------- */
-  /* .table-wrap içindeki tablolar için sütun sıkışsa bile okunur kalsın */
   .table-wrap {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     margin: 0 -2px;
   }
-  .table-wrap table {
-    min-width: 520px; /* çok dar tabloyu zorlaştırmasın */
-  }
-  /* Eğer tablo data-mpro-card işaretliyse kart görünümüne geç */
+  .table-wrap table { min-width: 520px; }
+
   table[data-mpro-card] {
     min-width: 0 !important;
     width: 100% !important;
@@ -264,40 +269,37 @@
     display: block !important;
     background: var(--surface, #fff);
     border: 1px solid var(--border, #e4e4e7);
-    border-radius: 12px;
-    padding: 12px 14px;
-    margin-bottom: 10px;
+    border-radius: var(--radius-md);
+    padding: var(--sp-3) var(--sp-4);
+    margin-bottom: var(--sp-3);
     box-shadow: 0 1px 3px rgba(0,0,0,.04);
   }
   table[data-mpro-card] td {
     display: flex !important;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 14px;
-    padding: 6px 0 !important;
+    align-items: flex-start; justify-content: space-between;
+    gap: var(--sp-3);
+    padding: var(--sp-1) 0 !important;
     border: none !important;
-    font-size: .88rem !important;
+    font-size: var(--f-sm) !important;
     text-align: right !important;
   }
   table[data-mpro-card] td::before {
     content: attr(data-label);
-    font-size: .72rem !important;
+    font-size: var(--f-xs) !important;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .05em;
     color: var(--muted, #71717a);
-    text-align: left;
-    flex: 0 0 auto;
-    max-width: 45%;
-    line-height: 1.5;
+    text-align: left; flex: 0 0 auto;
+    max-width: 45%; line-height: 1.5;
   }
   table[data-mpro-card] td:first-child {
     font-weight: 600;
-    font-size: .95rem !important;
+    font-size: var(--f-md) !important;
     color: var(--ink, #18181b);
-    padding-bottom: 10px !important;
+    padding-bottom: var(--sp-2) !important;
     border-bottom: 1px solid var(--border, #e4e4e7) !important;
-    margin-bottom: 6px;
+    margin-bottom: var(--sp-2);
   }
   table[data-mpro-card] td:first-child::before { display: none; }
 
@@ -306,39 +308,23 @@
   .not-filter-form .form-row,
   .admin-form .form-row {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: var(--sp-3) !important;
   }
   .form-row label.full { grid-column: auto !important; }
-  .filter-button {
-    display: block !important;
-    width: 100% !important;
-  }
+  .filter-button { display: block !important; width: 100% !important; }
   .filter-button button,
   .filter-button .btn-primary,
   .filter-button .btn-ghost {
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 100% !important; max-width: 100% !important;
   }
 
-  /* ---------- 0.9) KARTLAR TEK SÜTUN ---------- */
-  .odev-grid {
+  /* ---------- 0.9) GRID'LER TEK SÜTUN ---------- */
+  .odev-grid, .ders-grid, .stat-grid, .admin-grid-2 {
     grid-template-columns: 1fr !important;
   }
-  .ders-grid {
-    grid-template-columns: 1fr !important;
-  }
-  .stat-grid {
-    grid-template-columns: 1fr !important;
-  }
-  .admin-grid-2 {
-    grid-template-columns: 1fr !important;
-  }
-  .admin-stats-row {
-    flex-wrap: wrap !important;
-    gap: 8px !important;
-  }
+  .admin-stats-row { flex-wrap: wrap !important; gap: var(--sp-2) !important; }
   .as-item {
-    flex: 1 1 calc(50% - 8px) !important;
+    flex: 1 1 calc(50% - var(--sp-2)) !important;
     min-width: 0 !important;
   }
 
@@ -348,15 +334,15 @@
     -webkit-overflow-scrolling: touch !important;
     scroll-snap-type: x mandatory;
     padding-bottom: 6px !important;
-    gap: 6px !important;
+    gap: var(--sp-2) !important;
     scrollbar-width: none;
   }
   .admin-tabs::-webkit-scrollbar { display: none; }
   .admin-tab {
     scroll-snap-align: start;
     flex: 0 0 auto !important;
-    padding: 9px 14px !important;
-    font-size: .85rem !important;
+    padding: var(--sp-2) var(--sp-3) !important;
+    font-size: var(--f-sm) !important;
     white-space: nowrap !important;
   }
   .admin-tab.is-active {
@@ -367,35 +353,30 @@
   /* ---------- 0.11) BİLDİRİM / ÖDEV KARTLARI ---------- */
   .bl-kart, .bm-kart {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
-    padding: 14px !important;
+    gap: var(--sp-3) !important;
+    padding: var(--sp-4) !important;
   }
   .bl-aksiyonlar {
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    min-width: 0 !important;
-    gap: 8px !important;
+    flex-direction: row !important; flex-wrap: wrap !important;
+    min-width: 0 !important; gap: var(--sp-2) !important;
   }
   .bl-aksiyonlar form { flex: 1 1 calc(50% - 4px) !important; }
   .bl-btn { width: 100% !important; }
-  .bl-tabs { gap: 4px !important; }
-  .bl-tab { padding: 7px 11px !important; font-size: .78rem !important; }
+  .bl-tabs { gap: var(--sp-1) !important; }
+  .bl-tab { padding: var(--sp-2) var(--sp-3) !important; font-size: var(--f-sm) !important; }
 
-  /* ---------- 0.12) ŞİFRE DEĞİŞTİR / LEGAL ---------- */
-  .pwd-page { padding: 0 14px !important; margin: 24px auto 48px !important; }
-  .pwd-card { padding: 22px 18px !important; }
-  .legal-page { padding: 24px 14px 60px !important; }
+  /* ---------- 0.12) ŞİFRE / LEGAL / MAIL ---------- */
+  .pwd-page { padding: 0 var(--sp-4) !important; margin: var(--sp-6) auto var(--sp-7) !important; }
+  .pwd-card { padding: var(--sp-5) var(--sp-4) !important; }
+  .legal-page { padding: var(--sp-5) var(--sp-4) var(--sp-7) !important; }
   .mail-page { padding: 0 !important; }
-  .mail-hero { padding: 20px 18px !important; }
-  .mail-card { padding: 20px 16px !important; }
+  .mail-hero { padding: var(--sp-5) var(--sp-4) !important; }
+  .mail-card { padding: var(--sp-5) var(--sp-4) !important; }
 
-  /* ---------- 0.13) WHATSAPP FLOAT (tab bar üstüne çıkmasın) ---------- */
-  body.mpro-has-tab .whatsapp-float {
-    bottom: calc(var(--mpro-tab-h) + env(safe-area-inset-bottom) + 14px) !important;
-  }
-  /* Sorun bildir FAB da aynı */
+  /* ---------- 0.13) WHATSAPP / FAB ---------- */
+  body.mpro-has-tab .whatsapp-float,
   body.mpro-has-tab .fb-fab {
-    bottom: calc(var(--mpro-tab-h) + env(safe-area-inset-bottom) + 14px) !important;
+    bottom: calc(var(--mpro-tab-h) + env(safe-area-inset-bottom) + var(--sp-4)) !important;
   }
 
   /* ---------- 0.14) LOADING STATE ---------- */
@@ -419,37 +400,45 @@
   }
   @keyframes mpro-spin { to { transform: rotate(360deg); } }
 
-  /* ---------- 0.15) HEADER / PAGE-HEAD ---------- */
-  .page-head { padding: 18px 14px 14px !important; }
+  /* ---------- 0.15) BAŞLIKLAR / HERO ---------- */
+  .page-head { padding: var(--sp-5) var(--sp-4) var(--sp-4) !important; }
   .panel-hero {
-    padding: 20px 16px !important;
-    border-radius: 14px !important;
+    padding: var(--sp-5) var(--sp-4) !important;
+    border-radius: var(--radius-md) !important;
   }
-  .panel-hero-greet { font-size: 1.25rem !important; }
+  .panel-hero-greet { font-size: var(--f-xl) !important; }
+  .panel-hero-sub { font-size: var(--f-sm) !important; }
 
   .st-hero, .tp-hero {
-    padding: 22px 0 18px !important;
+    padding: var(--sp-5) 0 var(--sp-4) !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    gap: 14px !important;
+    gap: var(--sp-3) !important;
   }
   .st-hero-avatar, .tp-hero-avatar { align-self: flex-end !important; }
 
-  /* ---------- 0.16) TOPBAR MENÜ AÇILINCA SCROLL KİLİT ---------- */
+  /* ---------- 0.16) SCROLL KİLİT ---------- */
   body.mpro-drawer-open,
-  body.mpro-sheet-open {
-    overflow: hidden !important;
-  }
+  body.mpro-sheet-open { overflow: hidden !important; }
 
-  /* ---------- 0.17) iOS input zoom engeli (genel) ---------- */
-  input, select, textarea {
-    font-size: 16px !important;
-  }
+  /* ---------- 0.17) iOS input zoom engeli ---------- */
+  input, select, textarea { font-size: 16px !important; }
+
+  /* ---------- 0.18) GENEL TİPOGRAFİ AKIŞKAN ---------- */
+  h1 { font-size: var(--f-2xl) !important; line-height: 1.2 !important; }
+  h2 { font-size: var(--f-xl) !important; line-height: 1.25 !important; }
+  h3 { font-size: var(--f-lg) !important; line-height: 1.3 !important; }
+  h4 { font-size: var(--f-md) !important; }
+  p, li, td, th, label, span { font-size: var(--f-md) !important; line-height: 1.55 !important; }
+  small, .small, .muted.small { font-size: var(--f-sm) !important; }
 }
 
-/* Çok küçük ekran: 380px altı */
-@media (max-width: 380px) {
-  .mpro-tab { font-size: .58rem !important; }
-  .mpro-tab svg { width: 18px !important; height: 18px !important; }
-  .mpro-tabbar { --mpro-tab-h: 58px; }
+/* Çok küçük ekran: 340px altı */
+@media (max-width: 340px) {
+  :root {
+    --f-xs: 0.62rem;
+    --f-sm: 0.72rem;
+    --f-md: 0.82rem;
+  }
+  .mpro-tabbar { --mpro-tab-h: 54px; }
 }

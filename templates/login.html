@@ -5,31 +5,30 @@
 
 <style>
 /* ============================================================
-   CPEAK_MOBILE_LOGIN_V8 — Chip + geri butonu kontrast düzeltmesi
-   Masaüstü: hiçbir kural @media dışına çıkmaz.
+   CPEAK_MOBILE_LOGIN_V9 — Akışkan (fluid) splash + form
+   Tüm px değerleri clamp() ile akışkan. Telefon farkı yok.
    ============================================================ */
 @media (max-width: 768px) {
 
-  /* ---------- KÖK ---------- */
   html, body.login-page {
     margin: 0 !important; padding: 0 !important;
     width: 100% !important; max-width: 100% !important;
     overflow-x: hidden !important;
   }
   body.login-page { overflow: hidden !important; }
-  body.login-page.ml8-form-active {
+  body.login-page.ml9-form-active {
     overflow-y: auto !important; overflow-x: hidden !important;
   }
 
-  /* ---------- SHELL ARKA PLAN (tema) ---------- */
-  html[data-theme="dark"] body.login-page:not(.ml8-form-active) .login-shell,
-  html.dark body.login-page:not(.ml8-form-active) .login-shell {
+  /* Tema arka planları — shell'de */
+  html[data-theme="dark"] body.login-page:not(.ml9-form-active) .login-shell,
+  html.dark body.login-page:not(.ml9-form-active) .login-shell {
     background:
       radial-gradient(circle at 50% 22%, rgba(232,118,90,.16), transparent 55%),
       radial-gradient(circle at 50% 100%, rgba(232,118,90,.08), transparent 60%),
       linear-gradient(180deg, #0f0f10 0%, #0a0a0c 60%, #050505 100%) !important;
   }
-  html:not([data-theme="dark"]) body.login-page:not(.ml8-form-active) .login-shell {
+  html:not([data-theme="dark"]) body.login-page:not(.ml9-form-active) .login-shell {
     background:
       radial-gradient(circle at 50% 22%, rgba(180,83,9,.07), transparent 55%),
       radial-gradient(circle at 50% 100%, rgba(180,83,9,.04), transparent 60%),
@@ -38,11 +37,8 @@
   html[data-theme="dark"] body.login-page, html.dark body.login-page {
     background: #0a0a0c !important;
   }
-  html:not([data-theme="dark"]) body.login-page {
-    background: #fafaf9 !important;
-  }
+  html:not([data-theme="dark"]) body.login-page { background: #fafaf9 !important; }
 
-  /* ---------- İSKELET ---------- */
   body.login-page .login-shell {
     min-height: 100dvh !important; min-height: 100svh !important;
     width: 100% !important; max-width: 100% !important;
@@ -58,24 +54,18 @@
     grid-template-columns: none !important;
   }
 
-  /* ---------- HERO ---------- */
   body.login-page .login-hero {
     flex: 1 1 auto !important; min-height: 0 !important;
     width: 100% !important; max-width: 100% !important;
     margin: 0 !important;
     display: grid !important;
     grid-template-rows: 1fr auto !important;
-    padding: 22px !important;
-    padding-top:    max(22px, env(safe-area-inset-top)) !important;
-    padding-bottom: max(22px, env(safe-area-inset-bottom)) !important;
-    padding-left:   max(22px, env(safe-area-inset-left)) !important;
-    padding-right:  max(22px, env(safe-area-inset-right)) !important;
-    overflow: hidden !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-  }
-  html[data-theme="dark"] body.login-page .login-hero,
-  html:not([data-theme="dark"]) body.login-page .login-hero {
+    padding: clamp(18px, 5vw, 28px) !important;
+    padding-top: max(clamp(18px, 5vw, 28px), env(safe-area-inset-top)) !important;
+    padding-bottom: max(clamp(18px, 5vw, 28px), env(safe-area-inset-bottom)) !important;
+    padding-left: max(clamp(18px, 5vw, 28px), env(safe-area-inset-left)) !important;
+    padding-right: max(clamp(18px, 5vw, 28px), env(safe-area-inset-right)) !important;
+    overflow: hidden !important; border-radius: 0 !important;
     background: transparent !important;
   }
 
@@ -84,7 +74,6 @@
   body.login-page .hero-eyebrow,
   body.login-page .hero-list { display: none !important; }
 
-  /* ---------- İÇERİK ---------- */
   body.login-page .hero-content {
     grid-row: 1 !important;
     display: flex !important; flex-direction: column !important;
@@ -99,18 +88,19 @@
     opacity: 1 !important; visibility: visible !important;
   }
 
-  /* ---------- MARKA ---------- */
+  /* Marka */
   body.login-page .hero-brand {
     display: flex !important; flex-direction: column !important;
     align-items: center !important;
-    gap: 18px !important;
-    margin: 0 0 22px !important;
+    gap: clamp(12px, 3.5vw, 20px) !important;
+    margin: 0 0 clamp(16px, 4.5vw, 26px) !important;
   }
   body.login-page .hero-brand-mark {
     position: relative !important;
     display: inline-flex !important;
     align-items: center !important; justify-content: center !important;
-    width: 96px !important; height: 96px !important;
+    width: clamp(78px, 22vw, 108px) !important;
+    height: clamp(78px, 22vw, 108px) !important;
   }
   body.login-page .hero-brand-mark::before {
     content: "" !important;
@@ -121,9 +111,9 @@
       rgba(232,118,90,.06) 45%,
       transparent 70%) !important;
     filter: blur(14px) !important; z-index: 0 !important;
-    animation: ml8-glow 4.5s ease-in-out infinite alternate !important;
+    animation: ml9-glow 4.5s ease-in-out infinite alternate !important;
   }
-  @keyframes ml8-glow {
+  @keyframes ml9-glow {
     0%   { opacity: .70; transform: scale(0.96); }
     100% { opacity: 1.00; transform: scale(1.08); }
   }
@@ -140,37 +130,38 @@
   }
   body.login-page .hero-brand-title {
     font-family: 'Fraunces', Georgia, serif !important;
-    font-size: 1.85rem !important; font-weight: 600 !important;
-    letter-spacing: -0.02em !important; color: inherit !important;
+    font-size: clamp(1.55rem, 6.5vw, 2rem) !important;
+    font-weight: 600 !important; letter-spacing: -0.02em !important;
+    color: inherit !important;
   }
   body.login-page .hero-brand-sub {
-    font-size: .66rem !important;
+    font-size: clamp(0.60rem, 2.4vw, 0.72rem) !important;
     letter-spacing: .34em !important;
     text-transform: uppercase !important;
-    margin-top: 7px !important; margin-left: .34em !important;
+    margin-top: clamp(4px, 1.2vw, 8px) !important;
+    margin-left: .34em !important;
     opacity: .55 !important; font-weight: 500 !important;
     color: inherit !important;
   }
 
-  /* Ayraç */
   body.login-page .hero-typewriter::before,
   body.login-page .hero-content h1::before {
-    content: "" !important;
-    display: block !important;
-    width: 40px !important; height: 1px !important;
+    content: "" !important; display: block !important;
+    width: clamp(32px, 10vw, 44px) !important; height: 1px !important;
     background: linear-gradient(90deg, transparent, currentColor, transparent) !important;
     opacity: .35 !important;
-    margin: 0 auto 18px !important;
+    margin: 0 auto clamp(12px, 3.6vw, 20px) !important;
   }
 
-  /* Daktilo başlık */
   body.login-page .hero-typewriter,
   body.login-page .hero-content h1 {
     font-family: 'Fraunces', Georgia, serif !important;
-    font-size: 1.32rem !important; line-height: 1.4 !important;
-    letter-spacing: -0.015em !important; font-weight: 500 !important;
-    max-width: 320px !important;
-    margin: 0 auto 12px !important;
+    font-size: clamp(1.15rem, 4.6vw, 1.5rem) !important;
+    line-height: 1.38 !important;
+    letter-spacing: -0.015em !important;
+    font-weight: 500 !important;
+    max-width: clamp(260px, 82vw, 340px) !important;
+    margin: 0 auto clamp(10px, 3vw, 16px) !important;
     min-height: 4.2em !important;
     color: inherit !important;
   }
@@ -178,45 +169,41 @@
   body.login-page .hero-typewriter .tw-cursor {
     color: var(--copper, #b45309) !important;
     font-weight: 300 !important;
-    animation: ml8-blink 1s step-end infinite !important;
+    animation: ml9-blink 1s step-end infinite !important;
   }
-  @keyframes ml8-blink {
+  @keyframes ml9-blink {
     0%, 50%       { opacity: 1; }
     50.01%, 100%  { opacity: 0; }
   }
 
-  /* Lead */
   body.login-page .hero-lead {
     display: block !important;
-    font-size: .82rem !important; line-height: 1.65 !important;
-    max-width: 290px !important;
-    margin: 0 auto 22px !important;
+    font-size: clamp(0.76rem, 3vw, 0.92rem) !important;
+    line-height: 1.65 !important;
+    max-width: clamp(260px, 82vw, 320px) !important;
+    margin: 0 auto clamp(16px, 4.5vw, 24px) !important;
     opacity: .62 !important;
     color: inherit !important; font-weight: 400 !important;
   }
 
-  /* ---------- İSTATİSTİK ÇİPLERİ ---------- */
+  /* İstatistik çipleri — akışkan */
   body.login-page .hero-stats {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    align-content: center !important;
-    gap: 8px !important;
-    width: 100% !important; max-width: 340px !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
+    display: flex !important; flex-wrap: wrap !important;
+    justify-content: center !important; align-content: center !important;
+    gap: clamp(5px, 1.4vw, 9px) !important;
+    width: 100% !important;
+    max-width: clamp(280px, 88vw, 360px) !important;
+    margin: 0 auto !important; padding: 0 !important;
     grid-template-columns: none !important;
   }
   body.login-page .hero-stat {
-    display: inline-flex !important;
-    flex-direction: row !important;
+    display: inline-flex !important; flex-direction: row !important;
     align-items: baseline !important;
-    gap: 5px !important;
-    padding: 8px 14px !important;
+    gap: clamp(3px, 1vw, 6px) !important;
+    padding: clamp(6px, 1.8vw, 9px) clamp(10px, 3vw, 15px) !important;
     border-radius: 999px !important;
     line-height: 1 !important;
   }
-  /* KOYU TEMA çip */
   html[data-theme="dark"] body.login-page .hero-stat,
   html.dark body.login-page .hero-stat {
     border: 1px solid rgba(255,255,255,.20) !important;
@@ -224,7 +211,6 @@
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
   }
-  /* AÇIK TEMA çip — net, okunabilir */
   html:not([data-theme="dark"]) body.login-page .hero-stat {
     border: 1px solid rgba(24,24,27,.16) !important;
     background: #ffffff !important;
@@ -232,12 +218,8 @@
       0 1px 2px rgba(24,24,27,.05),
       0 2px 8px -4px rgba(24,24,27,.06) !important;
   }
-
-  /* Çip içi yazılar */
   html[data-theme="dark"] body.login-page .hero-stat strong,
-  html.dark body.login-page .hero-stat strong {
-    color: #ffffff !important;
-  }
+  html.dark body.login-page .hero-stat strong { color: #ffffff !important; }
   html:not([data-theme="dark"]) body.login-page .hero-stat strong {
     color: #18181b !important;
   }
@@ -251,34 +233,34 @@
   body.login-page .hero-stat strong {
     display: inline !important;
     font-family: 'Inter', sans-serif !important;
-    font-size: .82rem !important; font-weight: 700 !important;
-    margin: 0 !important;
+    font-size: clamp(0.74rem, 2.8vw, 0.9rem) !important;
+    font-weight: 700 !important; margin: 0 !important;
     line-height: 1 !important;
   }
   body.login-page .hero-stat span {
     display: inline !important;
-    font-size: .68rem !important;
-    letter-spacing: .01em !important;
-    text-transform: none !important;
-    line-height: 1 !important;
-    font-weight: 500 !important;
+    font-size: clamp(0.62rem, 2.3vw, 0.74rem) !important;
+    letter-spacing: .01em !important; text-transform: none !important;
+    line-height: 1 !important; font-weight: 500 !important;
   }
 
-  /* ---------- CTA ---------- */
-  .ml8-cta { display: none !important; }
-  body.login-page .ml8-cta {
+  /* CTA */
+  .ml9-cta { display: none !important; }
+  body.login-page .ml9-cta {
     grid-row: 2 !important;
     display: inline-flex !important;
     align-items: center !important; justify-content: center !important;
-    gap: 10px !important;
+    gap: clamp(8px, 2.4vw, 12px) !important;
     width: 100% !important; max-width: 100% !important;
     margin: 0 !important;
-    padding: 18px 24px !important;
+    padding: clamp(15px, 4.4vw, 20px) clamp(18px, 5vw, 26px) !important;
     background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%) !important;
     color: #fff !important;
-    border: none !important; border-radius: 16px !important;
+    border: none !important;
+    border-radius: clamp(14px, 4vw, 18px) !important;
     font-family: inherit !important;
-    font-size: 1.02rem !important; font-weight: 600 !important;
+    font-size: clamp(0.95rem, 3.6vw, 1.1rem) !important;
+    font-weight: 600 !important;
     letter-spacing: .015em !important;
     cursor: pointer !important;
     box-shadow:
@@ -289,94 +271,101 @@
     position: relative !important; overflow: hidden !important;
     transition: transform .15s ease !important;
   }
-  body.login-page .ml8-cta::before {
+  body.login-page .ml9-cta::before {
     content: "" !important;
     position: absolute !important; inset: 0 !important;
     background: linear-gradient(180deg, rgba(255,255,255,.14) 0%, transparent 55%) !important;
     pointer-events: none !important;
   }
-  body.login-page .ml8-cta:active { transform: scale(.985) !important; }
-  body.login-page .ml8-cta svg { width: 18px !important; height: 18px !important; }
+  body.login-page .ml9-cta:active { transform: scale(.985) !important; }
+  body.login-page .ml9-cta svg {
+    width: clamp(16px, 5vw, 20px) !important;
+    height: clamp(16px, 5vw, 20px) !important;
+  }
 
-  /* ---------- FORM EKRANI ---------- */
+  /* Form ekranı */
   body.login-page .login-main {
     display: none !important;
     flex-direction: column !important;
     justify-content: center !important; align-items: center !important;
     flex: 1 1 auto !important; min-height: 0 !important;
     width: 100% !important;
-    padding: 76px 20px 40px !important;
-    padding-top: max(76px, calc(env(safe-area-inset-top) + 60px)) !important;
+    padding: clamp(70px, 18vw, 92px) clamp(16px, 5vw, 24px) clamp(28px, 8vw, 44px) !important;
+    padding-top: max(clamp(70px, 18vw, 92px), calc(env(safe-area-inset-top) + 56px)) !important;
     background: var(--bg, #fafaf9) !important;
   }
   body.login-page .login-card {
-    width: 100% !important; max-width: 420px !important;
+    width: 100% !important;
+    max-width: clamp(320px, 92vw, 440px) !important;
     margin: 0 auto !important;
-    padding: 26px 22px !important;
-    border-radius: 18px !important;
+    padding: clamp(22px, 6vw, 30px) clamp(18px, 5vw, 26px) !important;
+    border-radius: clamp(16px, 4.4vw, 20px) !important;
     background: var(--surface, #fff) !important;
     border: 1px solid var(--border, #e4e4e7) !important;
     box-shadow:
       0 4px 24px -8px rgba(24,24,27,.10),
       0 1px 3px rgba(24,24,27,.04) !important;
   }
-  body.login-page .login-card h2    { font-size: 1.4rem !important; }
-  body.login-page .login-card .lead { font-size: .92rem !important; }
+  body.login-page .login-card h2 {
+    font-size: clamp(1.2rem, 5vw, 1.5rem) !important;
+  }
+  body.login-page .login-card .lead {
+    font-size: clamp(0.82rem, 3.2vw, 0.96rem) !important;
+  }
   body.login-page .login-card input,
   body.login-page .login-card select { font-size: 16px !important; }
 
-  body.login-page.ml8-form-active .login-hero { display: none !important; }
-  body.login-page.ml8-form-active .login-main { display: flex !important; }
+  body.login-page.ml9-form-active .login-hero { display: none !important; }
+  body.login-page.ml9-form-active .login-main { display: flex !important; }
 
-  /* ---------- FORM MARKA ---------- */
-  .ml8-form-brand { display: none !important; }
-  body.login-page.ml8-form-active .ml8-form-brand {
-    display: flex !important;
-    flex-direction: column !important;
+  /* Form marka */
+  .ml9-form-brand { display: none !important; }
+  body.login-page.ml9-form-active .ml9-form-brand {
+    display: flex !important; flex-direction: column !important;
     align-items: center !important;
-    gap: 10px !important;
-    margin: 0 auto 22px !important;
+    gap: clamp(8px, 2.4vw, 12px) !important;
+    margin: 0 auto clamp(16px, 4.4vw, 24px) !important;
     text-align: center !important;
   }
-  body.login-page.ml8-form-active .ml8-form-brand img {
-    height: 56px !important; width: auto !important;
+  body.login-page.ml9-form-active .ml9-form-brand img {
+    height: clamp(44px, 12vw, 60px) !important; width: auto !important;
     display: block !important;
   }
-  body.login-page.ml8-form-active .ml8-form-brand .ml8-form-brand-text {
+  body.login-page.ml9-form-active .ml9-form-brand .ml9-form-brand-text {
     font-family: 'Fraunces', Georgia, serif !important;
-    font-size: 1.1rem !important; font-weight: 600 !important;
+    font-size: clamp(0.95rem, 4vw, 1.15rem) !important;
+    font-weight: 600 !important;
     letter-spacing: -0.015em !important;
     color: var(--ink, #18181b) !important;
     line-height: 1.1 !important;
     display: flex !important; flex-direction: column !important;
     align-items: center !important;
   }
-  body.login-page.ml8-form-active .ml8-form-brand .ml8-form-brand-sub {
+  body.login-page.ml9-form-active .ml9-form-brand .ml9-form-brand-sub {
     font-family: 'Inter', sans-serif !important;
-    font-size: .58rem !important;
+    font-size: clamp(0.52rem, 1.9vw, 0.6rem) !important;
     letter-spacing: .28em !important;
     text-transform: uppercase !important;
-    opacity: .55 !important;
-    font-weight: 500 !important;
-    margin-top: 4px !important;
-    margin-left: .28em !important;
+    opacity: .55 !important; font-weight: 500 !important;
+    margin-top: 4px !important; margin-left: .28em !important;
     color: inherit !important;
   }
 
-  /* ---------- GERİ (HER İKİ TEMADA NET) ---------- */
-  .ml8-back { display: none !important; }
-  body.login-page.ml8-form-active .ml8-back {
+  /* Geri butonu — sabit renk */
+  .ml9-back { display: none !important; }
+  body.login-page.ml9-form-active .ml9-back {
     display: inline-flex !important;
     position: fixed;
-    top: max(14px, env(safe-area-inset-top)); left: 14px; z-index: 1200;
+    top: max(12px, env(safe-area-inset-top)); left: 12px; z-index: 1200;
     align-items: center; gap: 6px;
-    padding: 9px 16px 9px 12px;
+    padding: clamp(8px, 2.2vw, 10px) clamp(13px, 3.4vw, 17px) clamp(8px, 2.2vw, 10px) clamp(10px, 2.6vw, 13px);
     border-radius: 999px;
-    font-family: inherit; font-size: .87rem; font-weight: 600;
+    font-family: inherit;
+    font-size: clamp(0.78rem, 2.8vw, 0.9rem);
+    font-weight: 600;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition: transform .15s ease;
-    /* Sabit renkler — tema değişkeni KULLANMIYOR */
     background: #ffffff !important;
     color: #18181b !important;
     border: 1px solid rgba(24,24,27,.16) !important;
@@ -384,14 +373,13 @@
       0 4px 14px rgba(0,0,0,.10),
       0 1px 2px rgba(0,0,0,.05) !important;
   }
-  body.login-page.ml8-form-active .ml8-back:active { transform: scale(.96); }
-  body.login-page.ml8-form-active .ml8-back svg {
+  body.login-page.ml9-form-active .ml9-back:active { transform: scale(.96); }
+  body.login-page.ml9-form-active .ml9-back svg {
     width: 16px !important; height: 16px !important;
     stroke: currentColor !important;
   }
 
-  /* ---------- FOOTER ---------- */
-  body.login-page:not(.ml8-form-active) .login-footer-bar {
+  body.login-page:not(.ml9-form-active) .login-footer-bar {
     display: none !important;
     visibility: hidden !important;
     height: 0 !important; min-height: 0 !important;
@@ -403,12 +391,13 @@
 }
 </style>
 <script>
-/* CPEAK_MOBILE_LOGIN_V8 — davranış */
+/* CPEAK_MOBILE_LOGIN_V9 — davranış */
 (function () {
   "use strict";
 
   ["ml3-cta","ml3-back","ml4-cta","ml4-back","ml5-cta","ml5-back",
-   "ml6-cta","ml6-back","ml7-cta","ml7-back","ml7-form-brand"].forEach(function(id){
+   "ml6-cta","ml6-back","ml7-cta","ml7-back","ml7-form-brand",
+   "ml8-cta","ml8-back","ml8-form-brand"].forEach(function(id){
     var el = document.getElementById(id);
     if (el && el.parentNode) el.parentNode.removeChild(el);
   });
@@ -492,11 +481,11 @@
       var card = document.querySelector(".login-card");
       if (!hero || !main) return;
 
-      if (!document.getElementById("ml8-cta")){
+      if (!document.getElementById("ml9-cta")){
         var cta = document.createElement("button");
         cta.type = "button";
-        cta.id = "ml8-cta";
-        cta.className = "ml8-cta";
+        cta.id = "ml9-cta";
+        cta.className = "ml9-cta";
         cta.innerHTML =
           '<span>Giriş Yap</span>' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
@@ -504,7 +493,7 @@
           '<line x1="5" y1="12" x2="19" y2="12"></line>' +
           '<polyline points="12 5 19 12 12 19"></polyline></svg>';
         cta.addEventListener("click", function(){
-          body.classList.add("ml8-form-active");
+          body.classList.add("ml9-form-active");
           window.scrollTo(0,0);
           var input = document.getElementById("tcInput");
           if (input) {
@@ -516,24 +505,24 @@
         hero.appendChild(cta);
       }
 
-      if (!document.getElementById("ml8-form-brand")){
+      if (!document.getElementById("ml9-form-brand")){
         var brand = document.createElement("div");
-        brand.id = "ml8-form-brand";
-        brand.className = "ml8-form-brand";
+        brand.id = "ml9-form-brand";
+        brand.className = "ml9-form-brand";
         brand.innerHTML =
           '<img src="/static/logo.png" alt="C · Peak English">' +
-          '<div class="ml8-form-brand-text">C-Peak' +
-          '<span class="ml8-form-brand-sub">English</span>' +
+          '<div class="ml9-form-brand-text">C-Peak' +
+          '<span class="ml9-form-brand-sub">English</span>' +
           '</div>';
         if (card && card.parentNode) card.parentNode.insertBefore(brand, card);
         else main.insertBefore(brand, main.firstChild);
       }
 
-      if (!document.getElementById("ml8-back")){
+      if (!document.getElementById("ml9-back")){
         var back = document.createElement("button");
         back.type = "button";
-        back.id = "ml8-back";
-        back.className = "ml8-back";
+        back.id = "ml9-back";
+        back.className = "ml9-back";
         back.setAttribute("aria-label", "Geri dön");
         back.innerHTML =
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
@@ -542,7 +531,7 @@
           '<polyline points="12 19 5 12 12 5"></polyline></svg>' +
           '<span>Geri</span>';
         back.addEventListener("click", function(){
-          body.classList.remove("ml8-form-active");
+          body.classList.remove("ml9-form-active");
           window.scrollTo(0,0);
         });
         if (main.firstChild) main.insertBefore(back, main.firstChild);
@@ -561,13 +550,13 @@
       if (simdi !== sonMobil){
         sonMobil = simdi;
         if (simdi) kur();
-        else document.body.classList.remove("ml8-form-active");
+        else document.body.classList.remove("ml9-form-active");
       }
     });
   })();
 })();
 </script>
-<!-- /CPEAK_MOBILE_LOGIN_V8 -->
+<!-- /CPEAK_MOBILE_LOGIN_V9 -->
 
 
 <a href="#" class="theme-toggle theme-toggle-float" data-theme-toggle aria-label="Tema değiştir" title="Koyu / Aydınlık mod" onclick="event.preventDefault();">
