@@ -1645,41 +1645,35 @@ def admin_test_email():
             return _R("Gecersiz e-posta adresi.", mimetype="text/plain"), 400
         try:
             send_email("C-Peak Panel Test", alici, sablon_test())
-            return _R(
-                f"<pre style='font:14px/1.6 monospace;padding:24px;'>"
-                f"Test e-postasi kuyruga alindi: {alici}
-"
-                f"1-2 dakika icinde gelen kutunuzu kontrol edin.
-"
-                f"Gelmezse Render Logs'a bakin ('[Brevo]' satirlari).</pre>",
-                mimetype="text/html"
-            )
+            msg = "Test e-postasi kuyruga alindi: " + alici
+            msg += "<br><br>1-2 dakika icinde gelen kutunuzu kontrol edin."
+            msg += "<br>Gelmezse Render Logs'a bakin ('[Brevo]' satirlari)."
+            return _R("<pre style='font:14px/1.6 monospace;padding:24px;'>" + msg + "</pre>", mimetype="text/html")
         except Exception as e:
-            return _R(f"<pre>HATA: {e}</pre>", mimetype="text/html"), 500
-    # GET -> CSRF token'li form
-    return _R(
-        '<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8">'
-        '<meta name="viewport" content="width=device-width,initial-scale=1">'
-        '<title>Test E-postasi</title></head>'
-        '<body style="font-family:system-ui,sans-serif;background:#fafaf9;margin:0;'
-        'display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px;">'
-        '<form method="POST" style="background:#fff;padding:28px;border-radius:14px;'
-        'box-shadow:0 4px 20px rgba(0,0,0,0.06);max-width:440px;width:100%;">'
-        '<h2 style="margin:0 0 8px;color:#18181b;">Test E-postasi</h2>'
-        '<p style="margin:0 0 20px;color:#71717a;font-size:14px;">'
-        'Kendi e-posta adresinize test mesaji gonderin.</p>'
-        '<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">'
-        '<input type="email" name="email" placeholder="ornek@mail.com" required '
-        'style="width:100%;padding:12px 14px;border:1px solid #d4d4d8;border-radius:10px;'
-        'font-size:16px;box-sizing:border-box;">'
-        '<button type="submit" style="margin-top:14px;padding:12px 24px;background:#f59e0b;'
-        'color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;'
-        'cursor:pointer;width:100%;">Gonder</button>'
-        '<p style="margin:16px 0 0;font-size:13px;color:#a1a1aa;text-align:center;">'
-        '<a href="/admin" style="color:#71717a;">Admin panele don</a></p>'
-        '</form></body></html>',
-        mimetype="text/html"
-    )
+            return _R("<pre>HATA: " + str(e) + "</pre>", mimetype="text/html"), 500
+    form = '<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8">'
+    form += '<meta name="viewport" content="width=device-width,initial-scale=1">'
+    form += '<title>Test E-postasi</title></head>'
+    form += '<body style="font-family:system-ui,sans-serif;background:#fafaf9;margin:0;'
+    form += 'display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px;">'
+    form += '<form method="POST" style="background:#fff;padding:28px;border-radius:14px;'
+    form += 'box-shadow:0 4px 20px rgba(0,0,0,0.06);max-width:440px;width:100%;">'
+    form += '<h2 style="margin:0 0 8px;color:#18181b;">Test E-postasi</h2>'
+    form += '<p style="margin:0 0 20px;color:#71717a;font-size:14px;">'
+    form += 'Kendi e-posta adresinize test mesaji gonderin.</p>'
+    form += '<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">'
+    form += '<input type="email" name="email" placeholder="ornek@mail.com" required '
+    form += 'style="width:100%;padding:12px 14px;border:1px solid #d4d4d8;border-radius:10px;'
+    form += 'font-size:16px;box-sizing:border-box;">'
+    form += '<button type="submit" style="margin-top:14px;padding:12px 24px;background:#f59e0b;'
+    form += 'color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;'
+    form += 'cursor:pointer;width:100%;">Gonder</button>'
+    form += '<p style="margin:16px 0 0;font-size:13px;color:#a1a1aa;text-align:center;">'
+    form += '<a href="/admin" style="color:#71717a;">Admin panele don</a></p>'
+    form += '</form></body></html>'
+    return _R(form, mimetype="text/html")
+
+
 # ============================================================
 
 if __name__ == "__main__":
