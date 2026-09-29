@@ -1817,3 +1817,435 @@ html:not([data-theme="dark"]):not(.dark) button.topbar-action.fb-topbar-btn {
   .login-card { padding: 20px 16px 22px !important; border-radius: 16px !important; }
   .login-card h2 { font-size: 1.22rem !important; }
 }
+
+
+/* ============================================================
+   LOGIN FIX v8 - scroll kilidi + ustuste binme onleme
+   Sadece mobil. Masaustu HIC etkilenmez.
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Login sayfasinda tam scroll kilidi */
+  html:has(body.login-page),
+  html:has(body.login-page) body.login-page,
+  body.login-page {
+    overflow: hidden !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    overscroll-behavior: none !important;
+    touch-action: manipulation !important;
+  }
+
+  /* Login shell - ekran boyutuna tam otur */
+  .login-shell {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .login-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 100% !important;
+  }
+
+  /* Login main - dikey ortala, yatay ortala */
+  .login-main {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 1 auto !important;
+    gap: 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 66px 16px 26px !important;
+    margin: 0 !important;
+    min-height: auto !important;
+    background: transparent !important;
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  /* HERO - normal akista, absolute degil */
+  .login-hero,
+  aside.login-hero {
+    display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 400px !important;
+    min-height: auto !important;
+    max-height: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    z-index: 1 !important;
+    grid-column: auto !important;
+    grid-area: auto !important;
+  }
+
+  /* Hero icindeki tum cocuklar normal akista */
+  .login-hero * {
+    position: static !important;
+    transform: none !important;
+    max-height: none !important;
+  }
+  .login-hero .hero-brand,
+  .login-hero .hero-brand-mark,
+  .login-hero .hero-brand-text {
+    position: relative !important;
+  }
+  .login-hero .hero-brand-mark img {
+    position: relative !important;
+  }
+  .login-hero .hero-orb,
+  .login-hero .hero-clock,
+  .login-hero .hero-eyebrow,
+  .login-hero .hero-stats {
+    display: none !important;
+  }
+
+  /* Hero content - dikey ortala */
+  .login-hero .hero-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+  .login-hero .hero-brand {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    margin: 0 0 16px !important;
+  }
+  .login-hero .hero-brand-mark {
+    width: 46px !important;
+    height: 46px !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+  }
+  .login-hero .hero-brand-title {
+    font-size: 1.3rem !important;
+    line-height: 1.1 !important;
+    display: block !important;
+  }
+  .login-hero .hero-brand-sub {
+    font-size: 0.62rem !important;
+    letter-spacing: 0.22em !important;
+    display: block !important;
+    margin-top: 2px !important;
+  }
+
+  /* Baslik - daktilo */
+  .login-hero h1,
+  .login-hero h1.hero-typewriter {
+    font-size: 1.35rem !important;
+    line-height: 1.28 !important;
+    margin: 0 0 8px !important;
+    text-align: center !important;
+    letter-spacing: -0.02em !important;
+    font-weight: 800 !important;
+    min-height: 2.6em !important;
+    max-height: none !important;
+  }
+
+  .login-hero .hero-lead {
+    font-size: 0.83rem !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    margin: 0 !important;
+    padding: 0 6px !important;
+    max-width: 340px !important;
+    color: #a1a1aa !important;
+  }
+
+  /* Liste - kompakt */
+  .login-hero .hero-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 16px 0 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    width: 100% !important;
+    max-width: 320px !important;
+  }
+  .login-hero .hero-list li {
+    font-size: 0.82rem !important;
+    color: #a1a1aa !important;
+    text-align: left !important;
+    padding-left: 18px !important;
+    position: relative !important;
+    line-height: 1.4 !important;
+  }
+  .login-hero .hero-list li::before {
+    content: "✦" !important;
+    position: absolute !important;
+    left: 0 !important;
+    color: #f59e0b !important;
+    font-size: 0.88rem !important;
+  }
+
+  /* LIGHT TEMA hero */
+  html:not([data-theme="dark"]):not(.dark) .login-hero h1 { color: #18181b !important; }
+  html:not([data-theme="dark"]):not(.dark) .login-hero .hero-lead { color: #52525b !important; }
+  html:not([data-theme="dark"]):not(.dark) .login-hero .hero-list li { color: #52525b !important; }
+  html:not([data-theme="dark"]):not(.dark) .login-hero .hero-brand-title { color: #18181b !important; }
+
+  /* LOGIN CARD - sabit, ortada, max genislik */
+  .login-card {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 400px !important;
+    box-sizing: border-box !important;
+    padding: 22px 18px 24px !important;
+    border-radius: 18px !important;
+    background: #18181b !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    box-shadow: 0 18px 48px rgba(0,0,0,0.45) !important;
+    margin: 0 !important;
+    z-index: 1 !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-card {
+    background: #ffffff !important;
+    border-color: #e4e4e7 !important;
+    box-shadow: 0 18px 48px rgba(0,0,0,0.08) !important;
+  }
+
+  .login-card h2 {
+    font-size: 1.3rem !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    margin: 0 0 4px !important;
+    line-height: 1.2 !important;
+  }
+  .login-card .lead {
+    font-size: 0.82rem !important;
+    text-align: center !important;
+    margin: 0 0 18px !important;
+    color: #a1a1aa !important;
+    line-height: 1.45 !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-card .lead { color: #52525b !important; }
+
+  /* Form - sabit yerlesim */
+  .login-card form {
+    display: block !important;
+    position: static !important;
+  }
+  .login-card form label {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 14px !important;
+    position: static !important;
+  }
+  .login-card form label > span {
+    display: block !important;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.07em !important;
+    margin-bottom: 6px !important;
+    text-transform: uppercase !important;
+    color: #a1a1aa !important;
+    position: static !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-card label > span { color: #71717a !important; }
+
+  /* Input wrap - ikon + input yan yana */
+  .login-card .input-wrap {
+    display: flex !important;
+    align-items: center !important;
+    position: relative !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .login-card .input-wrap .input-icon {
+    position: absolute !important;
+    left: 14px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 18px !important;
+    height: 18px !important;
+    pointer-events: none !important;
+    color: #71717a !important;
+  }
+  .login-card .input-wrap .input-eye {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 6px !important;
+    color: #71717a !important;
+  }
+
+  .login-card input[type="text"],
+  .login-card input[type="password"],
+  .login-card input[type="tel"] {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    min-height: 46px !important;
+    padding: 12px 40px 12px 40px !important;
+    font-size: 16px !important;
+    border-radius: 11px !important;
+    border: 1.5px solid rgba(255,255,255,0.10) !important;
+    background: rgba(255,255,255,0.04) !important;
+    color: #fafaf9 !important;
+    transition: border-color 0.18s, box-shadow 0.18s !important;
+  }
+  .login-card input:focus {
+    outline: none !important;
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 3px rgba(245,158,11,0.15) !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-card input {
+    background: #fafafa !important;
+    border-color: #e4e4e7 !important;
+    color: #18181b !important;
+  }
+
+  /* Login extra - checkbox + link yan yana */
+  .login-card .login-extra {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    margin: 6px 0 18px !important;
+    position: static !important;
+  }
+  .login-card .check-premium {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    position: static !important;
+    cursor: pointer !important;
+  }
+  .login-card .link-premium {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    background: transparent !important;
+    border: none !important;
+    color: #a1a1aa !important;
+    font-size: 0.82rem !important;
+    cursor: pointer !important;
+    padding: 4px !important;
+    margin: 0 !important;
+    position: static !important;
+  }
+
+  .login-card button[type="submit"] {
+    width: 100% !important;
+    min-height: 50px !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    border-radius: 11px !important;
+    margin-top: 4px !important;
+    letter-spacing: 0.02em !important;
+    box-shadow: 0 6px 20px rgba(245,158,11,0.28) !important;
+  }
+
+  /* Alert kutusu */
+  .login-card .alert {
+    margin-bottom: 14px !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* Login footer bar */
+  .login-footer-bar {
+    flex: 0 0 auto !important;
+    position: relative !important;
+    padding: 12px 14px !important;
+    background: transparent !important;
+    border-top: 1px solid rgba(255,255,255,0.05) !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-footer-bar {
+    border-top-color: #e4e4e7 !important;
+  }
+  .login-footer-bar .footer-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 0 !important;
+    font-size: 0.72rem !important;
+  }
+  .login-footer-bar .footer-social {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+  .login-footer-bar .footer-copy,
+  .login-footer-bar .footer-contact {
+    font-size: 0.72rem !important;
+    text-align: center !important;
+  }
+
+  /* Tema toggle */
+  .theme-toggle-float {
+    position: fixed !important;
+    top: 14px !important;
+    right: 14px !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 11px !important;
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 100 !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .theme-toggle-float {
+    background: rgba(0,0,0,0.05) !important;
+    border-color: rgba(0,0,0,0.10) !important;
+  }
+  .theme-toggle-float svg { width: 18px !important; height: 18px !important; }
+}
+
+/* Cok kucuk ekranlar */
+@media (max-width: 380px) {
+  .login-main { padding: 60px 12px 20px !important; gap: 16px !important; }
+  .login-hero h1,
+  .login-hero h1.hero-typewriter { font-size: 1.2rem !important; min-height: 2.8em !important; }
+  .login-hero .hero-lead { font-size: 0.78rem !important; }
+  .login-hero .hero-list li { font-size: 0.76rem !important; }
+  .login-hero .hero-brand-mark { width: 40px !important; height: 40px !important; }
+  .login-hero .hero-brand-title { font-size: 1.15rem !important; }
+  .login-card { padding: 18px 14px 20px !important; border-radius: 16px !important; }
+  .login-card h2 { font-size: 1.15rem !important; }
+}
