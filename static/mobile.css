@@ -1116,3 +1116,72 @@ html.cerez-onayli #cookieBanner * {
   display: none !important;
   visibility: hidden !important;
 }
+
+
+/* ============================================================
+   YONETIM PANELI - SOLUK GORUNUM & LIGHT TEMA FIX
+   ============================================================ */
+
+/* 1) Body ve ana katmanlar hicbir zaman saydam olmasin */
+html, body {
+  opacity: 1 !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+body > *,
+main, .wrapper, .app-wrapper, .container, .content {
+  opacity: 1 !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+/* 2) Cerez kabul edilmisse blur/backdrop tamamen kalksin */
+html.cerez-onayli body,
+html.cerez-onayli main,
+html.cerez-onayli .wrapper,
+html.cerez-onayli .app-wrapper,
+html.cerez-onayli .container {
+  filter: none !important;
+  -webkit-filter: none !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transform: none !important;
+}
+
+/* 3) Olasilikla saydam overlay olusturan elementleri gizle */
+html.cerez-onayli [class*="backdrop"],
+html.cerez-onayli [class*="overlay"],
+html.cerez-onayli [id*="backdrop"],
+html.cerez-onayli [id*="overlay"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* 4) Light temada panel icerikleri kontrastli olsun */
+html[data-theme="light"] .panel-hero,
+html[data-theme="light"] .panel-hero *,
+html[data-theme="light"] .stat,
+html[data-theme="light"] .stat *,
+html[data-theme="light"] .stats-row,
+html[data-theme="light"] .stats-row *,
+html[data-theme="light"] .card,
+html[data-theme="light"] .card *,
+html[data-theme="light"] .tabs,
+html[data-theme="light"] .tabs *,
+html[data-theme="light"] .tab,
+html[data-theme="light"] .tab *,
+html[data-theme="light"] .quick-actions,
+html[data-theme="light"] .quick-actions * {
+  opacity: 1 !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+/* 5) Light tema default metin rengi (panel disinda kalan yerler icin) */
+html[data-theme="light"] body {
+  color: #18181b;
+}
