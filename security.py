@@ -128,13 +128,6 @@ def init_security(app):
             strict_transport_security_preload=True,
             content_security_policy=csp,
             referrer_policy="strict-origin-when-cross-origin",
-            feature_policy={
-                "geolocation": "'none'",
-                "camera": "'none'",
-                "microphone": "'none'",
-                "payment": "'none'",
-                "usb": "'none'",
-            },
             session_cookie_secure=uretim,
             frame_options="DENY",
         )

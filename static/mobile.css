@@ -1098,3 +1098,21 @@ html.cerez-onayli #cookieBanner.cookie-banner {
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+
+/* ============================================================
+   COOKIE BANNER - BRAVE ICIN EKSTRA GIZLEME
+   ============================================================ */
+html.cerez-onayli #cookieBanner,
+html.cerez-onayli #cookieBanner.cookie-banner,
+html.cerez-onayli #cookieBanner[style] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(100vh) !important;
+}
+html.cerez-onayli #cookieBanner * {
+  display: none !important;
+  visibility: hidden !important;
+}
