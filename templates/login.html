@@ -5,379 +5,311 @@
 
 <style>
 /* ============================================================
-   CPEAK_MOBILE_LOGIN_V1
-   C-PEAK · MOBİL GİRİŞ EKRANI (sadece max-width: 768px)
-   Tema renkleri: #e8765a (coral), #0a0a0c (bg), #fafaf9 (text)
-   Fontlar: Fraunces (başlık) + Inter (gövde)
+   CPEAK_MOBILE_LOGIN_V2
+   C-Peak · Mobil giriş ekranı — masaüstü temasıyla uyumlu
+   • Sadece @media (max-width: 768px) içinde çalışır
+   • Masaüstü düzeni ve teması HİÇ etkilenmez
+   • Mobilde önce hero, sonra "Giriş Yap" ile form
    ============================================================ */
 @media (max-width: 768px) {
 
-  /* ---------- 1. SAYFA ZEMİNİ ---------- */
+  /* ---------- GENEL: tema masaüstüyle AYNI (açık zemin) ---------- */
   body.login-page {
-    background: #0a0a0c !important;
-    min-height: 100dvh !important;
-    margin: 0 !important;
+    background: var(--bg, #fafaf9) !important;
+    min-height: 100dvh;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
   }
 
-  .login-page .login-shell {
-    min-height: 100dvh !important;
-    min-height: 100svh !important;
+  body.login-page .login-shell {
+    min-height: 100dvh;
     display: flex !important;
+    flex-direction: column !important;
+    grid-template-rows: none !important;
+  }
+
+  body.login-page .login-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  /* ---------- HERO (masaüstü temasının dikey hali) ---------- */
+  body.login-page .login-hero {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+    min-height: 100dvh;
+    min-height: 100svh;
+    padding: 32px 24px !important;
+    padding-top: max(32px, env(safe-area-inset-top)) !important;
+    padding-bottom: max(32px, env(safe-area-inset-bottom)) !important;
+    overflow: visible !important;
+  }
+
+  body.login-page .hero-content {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Saat ve orb mobilde gereksiz */
+  body.login-page .hero-clock,
+  body.login-page .hero-orb { display: none !important; }
+
+  body.login-page .hero-eyebrow {
+    font-size: .68rem !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  body.login-page .hero-brand {
+    margin: 22px 0 22px !important;
+    gap: 16px !important;
+  }
+  body.login-page .hero-brand-mark img {
+    height: clamp(64px, 18vw, 88px) !important;
+  }
+  body.login-page .hero-brand-title {
+    font-size: 1.7rem !important;
+  }
+  body.login-page .hero-brand-sub {
+    font-size: .82rem !important;
+  }
+
+  body.login-page .hero-typewriter,
+  body.login-page .hero-content h1 {
+    font-size: 1.55rem !important;
+    line-height: 1.28 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  body.login-page .hero-lead {
+    font-size: .95rem !important;
+    line-height: 1.6 !important;
+    margin-top: 12px !important;
+  }
+
+  body.login-page .hero-list {
+    margin-top: 18px !important;
+    gap: 8px !important;
+  }
+  body.login-page .hero-list li {
+    font-size: .9rem !important;
+  }
+
+  body.login-page .hero-stats {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+    margin-top: 26px !important;
+  }
+  body.login-page .hero-stat {
+    padding: 12px 14px !important;
+  }
+  body.login-page .hero-stat strong {
+    font-size: 1.15rem !important;
+  }
+  body.login-page .hero-stat span {
+    font-size: .75rem !important;
+  }
+
+  /* ---------- "GİRİŞ YAP" CTA BUTONU ---------- */
+  .ml2-cta {
+    display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 20px !important;
-    padding-top: max(20px, env(safe-area-inset-top)) !important;
-    padding-bottom: max(20px, env(safe-area-inset-bottom)) !important;
-    background:
-      radial-gradient(circle at 15% 0%, rgba(232,118,90,.14), transparent 55%),
-      radial-gradient(circle at 100% 100%, rgba(232,118,90,.06), transparent 55%),
-      #0a0a0c !important;
-    overflow: hidden !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    margin: 32px auto 0 !important;
+    padding: 16px 24px !important;
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 14px !important;
+    font-family: inherit !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    letter-spacing: .01em !important;
+    cursor: pointer !important;
+    box-shadow: 0 10px 28px rgba(180,83,9,.32), 0 2px 6px rgba(0,0,0,.08) !important;
+    transition: transform .15s ease, box-shadow .15s ease !important;
+    align-self: center !important;
+    -webkit-tap-highlight-color: transparent !important;
   }
+  .ml2-cta:hover,
+  .ml2-cta:focus-visible {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 14px 32px rgba(180,83,9,.4), 0 2px 8px rgba(0,0,0,.1) !important;
+  }
+  .ml2-cta:active { transform: translateY(0) scale(.98) !important; }
+  .ml2-cta svg { width: 18px !important; height: 18px !important; }
 
-  /* ---------- 2. HERO'YU MOBİLDE TAMAMEN GİZLE ---------- */
-  .login-page .login-hero,
-  .login-page .hero-orb,
-  .login-page .hero-clock {
+  /* ---------- FORM (masaüstü temasıyla aynı, ortada) ---------- */
+  body.login-page .login-main {
     display: none !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 100dvh;
+    min-height: 100svh;
+    padding: 72px 20px 40px !important;
+    padding-top: max(72px, calc(env(safe-area-inset-top) + 56px)) !important;
+    background: var(--bg, #fafaf9) !important;
   }
 
-  /* ---------- 3. WRAP TEK SÜTUN ---------- */
-  .login-page .login-wrap {
-    display: block !important;
+  body.login-page .login-card {
     width: 100% !important;
     max-width: 420px !important;
     margin: 0 auto !important;
-    grid-template-columns: 1fr !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    min-height: auto !important;
-  }
-
-  .login-page .login-main {
-    width: 100% !important;
-    padding: 0 !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    display: flex !important;
-    justify-content: center !important;
-  }
-
-  /* ---------- 4. KART ---------- */
-  .login-page .login-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 36px 24px 28px !important;
-    background: rgba(24,24,27,.72) !important;
-    border: 1px solid rgba(232,118,90,.18) !important;
-    border-radius: 22px !important;
+    padding: 28px 22px !important;
+    border-radius: 18px !important;
+    background: var(--surface, #fff) !important;
+    border: 1px solid var(--border, #e4e4e7) !important;
     box-shadow:
-      0 1px 0 rgba(255,255,255,.05) inset,
-      0 30px 60px -24px rgba(0,0,0,.7),
-      0 0 0 1px rgba(255,255,255,.02) !important;
-    backdrop-filter: blur(24px) saturate(140%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
-    color: #fafaf9 !important;
+      0 4px 24px -8px rgba(24,24,27,.10),
+      0 1px 3px rgba(24,24,27,.04) !important;
+  }
+  body.login-page .login-card h2 { font-size: 1.4rem !important; }
+  body.login-page .login-card .lead { font-size: .92rem !important; }
+
+  /* iOS zoom engeli */
+  body.login-page .login-card input,
+  body.login-page .login-card select { font-size: 16px !important; }
+
+  /* Durum: form aktif */
+  body.login-page.ml2-form-active .login-hero { display: none !important; }
+  body.login-page.ml2-form-active .login-main { display: flex !important; }
+
+  /* ---------- "← GERİ" BUTONU ---------- */
+  .ml2-back {
+    display: none;
+    position: fixed;
+    top: max(14px, env(safe-area-inset-top));
+    left: 14px;
+    z-index: 1200;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px 9px 12px;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--border, #e4e4e7);
+    border-radius: 999px;
+    color: var(--ink, #18181b);
+    font-family: inherit;
+    font-size: .87rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(24,24,27,.08), 0 1px 2px rgba(24,24,27,.04);
+    transition: transform .15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ml2-back:active { transform: scale(.96); }
+  .ml2-back svg { width: 16px; height: 16px; }
+
+  body.login-page.ml2-form-active .ml2-back {
+    display: inline-flex;
   }
 
-  .login-page .login-card::before {
-    content: "";
-    display: block;
-    width: 44px;
-    height: 44px;
-    margin: 0 auto 18px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #e8765a 0%, #d65f43 100%);
-    box-shadow: 0 10px 20px -8px rgba(232,118,90,.6);
+  /* ---------- FOOTER (mobilde sadeleştir) ---------- */
+  body.login-page .login-footer-bar {
+    padding: 10px 16px !important;
   }
-
-  /* ---------- 5. BAŞLIK ---------- */
-  .login-page .login-card h2 {
-    font-family: 'Fraunces', Georgia, serif !important;
-    font-size: 28px !important;
-    font-weight: 500 !important;
-    line-height: 1.15 !important;
-    letter-spacing: -0.02em !important;
-    color: #fafaf9 !important;
-    text-align: center !important;
-    margin: 0 0 8px !important;
-  }
-
-  .login-page .login-card .lead {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 13.5px !important;
-    font-weight: 400 !important;
-    line-height: 1.55 !important;
-    color: #a1a1aa !important;
-    text-align: center !important;
-    margin: 0 0 26px !important;
-  }
-
-  /* ---------- 6. ETİKETLER ---------- */
-  .login-page .login-card label {
-    display: block !important;
-    font-family: 'Inter', sans-serif !important;
-    font-size: 11.5px !important;
-    font-weight: 600 !important;
-    letter-spacing: .06em !important;
-    text-transform: uppercase !important;
-    color: #71717a !important;
-    margin: 0 0 8px 2px !important;
-    padding: 0 !important;
-  }
-
-  /* ---------- 7. INPUT'LAR ---------- */
-  .login-page .login-card input[type="text"],
-  .login-page .login-card input[type="password"],
-  .login-page .login-card input[type="email"],
-  .login-page .login-card input[type="number"],
-  .login-page .login-card input:not([type="checkbox"]):not([type="hidden"]):not([type="submit"]) {
-    width: 100% !important;
-    padding: 15px 16px !important;
-    font-family: 'Inter', sans-serif !important;
-    font-size: 16px !important;
-    font-weight: 500 !important;
-    color: #fafaf9 !important;
-    background: rgba(255,255,255,.04) !important;
-    border: 1px solid rgba(255,255,255,.08) !important;
-    border-radius: 14px !important;
-    outline: none !important;
-    box-shadow: none !important;
-    transition: border-color .2s, background .2s, box-shadow .2s !important;
-    -webkit-appearance: none !important;
-    appearance: none !important;
-    box-sizing: border-box !important;
-    min-height: 52px !important;
-  }
-
-  .login-page .login-card input::placeholder {
-    color: #52525b !important;
-    font-weight: 400 !important;
-  }
-
-  .login-page .login-card input:focus {
-    border-color: rgba(232,118,90,.6) !important;
-    background: rgba(255,255,255,.06) !important;
-    box-shadow: 0 0 0 4px rgba(232,118,90,.16) !important;
-  }
-
-  .login-page .login-card .input-eye,
-  .login-page .login-card #togglePw {
-    color: #71717a !important;
-    min-width: 44px !important;
-    min-height: 44px !important;
-    padding: 10px !important;
-    border-radius: 10px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: none !important;
-    border: none !important;
-    transition: color .15s !important;
-  }
-  .login-page .login-card .input-eye:active {
-    color: #e8765a !important;
-  }
-
-  /* ---------- 8. FORM ARALIKLARI ---------- */
-  .login-page .login-card form { margin: 0 !important; }
-  .login-page .login-card form > * + * { margin-top: 16px !important; }
-
-  /* ---------- 9. HATIRLA + UNUTTUM ---------- */
-  .login-page .login-card form > div:has(.check-premium),
-  .login-page .login-card form > div:has(#forgotBtn) {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 12px !important;
-    flex-wrap: wrap !important;
-    margin-top: 4px !important;
-  }
-
-  .login-page .login-card .check-premium {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    font-family: 'Inter', sans-serif !important;
-    font-size: 13px !important;
-    font-weight: 400 !important;
-    color: #a1a1aa !important;
-    text-transform: none !important;
-    letter-spacing: 0 !important;
-    margin: 0 !important;
-    padding: 6px 0 !important;
-    cursor: pointer !important;
-    user-select: none !important;
-  }
-
-  .login-page .login-card .check-premium input[type="checkbox"] {
-    width: 20px !important;
-    height: 20px !important;
-    min-width: 20px !important;
-    min-height: 20px !important;
-    accent-color: #e8765a !important;
-    margin: 0 !important;
-    flex-shrink: 0 !important;
-  }
-
-  .login-page .login-card .link-premium,
-  .login-page .login-card #forgotBtn {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 13px !important;
-    font-weight: 500 !important;
-    color: #e8765a !important;
-    background: none !important;
-    border: none !important;
-    padding: 6px 2px !important;
-    cursor: pointer !important;
-    text-decoration: none !important;
-    text-transform: none !important;
-    letter-spacing: 0 !important;
-    margin: 0 !important;
-  }
-  .login-page .login-card .link-premium:active { opacity: .7 !important; }
-
-  /* ---------- 10. ANA BUTON ---------- */
-  .login-page .login-card .btn-primary,
-  .login-page .login-card button[type="submit"] {
-    width: 100% !important;
-    min-height: 54px !important;
-    padding: 16px 20px !important;
-    margin-top: 22px !important;
-    font-family: 'Inter', sans-serif !important;
-    font-size: 15px !important;
-    font-weight: 600 !important;
-    letter-spacing: .02em !important;
-    color: #ffffff !important;
-    text-transform: none !important;
-    background: linear-gradient(135deg, #e8765a 0%, #d65f43 100%) !important;
-    border: none !important;
-    border-radius: 14px !important;
-    cursor: pointer !important;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,.18) inset,
-      0 12px 28px -12px rgba(232,118,90,.65) !important;
-    transition: transform .12s ease, box-shadow .2s !important;
-    -webkit-tap-highlight-color: transparent !important;
-  }
-
-  .login-page .login-card .btn-primary:active,
-  .login-page .login-card button[type="submit"]:active {
-    transform: scale(.985) !important;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,.18) inset,
-      0 6px 14px -6px rgba(232,118,90,.7) !important;
-  }
-
-  /* ---------- 11. FLASH MESAJLARI ---------- */
-  .login-page .login-card .alert,
-  .login-page .login-card .flash,
-  .login-page .login-card .flash-message {
-    padding: 12px 14px !important;
-    border-radius: 12px !important;
-    font-size: 13px !important;
-    line-height: 1.5 !important;
-    margin: 0 0 16px !important;
-  }
-
-  /* ---------- 12. TEMA BUTONU ---------- */
-  .login-page .theme-toggle-float {
-    top: max(14px, env(safe-area-inset-top)) !important;
-    right: 14px !important;
-    width: 44px !important;
-    height: 44px !important;
-    padding: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: rgba(24,24,27,.75) !important;
-    border: 1px solid rgba(255,255,255,.08) !important;
-    border-radius: 12px !important;
-    color: #a1a1aa !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    z-index: 20 !important;
-  }
-
-  /* ---------- 13. KÜÇÜK EKRAN ---------- */
-  @media (max-width: 380px) {
-    .login-page .login-card {
-      padding: 30px 18px 24px !important;
-      border-radius: 18px !important;
-    }
-    .login-page .login-card h2 { font-size: 25px !important; }
-    .login-page .login-card::before {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 14px;
-    }
-  }
-}
-
-/* ============================================================
-   AYDINLIK TEMA İÇİN MOBİL UYARLAMA
-   ============================================================ */
-@media (max-width: 768px) {
-  html[data-theme="light"] body.login-page {
-    background: #fafaf9 !important;
-  }
-
-  html[data-theme="light"] .login-page .login-shell {
-    background:
-      radial-gradient(circle at 15% 0%, rgba(232,118,90,.10), transparent 55%),
-      radial-gradient(circle at 100% 100%, rgba(232,118,90,.05), transparent 55%),
-      #fafaf9 !important;
-  }
-
-  html[data-theme="light"] .login-page .login-card {
-    background: rgba(255,255,255,.85) !important;
-    border-color: rgba(232,118,90,.22) !important;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,.9) inset,
-      0 30px 60px -24px rgba(24,24,27,.15),
-      0 0 0 1px rgba(0,0,0,.03) !important;
-    color: #18181b !important;
-  }
-
-  html[data-theme="light"] .login-page .login-card h2 {
-    color: #0a2e20 !important;
-  }
-
-  html[data-theme="light"] .login-page .login-card .lead,
-  html[data-theme="light"] .login-page .login-card .check-premium {
-    color: #52525b !important;
-  }
-
-  html[data-theme="light"] .login-page .login-card label {
-    color: #71717a !important;
-  }
-
-  html[data-theme="light"] .login-page .login-card input:not([type="checkbox"]):not([type="hidden"]) {
-    background: rgba(0,0,0,.025) !important;
-    border-color: rgba(0,0,0,.08) !important;
-    color: #18181b !important;
-  }
-  html[data-theme="light"] .login-page .login-card input::placeholder {
-    color: #a1a1aa !important;
-  }
-  html[data-theme="light"] .login-page .login-card input:focus {
-    border-color: rgba(232,118,90,.55) !important;
-    background: #ffffff !important;
-    box-shadow: 0 0 0 4px rgba(232,118,90,.14) !important;
-  }
-
-  html[data-theme="light"] .login-page .theme-toggle-float {
-    background: rgba(255,255,255,.85) !important;
-    border-color: rgba(0,0,0,.08) !important;
-    color: #52525b !important;
+  body.login-page .login-footer-bar .footer-contact {
+    display: none !important;
   }
 }
 </style>
-<!-- /CPEAK_MOBILE_LOGIN_V1 -->
+<script>
+/* ============================================================
+   CPEAK_MOBILE_LOGIN_V2 — davranış katmanı
+   Masaüstünde HİÇBİR ŞEY yapmaz (sadece mobil genişlikte çalışır).
+   ============================================================ */
+(function () {
+  "use strict";
+  if (window.__cpeakMl2Init) return;
+  window.__cpeakMl2Init = true;
+
+  function isMobile() {
+    return window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+  }
+
+  function ekle() {
+    if (!isMobile()) return;
+    var body = document.body;
+    var hero = document.querySelector(".login-hero");
+    var heroContent = document.querySelector(".login-hero .hero-content");
+    var main = document.querySelector(".login-main");
+    var card = document.querySelector(".login-card");
+    if (!body || !hero || !main) return;
+
+    // Body'de login-page var mı kontrol (sadece login sayfasında çalış)
+    if (!body.classList.contains("login-page")) return;
+
+    // ---- "Giriş Yap" CTA butonu ----
+    if (!document.getElementById("ml2-cta")) {
+      var cta = document.createElement("button");
+      cta.type = "button";
+      cta.id = "ml2-cta";
+      cta.className = "ml2-cta";
+      cta.innerHTML =
+        '<span>Giriş Yap</span>' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<line x1="5" y1="12" x2="19" y2="12"></line>' +
+        '<polyline points="12 5 19 12 12 19"></polyline></svg>';
+      cta.addEventListener("click", function () {
+        body.classList.add("ml2-form-active");
+        window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+        var input = document.getElementById("tcInput");
+        if (input) {
+          setTimeout(function () {
+            try { input.focus({ preventScroll: true }); } catch (e) { input.focus(); }
+          }, 260);
+        }
+      });
+      (heroContent || hero).appendChild(cta);
+    }
+
+    // ---- "← Geri" butonu ----
+    if (!document.getElementById("ml2-back")) {
+      var back = document.createElement("button");
+      back.type = "button";
+      back.id = "ml2-back";
+      back.className = "ml2-back";
+      back.setAttribute("aria-label", "Geri dön");
+      back.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+        'stroke-linecap="round" stroke-linejoin="round">' +
+        '<line x1="19" y1="12" x2="5" y2="12"></line>' +
+        '<polyline points="12 19 5 12 12 5"></polyline></svg>' +
+        '<span>Geri</span>';
+      back.addEventListener("click", function () {
+        body.classList.remove("ml2-form-active");
+        window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+      });
+      if (card && card.parentNode) {
+        card.parentNode.insertBefore(back, card);
+      } else {
+        main.insertBefore(back, main.firstChild);
+      }
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ekle);
+  } else {
+    ekle();
+  }
+  // Geç yüklenen bileşenler için ikinci deneme
+  setTimeout(ekle, 300);
+})();
+</script>
+<!-- /CPEAK_MOBILE_LOGIN_V2 -->
 
 
 <a href="#" class="theme-toggle theme-toggle-float" data-theme-toggle aria-label="Tema değiştir" title="Koyu / Aydınlık mod" onclick="event.preventDefault();">
