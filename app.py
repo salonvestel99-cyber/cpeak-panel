@@ -1017,7 +1017,7 @@ def devamsizlik_kaydet():
 # HAFTALIK DERS PROGRAMI
 # ============================================================
 
-GUN_ADI = {1: "Pazartesi", 2: "Salı", 3: "Çarşamba", 4: "Perşembe", 5: "Cuma"}
+GUN_ADI = {1: "Pazartesi", 2: "Salı", 3: "Çarşamba", 4: "Perşembe", 5: "Cuma", 6: "Cumartesi", 7: "Pazar"}
 
 @app.route("/ders-programi")
 @login_required()
