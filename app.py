@@ -9,7 +9,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from dotenv import load_dotenv
 
 from models import get_db
-from mail_service import (send_email, sablon_sifre_talebi, sablon_test, sablon_kayit, sablon_sifre_degisti, sablon_sifre_sifirlandi, sablon_devamsizlik, sablon_not_girildi)
+from mail_service import (send_email, sablon_sifre_talebi, sablon_test, sablon_kayit, sablon_sifre_degisti, sablon_sifre_sifirlandi, sablon_devamsizlik, sablon_not_girildi, sablon_ozel, HAZIR_SABLONLAR)
 
 load_dotenv()
 
@@ -1745,6 +1745,86 @@ def admin_test_email():
 </body>
 </html>"""
     return _rts(html)
+
+
+
+# ============================================================
+# ADMIN - MAIL GONDER
+# ============================================================
+@app.route("/admin/mail-gonder", methods=["GET", "POST"])
+@login_required("admin")
+def admin_mail_gonder():
+    from mail_service import HAZIR_SABLONLAR, sablon_ozel
+    conn = get_db()
+    try:
+        kullanicilar = conn.execute(
+            "SELECT id, name, tc_no, role, email FROM users ORDER BY role, name"
+        ).fetchall()
+    finally:
+        conn.close()
+
+    onizleme = None
+    if request.method == "POST":
+        aksiyon = request.form.get("aksiyon", "gonder")
+        alici_tipi = request.form.get("alici_tipi", "tek")
+        konu = (request.form.get("konu") or "").strip()
+        icerik = request.form.get("icerik") or ""
+        renk = request.form.get("renk") or "#f59e0b"
+
+        # Alici listesi
+        alicilar = []
+        if alici_tipi == "tek":
+            uid = request.form.get("kullanici_id", "").strip()
+            if uid:
+                conn = get_db()
+                try:
+                    r = conn.execute("SELECT email FROM users WHERE id = ?", (int(uid),)).fetchone()
+                    if r and r["email"]:
+                        alicilar = [r["email"]]
+                finally:
+                    conn.close()
+        elif alici_tipi == "rol":
+            rol = request.form.get("rol", "").strip()
+            if rol in ("student", "parent", "teacher", "admin"):
+                conn = get_db()
+                try:
+                    rows = conn.execute(
+                        "SELECT email FROM users WHERE role = ? AND email IS NOT NULL AND email != ''",
+                        (rol,)
+                    ).fetchall()
+                    alicilar = [r["email"] for r in rows if r["email"]]
+                finally:
+                    conn.close()
+        elif alici_tipi == "manuel":
+            m = request.form.get("manuel_email", "")
+            alicilar = [e.strip() for e in m.split(",") if "@" in e and e.strip()]
+
+        # HTML olustur
+        html = sablon_ozel(konu or "Bilgilendirme", icerik, renk)
+
+        if aksiyon == "onizle":
+            onizleme = html
+            flash("Onizleme asagida gosteriliyor. Kontrol edip 'Mail Gonder' butonuna basin.", "success")
+        else:
+            if not alicilar:
+                flash("Alici secilmedi veya gecerli mail adresi yok.", "error")
+            elif not konu:
+                flash("Konu bos olamaz.", "error")
+            else:
+                try:
+                    send_email(konu, alicilar, html)
+                    flash("Mail " + str(len(alicilar)) + " kisiye kuyruga alindi.", "success")
+                except Exception as e:
+                    flash("Hata: " + str(e), "error")
+                return redirect(url_for("admin_mail_gonder"))
+
+    return render_template(
+        "admin_mail.html",
+        kullanicilar=[dict(u) for u in kullanicilar],
+        sablonlar=HAZIR_SABLONLAR,
+        onizleme=onizleme,
+    )
+# ============================================================
 
 if __name__ == "__main__":
     import os as _os

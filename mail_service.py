@@ -1,18 +1,11 @@
 # -*- coding: utf-8 -*-
-"""E-posta gonderim servisi - Brevo (sib-api-v3-sdk).
-
-Kurumsal premium sablonlar. Okul bilgileri ve sosyal medya
-hesaplari ortam degiskenlerinden okunur.
-"""
+"""E-posta gönderim servisi - Brevo. Premium kurumsal şablonlar."""
 import os
 import threading
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 
 
-# ============================================================
-# KURUMSAL BILGILER (Render env'den okunur)
-# ============================================================
 def _kurum():
     return {
         "ad":        os.environ.get("OKUL_ADI", "C-Peak English"),
@@ -27,9 +20,6 @@ def _kurum():
     }
 
 
-# ============================================================
-# BREVO GONDERIM
-# ============================================================
 def _brevo_client():
     cfg = sib_api_v3_sdk.Configuration()
     cfg.api_key["api-key"] = os.environ.get("BREVO_API_KEY", "")
@@ -39,15 +29,12 @@ def _brevo_client():
 def _gonder_sync(konu, alicilar, html, duz_metin=None):
     api_key = os.environ.get("BREVO_API_KEY", "")
     if not api_key:
-        print("[Brevo] HATA: BREVO_API_KEY tanimli degil.", flush=True)
+        print("[Brevo] HATA: BREVO_API_KEY yok.", flush=True)
         return False
-
     if isinstance(alicilar, str):
         alicilar = [alicilar]
-
     gonderen_email = os.environ.get("MAIL_DEFAULT_SENDER", "cpeakenglish@gmail.com")
     gonderen_isim = os.environ.get("MAIL_SENDER_NAME", "C-Peak Panel")
-
     try:
         api_instance = sib_api_v3_sdk.TransactionalEmailsApi(_brevo_client())
         sender = {"name": gonderen_isim, "email": gonderen_email}
@@ -61,122 +48,159 @@ def _gonder_sync(konu, alicilar, html, duz_metin=None):
         print("[Brevo] OK -> " + str(alicilar) + " | " + konu, flush=True)
         return True
     except ApiException as e:
-        print("[Brevo] API HATA -> " + str(alicilar) + " | " + str(e), flush=True)
+        print("[Brevo] API HATA -> " + str(e), flush=True)
         return False
     except Exception as e:
-        print("[Brevo] HATA -> " + str(alicilar) + " | " + str(e), flush=True)
+        print("[Brevo] HATA -> " + str(e), flush=True)
         return False
 
 
 def send_email(konu, alicilar, html, duz_metin=None):
-    """Arka planda e-posta gonder."""
-    t = threading.Thread(
-        target=_gonder_sync,
-        args=(konu, alicilar, html, duz_metin),
-        daemon=True,
-    )
+    t = threading.Thread(target=_gonder_sync, args=(konu, alicilar, html, duz_metin), daemon=True)
     t.start()
     return True
 
 
 # ============================================================
-# ORTAK SABLON ISKELETI (kurumsal kimlik)
+# ORTAK CSS (email-safe, mobile + dark mode)
 # ============================================================
+CSS = """
+body,table,td,p,a,li,blockquote{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+table,td{mso-table-lspace:0;mso-table-rspace:0;border-collapse:collapse}
+img{-ms-interpolation-mode:bicubic;border:0;height:auto;line-height:100%;outline:none;text-decoration:none}
+body{margin:0;padding:0;width:100%!important;height:100%!important}
+a{text-decoration:none}
+@media only screen and (max-width:600px){
+.wrap{padding:20px 10px!important}
+.header{padding:24px 22px 18px!important}
+.content{padding:6px 22px 26px!important}
+.footer{padding:14px 22px 24px!important}
+.h1{font-size:21px!important;line-height:1.3!important}
+.p{font-size:15px!important;line-height:1.6!important}
+.box{padding:14px 16px!important;border-radius:12px!important}
+.btn{display:block!important;width:100%!important;text-align:center!important;box-sizing:border-box!important;padding:15px 18px!important}
+.social-btn{display:block!important;margin:0 0 8px!important;width:100%!important;box-sizing:border-box!important;text-align:center!important}
+.logo{height:40px!important}
+.brand{font-size:11px!important;letter-spacing:0.1em!important}
+.info-label{display:block!important;padding:0 0 2px!important;width:100%!important;font-size:13px!important}
+.info-value{display:block!important;padding:0 0 12px!important;width:100%!important;font-size:16px!important}
+}
+@media (prefers-color-scheme: dark){
+.body-bg{background-color:#09090b!important}
+.card{background-color:#18181b!important;box-shadow:0 4px 24px rgba(0,0,0,0.5)!important;border:1px solid #27272a!important}
+.h1{color:#fafaf9!important}
+.p{color:#a1a1aa!important}
+.muted{color:#71717a!important}
+.divider{background-color:#27272a!important}
+.box{background-color:#27272a!important}
+.info-label{color:#a1a1aa!important}
+.info-value{color:#fafaf9!important}
+.social-btn{background-color:#27272a!important;color:#e4e4e7!important;border-color:#3f3f46!important}
+.brand{color:#71717a!important}
+.footer-link{color:#71717a!important}
+}
+"""
+
+
 def _sablon(sayfa_basligi, icerik, vurgu_renk="#f59e0b", vurgu_gradient=None):
-    """Tum mailler icin ortak iskelet.
-
-    sayfa_basligi : mail ust basligi (orn: "Hos Geldiniz")
-    icerik        : HTML icerik
-    vurgu_renk    : mail turune gore ana renk (hex)
-    vurgu_gradient: gradient varsa (orn: "linear-gradient(135deg,#f59e0b,#f97316)")
-    """
     k = _kurum()
-    grad = vurgu_gradient or ("linear-gradient(135deg, " + vurgu_renk + ", " + vurgu_renk + ")")
+    grad = vurgu_gradient or ("linear-gradient(135deg, " + vurgu_renk + " 0%, " + vurgu_renk + " 100%)")
 
-    # Sosyal medya linkleri
-    sosyal = ""
+    # Sosyal medya butonlari
+    sosyal_buttons = ""
     if k["instagram"]:
-        sosyal += (
-            '<a href="' + k["instagram"] + '" style="display:inline-block;margin:0 6px;'
-            'padding:8px 14px;background:#f4f4f5;border-radius:8px;text-decoration:none;'
-            'color:#52525b;font-size:13px;font-weight:600;">Instagram</a>'
+        sosyal_buttons += (
+            '<a href="' + k["instagram"] + '" class="social-btn" style="display:inline-block;'
+            'margin:0 4px 6px;padding:10px 18px;background-color:#f4f4f5;border:1px solid #e4e4e7;'
+            'border-radius:10px;color:#52525b;font-size:13px;font-weight:600;">Instagram</a>'
         )
     if k["youtube"]:
-        sosyal += (
-            '<a href="' + k["youtube"] + '" style="display:inline-block;margin:0 6px;'
-            'padding:8px 14px;background:#f4f4f5;border-radius:8px;text-decoration:none;'
-            'color:#52525b;font-size:13px;font-weight:600;">YouTube</a>'
+        sosyal_buttons += (
+            '<a href="' + k["youtube"] + '" class="social-btn" style="display:inline-block;'
+            'margin:0 4px 6px;padding:10px 18px;background-color:#f4f4f5;border:1px solid #e4e4e7;'
+            'border-radius:10px;color:#52525b;font-size:13px;font-weight:600;">YouTube</a>'
         )
     if k["whatsapp"]:
-        sosyal += (
-            '<a href="' + k["whatsapp"] + '" style="display:inline-block;margin:0 6px;'
-            'padding:8px 14px;background:#f4f4f5;border-radius:8px;text-decoration:none;'
-            'color:#52525b;font-size:13px;font-weight:600;">WhatsApp</a>'
+        sosyal_buttons += (
+            '<a href="' + k["whatsapp"] + '" class="social-btn" style="display:inline-block;'
+            'margin:0 4px 6px;padding:10px 18px;background-color:#f4f4f5;border:1px solid #e4e4e7;'
+            'border-radius:10px;color:#52525b;font-size:13px;font-weight:600;">WhatsApp</a>'
+        )
+    sosyal_html = ""
+    if sosyal_buttons:
+        sosyal_html = (
+            '<tr><td align="center" style="padding:22px 32px 8px;">'
+            + sosyal_buttons + '</td></tr>'
         )
 
-    # Iletisim satiri
     iletisim = ""
     if k["adres"]:
-        iletisim += '<div style="margin:4px 0;color:#a1a1aa;font-size:12px;">' + k["adres"] + '</div>'
+        iletisim += '<div class="muted" style="margin:4px 0;color:#a1a1aa;font-size:12px;line-height:1.55;">' + k["adres"] + '</div>'
     if k["telefon"]:
-        iletisim += '<div style="margin:4px 0;color:#a1a1aa;font-size:12px;">Tel: ' + k["telefon"] + '</div>'
-    iletisim += '<div style="margin:4px 0;color:#a1a1aa;font-size:12px;">' + k["eposta"] + '</div>'
+        iletisim += '<div class="muted" style="margin:4px 0;color:#a1a1aa;font-size:12px;line-height:1.55;">Tel: ' + k["telefon"] + '</div>'
+    if k["eposta"]:
+        iletisim += '<div class="muted" style="margin:4px 0;color:#a1a1aa;font-size:12px;line-height:1.55;">' + k["eposta"] + '</div>'
+
+    web_kisa = k["web"].replace("https://", "").replace("http://", "")
+    preheader = k["ad"] + " \u00b7 " + sayfa_basligi
 
     return (
         '<!DOCTYPE html><html lang="tr"><head>'
-        '<meta charset="utf-8">'
-        '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        '<meta charset="UTF-8">'
+        '<meta name="viewport" content="width=device-width,initial-scale=1.0">'
+        '<meta name="x-apple-disable-message-reformatting">'
+        '<meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no">'
         '<title>' + sayfa_basligi + '</title>'
+        '<style>' + CSS + '</style>'
         '</head>'
-        '<body style="margin:0;padding:0;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'
-        "'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#18181b;\">"
+        '<body class="body-bg" style="margin:0;padding:0;background-color:#f4f4f5;'
+        "font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;"
+        'color:#18181b;">'
 
-        '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" '
-        'style="background:#f4f4f5;padding:32px 16px;">'
-        '<tr><td align="center">'
+        '<div style="display:none;font-size:1px;color:#f4f4f5;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">'
+        + preheader + '</div>'
 
-        # Ana kart
-        '<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" '
-        'style="max-width:600px;width:100%;background:#ffffff;border-radius:16px;overflow:hidden;'
-        'box-shadow:0 4px 24px rgba(0,0,0,0.06);">'
+        '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" '
+        'class="body-bg" style="background-color:#f4f4f5;">'
+        '<tr><td align="center" class="wrap" style="padding:32px 16px;">'
 
-        # Ust renkli serit
-        '<tr><td style="height:6px;background:' + grad + ';"></td></tr>'
+        '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" '
+        'class="card" style="max-width:600px;width:100%;background-color:#ffffff;'
+        'border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.06);">'
 
-        # Header (logo + marka)
-        '<tr><td style="padding:28px 32px 12px;text-align:center;">'
-        '<img src="' + k["logo"] + '" alt="' + k["ad"] + '" '
-        'style="height:44px;max-width:220px;display:block;margin:0 auto 8px;">'
-        '<div style="font-size:13px;color:#a1a1aa;letter-spacing:0.05em;text-transform:uppercase;'
-        'font-weight:600;">' + k["ad"] + '</div>'
+        '<tr><td style="height:5px;background:' + grad + ';line-height:5px;font-size:0;">&nbsp;</td></tr>'
+
+        '<tr><td class="header" align="center" style="padding:32px 32px 22px;">'
+        '<img src="' + k["logo"] + '" alt="' + k["ad"] + '" class="logo" '
+        'style="height:48px;max-width:220px;display:block;margin:0 auto 10px;">'
+        '<div class="brand" style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;'
+        'font-weight:700;color:#a1a1aa;">' + k["ad"] + '</div>'
         '</td></tr>'
 
-        # Icerik
-        '<tr><td style="padding:8px 32px 32px;">'
-        + icerik +
+        '<tr><td style="padding:0 32px;">'
+        '<div class="divider" style="height:1px;background-color:#e4e4e7;line-height:1px;font-size:0;">&nbsp;</div>'
         '</td></tr>'
 
-        # Ayrac
-        '<tr><td style="padding:0 32px;"><div style="height:1px;background:#e4e4e7;"></div></td></tr>'
+        '<tr><td class="content" style="padding:8px 32px 30px;">' + icerik + '</td></tr>'
 
-        # Footer - sosyal medya
-        + ('<tr><td style="padding:20px 32px 8px;text-align:center;">' + sosyal + '</td></tr>'
-           if sosyal else '') +
+        '<tr><td style="padding:0 32px;">'
+        '<div class="divider" style="height:1px;background-color:#e4e4e7;line-height:1px;font-size:0;">&nbsp;</div>'
+        '</td></tr>'
 
-        # Footer - iletisim
-        '<tr><td style="padding:8px 32px 28px;text-align:center;">'
+        + sosyal_html +
+
+        '<tr><td class="footer" align="center" style="padding:18px 32px 28px;">'
         + iletisim +
-        '<div style="margin-top:12px;color:#d4d4d8;font-size:11px;">'
-        'Bu e-posta otomatik gonderilmistir. Lutfen yanitlamayin.'
-        '</div>'
+        '<div class="muted" style="margin-top:14px;font-size:11px;color:#a1a1aa;line-height:1.5;">'
+        'Bu e-posta otomatik g\u00f6nderilmi\u015ftir, l\u00fctfen yan\u0131tlamay\u0131n.</div>'
         '</td></tr>'
 
         '</table>'
-        # /Ana kart
 
-        '<div style="margin-top:16px;color:#a1a1aa;font-size:11px;text-align:center;">'
-        '&copy; ' + k["ad"] + ' &middot; <a href="' + k["web"] + '" '
-        'style="color:#a1a1aa;text-decoration:none;">' + k["web"].replace("https://","").replace("http://","") + '</a>'
+        '<div class="muted" style="margin-top:18px;font-size:11px;color:#a1a1aa;text-align:center;">'
+        '&copy; 2026 ' + k["ad"] + ' &nbsp;&middot;&nbsp; '
+        '<a class="footer-link" href="' + k["web"] + '" '
+        'style="color:#a1a1aa;text-decoration:none;">' + web_kisa + '</a>'
         '</div>'
 
         '</td></tr></table>'
@@ -184,156 +208,136 @@ def _sablon(sayfa_basligi, icerik, vurgu_renk="#f59e0b", vurgu_gradient=None):
     )
 
 
-def _baslik(metin, renk="#18181b"):
-    return ('<h1 style="margin:0 0 12px;font-size:22px;font-weight:700;color:' + renk + ';'
-            'letter-spacing:-0.01em;line-height:1.3;">' + metin + '</h1>')
+# ============================================================
+# HTML YARDIMCI PARCALARI
+# ============================================================
+def _h1(metin, renk="#18181b"):
+    return ('<h1 class="h1" style="margin:16px 0 14px;font-size:24px;font-weight:700;'
+            'color:' + renk + ';letter-spacing:-0.02em;line-height:1.3;">' + metin + '</h1>')
 
 
 def _p(metin, renk="#52525b"):
-    return ('<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:' + renk + ';">'
-            + metin + '</p>')
+    return ('<p class="p" style="margin:0 0 14px;font-size:16px;line-height:1.65;'
+            'color:' + renk + ';">' + metin + '</p>')
 
 
-def _kutu(icerik, arka="#f4f4f5", kenar=None):
-    sol = ""
-    if kenar:
-        sol = "border-left:4px solid " + kenar + ";"
-    return ('<div style="background:' + arka + ';padding:16px 20px;border-radius:12px;'
-            'margin:18px 0;' + sol + '">' + icerik + '</div>')
+def _kutu(icerik, arka="#f9fafb", kenar="#f59e0b"):
+    return ('<div class="box" style="background-color:' + arka + ';padding:18px 22px;'
+            'border-radius:14px;margin:18px 0;border-left:4px solid ' + kenar + ';">'
+            + icerik + '</div>')
 
 
 def _buton(metin, link, renk="#f59e0b"):
-    return ('<div style="margin:24px 0 8px;">'
-            '<a href="' + link + '" style="display:inline-block;padding:14px 28px;'
-            'background:' + renk + ';color:#ffffff;text-decoration:none;border-radius:10px;'
-            'font-size:15px;font-weight:600;letter-spacing:0.01em;">' + metin + '</a>'
-            '</div>')
+    return ('<div style="margin:24px 0 6px;">'
+            '<a href="' + link + '" class="btn" style="display:inline-block;padding:14px 28px;'
+            'background-color:' + renk + ';color:#ffffff;border-radius:10px;'
+            'font-size:15px;font-weight:700;">'
+            + metin + ' &rarr;</a></div>')
 
 
 def _satir(etiket, deger):
     return ('<tr>'
-            '<td style="padding:8px 0;font-size:14px;color:#71717a;width:40%;">' + etiket + '</td>'
-            '<td style="padding:8px 0;font-size:14px;color:#18181b;font-weight:600;">' + deger + '</td>'
+            '<td class="info-label" style="padding:6px 0;font-size:14px;color:#71717a;'
+            'vertical-align:top;width:44%;">' + etiket + '</td>'
+            '<td class="info-value" style="padding:6px 0;font-size:15px;color:#18181b;'
+            'font-weight:600;vertical-align:top;">' + deger + '</td>'
             '</tr>')
 
 
 def _tablo(satirlar):
     return ('<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
-            'style="width:100%;border-collapse:collapse;">' + satirlar + '</table>')
+            'style="width:100%;">' + satirlar + '</table>')
 
 
 # ============================================================
-# HAZIR SABLONLAR
+# SABLONLAR
 # ============================================================
 
 def sablon_kayit(ad, tc, sifre, giris_url):
-    """Yeni hesap acildiginda - YESIL tema."""
     icerik = (
-        _baslik("Hos geldiniz, " + ad + "!")
-        + _p("Hesabiniz basariyla olusturuldu. Asagidaki bilgilerle sisteme giris yapabilirsiniz.")
+        _h1("Ho\u015f geldiniz, " + ad + "!")
+        + _p("Hesab\u0131n\u0131z ba\u015far\u0131yla olu\u015fturuldu. "
+             "A\u015fa\u011f\u0131daki bilgilerle sisteme giri\u015f yapabilirsiniz.")
         + _kutu(
             _tablo(
                 _satir("T.C. Kimlik No", tc)
-                + _satir("Sifre", sifre)
+                + _satir("\u015eifre", sifre)
             ),
             arka="#f0fdf4", kenar="#16a34a"
         )
-        + _buton("Sisteme Giris Yap", giris_url, "#16a34a")
-        + _p("Guvenliginiz icin giris yaptiktan sonra sifrenizi degistirmenizi oneririz.",
-             "#71717a")
+        + _buton("Sisteme Giri\u015f Yap", giris_url, "#16a34a")
+        + _p("G\u00fcvenli\u011finiz i\u00e7in giri\u015f yapt\u0131ktan sonra "
+             "\u015fifrenizi de\u011fi\u015ftirmenizi \u00f6neririz.", "#71717a")
     )
-    return _sablon("Hos Geldiniz", icerik, "#16a34a", "linear-gradient(135deg,#16a34a,#22c55e)")
+    return _sablon("Ho\u015f Geldiniz", icerik, "#16a34a", "linear-gradient(135deg,#16a34a,#22c55e)")
 
 
 def sablon_sifre_talebi(ad, tc, email):
-    """Sifremi unuttum talebi - TURUNCU tema."""
     icerik = (
-        _baslik("Sifre Sifirlama Talebiniz Alindi")
+        _h1("\u015eifre S\u0131f\u0131rlama Talebiniz Al\u0131nd\u0131")
         + _p("Merhaba " + ad + ",")
-        + _p("Sifre sifirlama talebiniz basariyla alindi. Yonetim en kisa surede "
-             "sizinle iletisime gececek ve yeni sifrenizi iletecektir.")
-        + _kutu(
-            _tablo(_satir("T.C. Kimlik No", tc)),
-            arka="#fff7ed", kenar="#f59e0b"
-        )
-        + _p("Bu talebi siz olusturmadiysaniz bu e-postayi dikkate almayin.", "#71717a")
+        + _p("\u015eifre s\u0131f\u0131rlama talebiniz ba\u015far\u0131yla al\u0131nd\u0131. "
+             "Y\u00f6netim en k\u0131sa s\u00fcrede sizinle ileti\u015fime ge\u00e7ecek ve "
+             "yeni \u015fifrenizi iletecektir.")
+        + _kutu(_tablo(_satir("T.C. Kimlik No", tc)), arka="#fff7ed", kenar="#f59e0b")
+        + _p("Bu talebi siz olu\u015fturmad\u0131ysan\u0131z bu e-postay\u0131 dikkate almay\u0131n.", "#71717a")
     )
-    return _sablon("Sifre Sifirlama", icerik, "#f59e0b", "linear-gradient(135deg,#f59e0b,#f97316)")
+    return _sablon("\u015eifre S\u0131f\u0131rlama", icerik, "#f59e0b", "linear-gradient(135deg,#f59e0b,#f97316)")
 
 
 def sablon_sifre_degisti(ad, tc):
-    """Kullanici sifresini degistirdi - KIRMIZI tema (guvenlik)."""
     icerik = (
-        _baslik("Sifreniz Degistirildi", "#dc2626")
+        _h1("\u015eifreniz De\u011fi\u015ftirildi", "#dc2626")
         + _p("Merhaba " + ad + ",")
-        + _p("Hesabinizin sifresi az once basariyla degistirildi.")
-        + _kutu(
-            _tablo(_satir("T.C. Kimlik No", tc)),
-            arka="#fef2f2", kenar="#dc2626"
-        )
+        + _p("Hesab\u0131n\u0131z\u0131n \u015fifresi az \u00f6nce ba\u015far\u0131yla de\u011fi\u015ftirildi.")
+        + _kutu(_tablo(_satir("T.C. Kimlik No", tc)), arka="#fef2f2", kenar="#dc2626")
         + ('<div style="background:#fef2f2;border-radius:10px;padding:14px 18px;margin-top:16px;">'
            '<p style="margin:0;color:#dc2626;font-size:14px;font-weight:700;">'
-           'Bu islemi siz yapmadiysaniz lutfen derhal yonetime ulasin.'
-           '</p></div>')
+           'Bu i\u015flemi siz yapmad\u0131ysan\u0131z l\u00fctfen derhal y\u00f6netime ula\u015f\u0131n.</p></div>')
     )
-    return _sablon("Guvenlik Uyarisi", icerik, "#dc2626", "linear-gradient(135deg,#dc2626,#ef4444)")
+    return _sablon("G\u00fcvenlik Uyar\u0131s\u0131", icerik, "#dc2626", "linear-gradient(135deg,#dc2626,#ef4444)")
 
 
 def sablon_sifre_sifirlandi(ad, yeni_sifre):
-    """Admin sifre sifirladi - MAVI tema."""
     icerik = (
-        _baslik("Sifreniz Yenilendi")
+        _h1("\u015eifreniz Yenilendi")
         + _p("Merhaba " + ad + ",")
-        + _p("Sifreniz yonetim tarafindan yenilendi. Yeni giris bilgileriniz:")
-        + _kutu(
-            _tablo(_satir("Yeni Sifre", yeni_sifre)),
-            arka="#eff6ff", kenar="#2563eb"
-        )
-        + _p("Guvenliginiz icin giris yaptiktan sonra sifrenizi degistirmenizi oneririz.",
-             "#71717a")
+        + _p("\u015eifreniz y\u00f6netim taraf\u0131ndan yenilendi. Yeni giri\u015f bilgileriniz:")
+        + _kutu(_tablo(_satir("Yeni \u015eifre", yeni_sifre)), arka="#eff6ff", kenar="#2563eb")
+        + _p("G\u00fcvenli\u011finiz i\u00e7in giri\u015f yapt\u0131ktan sonra \u015fifrenizi de\u011fi\u015ftirmenizi \u00f6neririz.", "#71717a")
     )
-    return _sablon("Sifre Yenilendi", icerik, "#2563eb", "linear-gradient(135deg,#2563eb,#3b82f6)")
+    return _sablon("\u015eifre Yenilendi", icerik, "#2563eb", "linear-gradient(135deg,#2563eb,#3b82f6)")
 
 
 def sablon_devamsizlik(ogrenci_ad, sinif, tarih):
-    """Devamsizlik bildirimi - TURUNCU tema."""
     icerik = (
-        _baslik("Devamsizlik Bildirimi")
-        + _p("Sayin veli,")
-        + _p("<b>" + ogrenci_ad + "</b> adli ogrenci asagidaki tarihte okula gelmemistir.")
-        + _kutu(
-            _tablo(
-                _satir("Sinif", sinif)
-                + _satir("Tarih", tarih)
-            ),
-            arka="#fff7ed", kenar="#f59e0b"
-        )
-        + _p("Bir hata oldugunu dusunuyorsaniz lutfen okul yonetimiyle iletisime gecin.",
-             "#71717a")
+        _h1("Devams\u0131zl\u0131k Bildirimi")
+        + _p("Say\u0131n veli,")
+        + _p("<b>" + ogrenci_ad + "</b> adl\u0131 \u00f6\u011frenci a\u015fa\u011f\u0131daki tarihte okula gelmemi\u015ftir.")
+        + _kutu(_tablo(_satir("S\u0131n\u0131f", sinif) + _satir("Tarih", tarih)),
+                arka="#fff7ed", kenar="#f59e0b")
+        + _p("Bir hata oldu\u011funu d\u00fc\u015f\u00fcn\u00fcyorsan\u0131z l\u00fctfen okul y\u00f6netimiyle ileti\u015fime ge\u00e7in.", "#71717a")
     )
-    return _sablon("Devamsizlik", icerik, "#f59e0b", "linear-gradient(135deg,#f59e0b,#f97316)")
+    return _sablon("Devams\u0131zl\u0131k", icerik, "#f59e0b", "linear-gradient(135deg,#f59e0b,#f97316)")
 
 
 def sablon_not_girildi(ogrenci_ad, ders, sinav, puan):
-    """Not bildirimi - nota gore renk."""
     try:
         p = float(puan)
     except Exception:
         p = 0
-
     if p >= 85:
         renk = "#16a34a"; arka = "#f0fdf4"; durum = "Harika!"
     elif p >= 70:
-        renk = "#0891b2"; arka = "#ecfeff"; durum = "Iyi"
+        renk = "#0891b2"; arka = "#ecfeff"; durum = "\u0130yi"
     elif p >= 50:
-        renk = "#d97706"; arka = "#fff7ed"; durum = "Geciyor"
+        renk = "#d97706"; arka = "#fff7ed"; durum = "Ge\u00e7iyor"
     else:
-        renk = "#dc2626"; arka = "#fef2f2"; durum = "Dusuk"
-
+        renk = "#dc2626"; arka = "#fef2f2"; durum = "D\u00fc\u015f\u00fck"
     icerik = (
-        _baslik("Yeni Notunuz Aciklandi")
+        _h1("Yeni Notunuz A\u00e7\u0131kland\u0131")
         + _p("Merhaba " + ogrenci_ad + ",")
-        + _p("<b>" + ders + "</b> dersinden <b>" + sinav + "</b> sinavinin sonucu aciklandi:")
+        + _p("<b>" + ders + "</b> dersinden <b>" + sinav + "</b> s\u0131nav\u0131n\u0131n sonucu a\u00e7\u0131kland\u0131:")
         + ('<div style="background:' + arka + ';padding:28px 20px;border-radius:14px;'
            'text-align:center;margin:20px 0;border-left:4px solid ' + renk + ';">'
            '<div style="font-size:52px;font-weight:800;color:' + renk + ';line-height:1;'
@@ -342,22 +346,90 @@ def sablon_not_girildi(ogrenci_ad, ders, sinav, puan):
            'text-transform:uppercase;letter-spacing:0.08em;">' + durum + '</div>'
            '</div>')
     )
-    return _sablon("Not Aciklandi", icerik, renk, "linear-gradient(135deg," + renk + "," + renk + ")")
+    return _sablon("Not A\u00e7\u0131kland\u0131", icerik, renk, "linear-gradient(135deg," + renk + "," + renk + ")")
 
 
 def sablon_test():
-    """Test maili - TURUNCU tema."""
     icerik = (
-        _baslik("Test E-postasi")
-        + _p("Bu e-posta C-Peak Panel'in e-posta servisinin dogru calistigini "
-             "dogrulamak icin gonderildi.")
+        _h1("Test E-postas\u0131")
+        + _p("Bu e-posta C-Peak Panel'in e-posta servisinin do\u011fru \u00e7al\u0131\u015ft\u0131\u011f\u0131n\u0131 do\u011frulamak i\u00e7in g\u00f6nderildi.")
         + _kutu(
             '<p style="margin:0;color:#16a34a;font-weight:700;font-size:15px;">'
-            'Eger bu e-postayi gorduyseniz, servis calisiyor demektir.'
-            '</p>',
+            'E\u011fer bu e-postay\u0131 g\u00f6rd\u00fcyseniz, servis \u00e7al\u0131\u015f\u0131yor demektir.</p>',
             arka="#f0fdf4", kenar="#16a34a"
         )
-        + _p("Tum mail sablonlari asagidaki gibi gorsel olarak kurumsal kimlik "
-             "ile tasarlanmistir.", "#71717a")
+        + _p("T\u00fcm mail \u015fablonlar\u0131 bu g\u00f6rsel kurumsal kimlik ile tasarlanm\u0131\u015ft\u0131r.", "#71717a")
     )
     return _sablon("Test", icerik, "#f59e0b", "linear-gradient(135deg,#f59e0b,#f97316)")
+
+
+# ============================================================
+# OZEL / SERBEST ICERIKLI MAIL
+# ============================================================
+def sablon_ozel(baslik, icerik_html, vurgu_renk="#f59e0b"):
+    """Admin panelinden yazilan serbest icerikli mail.
+    Logo, sosyal medya, adres sabit kalir; sadece icerik degisir.
+    """
+    govde = (
+        _h1(baslik)
+        + '<div style="font-size:15px;line-height:1.75;color:#52525b;">'
+        + (icerik_html or "")
+        + '</div>'
+    )
+    return _sablon(
+        baslik, govde, vurgu_renk,
+        "linear-gradient(135deg," + vurgu_renk + " 0%," + vurgu_renk + " 100%)"
+    )
+
+
+# ============================================================
+# HAZIR SABLONLAR (admin panelden secilebilir)
+# ============================================================
+HAZIR_SABLONLAR = {
+    "ozel": {
+        "ad":     "Ozel Metin",
+        "konu":   "",
+        "icerik": "",
+        "renk":   "#f59e0b",
+    },
+    "duyuru": {
+        "ad":     "Duyuru",
+        "konu":   "Yeni Duyuru",
+        "icerik": (
+            "<p>Sayin kullanici,"             "</p><p>Okulumuzla ilgili onemli bir duyurumuz bulunmaktadir:</p>"             "<p><b>[DUYURU ICERIGI]</b></p>"             "<p>Detayli bilgi icin lutfen okul yonetimi ile iletisime gecin.</p>"             "<p>Saygilarimizla,<br>C-Peak English</p>"
+        ),
+        "renk":   "#f59e0b",
+    },
+    "hatirlatma": {
+        "ad":     "Hatirlatma",
+        "konu":   "Hatirlatma",
+        "icerik": (
+            "<p>Sayin kullanici,</p>"             "<p>Asagidaki konu hakkinda size bir hatirlatma yapmak istiyoruz:</p>"             "<p><b>[HATIRLATMA KONUSU]</b></p>"             "<p>Konuyla ilgili gerekli islemleri en kisa surede tamamlamanizi rica ederiz.</p>"             "<p>Saygilarimizla,<br>C-Peak English</p>"
+        ),
+        "renk":   "#0891b2",
+    },
+    "kutlama": {
+        "ad":     "Kutlama / Tebrik",
+        "konu":   "Tebrikler",
+        "icerik": (
+            "<p>Sevgili ogrencimiz,</p>"             "<p>Gosterdiginiz basaridan dolayi sizi tebrik ederiz.</p>"             "<p><b>[BASARI DETAYI]</b></p>"             "<p>Basari ve mutluluklarinizin devamini dileriz.</p>"             "<p>Saygilarimizla,<br>C-Peak English</p>"
+        ),
+        "renk":   "#16a34a",
+    },
+    "bilgilendirme": {
+        "ad":     "Bilgilendirme",
+        "konu":   "Bilgilendirme",
+        "icerik": (
+            "<p>Sayin kullanici,</p>"             "<p>Asagidaki konuda sizi bilgilendirmek istiyoruz:</p>"             "<p><b>[BILGILENDIRME ICERIGI]</b></p>"             "<p>Saygilarimizla,<br>C-Peak English</p>"
+        ),
+        "renk":   "#2563eb",
+    },
+    "tesekkur": {
+        "ad":     "Tesekkur",
+        "konu":   "Tesekkurler",
+        "icerik": (
+            "<p>Sayin kullanici,</p>"             "<p>Gosterdiginiz ilgi ve emek icin tesekkur ederiz.</p>"             "<p><b>[TESSEKKUR NOTU]</b></p>"             "<p>Saygilarimizla,<br>C-Peak English</p>"
+        ),
+        "renk":   "#7c3aed",
+    },
+}
