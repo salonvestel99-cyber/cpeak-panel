@@ -45,7 +45,7 @@
   <div class="card-head">
     <h3>{{ sinif }} · Haftalık Program</h3>
   </div>
-  <div class="table-wrap">
+  <div class="table-wrap dp-desktop">
     <table class="ders-programi-tablo">
       <thead>
         <tr>
@@ -74,6 +74,36 @@
     </table>
   </div>
 </div>
+  <!-- Mobil gorunum: gun gun kartlar -->
+  <div class="dp-mobil">
+    {% for g, ad in gunler.items() %}
+      {% set gun_dersleri = [] %}
+      {% for saat in saatler %}
+        {% if program.get((g, saat)) %}
+          {% set _ = gun_dersleri.append((saat, program[(g, saat)])) %}
+        {% endif %}
+      {% endfor %}
+      <div class="dp-gun-card{% if not gun_dersleri %} dp-gun-card-bos{% endif %}">
+        <div class="dp-gun-head">
+          <span class="dp-gun-ad">{{ ad }}</span>
+          {% if gun_dersleri %}
+            <span class="dp-gun-sayi">{{ gun_dersleri|length }}</span>
+          {% endif %}
+        </div>
+        {% if gun_dersleri %}
+          {% for saat, ders in gun_dersleri %}
+            <div class="dp-ders-satir">
+              <span class="dp-saat-badge">{{ saat }}</span>
+              <span class="dp-ders-ad">{{ ders }}</span>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="dp-bos">Ders yok</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
 {% else %}
 <div class="card bilgi">
   <p class="muted">Henüz sınıfınıza ait ders programı yok.</p>
