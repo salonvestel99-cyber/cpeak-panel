@@ -9,6 +9,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from dotenv import load_dotenv
 
 from models import get_db
+from mail_service import send_email, sablon_sifre_talebi, sablon_test
 
 load_dotenv()
 
@@ -172,6 +173,17 @@ def sifremi_unuttum():
              date.today().strftime("%d.%m.%Y %H:%M"))
         )
         conn.commit()
+        # E-posta gonder (arka planda)
+        if email:
+            try:
+                giris_url = request.url_root.rstrip("/") + url_for("login")
+                send_email(
+                    "Sifre Sifirlama Talebiniz Alindi",
+                    email,
+                    sablon_sifre_talebi(u["name"], tc, email),
+                )
+            except Exception as _e:
+                print(f"[sifremi_unuttum] email hata: {_e}", flush=True)
     conn.close()
     flash("Talebiniz alındı. Yönetim en kısa sürede sizinle iletişime geçecek.", "success")
     return redirect(url_for("login"))
@@ -1614,6 +1626,42 @@ def kur_endpoint():
         "background:#18181b;color:#e4e4e7;'>"
         + "\n".join(sonuc)
         + "</pre>",
+        mimetype="text/html"
+    )
+# ============================================================
+
+
+
+# ============================================================
+# ADMIN TEST E-POSTA
+# ============================================================
+@app.route("/admin/test-email", methods=["GET", "POST"])
+@login_required("admin")
+def admin_test_email():
+    from flask import Response as _R
+    if request.method == "POST":
+        alici = request.form.get("email", "").strip()
+        if not alici or "@" not in alici:
+            return _R("Gecersiz e-posta adresi.", mimetype="text/plain"), 400
+        try:
+            send_email("C-Peak Panel Test", alici, sablon_test())
+            return _R(
+                f"<pre>Test e-postasi kuyruga alindi: {alici}\n"
+                f"1-2 dakika icinde gelen kutunuzu kontrol edin.\n"
+                f"Gelmezse Render Logs'a bakin (mail ile ilgili satirlar).</pre>",
+                mimetype="text/html"
+            )
+        except Exception as e:
+            return _R(f"<pre>HATA: {e}</pre>", mimetype="text/html"), 500
+    # GET -> basit form
+    return _R(
+        '<form method="POST" style="font-family:system-ui;padding:40px;max-width:480px;margin:0 auto;">'
+        '<h2>Test E-postasi</h2>'
+        '<input type="email" name="email" placeholder="ornek@mail.com" required '
+        'style="width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;font-size:16px;">'
+        '<button type="submit" style="margin-top:12px;padding:12px 24px;background:#f59e0b;'
+        'color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer;">Gonder</button>'
+        '</form>',
         mimetype="text/html"
     )
 # ============================================================

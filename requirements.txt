@@ -33,3 +33,6 @@ Flask-Limiter
 
 
 redis>=5.0
+
+# --- E-posta ---
+Flask-Mail>=0.10.0
