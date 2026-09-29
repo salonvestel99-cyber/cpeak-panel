@@ -3,7 +3,7 @@
 {% block content %}
 
 <style>
-.mail-page { max-width: 880px; margin: 0 auto; }
+.mail-page { max-width: 880px; margin: 0 auto; padding: 0 4px; }
 
 /* Sayfa basligi */
 .mail-hero {
@@ -26,24 +26,25 @@
 }
 .mail-hero-icon svg { width: 26px; height: 26px; }
 .mail-hero h1 { margin: 0 0 4px; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.01em; }
-.mail-hero p { margin: 0; font-size: 0.92rem; opacity: 0.9; }
+.mail-hero p { margin: 0; font-size: 0.92rem; opacity: 0.92; }
 
-/* Ana kart */
+/* Ana kart - LIGHT default */
 .mail-card {
-  background: var(--card, #fff);
+  background: #ffffff;
   border-radius: 18px;
   padding: 26px 28px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid #e4e4e7;
   margin-bottom: 22px;
+  color: #18181b;
 }
 
 /* Bolum basligi */
 .mail-section {
   display: flex; align-items: center; gap: 10px;
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid #e4e4e7;
 }
 .mail-section-num {
   width: 26px; height: 26px;
@@ -54,15 +55,15 @@
   font-size: 0.78rem; font-weight: 800;
   flex-shrink: 0;
 }
-.mail-section h3 { margin: 0; font-size: 1.02rem; font-weight: 700; color: var(--ink, #18181b); }
+.mail-section h3 { margin: 0; font-size: 1.02rem; font-weight: 700; color: #18181b; }
 
-/* Alan grupları */
+/* Alan gruplari */
 .mail-field { margin-bottom: 18px; }
 .mail-field > label {
   display: block;
   font-size: 0.86rem;
   font-weight: 600;
-  color: var(--ink, #3f3f46);
+  color: #3f3f46;
   margin-bottom: 7px;
   letter-spacing: 0.01em;
 }
@@ -72,12 +73,12 @@
 .mail-field textarea {
   width: 100%;
   padding: 11px 14px;
-  border: 1.5px solid #e4e4e7;
+  border: 1.5px solid #d4d4d8;
   border-radius: 10px;
   font-size: 0.95rem;
   font-family: inherit;
-  background: var(--card, #fff);
-  color: var(--ink, #18181b);
+  background: #ffffff;
+  color: #18181b;
   transition: border-color 0.16s, box-shadow 0.16s;
   box-sizing: border-box;
 }
@@ -86,7 +87,7 @@
 .mail-field textarea:focus {
   outline: none;
   border-color: #7c3aed;
-  box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
 }
 .mail-field textarea {
   font-family: 'SF Mono', Consolas, Monaco, monospace;
@@ -99,12 +100,11 @@
   display: block;
   margin-top: 6px;
   font-size: 0.78rem;
-  color: var(--muted, #a1a1aa);
+  color: #71717a;
 }
 
 /* Grid */
 .mail-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.mail-grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
 
 /* Sablon secici - gorsel kartlar */
 .sablon-grid {
@@ -120,7 +120,8 @@
   cursor: pointer;
   text-align: center;
   transition: all 0.18s ease;
-  background: var(--card, #fff);
+  background: #ffffff;
+  color: #18181b;
   position: relative;
 }
 .sablon-kart:hover {
@@ -130,7 +131,7 @@
 }
 .sablon-kart.aktif {
   border-color: #7c3aed;
-  background: rgba(124,58,237,0.05);
+  background: #f5f3ff;
   box-shadow: 0 6px 20px rgba(124,58,237,0.18);
 }
 .sablon-kart-ikon {
@@ -141,7 +142,7 @@
 .sablon-kart-ad {
   font-size: 0.82rem;
   font-weight: 700;
-  color: var(--ink, #18181b);
+  color: #18181b;
   letter-spacing: 0.01em;
 }
 .sablon-kart-renk {
@@ -171,12 +172,12 @@
 }
 .renk-topu:hover { transform: scale(1.1); }
 .renk-topu.aktif {
-  border-color: var(--card, #fff);
+  border-color: #ffffff;
   outline-color: currentColor;
   transform: scale(1.08);
 }
 .renk-topu.aktif::after {
-  content: "✓";
+  content: "¹3";
   position: absolute;
   inset: 0;
   display: flex;
@@ -187,10 +188,10 @@
   font-weight: 800;
 }
 
-/* Sabit onizleme - logo/sosyal/adres bilgisi */
+/* Sabit bilgi kutusu */
 .sabit-bilgi {
   background: #fafafa;
-  border: 1.5px dashed #e4e4e7;
+  border: 1.5px dashed #d4d4d8;
   border-radius: 12px;
   padding: 16px 18px;
   margin-top: 10px;
@@ -214,7 +215,7 @@
 .sabit-satir svg { width: 16px; height: 16px; color: #a1a1aa; flex-shrink: 0; }
 .sabit-satir b { color: #18181b; font-weight: 600; }
 
-/* Buton grubu */
+/* Butonlar */
 .mail-actions {
   display: flex;
   gap: 10px;
@@ -251,7 +252,7 @@
   box-shadow: 0 10px 28px rgba(124,58,237,0.38);
 }
 
-/* Flash mesajlar */
+/* Flash */
 .mail-flash {
   padding: 14px 18px;
   border-radius: 12px;
@@ -285,10 +286,104 @@
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);
 }
 
+/* ============================================================
+   DARK TEMA OVERRIDE
+   ============================================================ */
+html[data-theme="dark"] .mail-card,
+html.dark .mail-card {
+  background: #18181b;
+  border-color: #27272a;
+  color: #fafaf9;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+html[data-theme="dark"] .mail-section,
+html.dark .mail-section { border-bottom-color: #27272a; }
+html[data-theme="dark"] .mail-section h3,
+html.dark .mail-section h3 { color: #fafaf9; }
+
+html[data-theme="dark"] .mail-field > label,
+html.dark .mail-field > label { color: #e4e4e7; }
+
+html[data-theme="dark"] .mail-field input,
+html[data-theme="dark"] .mail-field select,
+html[data-theme="dark"] .mail-field textarea,
+html.dark .mail-field input,
+html.dark .mail-field select,
+html.dark .mail-field textarea {
+  background: #09090b;
+  border-color: #3f3f46;
+  color: #fafaf9;
+}
+html[data-theme="dark"] .mail-field input:focus,
+html[data-theme="dark"] .mail-field select:focus,
+html[data-theme="dark"] .mail-field textarea:focus,
+html.dark .mail-field input:focus,
+html.dark .mail-field select:focus,
+html.dark .mail-field textarea:focus {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 3px rgba(168,85,247,0.2);
+}
+html[data-theme="dark"] .mail-field small,
+html.dark .mail-field small { color: #a1a1aa; }
+
+html[data-theme="dark"] .sablon-kart,
+html.dark .sablon-kart {
+  background: #18181b;
+  border-color: #3f3f46;
+  color: #fafaf9;
+}
+html[data-theme="dark"] .sablon-kart:hover,
+html.dark .sablon-kart:hover {
+  border-color: #a855f7;
+  background: #1f1f23;
+}
+html[data-theme="dark"] .sablon-kart.aktif,
+html.dark .sablon-kart.aktif {
+  border-color: #a855f7;
+  background: rgba(124,58,237,0.15);
+}
+html[data-theme="dark"] .sablon-kart-ad,
+html.dark .sablon-kart-ad { color: #fafaf9; }
+
+html[data-theme="dark"] .sabit-bilgi,
+html.dark .sabit-bilgi {
+  background: #09090b;
+  border-color: #3f3f46;
+}
+html[data-theme="dark"] .sabit-bilgi-baslik,
+html.dark .sabit-bilgi-baslik { color: #a1a1aa; }
+html[data-theme="dark"] .sabit-satir,
+html.dark .sabit-satir { color: #a1a1aa; }
+html[data-theme="dark"] .sabit-satir svg,
+html.dark .sabit-satir svg { color: #71717a; }
+html[data-theme="dark"] .sabit-satir b,
+html.dark .sabit-satir b { color: #fafaf9; }
+
+html[data-theme="dark"] .mail-btn-onizle,
+html.dark .mail-btn-onizle {
+  background: #27272a;
+  color: #e4e4e7;
+  border-color: #3f3f46 !important;
+}
+html[data-theme="dark"] .mail-btn-onizle:hover,
+html.dark .mail-btn-onizle:hover { background: #3f3f46; }
+
+html[data-theme="dark"] .mail-onizleme-wrap,
+html.dark .mail-onizleme-wrap {
+  background: rgba(124,58,237,0.08);
+  border-color: #a855f7;
+}
+
+html[data-theme="dark"] .renk-topu.aktif,
+html.dark .renk-topu.aktif {
+  border-color: #18181b;
+}
+
+/* Mobil */
 @media (max-width: 700px) {
   .mail-hero { flex-direction: column; text-align: center; padding: 22px; }
   .mail-card { padding: 20px 18px; }
-  .mail-grid-2, .mail-grid-3 { grid-template-columns: 1fr; }
+  .mail-grid-2 { grid-template-columns: 1fr; }
   .mail-hero h1 { font-size: 1.2rem; }
   .sablon-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
 }
