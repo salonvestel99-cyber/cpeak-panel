@@ -1931,3 +1931,160 @@ html {
     font-size: 0.8rem !important;
   }
 }
+
+
+/* ============================================================
+   LOGIN FIX v5 - grid override
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Login shell - grid/flex yapisi tamamen boz */
+  .login-shell {
+    display: block !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+    grid-template-areas: none !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    min-height: 100vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+
+  .login-wrap {
+    display: block !important;
+    grid-template-columns: 1fr !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+
+  /* Login main */
+  .login-main {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    padding: 76px 16px 40px !important;
+    margin: 0 !important;
+    gap: 16px !important;
+    grid-column: auto !important;
+    grid-area: auto !important;
+  }
+
+  /* Hero - tam genislik, mobilde kompakt */
+  .login-hero,
+  aside.login-hero {
+    display: block !important;
+    visibility: visible !important;
+    grid-column: auto !important;
+    grid-area: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0 4px !important;
+    margin: 0 0 6px !important;
+    min-height: auto !important;
+    background: transparent !important;
+  }
+
+  /* Login card ve kayit kutusu - tam genislik */
+  .login-card,
+  .login-kayit-bilgi {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    margin: 0 auto !important;
+    padding: 22px 18px 24px !important;
+    border-radius: 18px !important;
+    grid-column: auto !important;
+    grid-area: auto !important;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+  }
+
+  /* Tabs */
+  .login-tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    gap: 6px !important;
+    padding: 5px !important;
+    box-sizing: border-box !important;
+    margin: 0 0 18px 0 !important;
+  }
+  .login-tab {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    width: 50% !important;
+    padding: 10px 6px !important;
+    font-size: 0.88rem !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Arka plan logosu */
+  .login-main::before {
+    width: 90vw !important;
+    height: 90vw !important;
+    max-width: 480px !important;
+    max-height: 480px !important;
+    opacity: 0.05 !important;
+  }
+
+  /* Hero icerik ortala */
+  .login-hero .hero-brand {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin: 0 0 12px !important;
+  }
+  .login-hero h1 {
+    font-size: 1.45rem !important;
+    text-align: center !important;
+    padding: 0 4px !important;
+    margin: 0 0 8px !important;
+  }
+  .login-hero .hero-lead {
+    font-size: 0.85rem !important;
+    text-align: center !important;
+    padding: 0 8px !important;
+    max-width: 100% !important;
+  }
+
+  /* Form elemanlari */
+  .login-card .form-row,
+  .login-card label,
+  .login-card input {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .login-card h2 { font-size: 1.35rem !important; }
+  .login-card .lead { font-size: 0.85rem !important; margin-bottom: 18px !important; }
+  .login-card input { min-height: 48px !important; font-size: 16px !important; padding: 12px 14px !important; }
+  .login-card button[type="submit"] { min-height: 50px !important; font-size: 0.98rem !important; width: 100% !important; }
+}
+
+@media (max-width: 380px) {
+  .login-main { padding: 72px 12px 30px !important; }
+  .login-card, .login-kayit-bilgi { padding: 20px 14px 22px !important; border-radius: 16px !important; }
+  .login-tab { font-size: 0.82rem !important; padding: 9px 4px !important; }
+  .login-hero h1 { font-size: 1.28rem !important; }
+  .login-hero .hero-lead { font-size: 0.8rem !important; }
+}
