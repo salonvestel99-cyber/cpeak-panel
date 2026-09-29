@@ -1421,3 +1421,109 @@ html {
     padding: 22px 16px !important;
   }
 }
+
+
+/* ============================================================
+   LOGIN MOBIL FIX v2 - flex yonu + tabs + kart genisligi
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Login main: dikey yigin */
+  .login-main {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    padding: 80px 18px 40px !important;
+  }
+
+  /* Login card tam genislik */
+  .login-card,
+  .login-kayit-bilgi {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Tabs: yatay, esit iki buton */
+  .login-card .login-tabs,
+  .login-tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    gap: 6px !important;
+    background: rgba(255,255,255,0.04) !important;
+    padding: 5px !important;
+    border-radius: 14px !important;
+    margin: 0 0 22px 0 !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    box-sizing: border-box !important;
+  }
+
+  .login-tab {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    padding: 11px 8px !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    color: #a1a1aa !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .login-tab.aktif {
+    background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(245,158,11,0.3) !important;
+  }
+
+  /* Kayit kutusu baslangicta gizli olsun (JS yuklenene kadar) */
+  .login-kayit-bilgi {
+    display: none !important;
+  }
+  .login-kayit-bilgi.aktif {
+    display: block !important;
+  }
+
+  /* Light tema tabs */
+  html:not([data-theme="dark"]):not(.dark) .login-tabs {
+    background: rgba(0,0,0,0.05) !important;
+    border-color: rgba(0,0,0,0.10) !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-tab {
+    color: #71717a !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-tab.aktif {
+    color: #fff !important;
+  }
+
+  /* Light tema login card arka plan */
+  html:not([data-theme="dark"]):not(.dark) .login-card,
+  html:not([data-theme="dark"]):not(.dark) .login-kayit-bilgi {
+    background: #ffffff !important;
+    border-color: #e4e4e7 !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-card h2,
+  html:not([data-theme="dark"]):not(.dark) .login-kayit-bilgi h3 {
+    color: #18181b !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-card .lead,
+  html:not([data-theme="dark"]):not(.dark) .login-kayit-bilgi p {
+    color: #52525b !important;
+  }
+
+  /* Body arka plan - light tema */
+  html:not([data-theme="dark"]):not(.dark) body.login-page,
+  html:not([data-theme="dark"]):not(.dark) body:has(.login-shell) {
+    background: #f4f4f5 !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-main {
+    background: #f4f4f5 !important;
+  }
+}
