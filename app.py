@@ -1646,22 +1646,38 @@ def admin_test_email():
         try:
             send_email("C-Peak Panel Test", alici, sablon_test())
             return _R(
-                f"<pre>Test e-postasi kuyruga alindi: {alici}\n"
-                f"1-2 dakika icinde gelen kutunuzu kontrol edin.\n"
-                f"Gelmezse Render Logs'a bakin (mail ile ilgili satirlar).</pre>",
+                f"<pre style='font:14px/1.6 monospace;padding:24px;'>"
+                f"Test e-postasi kuyruga alindi: {alici}
+"
+                f"1-2 dakika icinde gelen kutunuzu kontrol edin.
+"
+                f"Gelmezse Render Logs'a bakin ('[Brevo]' satirlari).</pre>",
                 mimetype="text/html"
             )
         except Exception as e:
             return _R(f"<pre>HATA: {e}</pre>", mimetype="text/html"), 500
-    # GET -> basit form
+    # GET -> CSRF token'li form
     return _R(
-        '<form method="POST" style="font-family:system-ui;padding:40px;max-width:480px;margin:0 auto;">'
-        '<h2>Test E-postasi</h2>'
+        '<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        '<title>Test E-postasi</title></head>'
+        '<body style="font-family:system-ui,sans-serif;background:#fafaf9;margin:0;'
+        'display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px;">'
+        '<form method="POST" style="background:#fff;padding:28px;border-radius:14px;'
+        'box-shadow:0 4px 20px rgba(0,0,0,0.06);max-width:440px;width:100%;">'
+        '<h2 style="margin:0 0 8px;color:#18181b;">Test E-postasi</h2>'
+        '<p style="margin:0 0 20px;color:#71717a;font-size:14px;">'
+        'Kendi e-posta adresinize test mesaji gonderin.</p>'
+        '<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">'
         '<input type="email" name="email" placeholder="ornek@mail.com" required '
-        'style="width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;font-size:16px;">'
-        '<button type="submit" style="margin-top:12px;padding:12px 24px;background:#f59e0b;'
-        'color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer;">Gonder</button>'
-        '</form>',
+        'style="width:100%;padding:12px 14px;border:1px solid #d4d4d8;border-radius:10px;'
+        'font-size:16px;box-sizing:border-box;">'
+        '<button type="submit" style="margin-top:14px;padding:12px 24px;background:#f59e0b;'
+        'color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;'
+        'cursor:pointer;width:100%;">Gonder</button>'
+        '<p style="margin:16px 0 0;font-size:13px;color:#a1a1aa;text-align:center;">'
+        '<a href="/admin" style="color:#71717a;">Admin panele don</a></p>'
+        '</form></body></html>',
         mimetype="text/html"
     )
 # ============================================================
