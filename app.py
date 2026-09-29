@@ -1638,7 +1638,8 @@ def kur_endpoint():
 @app.route("/admin/test-email", methods=["GET", "POST"])
 @login_required("admin")
 def admin_test_email():
-    from flask import Response as _R
+    from flask import Response as _R, render_template_string as _rts
+
     if request.method == "POST":
         alici = request.form.get("email", "").strip()
         if not alici or "@" not in alici:
@@ -1652,26 +1653,28 @@ def admin_test_email():
         except Exception as e:
             return _R("<pre>HATA: " + str(e) + "</pre>", mimetype="text/html"), 500
 
-    form = '<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8">'
-    form = form + '<meta name="viewport" content="width=device-width,initial-scale=1">'
-    form = form + '<title>Test E-postasi</title></head>'
-    form = form + '<body style="font-family:system-ui,sans-serif;background:#fafaf9;margin:0;'
-    form = form + 'display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px;">'
-    form = form + '<form method="POST" style="background:#fff;padding:28px;border-radius:14px;'
-    form = form + 'box-shadow:0 4px 20px rgba(0,0,0,0.06);max-width:440px;width:100%;">'
-    form = form + '<h2 style="margin:0 0 8px;color:#18181b;">Test E-postasi</h2>'
-    form = form + '<p style="margin:0 0 20px;color:#71717a;font-size:14px;">Kendi e-posta adresinize test mesaji gonderin.</p>'
-    form = form + '<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">'
-    form = form + '<input type="email" name="email" placeholder="ornek@mail.com" required '
-    form = form + 'style="width:100%;padding:12px 14px;border:1px solid #d4d4d8;border-radius:10px;'
-    form = form + 'font-size:16px;box-sizing:border-box;">'
-    form = form + '<button type="submit" style="margin-top:14px;padding:12px 24px;background:#f59e0b;'
-    form = form + 'color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;'
-    form = form + 'cursor:pointer;width:100%;">Gonder</button>'
-    form = form + '<p style="margin:16px 0 0;font-size:13px;color:#a1a1aa;text-align:center;">'
-    form = form + '<a href="/admin" style="color:#71717a;">Admin panele don</a></p>'
-    form = form + '</form></body></html>'
-    return _R(form, mimetype="text/html")
+    html = """<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Test E-postasi</title>
+</head>
+<body style="font-family:system-ui,sans-serif;background:#fafaf9;margin:0;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px;">
+  <form method="POST" style="background:#fff;padding:28px;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,0.06);max-width:440px;width:100%;">
+    <h2 style="margin:0 0 8px;color:#18181b;">Test E-postasi</h2>
+    <p style="margin:0 0 20px;color:#71717a;font-size:14px;">Kendi e-posta adresinize test mesaji gonderin.</p>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="email" name="email" placeholder="ornek@mail.com" required
+           style="width:100%;padding:12px 14px;border:1px solid #d4d4d8;border-radius:10px;font-size:16px;box-sizing:border-box;">
+    <button type="submit" style="margin-top:14px;padding:12px 24px;background:#f59e0b;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;width:100%;">Gonder</button>
+    <p style="margin:16px 0 0;font-size:13px;color:#a1a1aa;text-align:center;">
+      <a href="/admin" style="color:#71717a;">Admin panele don</a>
+    </p>
+  </form>
+</body>
+</html>"""
+    return _rts(html)
 
 if __name__ == "__main__":
     import os as _os
