@@ -940,7 +940,7 @@ html.dark #cookieBanner .cookie-btn-primary {
         function uygula() {
           document.querySelectorAll('input[type="date"]').forEach(function (el) {
             if (el._flatpickr) return;
-            var opts = { dateFormat: "Y-m-d", altInput: true, altFormat: "d F Y", allowInput: true, animate: true, monthSelectorType: "static" };
+            var opts = { dateFormat: "Y-m-d", altInput: true, altFormat: "d F Y", allowInput: true, animate: true, monthSelectorType: "static", altInputClass: "cpeak-date-input" };
             if (flatpickr.l10ns && flatpickr.l10ns.tr) opts.locale = "tr";
             flatpickr(el, opts);
           });
@@ -950,6 +950,8 @@ html.dark #cookieBanner .cookie-btn-primary {
         setTimeout(uygula, 1200);
       });
     </script>
+<script id="INLINE-CEREZ-FLASH">(function(){try{var k1=localStorage.getItem("cookie_consent_v1");var k2=localStorage.getItem("cpeak_cookie_consent_v1");if(k1||k2){document.documentElement.classList.add("cerez-onayli");}}catch(e){}})();</script>
+
 
 
 </head>
