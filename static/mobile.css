@@ -1527,3 +1527,255 @@ html {
     background: #f4f4f5 !important;
   }
 }
+
+
+/* ============================================================
+   LOGIN FIX v3
+   ============================================================ */
+
+/* --- MASAUSTU: tabs ve kayit kutusu asla gorunmesin --- */
+.login-tabs,
+.login-kayit-bilgi {
+  display: none !important;
+}
+
+@media (min-width: 769px) {
+  /* Masaustunde her sey eski halinde */
+  .login-tabs,
+  .login-kayit-bilgi {
+    display: none !important;
+  }
+  /* Hero normal boyutlariyla gorunur */
+  .login-hero {
+    display: block !important;
+    visibility: visible !important;
+  }
+}
+
+/* ============================================================
+   MOBIL - kompakt hero + arkada saydam logo
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Body ve main arka plan */
+  body.login-page,
+  body:has(.login-shell) {
+    background: #0d0d10 !important;
+  }
+  .login-main {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 16px !important;
+    min-height: 100vh !important;
+    padding: 82px 18px 40px !important;
+    background: #0d0d10 !important;
+    position: relative !important;
+    overflow-x: hidden !important;
+  }
+
+  /* ARKA PLANDA SAYDAM LOGO (main icine) */
+  .login-main::before {
+    content: "";
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 120vw !important;
+    height: 120vw !important;
+    max-width: 700px !important;
+    max-height: 700px !important;
+    background-image: url("/static/logo.png") !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    opacity: 0.06 !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+  }
+
+  /* Light tema arka plan */
+  html:not([data-theme="dark"]):not(.dark) body.login-page,
+  html:not([data-theme="dark"]):not(.dark) body:has(.login-shell) {
+    background: #f4f4f5 !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-main {
+    background: #f4f4f5 !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-main::before {
+    opacity: 0.05 !important;
+  }
+
+  /* HERO - mobilde kompakt: logo + slogan */
+  .login-hero,
+  aside.login-hero {
+    display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+    z-index: 1 !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    padding: 0 !important;
+    margin: 0 0 10px !important;
+    background: transparent !important;
+    min-height: auto !important;
+    box-sizing: border-box !important;
+  }
+  .login-hero .hero-orb,
+  .login-hero .hero-clock {
+    display: none !important;
+  }
+  .login-hero .hero-content {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .login-hero .hero-eyebrow {
+    display: none !important;
+  }
+
+  /* Buyuk logo blogu - kucuk versiyon */
+  .login-hero .hero-brand {
+    margin: 0 0 14px !important;
+    justify-content: center !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  .login-hero .hero-brand-mark {
+    width: 46px !important;
+    height: 46px !important;
+    margin: 0 !important;
+  }
+  .login-hero .hero-brand-mark img {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .login-hero .hero-brand-title {
+    font-size: 1.35rem !important;
+    letter-spacing: -0.01em !important;
+  }
+  .login-hero .hero-brand-sub {
+    font-size: 0.68rem !important;
+    letter-spacing: 0.22em !important;
+  }
+
+  /* Slogan - kompakt */
+  .login-hero h1 {
+    font-size: 1.55rem !important;
+    line-height: 1.2 !important;
+    margin: 0 0 8px !important;
+    text-align: center !important;
+    letter-spacing: -0.02em !important;
+  }
+  .login-hero .hero-lead {
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+    text-align: center !important;
+    margin: 0 !important;
+    color: #a1a1aa !important;
+    max-width: 340px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Gizlenecek parcalar */
+  .login-hero .hero-list,
+  .login-hero .hero-stats {
+    display: none !important;
+  }
+
+  /* Login card ve kayit kutusu - tam genislik */
+  .login-card,
+  .login-kayit-bilgi {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* Tabs mobilde gorunsun - yatay */
+  .login-card .login-tabs,
+  .login-tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    gap: 6px !important;
+    background: rgba(255,255,255,0.04) !important;
+    padding: 5px !important;
+    border-radius: 14px !important;
+    margin: 0 0 20px 0 !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    box-sizing: border-box !important;
+  }
+  .login-tab {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    padding: 11px 8px !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    color: #a1a1aa !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+  }
+  .login-tab.aktif {
+    background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(245,158,11,0.3) !important;
+  }
+
+  /* Kayit kutusu - default gizli, JS gosterir */
+  .login-kayit-bilgi {
+    display: none !important;
+  }
+
+  /* Light tema */
+  html:not([data-theme="dark"]):not(.dark) .login-tabs {
+    background: rgba(0,0,0,0.05) !important;
+    border-color: rgba(0,0,0,0.10) !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-tab { color: #71717a !important; }
+  html:not([data-theme="dark"]):not(.dark) .login-tab.aktif { color: #fff !important; }
+
+  html:not([data-theme="dark"]):not(.dark) .login-card,
+  html:not([data-theme="dark"]):not(.dark) .login-kayit-bilgi {
+    background: #ffffff !important;
+    border-color: #e4e4e7 !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-hero h1 { color: #18181b !important; }
+  html:not([data-theme="dark"]):not(.dark) .login-hero .hero-lead { color: #52525b !important; }
+  html:not([data-theme="dark"]):not(.dark) .login-hero .hero-brand-title { color: #18181b !important; }
+
+  /* Tema toggle ust kose */
+  .theme-toggle-float {
+    position: fixed !important;
+    top: 16px !important;
+    right: 16px !important;
+    z-index: 100 !important;
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .theme-toggle-float svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-hero h1 { font-size: 1.35rem !important; }
+  .login-hero .hero-lead { font-size: 0.82rem !important; }
+  .login-hero .hero-brand-mark { width: 40px !important; height: 40px !important; }
+}
