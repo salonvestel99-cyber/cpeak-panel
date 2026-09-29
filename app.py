@@ -9,7 +9,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from dotenv import load_dotenv
 
 from models import get_db
-from mail_service import send_email, sablon_sifre_talebi, sablon_test
+from mail_service import (send_email, sablon_sifre_talebi, sablon_test, sablon_kayit, sablon_sifre_degisti, sablon_sifre_sifirlandi, sablon_devamsizlik, sablon_not_girildi)
 
 load_dotenv()
 
@@ -232,6 +232,14 @@ def sifre_degistir():
         conn.execute("UPDATE users SET password_hash = ? WHERE id = ?",
                      (generate_password_hash(yeni), session["user_id"]))
         conn.commit()
+        try:
+            _k = conn.execute("SELECT email, name, tc_no FROM users WHERE id = ?",
+                              (session["user_id"],)).fetchone()
+            if _k and _k["email"]:
+                send_email("Sifreniz Degistirildi", _k["email"],
+                           sablon_sifre_degisti(_k["name"], _k["tc_no"]))
+        except Exception as _e:
+            print(f"[sifre_degistir] mail hata: {_e}", flush=True)
         conn.close()
         flash("Şifreniz güncellendi.", "success")
         return redirect(url_for("dashboard"))
@@ -477,6 +485,18 @@ def admin_add_student():
             cur.execute("INSERT INTO users (tc_no, password_hash, name, role, student_id) VALUES (?,?,?,?,?)",
                         (v_tc, generate_password_hash(v_sifre), v_ad, "parent", sid))
         conn.commit()
+        try:
+            _giris = request.url_root.rstrip("/") + url_for("login")
+            _email_ogr = request.form.get("email", "").strip()
+            if _email_ogr:
+                send_email("C-Peak Panel Kaydiniz", _email_ogr,
+                           sablon_kayit(ad, tc, sifre, _giris))
+            _email_veli = request.form.get("veli_email", "").strip()
+            if _email_veli and v_ad and v_sifre and v_tc:
+                send_email("C-Peak Panel Veli Kaydiniz", _email_veli,
+                           sablon_kayit(v_ad, v_tc, v_sifre, _giris))
+        except Exception as _e:
+            print(f"[admin_add_student] mail hata: {_e}", flush=True)
         flash(f"Öğrenci eklendi: {ad}", "success")
     except Exception as e:
         conn.rollback()
@@ -562,6 +582,13 @@ def admin_sifre_sifirla(uid):
         conn.execute("UPDATE users SET password_hash = ? WHERE id = ?",
                      (generate_password_hash(yeni), uid))
         conn.commit()
+        try:
+            _k = conn.execute("SELECT email, name FROM users WHERE id = ?", (uid,)).fetchone()
+            if _k and _k["email"]:
+                send_email("Sifreniz Yenilendi", _k["email"],
+                           sablon_sifre_sifirlandi(_k["name"], yeni))
+        except Exception as _e:
+            print(f"[admin_sifre_sifirla] mail hata: {_e}", flush=True)
         flash("Şifre başarıyla değiştirildi.", "success")
     except Exception as e:
         conn.rollback()
@@ -594,6 +621,14 @@ def admin_add_teacher():
         conn.execute("INSERT INTO users (tc_no, password_hash, name, role) VALUES (?,?,?,?)",
                      (tc, generate_password_hash(sifre), ad, "teacher"))
         conn.commit()
+        try:
+            _giris = request.url_root.rstrip("/") + url_for("login")
+            _email = request.form.get("email", "").strip()
+            if _email:
+                send_email("C-Peak Panel Kaydiniz", _email,
+                           sablon_kayit(ad, tc, sifre, _giris))
+        except Exception as _e:
+            print(f"[admin_add_teacher] mail hata: {_e}", flush=True)
         flash(f"Öğretmen eklendi: {ad}", "success")
     except Exception as e:
         conn.rollback()
@@ -644,6 +679,26 @@ def admin_add_grade():
         conn.execute("INSERT INTO grades (student_id, course_id, sinav, puan, tarih) VALUES (?,?,?,?,?)",
                      (int(sid), int(cid), sinav, float(puan), date.today().isoformat()))
         conn.commit()
+        try:
+            _ogr = conn.execute("""
+                SELECT u.name AS ad, u.email AS ogr_mail, s.id AS sid
+                FROM students s JOIN users u ON u.id = s.user_id
+                WHERE s.id = ?
+            """, (int(sid),)).fetchone()
+            _ders = conn.execute("SELECT ad FROM courses WHERE id = ?", (int(cid),)).fetchone()
+            if _ogr and _ders:
+                if _ogr["ogr_mail"]:
+                    send_email("Yeni Notunuz: " + _ders["ad"], _ogr["ogr_mail"],
+                               sablon_not_girildi(_ogr["ad"], _ders["ad"], sinav, puan))
+                _veli = conn.execute(
+                    "SELECT email FROM users WHERE role='parent' AND student_id = ? LIMIT 1",
+                    (_ogr["sid"],)
+                ).fetchone()
+                if _veli and _veli["email"]:
+                    send_email("Yeni Not: " + _ders["ad"], _veli["email"],
+                               sablon_not_girildi(_ogr["ad"], _ders["ad"], sinav, puan))
+        except Exception as _e:
+            print(f"[admin_add_grade] mail hata: {_e}", flush=True)
         flash(f"Not eklendi: {sinav} = {puan}", "success")
     except Exception as e:
         conn.rollback()
@@ -999,6 +1054,21 @@ def devamsizlik_kaydet():
                 (sid, tarih, val, aciklama)
             )
             kaydedilen += 1
+            if val == "gelmedi":
+                try:
+                    _ogr = conn.execute("""
+                        SELECT u.name AS ad, s.sinif FROM students s
+                        JOIN users u ON u.id = s.user_id WHERE s.id = ?
+                    """, (sid,)).fetchone()
+                    _veli = conn.execute(
+                        "SELECT email FROM users WHERE role='parent' AND student_id = ? LIMIT 1",
+                        (sid,)
+                    ).fetchone()
+                    if _ogr and _veli and _veli["email"]:
+                        send_email("Devamsizlik Bildirimi", _veli["email"],
+                                   sablon_devamsizlik(_ogr["ad"], _ogr["sinif"], tarih))
+                except Exception as _e:
+                    print(f"[devamsizlik] mail hata: {_e}", flush=True)
 
         conn.commit()
         if kaydedilen:

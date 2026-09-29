@@ -931,6 +931,27 @@ html.dark #cookieBanner .cookie-btn-primary {
     <!-- Mobile optimizasyon - sadece mobilde aktif -->
     <link rel="stylesheet" href="{{ url_for('static', filename='mobile.css') }}">
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='flatpickr-base.css') }}">
+    <script src="{{ url_for('static', filename='flatpickr.min.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='flatpickr-tr.js') }}" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (typeof flatpickr === "undefined") return;
+        function uygula() {
+          document.querySelectorAll('input[type="date"]').forEach(function (el) {
+            if (el._flatpickr) return;
+            var opts = { dateFormat: "Y-m-d", altInput: true, altFormat: "d F Y", allowInput: true, animate: true, monthSelectorType: "static" };
+            if (flatpickr.l10ns && flatpickr.l10ns.tr) opts.locale = "tr";
+            flatpickr(el, opts);
+          });
+        }
+        uygula();
+        setTimeout(uygula, 400);
+        setTimeout(uygula, 1200);
+      });
+    </script>
+
+
 </head>
 <body class="{% block body_class %}{% endblock %}">
 {% block body %}
