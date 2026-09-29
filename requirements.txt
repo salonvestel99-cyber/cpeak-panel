@@ -35,4 +35,4 @@ Flask-Limiter
 redis>=5.0
 
 # --- E-posta ---
-Flask-Mail>=0.10.0
+sib-api-v3-sdk>=7.6.0
