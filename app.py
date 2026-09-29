@@ -1818,11 +1818,14 @@ def admin_mail_gonder():
                     flash("Hata: " + str(e), "error")
                 return redirect(url_for("admin_mail_gonder"))
 
+    from mail_service import _kurum
+    _sabit = _kurum()
     return render_template(
         "admin_mail.html",
         kullanicilar=[dict(u) for u in kullanicilar],
         sablonlar=HAZIR_SABLONLAR,
         onizleme=onizleme,
+        sabit=_sabit,
     )
 # ============================================================
 

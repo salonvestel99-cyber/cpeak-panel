@@ -1,139 +1,496 @@
 {% extends "base.html" %}
-{% block title %}Mail Gonder{% endblock %}
+{% block title %}Mail Gönder{% endblock %}
 {% block content %}
 
-<div class="panel-hero">
-  <div class="panel-hero-text">
-    <div class="panel-hero-eyebrow">Yonetim</div>
-    <h1 class="panel-hero-greet">Mail Gonder</h1>
-    <p class="panel-hero-sub">Kullanicilara ozel veya hazir sablonlarla mail gonderin</p>
-  </div>
-  <div class="panel-hero-avatar">{{ session.name[0]|upper }}</div>
-</div>
+<style>
+.mail-page { max-width: 880px; margin: 0 auto; }
 
-{% with mesajlar = get_flashed_messages(with_categories=true) %}
-  {% if mesajlar %}
-    <div style="margin-bottom:16px">
-      {% for kategori, m in mesajlar %}
-        <div style="padding:12px 16px;border-radius:10px;margin-bottom:8px;
-          background:{{ '#fee2e2' if kategori == 'error' else '#dcfce7' }};
-          color:{{ '#991b1b' if kategori == 'error' else '#166534' }};
-          border-left:4px solid {{ '#dc2626' if kategori == 'error' else '#16a34a' }};">
-          {{ m }}
-        </div>
-      {% endfor %}
+/* Sayfa basligi */
+.mail-hero {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  border-radius: 18px;
+  padding: 26px 28px;
+  margin-bottom: 22px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 10px 32px rgba(124,58,237,0.22);
+}
+.mail-hero-icon {
+  width: 52px; height: 52px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.mail-hero-icon svg { width: 26px; height: 26px; }
+.mail-hero h1 { margin: 0 0 4px; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.01em; }
+.mail-hero p { margin: 0; font-size: 0.92rem; opacity: 0.9; }
+
+/* Ana kart */
+.mail-card {
+  background: var(--card, #fff);
+  border-radius: 18px;
+  padding: 26px 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.05);
+  margin-bottom: 22px;
+}
+
+/* Bolum basligi */
+.mail-section {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.mail-section-num {
+  width: 26px; height: 26px;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 800;
+  flex-shrink: 0;
+}
+.mail-section h3 { margin: 0; font-size: 1.02rem; font-weight: 700; color: var(--ink, #18181b); }
+
+/* Alan grupları */
+.mail-field { margin-bottom: 18px; }
+.mail-field > label {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink, #3f3f46);
+  margin-bottom: 7px;
+  letter-spacing: 0.01em;
+}
+.mail-field input[type="text"],
+.mail-field input[type="email"],
+.mail-field select,
+.mail-field textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e4e4e7;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: var(--card, #fff);
+  color: var(--ink, #18181b);
+  transition: border-color 0.16s, box-shadow 0.16s;
+  box-sizing: border-box;
+}
+.mail-field input:focus,
+.mail-field select:focus,
+.mail-field textarea:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
+}
+.mail-field textarea {
+  font-family: 'SF Mono', Consolas, Monaco, monospace;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 200px;
+}
+.mail-field small {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--muted, #a1a1aa);
+}
+
+/* Grid */
+.mail-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mail-grid-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+
+/* Sablon secici - gorsel kartlar */
+.sablon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 4px;
+}
+.sablon-kart {
+  padding: 14px 12px;
+  border: 2px solid #e4e4e7;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.18s ease;
+  background: var(--card, #fff);
+  position: relative;
+}
+.sablon-kart:hover {
+  border-color: #a855f7;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(124,58,237,0.12);
+}
+.sablon-kart.aktif {
+  border-color: #7c3aed;
+  background: rgba(124,58,237,0.05);
+  box-shadow: 0 6px 20px rgba(124,58,237,0.18);
+}
+.sablon-kart-ikon {
+  font-size: 22px;
+  margin-bottom: 6px;
+  display: block;
+}
+.sablon-kart-ad {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink, #18181b);
+  letter-spacing: 0.01em;
+}
+.sablon-kart-renk {
+  width: 24px;
+  height: 4px;
+  border-radius: 2px;
+  margin: 8px auto 0;
+}
+
+/* Renk secici */
+.renk-secici {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.renk-topu {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.18s;
+  position: relative;
+  padding: 0;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.renk-topu:hover { transform: scale(1.1); }
+.renk-topu.aktif {
+  border-color: var(--card, #fff);
+  outline-color: currentColor;
+  transform: scale(1.08);
+}
+.renk-topu.aktif::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* Sabit onizleme - logo/sosyal/adres bilgisi */
+.sabit-bilgi {
+  background: #fafafa;
+  border: 1.5px dashed #e4e4e7;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-top: 10px;
+}
+.sabit-bilgi-baslik {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #71717a;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+.sabit-satir {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 0.86rem;
+  color: #52525b;
+}
+.sabit-satir svg { width: 16px; height: 16px; color: #a1a1aa; flex-shrink: 0; }
+.sabit-satir b { color: #18181b; font-weight: 600; }
+
+/* Buton grubu */
+.mail-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.mail-actions button {
+  padding: 13px 24px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.18s;
+  letter-spacing: 0.01em;
+}
+.mail-btn-onizle {
+  flex: 1;
+  min-width: 140px;
+  background: #f4f4f5;
+  color: #52525b;
+  border: 1.5px solid #e4e4e7 !important;
+}
+.mail-btn-onizle:hover { background: #e4e4e7; }
+.mail-btn-gonder {
+  flex: 2;
+  min-width: 200px;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(124,58,237,0.28);
+}
+.mail-btn-gonder:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(124,58,237,0.38);
+}
+
+/* Flash mesajlar */
+.mail-flash {
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.mail-flash-success { background: #f0fdf4; color: #166534; border-left: 4px solid #16a34a; }
+.mail-flash-error   { background: #fef2f2; color: #991b1b; border-left: 4px solid #dc2626; }
+
+/* Onizleme */
+.mail-onizleme-wrap {
+  border: 2px dashed #a855f7;
+  border-radius: 14px;
+  padding: 12px;
+  background: #faf5ff;
+  margin-bottom: 22px;
+}
+.mail-onizleme-wrap h4 {
+  margin: 0 0 10px;
+  color: #7c3aed;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+.mail-onizleme-wrap iframe {
+  width: 100%;
+  height: 620px;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 700px) {
+  .mail-hero { flex-direction: column; text-align: center; padding: 22px; }
+  .mail-card { padding: 20px 18px; }
+  .mail-grid-2, .mail-grid-3 { grid-template-columns: 1fr; }
+  .mail-hero h1 { font-size: 1.2rem; }
+  .sablon-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+}
+</style>
+
+<div class="mail-page">
+
+  <div class="mail-hero">
+    <div class="mail-hero-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+        <polyline points="22,6 12,13 2,6"></polyline>
+      </svg>
     </div>
-  {% endif %}
-{% endwith %}
-
-{% if onizleme %}
-<div class="card" style="margin-bottom:20px">
-  <div class="card-head"><h3>Onizleme</h3></div>
-  <div style="border:2px dashed #e4e4e7;border-radius:12px;padding:8px;background:#fafafa">
-    <iframe srcdoc="{{ onizleme|e }}" style="width:100%;height:600px;border:none;border-radius:8px;background:#fff"></iframe>
+    <div>
+      <h1>Mail Gönder</h1>
+      <p>Kullanıcılarınıza kurumsal kimlikli özel e-postalar gönderin</p>
+    </div>
   </div>
-</div>
-{% endif %}
 
-<div class="card">
-  <div class="card-head"><h3>Mail Bilgileri</h3></div>
+  {% with mesajlar = get_flashed_messages(with_categories=true) %}
+    {% if mesajlar %}
+      {% for kategori, m in mesajlar %}
+        <div class="mail-flash mail-flash-{{ 'error' if kategori == 'error' else 'success' }}">{{ m }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% if onizleme %}
+  <div class="mail-onizleme-wrap">
+    <h4>📧 Önizleme — Mail bu şekilde görünecek</h4>
+    <iframe srcdoc="{{ onizleme|e }}"></iframe>
+  </div>
+  {% endif %}
+
   <form method="POST" id="mailForm">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-    <div class="form-row">
-      <label>
-        <span>Alici Tipi</span>
+    <!-- 1. ALICI -->
+    <div class="mail-card">
+      <div class="mail-section">
+        <span class="mail-section-num">1</span>
+        <h3>Alıcı Seçimi</h3>
+      </div>
+
+      <div class="mail-field">
+        <label>Kime göndereceksiniz?</label>
         <select name="alici_tipi" id="aliciTipi" onchange="aliciDegistir()">
-          <option value="tek">Tek Kisi</option>
-          <option value="rol">Bir Role Tumunu</option>
-          <option value="manuel">Manuel E-posta</option>
+          <option value="tek">👤 Tek Kişi</option>
+          <option value="rol">👥 Bir Role Tümünü</option>
+          <option value="manuel">✏️ Manuel E-posta Adresleri</option>
         </select>
-      </label>
-    </div>
+      </div>
 
-    <div class="form-row" id="rowTek">
-      <label>
-        <span>Kullanici Sec</span>
+      <div class="mail-field" id="rowTek">
+        <label>Kullanıcı Seçin</label>
         <select name="kullanici_id">
-          <option value="">-- Seciniz --</option>
+          <option value="">— Seçiniz —</option>
           {% for u in kullanicilar %}
-            <option value="{{ u.id }}">{{ u.name }} ({{ u.role }}){% if u.tc_no %} - {{ u.tc_no }}{% endif %}</option>
+            <option value="{{ u.id }}">{{ u.name }} ({{ u.role }}){% if u.tc_no %} — {{ u.tc_no }}{% endif %}{% if not u.email %} ⚠ e-posta yok{% endif %}</option>
           {% endfor %}
         </select>
-      </label>
-    </div>
+        <small>Sadece e-posta adresi tanımlı kullanıcılar mail alabilir.</small>
+      </div>
 
-    <div class="form-row" id="rowRol" style="display:none">
-      <label>
-        <span>Rol Sec</span>
+      <div class="mail-field" id="rowRol" style="display:none">
+        <label>Rol Seçin</label>
         <select name="rol">
-          <option value="student">Ogrenciler</option>
-          <option value="parent">Veliler</option>
-          <option value="teacher">Ogretmenler</option>
-          <option value="admin">Yoneticiler</option>
+          <option value="student">🎓 Öğrenciler</option>
+          <option value="parent">👨‍👩‍👧 Veliler</option>
+          <option value="teacher">📚 Öğretmenler</option>
+          <option value="admin">🛡️ Yöneticiler</option>
         </select>
-      </label>
-    </div>
+        <small>Bu roldeki tüm kullanıcılara gönderilir.</small>
+      </div>
 
-    <div class="form-row" id="rowManuel" style="display:none">
-      <label>
-        <span>E-posta Adresleri (virgul ile ayirin)</span>
+      <div class="mail-field" id="rowManuel" style="display:none">
+        <label>E-posta Adresleri</label>
         <input type="text" name="manuel_email" placeholder="ornek1@mail.com, ornek2@mail.com">
-      </label>
-    </div>
-
-    <div class="form-row">
-      <label>
-        <span>Hazir Sablon</span>
-        <select name="sablon" id="sablonSec" onchange="sablonYukle()">
-          {% for k, v in sablonlar.items() %}
-            <option value="{{ k }}" data-konu="{{ v.konu }}" data-icerik="{{ v.icerik }}" data-renk="{{ v.renk }}">{{ v.ad }}</option>
-          {% endfor %}
-        </select>
-      </label>
-    </div>
-
-    <div class="form-row">
-      <label>
-        <span>Konu</span>
-        <input type="text" name="konu" id="konuInput" required>
-      </label>
-    </div>
-
-    <div class="form-row">
-      <label>
-        <span>Icerik (HTML kullanabilirsiniz)</span>
-        <textarea name="icerik" id="icerikInput" rows="12"
-          style="font-family:monospace;font-size:14px;"></textarea>
-      </label>
-      <div style="font-size:13px;color:#71717a;margin-top:6px">
-        Ornek: &lt;p&gt;Merhaba,&lt;/p&gt;&lt;p&gt;Kisa bir bilgilendirme...&lt;/p&gt;
+        <small>Birden fazla adresi virgülle ayırın.</small>
       </div>
     </div>
 
-    <div class="form-row">
-      <label>
-        <span>Vurgu Rengi</span>
-        <select name="renk" id="renkSec">
-          <option value="#f59e0b">Turuncu (Marka)</option>
-          <option value="#16a34a">Yesil</option>
-          <option value="#2563eb">Mavi</option>
-          <option value="#dc2626">Kirmizi</option>
-          <option value="#7c3aed">Mor</option>
-          <option value="#0891b2">Turkuaz</option>
-        </select>
-      </label>
+    <!-- 2. SABLON -->
+    <div class="mail-card">
+      <div class="mail-section">
+        <span class="mail-section-num">2</span>
+        <h3>Şablon Seçimi</h3>
+      </div>
+
+      <input type="hidden" name="sablon" id="sablonInput" value="ozel">
+
+      <div class="sablon-grid" id="sablonGrid">
+        {% for k, v in sablonlar.items() %}
+        <div class="sablon-kart{% if k == 'ozel' %} aktif{% endif %}"
+             data-sablon="{{ k }}"
+             data-konu="{{ v.konu }}"
+             data-icerik="{{ v.icerik }}"
+             data-renk="{{ v.renk }}"
+             onclick="sablonSec(this)">
+          <span class="sablon-kart-ikon">
+            {% if k == 'ozel' %}✏️
+            {% elif k == 'duyuru' %}📢
+            {% elif k == 'hatirlatma' %}⏰
+            {% elif k == 'kutlama' %}🎉
+            {% elif k == 'bilgilendirme' %}ℹ️
+            {% elif k == 'tesekkur' %}💐
+            {% else %}📧{% endif %}
+          </span>
+          <div class="sablon-kart-ad">{{ v.ad }}</div>
+          <div class="sablon-kart-renk" style="background: {{ v.renk }};"></div>
+        </div>
+        {% endfor %}
+      </div>
     </div>
 
-    <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
-      <button type="submit" name="aksiyon" value="onizle" class="btn-ghost" style="flex:1;min-width:140px">Onizle</button>
-      <button type="submit" name="aksiyon" value="gonder" class="btn-primary" style="flex:2;min-width:200px">Mail Gonder</button>
+    <!-- 3. ICERIK -->
+    <div class="mail-card">
+      <div class="mail-section">
+        <span class="mail-section-num">3</span>
+        <h3>İçerik</h3>
+      </div>
+
+      <div class="mail-field">
+        <label>Konu</label>
+        <input type="text" name="konu" id="konuInput" required placeholder="Örn: Yeni Duyuru">
+      </div>
+
+      <div class="mail-field">
+        <label>İçerik</label>
+        <textarea name="icerik" id="icerikInput" placeholder="<p>Merhaba,</p>&#10;<p>Kısa bir bilgilendirme...</p>"></textarea>
+        <small>HTML kullanabilirsiniz: &lt;p&gt;, &lt;b&gt;, &lt;br&gt;, &lt;a href="..."&gt; vb.</small>
+      </div>
+
+      <div class="mail-field">
+        <label>Vurgu Rengi</label>
+        <div class="renk-secici" id="renkSecici">
+          <button type="button" class="renk-topu aktif" data-renk="#f59e0b" style="background:#f59e0b;color:#f59e0b" title="Turuncu (Marka)"></button>
+          <button type="button" class="renk-topu" data-renk="#16a34a" style="background:#16a34a;color:#16a34a" title="Yeşil"></button>
+          <button type="button" class="renk-topu" data-renk="#2563eb" style="background:#2563eb;color:#2563eb" title="Mavi"></button>
+          <button type="button" class="renk-topu" data-renk="#dc2626" style="background:#dc2626;color:#dc2626" title="Kırmızı"></button>
+          <button type="button" class="renk-topu" data-renk="#7c3aed" style="background:#7c3aed;color:#7c3aed" title="Mor"></button>
+          <button type="button" class="renk-topu" data-renk="#0891b2" style="background:#0891b2;color:#0891b2" title="Turkuaz"></button>
+        </div>
+        <input type="hidden" name="renk" id="renkInput" value="#f59e0b">
+      </div>
     </div>
+
+    <!-- 4. SABIT BILGILER -->
+    <div class="mail-card">
+      <div class="mail-section">
+        <span class="mail-section-num">4</span>
+        <h3>Sabit Bilgiler</h3>
+      </div>
+      <p style="margin:0 0 6px;font-size:0.86rem;color:#71717a;">
+        Bu bilgiler tüm maillerin alt kısmında otomatik olarak görünür:
+      </p>
+      <div class="sabit-bilgi">
+        <div class="sabit-bilgi-baslik">Otomatik Ekleniyor</div>
+        <div class="sabit-satir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+          <b>Logo:</b> C-Peak English
+        </div>
+        <div class="sabit-satir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <b>E-posta:</b> {{ sabit.eposta or '—' }}
+        </div>
+        {% if sabit.adres %}
+        <div class="sabit-satir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <b>Adres:</b> {{ sabit.adres }}
+        </div>
+        {% endif %}
+        {% if sabit.telefon %}
+        <div class="sabit-satir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <b>Telefon:</b> {{ sabit.telefon }}
+        </div>
+        {% endif %}
+        {% if sabit.instagram or sabit.youtube or sabit.whatsapp %}
+        <div class="sabit-satir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          <b>Sosyal Medya:</b>
+          {% if sabit.instagram %}Instagram{% endif %}
+          {% if sabit.youtube %}{% if sabit.instagram %} · {% endif %}YouTube{% endif %}
+          {% if sabit.whatsapp %}{% if sabit.instagram or sabit.youtube %} · {% endif %}WhatsApp{% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="mail-actions">
+      <button type="submit" name="aksiyon" value="onizle" class="mail-btn-onizle">👁 Önizle</button>
+      <button type="submit" name="aksiyon" value="gonder" class="mail-btn-gonder">✈ Mail Gönder</button>
+    </div>
+
   </form>
-</div>
 
-<div style="margin-top:20px">
-  <a href="{{ url_for('admin_panel') }}" class="btn-ghost">&larr; Admin Panele Don</a>
+  <div style="text-align:center;margin:20px 0 40px">
+    <a href="{{ url_for('admin_panel') }}" style="color:#71717a;font-size:0.9rem;text-decoration:none;">← Admin Panele Dön</a>
+  </div>
+
 </div>
 
 <script>
@@ -143,19 +500,32 @@ function aliciDegistir() {
   document.getElementById('rowRol').style.display    = (t === 'rol')    ? '' : 'none';
   document.getElementById('rowManuel').style.display = (t === 'manuel') ? '' : 'none';
 }
-function sablonYukle() {
-  var sel = document.getElementById('sablonSec');
-  var opt = sel.options[sel.selectedIndex];
-  var konu = opt.getAttribute('data-konu') || '';
-  var icerik = opt.getAttribute('data-icerik') || '';
-  var renk = opt.getAttribute('data-renk') || '#f59e0b';
-  if (konu) document.getElementById('konuInput').value = konu;
-  if (icerik) document.getElementById('icerikInput').value = icerik;
-  document.getElementById('renkSec').value = renk;
+
+function sablonSec(el) {
+  document.querySelectorAll('.sablon-kart').forEach(function(k){ k.classList.remove('aktif'); });
+  el.classList.add('aktif');
+  document.getElementById('sablonInput').value = el.dataset.sablon;
+  var konu = el.dataset.konu || '';
+  var icerik = el.dataset.icerik || '';
+  var renk = el.dataset.renk || '#f59e0b';
+  document.getElementById('konuInput').value = konu;
+  document.getElementById('icerikInput').value = icerik;
+  document.getElementById('renkInput').value = renk;
+  document.querySelectorAll('.renk-topu').forEach(function(t){
+    t.classList.toggle('aktif', t.dataset.renk === renk);
+  });
 }
+
+document.querySelectorAll('.renk-topu').forEach(function(t){
+  t.addEventListener('click', function(){
+    document.querySelectorAll('.renk-topu').forEach(function(x){ x.classList.remove('aktif'); });
+    t.classList.add('aktif');
+    document.getElementById('renkInput').value = t.dataset.renk;
+  });
+});
+
 document.addEventListener('DOMContentLoaded', function(){
   aliciDegistir();
-  sablonYukle();
 });
 </script>
 {% endblock %}
