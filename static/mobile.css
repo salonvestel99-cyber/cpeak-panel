@@ -1779,3 +1779,155 @@ html {
   .login-hero .hero-lead { font-size: 0.82rem !important; }
   .login-hero .hero-brand-mark { width: 40px !important; height: 40px !important; }
 }
+
+
+/* ============================================================
+   LOGIN FIX v4 - tasma ve hizalama
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Tum zincirde padding sifirla */
+  .login-shell,
+  .login-wrap,
+  .login-main {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Login main - ortala ve ic padding ver */
+  .login-main {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 16px !important;
+    min-height: 100vh !important;
+    padding: 76px 16px 40px !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Hero tam ekran genisligi */
+  .login-hero,
+  aside.login-hero {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0 4px !important;
+    margin: 0 0 6px !important;
+  }
+
+  /* Login card - tam ekran */
+  .login-card,
+  .login-kayit-bilgi {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 22px 18px 24px !important;
+    border-radius: 18px !important;
+    margin: 0 !important;
+  }
+
+  /* Tabs - tam genislik iki esit buton */
+  .login-card .login-tabs,
+  .login-tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    gap: 6px !important;
+    padding: 5px !important;
+    box-sizing: border-box !important;
+    margin: 0 0 18px 0 !important;
+  }
+
+  .login-tab {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    width: 50% !important;
+    padding: 10px 6px !important;
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Hero icerigi ortala */
+  .login-hero .hero-brand {
+    justify-content: center !important;
+    margin-bottom: 12px !important;
+  }
+  .login-hero h1 {
+    font-size: 1.45rem !important;
+    text-align: center !important;
+    padding: 0 4px !important;
+  }
+  .login-hero .hero-lead {
+    font-size: 0.85rem !important;
+    text-align: center !important;
+    padding: 0 4px !important;
+  }
+
+  /* Arka plan logosu - biraz kucult */
+  .login-main::before {
+    width: 100vw !important;
+    height: 100vw !important;
+    max-width: 500px !important;
+    max-height: 500px !important;
+    opacity: 0.05 !important;
+  }
+
+  /* Login form input ve butonlari */
+  .login-card h2 {
+    font-size: 1.35rem !important;
+    margin-bottom: 4px !important;
+  }
+  .login-card .lead {
+    font-size: 0.85rem !important;
+    margin-bottom: 18px !important;
+  }
+  .login-card input {
+    min-height: 48px !important;
+    font-size: 16px !important;
+    padding: 12px 14px !important;
+  }
+  .login-card button[type="submit"] {
+    min-height: 50px !important;
+    font-size: 0.98rem !important;
+  }
+
+  /* Form rows */
+  .login-card .form-row,
+  .login-card label {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* Cok kucuk ekranlar */
+@media (max-width: 380px) {
+  .login-main {
+    padding: 72px 12px 30px !important;
+  }
+  .login-card,
+  .login-kayit-bilgi {
+    padding: 20px 14px 22px !important;
+    border-radius: 16px !important;
+  }
+  .login-tab {
+    font-size: 0.82rem !important;
+    padding: 9px 4px !important;
+  }
+  .login-hero h1 {
+    font-size: 1.28rem !important;
+  }
+  .login-hero .hero-lead {
+    font-size: 0.8rem !important;
+  }
+}
