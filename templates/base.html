@@ -950,10 +950,6 @@ html.dark #cookieBanner .cookie-btn-primary {
         setTimeout(uygula, 1200);
       });
     </script>
-<script id="INLINE-CEREZ-FLASH">(function(){try{var c=document.cookie.indexOf("cpeak_cc=")>-1;var k1=null,k2=null;try{k1=localStorage.getItem("cookie_consent_v1");}catch(e){}try{k2=localStorage.getItem("cpeak_cookie_consent_v1");}catch(e){}if(c||k1||k2){document.documentElement.className+=" cerez-onayli";}}catch(e){}})();</script>
-
-
-
 </head>
 <body class="{% block body_class %}{% endblock %}">
 {% block body %}
@@ -1943,8 +1939,7 @@ html.dark .fb-cancel:hover {
   var KEY = "cookie_consent_v1";
 
   function goster(banner){
-    banner.style.display = "";
-    // Animasyon icin
+    banner.removeAttribute("hidden");
     banner.style.opacity = "0";
     banner.style.transform = "translateY(12px)";
     requestAnimationFrame(function(){
@@ -1958,7 +1953,10 @@ html.dark .fb-cancel:hover {
     banner.style.transition = "opacity .25s ease, transform .25s ease";
     banner.style.opacity = "0";
     banner.style.transform = "translateY(12px)";
-    setTimeout(function(){ banner.style.display = "none"; }, 260);
+    setTimeout(function(){
+      banner.setAttribute("hidden", "");
+      banner.style.display = "";
+    }, 260);
   }
 
   function init(){
