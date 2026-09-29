@@ -2043,6 +2043,86 @@ html.dark .fb-cancel:hover {
       })();
     </script>
 
+    <!-- Pull-to-refresh -->
+    <div class="ptr-indicator" id="pullToRefresh">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12a9 9 0 1 1-3-6.7"></path>
+        <polyline points="21 3 21 9 15 9"></polyline>
+      </svg>
+    </div>
+    <script id="INLINE-PTR">
+(function(){
+  "use strict";
+  if (window.innerWidth > 768) return;
+
+  var ind = document.getElementById("pullToRefresh");
+  if (!ind) return;
+
+  var basY = 0;
+  var aktif = false;
+  var esik = 80;
+  var maxCek = 110;
+  var cekMesafe = 0;
+
+  function ustteMi(){
+    return (window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop) <= 1;
+  }
+
+  function basla(e){
+    if (!ustteMi()) { aktif = false; return; }
+    if (e.touches.length !== 1) { aktif = false; return; }
+    basY = e.touches[0].clientY;
+    aktif = true;
+    cekMesafe = 0;
+  }
+
+  function hareket(e){
+    if (!aktif) return;
+    var fark = e.touches[0].clientY - basY;
+    if (fark <= 0) {
+      aktif = false;
+      return;
+    }
+    // Fark cok buyukse gormezden gel (yukari dogru)
+    if (fark > 300) { aktif = false; return; }
+
+    cekMesafe = Math.min(fark * 0.5, maxCek);
+    var y = cekMesafe;
+    ind.style.transform = "translate(-50%, " + (y - 60) + "px)";
+    ind.style.opacity = String(Math.min(cekMesafe / esik, 1));
+    ind.classList.add("goster");
+
+    if (cekMesafe >= esik) {
+      ind.classList.add("dondur");
+    } else {
+      ind.classList.remove("dondur");
+    }
+
+    // Tarayici scroll'unu engelle
+    if (e.cancelable) e.preventDefault();
+  }
+
+  function bitir(){
+    if (!aktif) return;
+    aktif = false;
+    if (cekMesafe >= esik) {
+      ind.classList.add("dondur");
+      setTimeout(function(){ location.reload(); }, 320);
+    } else {
+      ind.classList.remove("goster", "dondur");
+      ind.style.transform = "translate(-50%, -60px)";
+      ind.style.opacity = "0";
+    }
+  }
+
+  document.addEventListener("touchstart", basla, { passive: true });
+  document.addEventListener("touchmove", hareket, { passive: false });
+  document.addEventListener("touchend", bitir, { passive: true });
+  document.addEventListener("touchcancel", bitir, { passive: true });
+})();
+</script>
+
+
 
 
 </body>

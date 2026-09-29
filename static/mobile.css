@@ -2088,3 +2088,28 @@ html {
   .login-hero h1 { font-size: 1.28rem !important; }
   .login-hero .hero-lead { font-size: 0.8rem !important; }
 }
+
+
+/* ============================================================
+   FINAL FIX - class tabanli gizleme
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Login card - gizli class'i ile gizle */
+  .login-card.gizli {
+    display: none !important;
+  }
+
+  /* Kayit kutusu - default gizli, aktif class ile goster */
+  .login-kayit-bilgi {
+    display: none !important;
+  }
+  .login-kayit-bilgi.aktif {
+    display: block !important;
+  }
+
+  /* Overscroll bounce'u engelle */
+  html, body {
+    overscroll-behavior-y: contain !important;
+  }
+}
