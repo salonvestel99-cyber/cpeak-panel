@@ -5,201 +5,224 @@
 
 <style>
 /* ============================================================
-   CPEAK_MOBILE_LOGIN_V4
-   Premium splash — mobil.
-   Masaüstü: hiçbir kural bu media query dışına çıkmaz.
+   CPEAK_MOBILE_LOGIN_V5 — Premium splash (tema-farkında)
+   Masaüstü: hiçbir kural @media dışına çıkmaz.
    ============================================================ */
 @media (max-width: 768px) {
 
+  /* ---------- SPLASH: scroll kilidi ---------- */
+  body.login-page { overflow: hidden !important; }
+  body.login-page.ml5-form-active { overflow: auto !important; }
+
   /* ---------- İSKELET ---------- */
-  body.login-page {
-    background: var(--bg, #fafaf9) !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-  }
-
   body.login-page .login-shell {
-    min-height: 100dvh;
-    min-height: 100svh;
-    display: flex !important;
-    flex-direction: column !important;
-    grid-template-rows: none !important;
+    min-height: 100dvh; min-height: 100svh;
+    display: flex !important; flex-direction: column !important;
   }
-
   body.login-page .login-wrap {
-    display: flex !important;
-    flex-direction: column !important;
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
+    display: flex !important; flex-direction: column !important;
+    flex: 1 1 auto !important; min-height: 0 !important;
     grid-template-columns: none !important;
   }
 
-  /* ---------- HERO: TAM EKRAN SPLASH ---------- */
+  /* ---------- HERO (grid: içerik + CTA) ---------- */
   body.login-page .login-hero {
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;   /* içerik orta, CTA en altta */
-    align-items: center !important;
-    padding: 32px 24px !important;
-    padding-top: max(32px, env(safe-area-inset-top)) !important;
-    padding-bottom: max(28px, env(safe-area-inset-bottom)) !important;
+    flex: 1 1 auto !important; min-height: 0 !important;
+    display: grid !important;
+    grid-template-rows: 1fr auto !important;
+    padding: 24px !important;
+    padding-top: max(24px, env(safe-area-inset-top)) !important;
+    padding-bottom: max(24px, env(safe-area-inset-bottom)) !important;
     overflow: hidden !important;
   }
 
-  /* İçerik: dikey ortalanmış, ortalanmış metin */
-  body.login-page .hero-content {
-    flex: 1 1 auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: 0 !important;
-    margin: 0 !important;
+  /* Tema: KOYU */
+  html[data-theme="dark"] body.login-page .login-hero,
+  html.dark body.login-page .login-hero {
+    background:
+      radial-gradient(circle at 50% 22%, rgba(232,118,90,.16), transparent 55%),
+      radial-gradient(circle at 50% 100%, rgba(232,118,90,.08), transparent 60%),
+      linear-gradient(180deg, #0f0f10 0%, #0a0a0c 60%, #050505 100%) !important;
+    color: #fff !important;
+  }
+  /* Tema: AÇIK (varsayılan) */
+  html:not([data-theme="dark"]) body.login-page .login-hero {
+    background:
+      radial-gradient(circle at 50% 22%, rgba(180,83,9,.07), transparent 55%),
+      radial-gradient(circle at 50% 100%, rgba(180,83,9,.04), transparent 60%),
+      linear-gradient(180deg, #fafaf9 0%, #f4f1ec 100%) !important;
+    color: #18181b !important;
   }
 
-  /* Splash'te yeri olmayanlar */
+  /* Splash'te olmayacaklar */
   body.login-page .hero-clock,
   body.login-page .hero-orb,
   body.login-page .hero-eyebrow,
-  body.login-page .hero-lead,
   body.login-page .hero-list,
   body.login-page .hero-stats { display: none !important; }
 
-  /* Görünürlük garantisi (bozuk animasyonlar kalıntısı) */
+  /* ---------- İÇERİK (dikey ortalı) ---------- */
+  body.login-page .hero-content {
+    grid-row: 1 !important;
+    display: flex !important; flex-direction: column !important;
+    justify-content: center !important; align-items: center !important;
+    text-align: center !important;
+    width: 100% !important; max-width: 100% !important;
+    margin: 0 !important; padding: 0 !important;
+    align-self: stretch !important;
+  }
+  /* Görünürlük garantisi (bozuk animasyon kalıntısı) */
   body.login-page .hero-content,
-  body.login-page .hero-content .hero-brand,
-  body.login-page .hero-content .hero-brand *,
-  body.login-page .hero-content .hero-typewriter {
-    opacity: 1 !important;
-    visibility: visible !important;
+  body.login-page .hero-content *:not(.tw-cursor) {
+    opacity: 1 !important; visibility: visible !important;
   }
-  /* İmleç yanıp sönsün */
+
+  /* ---------- MARKA ---------- */
+  body.login-page .hero-brand {
+    display: flex !important; flex-direction: column !important;
+    align-items: center !important;
+    gap: 22px !important;
+    margin: 0 0 30px !important;
+  }
+
+  /* Logo + ışıltı halosu */
+  body.login-page .hero-brand-mark {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important; justify-content: center !important;
+    width: 108px !important; height: 108px !important;
+  }
+  body.login-page .hero-brand-mark::before {
+    content: "" !important;
+    position: absolute !important; inset: -22px !important;
+    border-radius: 50% !important;
+    background: radial-gradient(circle,
+      rgba(232,118,90,.32) 0%,
+      rgba(232,118,90,.06) 45%,
+      transparent 70%) !important;
+    filter: blur(14px) !important; z-index: 0 !important;
+    animation: ml5-glow 4.5s ease-in-out infinite alternate !important;
+  }
+  @keyframes ml5-glow {
+    0%   { opacity: .70; transform: scale(0.96); }
+    100% { opacity: 1.00; transform: scale(1.08); }
+  }
+  body.login-page .hero-brand-mark img {
+    position: relative !important; z-index: 1 !important;
+    height: 100% !important; width: auto !important;
+    display: block !important; object-fit: contain !important;
+    filter: brightness(1.10) contrast(1.06) saturate(1.12)
+            drop-shadow(0 0 22px rgba(232,118,90,.42)) !important;
+  }
+
+  /* Marka metni */
+  body.login-page .hero-brand-text {
+    display: flex !important; flex-direction: column !important;
+    align-items: center !important; line-height: 1 !important;
+  }
+  body.login-page .hero-brand-title {
+    font-family: 'Fraunces', Georgia, serif !important;
+    font-size: 1.95rem !important; font-weight: 600 !important;
+    letter-spacing: -0.02em !important; color: inherit !important;
+  }
+  body.login-page .hero-brand-sub {
+    font-size: .68rem !important;
+    letter-spacing: .34em !important;
+    text-transform: uppercase !important;
+    margin-top: 8px !important; margin-left: .34em !important;
+    opacity: .55 !important; font-weight: 500 !important;
+    color: inherit !important;
+  }
+
+  /* Bakır ayraç (h1 üstünde) */
+  body.login-page .hero-typewriter::before,
+  body.login-page .hero-content h1::before {
+    content: "" !important;
+    display: block !important;
+    width: 40px !important; height: 1px !important;
+    background: linear-gradient(90deg, transparent, currentColor, transparent) !important;
+    opacity: .35 !important;
+    margin: 0 auto 22px !important;
+  }
+
+  /* Daktilo başlık */
+  body.login-page .hero-typewriter,
+  body.login-page .hero-content h1 {
+    font-family: 'Fraunces', Georgia, serif !important;
+    font-size: 1.40rem !important; line-height: 1.4 !important;
+    letter-spacing: -0.015em !important; font-weight: 500 !important;
+    max-width: 320px !important;
+    margin: 0 auto 16px !important;
+    min-height: 4.2em !important;
+    color: inherit !important;
+  }
+  body.login-page .hero-typewriter .tw-text { color: inherit !important; }
   body.login-page .hero-typewriter .tw-cursor {
-    animation: ml4-blink 1s step-end infinite !important;
+    color: var(--copper, #b45309) !important;
+    font-weight: 300 !important;
+    animation: ml5-blink 1s step-end infinite !important;
   }
-  @keyframes ml4-blink {
+  @keyframes ml5-blink {
     0%, 50%       { opacity: 1; }
     50.01%, 100%  { opacity: 0; }
   }
 
-  /* ---------- MARKA (logo + isim) dikey, ortada ---------- */
-  body.login-page .hero-brand {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 18px !important;
-    margin: 0 0 40px !important;
-  }
-  body.login-page .hero-brand-mark {
-    position: relative !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  body.login-page .hero-brand-mark img {
-    height: clamp(84px, 26vw, 120px) !important;
-    width: auto !important;
+  /* Lead (tagline) */
+  body.login-page .hero-lead {
     display: block !important;
-    filter: brightness(1.10) contrast(1.05) saturate(1.12)
-            drop-shadow(0 0 22px rgba(232,118,90,.42)) !important;
-  }
-  body.login-page .hero-brand-text {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    line-height: 1 !important;
-  }
-  body.login-page .hero-brand-title {
-    font-family: 'Fraunces', Georgia, serif !important;
-    font-size: 1.75rem !important;
-    font-weight: 600 !important;
-    letter-spacing: -0.02em !important;
-    color: #fff !important;
-  }
-  body.login-page .hero-brand-sub {
-    font-size: .72rem !important;
-    letter-spacing: .32em !important;
-    text-transform: uppercase !important;
-    color: rgba(255,255,255,.62) !important;
-    margin-top: 6px !important;
-  }
-
-  /* ---------- DAKTİLO BAŞLIK ---------- */
-  body.login-page .hero-typewriter,
-  body.login-page .hero-content h1 {
-    font-size: 1.42rem !important;
-    line-height: 1.35 !important;
-    letter-spacing: -0.015em !important;
-    font-weight: 500 !important;
-    max-width: 320px !important;
+    font-size: .82rem !important; line-height: 1.7 !important;
+    max-width: 290px !important;
     margin: 0 auto !important;
-    min-height: 3.6em !important;   /* yazarken zıplama olmasın */
-    color: #fff !important;
-  }
-  body.login-page .hero-typewriter .tw-text { color: #fff !important; }
-  body.login-page .hero-typewriter .tw-cursor {
-    color: var(--copper, #f59e0b) !important;
-    font-weight: 300 !important;
+    opacity: .60 !important;
+    color: inherit !important; font-weight: 400 !important;
   }
 
-  /* ---------- CTA (splash'in en altında) ---------- */
-  .ml4-cta { display: none !important; }
-  body.login-page .ml4-cta {
+  /* ---------- CTA (grid 2. satır, en altta) ---------- */
+  .ml5-cta { display: none !important; }
+  body.login-page .ml5-cta {
+    grid-row: 2 !important;
     display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    align-items: center !important; justify-content: center !important;
     gap: 10px !important;
-    flex: 0 0 auto !important;
-    width: 100% !important;
-    max-width: 380px !important;
-    margin: 0 auto !important;
+    width: 100% !important; max-width: 100% !important;
+    margin: 0 !important;
     padding: 18px 24px !important;
-    background: linear-gradient(
-      135deg,
-      var(--copper, #b45309) 0%,
-      var(--copper-2, #92400e) 100%
-    ) !important;
+    background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%) !important;
     color: #fff !important;
-    border: none !important;
-    border-radius: 16px !important;
+    border: none !important; border-radius: 16px !important;
     font-family: inherit !important;
-    font-size: 1.05rem !important;
-    font-weight: 600 !important;
-    letter-spacing: .01em !important;
+    font-size: 1.02rem !important; font-weight: 600 !important;
+    letter-spacing: .015em !important;
     cursor: pointer !important;
     box-shadow:
-      0 14px 30px -8px rgba(180,83,9,.55),
-      0 2px 8px rgba(0,0,0,.10) !important;
+      0 16px 32px -10px rgba(180,83,9,.55),
+      0 4px 12px -4px rgba(0,0,0,.15),
+      inset 0 1px 0 rgba(255,255,255,.16) !important;
     -webkit-tap-highlight-color: transparent !important;
-    transition: transform .14s ease, box-shadow .14s ease !important;
+    position: relative !important; overflow: hidden !important;
+    transition: transform .15s ease !important;
   }
-  body.login-page .ml4-cta:active {
-    transform: scale(.985) !important;
-    box-shadow: 0 8px 20px -6px rgba(180,83,9,.45) !important;
+  body.login-page .ml5-cta::before {
+    content: "" !important;
+    position: absolute !important; inset: 0 !important;
+    background: linear-gradient(180deg, rgba(255,255,255,.14) 0%, transparent 55%) !important;
+    pointer-events: none !important;
   }
-  body.login-page .ml4-cta svg { width: 18px !important; height: 18px !important; }
+  body.login-page .ml5-cta:active { transform: scale(.985) !important; }
+  body.login-page .ml5-cta svg { width: 18px !important; height: 18px !important; }
 
   /* ---------- FORM EKRANI ---------- */
   body.login-page .login-main {
     display: none !important;
     flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
+    justify-content: center !important; align-items: center !important;
+    flex: 1 1 auto !important; min-height: 0 !important;
     padding: 76px 20px 40px !important;
     padding-top: max(76px, calc(env(safe-area-inset-top) + 60px)) !important;
     background: var(--bg, #fafaf9) !important;
   }
-
   body.login-page .login-card {
-    width: 100% !important;
-    max-width: 420px !important;
+    width: 100% !important; max-width: 420px !important;
     margin: 0 auto !important;
     padding: 26px 22px !important;
     border-radius: 18px !important;
@@ -209,121 +232,102 @@
       0 4px 24px -8px rgba(24,24,27,.10),
       0 1px 3px rgba(24,24,27,.04) !important;
   }
-  body.login-page .login-card h2   { font-size: 1.4rem !important; }
+  body.login-page .login-card h2    { font-size: 1.4rem !important; }
   body.login-page .login-card .lead { font-size: .92rem !important; }
   body.login-page .login-card input,
   body.login-page .login-card select { font-size: 16px !important; }
 
-  body.login-page.ml4-form-active .login-hero { display: none !important; }
-  body.login-page.ml4-form-active .login-main { display: flex !important; }
+  body.login-page.ml5-form-active .login-hero { display: none !important; }
+  body.login-page.ml5-form-active .login-main { display: flex !important; }
 
-  /* ---------- GERİ BUTONU ---------- */
-  .ml4-back { display: none !important; }
-  body.login-page.ml4-form-active .ml4-back {
+  /* ---------- GERİ ---------- */
+  .ml5-back { display: none !important; }
+  body.login-page.ml5-form-active .ml5-back {
     display: inline-flex !important;
     position: fixed;
-    top: max(14px, env(safe-area-inset-top));
-    left: 14px;
-    z-index: 1200;
-    align-items: center;
-    gap: 6px;
+    top: max(14px, env(safe-area-inset-top)); left: 14px; z-index: 1200;
+    align-items: center; gap: 6px;
     padding: 9px 16px 9px 12px;
     background: rgba(255,255,255,.94);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     border: 1px solid var(--border, #e4e4e7);
     border-radius: 999px;
     color: var(--ink, #18181b);
-    font-family: inherit;
-    font-size: .87rem;
-    font-weight: 500;
+    font-family: inherit; font-size: .87rem; font-weight: 500;
     cursor: pointer;
     box-shadow: 0 4px 14px rgba(24,24,27,.08);
-    -webkit-tap-highlight-color: transparent;
     transition: transform .15s ease;
   }
-  body.login-page.ml4-form-active .ml4-back:active { transform: scale(.96); }
-  body.login-page.ml4-form-active .ml4-back svg { width: 16px; height: 16px; }
+  body.login-page.ml5-form-active .ml5-back:active { transform: scale(.96); }
+  body.login-page.ml5-form-active .ml5-back svg { width: 16px; height: 16px; }
 
-  /* ---------- FOOTER ---------- */
+  /* ---------- FOOTER: splash'te gizli ---------- */
+  body.login-page:not(.ml5-form-active) .login-footer-bar { display: none !important; }
   body.login-page .login-footer-bar { padding: 10px 16px !important; }
   body.login-page .login-footer-bar .footer-contact { display: none !important; }
 }
 </style>
 <script>
-/* ============================================================
-   CPEAK_MOBILE_LOGIN_V4 — davranış
-   1) Typewriter (masaüstü + mobil)
-   2) Sayaç (masaüstü)
-   3) Mobil hero→form geçişi
-   Eski ml3-* kalıntıları temizlenir.
-   ============================================================ */
+/* CPEAK_MOBILE_LOGIN_V5 — davranış katmanı */
 (function () {
   "use strict";
 
-  /* ---------- TEMİZLİK: eski ml3 kalıntıları ---------- */
-  (function temizle() {
-    ["ml3-cta", "ml3-back"].forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el && el.parentNode) el.parentNode.removeChild(el);
-    });
-  })();
+  /* Eski sürüm kalıntıları temizlensin */
+  ["ml3-cta","ml3-back","ml4-cta","ml4-back"].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el && el.parentNode) el.parentNode.removeChild(el);
+  });
 
-  /* ---------- 1) TYPEWRITER ---------- */
-  (function typewriter() {
-    function calistir() {
+  /* ---------- TYPEWRITER ---------- */
+  (function(){
+    function calistir(){
       var h1 = document.querySelector(".hero-typewriter");
       if (!h1) return false;
       var hedef = h1.getAttribute("data-metin");
       if (!hedef) return false;
-
       var span = h1.querySelector(".tw-text");
-      if (!span) {
+      if (!span){
         span = document.createElement("span");
         span.className = "tw-text";
         h1.insertBefore(span, h1.firstChild);
       }
       if (span.textContent === hedef) return true;
-
       span.textContent = "";
       var i = 0, hiz = 42;
-      function yaz() {
-        if (i < hedef.length) {
+      function yaz(){
+        if (i < hedef.length){
           span.textContent += hedef.charAt(i);
           i++;
           setTimeout(yaz, hiz);
         }
       }
-      setTimeout(yaz, 260);
+      setTimeout(yaz, 300);
       return true;
     }
-    function dene() {
+    function dene(){
       if (calistir()) return;
       setTimeout(calistir, 400);
       setTimeout(calistir, 1200);
     }
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", dene);
-    } else {
-      dene();
-    }
+    } else { dene(); }
   })();
 
-  /* ---------- 2) SAYAÇ ---------- */
-  (function counter() {
+  /* ---------- SAYAÇ ---------- */
+  (function(){
     var oynadi = false;
-    function baslat() {
-      if (oynadı) return;
+    function baslat(){
+      if (oynadi) return;
       var els = document.querySelectorAll("[data-count]");
       if (!els.length) return;
-      oynadı = true;
-      els.forEach(function (el) {
+      oynadi = true;
+      els.forEach(function(el){
         var hedef = parseInt(el.getAttribute("data-count"), 10);
         var suffix = el.getAttribute("data-suffix") || "";
         if (isNaN(hedef)) return;
-        var sure = 1400;
-        var t0 = performance.now();
-        function adim(t) {
+        var sure = 1400, t0 = performance.now();
+        function adim(t){
           var gecen = Math.min(t - t0, sure);
           var oran = gecen / sure;
           var ease = 1 - Math.pow(1 - oran, 3);
@@ -335,45 +339,41 @@
       });
     }
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", function () { setTimeout(baslat, 550); });
-    } else {
-      setTimeout(baslat, 550);
-    }
+      document.addEventListener("DOMContentLoaded", function(){ setTimeout(baslat, 600); });
+    } else { setTimeout(baslat, 600); }
   })();
 
-  /* ---------- 3) MOBİL GEÇİŞ ---------- */
-  (function mobilGecis() {
-    function isMobile() {
+  /* ---------- MOBİL GEÇİŞ ---------- */
+  (function(){
+    function isMobile(){
       return window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
     }
-    function kur() {
+    function kur(){
       if (!isMobile()) return;
       var body = document.body;
       if (!body.classList.contains("login-page")) return;
-
       var hero = document.querySelector(".login-hero");
       var main = document.querySelector(".login-main");
       var card = document.querySelector(".login-card");
       if (!hero || !main) return;
 
-      // CTA — doğrudan hero'nun çocuğu (space-between alt öğe olarak dursun)
-      if (!document.getElementById("ml4-cta")) {
+      if (!document.getElementById("ml5-cta")){
         var cta = document.createElement("button");
         cta.type = "button";
-        cta.id = "ml4-cta";
-        cta.className = "ml4-cta";
+        cta.id = "ml5-cta";
+        cta.className = "ml5-cta";
         cta.innerHTML =
           '<span>Giriş Yap</span>' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
           'stroke-linecap="round" stroke-linejoin="round">' +
           '<line x1="5" y1="12" x2="19" y2="12"></line>' +
           '<polyline points="12 5 19 12 12 19"></polyline></svg>';
-        cta.addEventListener("click", function () {
-          body.classList.add("ml4-form-active");
-          window.scrollTo(0, 0);
+        cta.addEventListener("click", function(){
+          body.classList.add("ml5-form-active");
+          window.scrollTo(0,0);
           var input = document.getElementById("tcInput");
           if (input) {
-            setTimeout(function () {
+            setTimeout(function(){
               try { input.focus({ preventScroll: true }); } catch (e) { input.focus(); }
             }, 240);
           }
@@ -381,12 +381,11 @@
         hero.appendChild(cta);
       }
 
-      // Geri
-      if (!document.getElementById("ml4-back")) {
+      if (!document.getElementById("ml5-back")){
         var back = document.createElement("button");
         back.type = "button";
-        back.id = "ml4-back";
-        back.className = "ml4-back";
+        back.id = "ml5-back";
+        back.className = "ml5-back";
         back.setAttribute("aria-label", "Geri dön");
         back.innerHTML =
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
@@ -394,36 +393,33 @@
           '<line x1="19" y1="12" x2="5" y2="12"></line>' +
           '<polyline points="12 19 5 12 12 5"></polyline></svg>' +
           '<span>Geri</span>';
-        back.addEventListener("click", function () {
-          body.classList.remove("ml4-form-active");
-          window.scrollTo(0, 0);
+        back.addEventListener("click", function(){
+          body.classList.remove("ml5-form-active");
+          window.scrollTo(0,0);
         });
         if (card && card.parentNode) card.parentNode.insertBefore(back, card);
         else main.insertBefore(back, main.firstChild);
       }
     }
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", function () { setTimeout(kur, 50); });
-    } else {
-      setTimeout(kur, 50);
-    }
+      document.addEventListener("DOMContentLoaded", function(){ setTimeout(kur, 50); });
+    } else { setTimeout(kur, 50); }
     setTimeout(kur, 350);
     setTimeout(kur, 1200);
 
-    // resize
     var sonMobil = isMobile();
-    window.addEventListener("resize", function () {
+    window.addEventListener("resize", function(){
       var simdi = isMobile();
-      if (simdi !== sonMobil) {
+      if (simdi !== sonMobil){
         sonMobil = simdi;
         if (simdi) kur();
-        else document.body.classList.remove("ml4-form-active");
+        else document.body.classList.remove("ml5-form-active");
       }
     });
   })();
 })();
 </script>
-<!-- /CPEAK_MOBILE_LOGIN_V4 -->
+<!-- /CPEAK_MOBILE_LOGIN_V5 -->
 
 
 <a href="#" class="theme-toggle theme-toggle-float" data-theme-toggle aria-label="Tema değiştir" title="Koyu / Aydınlık mod" onclick="event.preventDefault();">
