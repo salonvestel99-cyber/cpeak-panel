@@ -998,9 +998,6 @@ html.dark #cookieBanner .cookie-btn-primary {
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </div>
         <div class="ud-m">
-          {% if session.role == "admin" %}
-          <a href="{{ url_for('admin_mail_gonder') }}" class="ud-i"><span>Mail Gonder</span></a>
-          {% endif %}
           <div class="ud-h">
             <span class="ud-h-av">{{ (session.name or "K")[0]|upper }}</span>
             <div class="ud-h-in">
@@ -1012,6 +1009,12 @@ html.dark #cookieBanner .cookie-btn-primary {
             <span class="ud-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg></span>
             <span class="ud-tx">Panel</span>
           </a>
+          {% if session.role == "admin" %}
+          <a class="ud-i" href="{{ url_for('admin_mail_gonder') }}">
+            <span class="ud-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+            <span class="ud-tx">Mail Gönder</span>
+          </a>
+          {% endif %}
           <a class="ud-i" href="/sifre-degistir">
             <span class="ud-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
             <span class="ud-tx">Şifre değiştir</span>
