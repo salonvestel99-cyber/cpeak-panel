@@ -387,3 +387,55 @@
     display: none !important;
   }
 }
+
+
+/* ============================================================
+   Ders Programi Mobil Duzeltmesi
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Program grid'i mobilde dikey listeye cevir */
+  .program-grid,
+  .schedule-grid,
+  .timetable,
+  .ders-programi,
+  table.program {
+    display: block !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Grid tablo hucresini scroll edilebilir yap */
+  .program-grid table,
+  .schedule-grid table,
+  table.program {
+    min-width: 620px !important;   /* hucreler ezilmesin */
+    width: auto !important;
+  }
+
+  .program-grid th,
+  .program-grid td,
+  .schedule-grid th,
+  .schedule-grid td,
+  table.program th,
+  table.program td {
+    min-width: 90px !important;
+    font-size: 0.78rem !important;
+    padding: 8px 6px !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+
+  /* Sol sutun (saat) daha dar kalsin */
+  .program-grid td:first-child,
+  .program-grid th:first-child,
+  table.program td:first-child,
+  table.program th:first-child {
+    min-width: 56px !important;
+    font-weight: 700 !important;
+    position: sticky !important;
+    left: 0 !important;
+    background: var(--bg, #fff) !important;
+    z-index: 1 !important;
+  }
+}
