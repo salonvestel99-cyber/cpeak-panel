@@ -949,6 +949,7 @@ html.dark #cookieBanner .cookie-btn-primary {
         setTimeout(uygula, 1200);
       });
     </script>
+<link rel="stylesheet" href="{{ url_for('static', filename='mobil_pro.css') }}?v=MOBIL_PRO_V1">
 </head>
 <body class="{% block body_class %}{% endblock %}">
 {% block body %}
@@ -2042,5 +2043,6 @@ html.dark .fb-cancel:hover {
         });
       })();
     </script>
+<script src="{{ url_for('static', filename='mobil_pro.js') }}?v=MOBIL_PRO_V1" defer></script>
 </body>
 </html>

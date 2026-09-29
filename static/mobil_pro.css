@@ -1,0 +1,455 @@
+/* ============================================================
+   C-Peak · MOBİL PRO KATMANI v1
+   Tüm kurallar @media (max-width: 900px) içinde.
+   Masaüstü düzeni HİÇ etkilenmez.
+   ============================================================ */
+
+/* ---------- 0) AYARLAR ---------- */
+:root {
+  --mpro-tab-h: 62px;
+  --mpro-topbar-h: 56px;
+}
+
+@media (max-width: 900px) {
+
+  /* ---------- 0.1) SAFE-AREA + TEMEL ---------- */
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    padding-bottom: env(safe-area-inset-bottom) !important;
+    overflow-x: hidden !important;
+  }
+  /* Topbar ve tab bar hariç tüm main içerik tab bar'ın üstünde kalsın */
+  body.mpro-has-tab main,
+  body.mpro-has-tab .container,
+  body.mpro-has-tab .wrapper {
+    padding-bottom: calc(var(--mpro-tab-h) + env(safe-area-inset-bottom) + 16px) !important;
+  }
+
+  /* ---------- 0.2) DOKUNMA GERİ BİLDİRİMİ ---------- */
+  button, a.btn, a.btn-primary, a.btn-ghost, .btn-primary, .btn-ghost,
+  .btn-mini, .qa-btn, .st-quick-card, .tp-quick-card, .admin-tab,
+  .odev-card, .card {
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .12s ease, box-shadow .15s ease,
+                background-color .15s ease !important;
+  }
+  button:active, a.btn:active, .btn-primary:active, .btn-ghost:active,
+  .btn-mini:active, .qa-btn:active, .admin-tab:active,
+  .st-quick-card:active, .tp-quick-card:active, .odev-card:active {
+    transform: scale(.975) !important;
+  }
+
+  /* ---------- 0.3) TOPBAR / HAMBURGER ---------- */
+  .topbar {
+    height: var(--mpro-topbar-h) !important;
+    min-height: var(--mpro-topbar-h) !important;
+    padding-top: env(safe-area-inset-top) !important;
+  }
+  .topbar-inner {
+    padding: 0 14px !important;
+    height: var(--mpro-topbar-h) !important;
+    gap: 10px !important;
+  }
+
+  /* Hamburger butonu (JS ekler) */
+  .mpro-hamburger {
+    display: none;
+    align-items: center; justify-content: center;
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.10);
+    color: #fff;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+  }
+  body.mpro-has-nav .mpro-hamburger { display: inline-flex; }
+  .mpro-hamburger:active { transform: scale(.94); background: rgba(255,255,255,.12); }
+  .mpro-hamburger svg { width: 20px; height: 20px; }
+
+  /* Masaüstü nav'ı mobilde gizle */
+  body.mpro-has-nav .topbar-nav { display: none !important; }
+  body.mpro-has-nav .topbar-user-info { display: none !important; }
+
+  /* ---------- 0.4) DRAWER (slide-in) ---------- */
+  .mpro-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .22s ease;
+    z-index: 1800;
+  }
+  body.mpro-drawer-open .mpro-backdrop,
+  body.mpro-sheet-open .mpro-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mpro-drawer {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: min(82vw, 320px);
+    background: #131316;
+    border-right: 1px solid rgba(255,255,255,.06);
+    padding: calc(env(safe-area-inset-top) + 20px) 20px 24px;
+    transform: translateX(-100%);
+    transition: transform .26s cubic-bezier(.22,.9,.28,1);
+    z-index: 1900;
+    overflow-y: auto;
+    box-shadow: 8px 0 32px rgba(0,0,0,.28);
+    display: flex; flex-direction: column;
+    gap: 4px;
+  }
+  body.mpro-drawer-open .mpro-drawer { transform: translateX(0); }
+
+  .mpro-drawer-head {
+    display: flex; align-items: center; gap: 12px;
+    padding-bottom: 16px; margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .mpro-drawer-head img { height: 36px; width: auto; }
+  .mpro-drawer-head .mpro-drawer-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.1rem; font-weight: 600;
+    color: #fff; line-height: 1.1;
+    display: flex; flex-direction: column;
+  }
+  .mpro-drawer-head .mpro-drawer-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: .58rem; letter-spacing: .28em; text-transform: uppercase;
+    opacity: .55; font-weight: 500; margin-top: 4px;
+  }
+
+  .mpro-drawer a,
+  .mpro-drawer button.mpro-drawer-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 14px;
+    border-radius: 10px;
+    color: rgba(255,255,255,.82);
+    text-decoration: none;
+    font-family: inherit; font-size: .95rem; font-weight: 500;
+    background: none; border: none;
+    text-align: left; width: 100%;
+    cursor: pointer;
+    transition: background-color .14s, color .14s, transform .12s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mpro-drawer a:hover,
+  .mpro-drawer button.mpro-drawer-item:hover {
+    background: rgba(255,255,255,.06);
+    color: #fff;
+  }
+  .mpro-drawer a:active,
+  .mpro-drawer button.mpro-drawer-item:active {
+    transform: scale(.98);
+    background: rgba(255,255,255,.10);
+  }
+  .mpro-drawer a.mpro-active,
+  .mpro-drawer button.mpro-active {
+    background: rgba(217,119,6,.14);
+    color: #f59e0b;
+  }
+  .mpro-drawer-sep {
+    height: 1px; background: rgba(255,255,255,.08);
+    margin: 10px 6px;
+  }
+
+  /* ---------- 0.5) BOTTOM TAB BAR ---------- */
+  .mpro-tabbar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    height: calc(var(--mpro-tab-h) + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    background: rgba(19,19,22,.94);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-top: 1px solid rgba(255,255,255,.07);
+    z-index: 1700;
+    display: none;
+    box-shadow: 0 -4px 18px rgba(0,0,0,.22);
+  }
+  body.mpro-has-tab .mpro-tabbar { display: flex; }
+
+  .mpro-tabbar-inner {
+    display: flex; align-items: stretch; justify-content: space-around;
+    width: 100%; height: var(--mpro-tab-h);
+  }
+  .mpro-tab {
+    flex: 1 1 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 3px;
+    color: rgba(255,255,255,.55);
+    text-decoration: none;
+    font-family: inherit; font-size: .62rem; font-weight: 500;
+    letter-spacing: .01em;
+    padding: 6px 4px;
+    border: none; background: none; cursor: pointer;
+    transition: color .15s, transform .12s;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .mpro-tab svg {
+    width: 20px; height: 20px;
+    stroke: currentColor; fill: none;
+    stroke-width: 1.9;
+  }
+  .mpro-tab:active { transform: scale(.94); }
+  .mpro-tab.mpro-active {
+    color: #f59e0b;
+  }
+  .mpro-tab.mpro-active::before {
+    content: "";
+    position: absolute; top: 4px;
+    width: 22px; height: 2px;
+    background: #f59e0b; border-radius: 2px;
+    box-shadow: 0 0 12px rgba(245,158,11,.6);
+  }
+
+  /* ---------- 0.6) MODAL → BOTTOM SHEET ---------- */
+  .modal {
+    align-items: flex-end !important;
+    justify-content: center !important;
+    padding: 0 !important;
+  }
+  .modal-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 22px 22px 0 0 !important;
+    padding: 22px 20px calc(20px + env(safe-area-inset-bottom)) !important;
+    max-height: 88dvh !important;
+    overflow-y: auto !important;
+    transform: translateY(100%);
+    transition: transform .3s cubic-bezier(.22,.9,.28,1);
+    will-change: transform;
+  }
+  body.mpro-sheet-open .modal-card { transform: translateY(0); }
+  /* Modal içi kapatma tırtığı */
+  .mpro-sheet-handle {
+    width: 40px; height: 4px;
+    background: rgba(0,0,0,.14);
+    border-radius: 4px;
+    margin: 0 auto 12px;
+    display: block;
+  }
+  [data-theme="dark"] .mpro-sheet-handle,
+  html.dark .mpro-sheet-handle { background: rgba(255,255,255,.20); }
+
+  /* ---------- 0.7) TABLOLAR → KART ---------- */
+  /* .table-wrap içindeki tablolar için sütun sıkışsa bile okunur kalsın */
+  .table-wrap {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin: 0 -2px;
+  }
+  .table-wrap table {
+    min-width: 520px; /* çok dar tabloyu zorlaştırmasın */
+  }
+  /* Eğer tablo data-mpro-card işaretliyse kart görünümüne geç */
+  table[data-mpro-card] {
+    min-width: 0 !important;
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+  }
+  table[data-mpro-card] thead { display: none !important; }
+  table[data-mpro-card] tr {
+    display: block !important;
+    background: var(--surface, #fff);
+    border: 1px solid var(--border, #e4e4e7);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  }
+  table[data-mpro-card] td {
+    display: flex !important;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 6px 0 !important;
+    border: none !important;
+    font-size: .88rem !important;
+    text-align: right !important;
+  }
+  table[data-mpro-card] td::before {
+    content: attr(data-label);
+    font-size: .72rem !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted, #71717a);
+    text-align: left;
+    flex: 0 0 auto;
+    max-width: 45%;
+    line-height: 1.5;
+  }
+  table[data-mpro-card] td:first-child {
+    font-weight: 600;
+    font-size: .95rem !important;
+    color: var(--ink, #18181b);
+    padding-bottom: 10px !important;
+    border-bottom: 1px solid var(--border, #e4e4e7) !important;
+    margin-bottom: 6px;
+  }
+  table[data-mpro-card] td:first-child::before { display: none; }
+
+  /* ---------- 0.8) FORM ROW TEK SÜTUN ---------- */
+  .form-row,
+  .not-filter-form .form-row,
+  .admin-form .form-row {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .form-row label.full { grid-column: auto !important; }
+  .filter-button {
+    display: block !important;
+    width: 100% !important;
+  }
+  .filter-button button,
+  .filter-button .btn-primary,
+  .filter-button .btn-ghost {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* ---------- 0.9) KARTLAR TEK SÜTUN ---------- */
+  .odev-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .ders-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .stat-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-stats-row {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .as-item {
+    flex: 1 1 calc(50% - 8px) !important;
+    min-width: 0 !important;
+  }
+
+  /* ---------- 0.10) ADMIN SEKMELERİ ---------- */
+  .admin-tabs {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 6px !important;
+    gap: 6px !important;
+    scrollbar-width: none;
+  }
+  .admin-tabs::-webkit-scrollbar { display: none; }
+  .admin-tab {
+    scroll-snap-align: start;
+    flex: 0 0 auto !important;
+    padding: 9px 14px !important;
+    font-size: .85rem !important;
+    white-space: nowrap !important;
+  }
+  .admin-tab.is-active {
+    background: var(--copper, #b45309) !important;
+    color: #fff !important;
+  }
+
+  /* ---------- 0.11) BİLDİRİM / ÖDEV KARTLARI ---------- */
+  .bl-kart, .bm-kart {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    padding: 14px !important;
+  }
+  .bl-aksiyonlar {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    min-width: 0 !important;
+    gap: 8px !important;
+  }
+  .bl-aksiyonlar form { flex: 1 1 calc(50% - 4px) !important; }
+  .bl-btn { width: 100% !important; }
+  .bl-tabs { gap: 4px !important; }
+  .bl-tab { padding: 7px 11px !important; font-size: .78rem !important; }
+
+  /* ---------- 0.12) ŞİFRE DEĞİŞTİR / LEGAL ---------- */
+  .pwd-page { padding: 0 14px !important; margin: 24px auto 48px !important; }
+  .pwd-card { padding: 22px 18px !important; }
+  .legal-page { padding: 24px 14px 60px !important; }
+  .mail-page { padding: 0 !important; }
+  .mail-hero { padding: 20px 18px !important; }
+  .mail-card { padding: 20px 16px !important; }
+
+  /* ---------- 0.13) WHATSAPP FLOAT (tab bar üstüne çıkmasın) ---------- */
+  body.mpro-has-tab .whatsapp-float {
+    bottom: calc(var(--mpro-tab-h) + env(safe-area-inset-bottom) + 14px) !important;
+  }
+  /* Sorun bildir FAB da aynı */
+  body.mpro-has-tab .fb-fab {
+    bottom: calc(var(--mpro-tab-h) + env(safe-area-inset-bottom) + 14px) !important;
+  }
+
+  /* ---------- 0.14) LOADING STATE ---------- */
+  button.mpro-loading,
+  .btn-primary.mpro-loading {
+    position: relative !important;
+    color: transparent !important;
+    pointer-events: none !important;
+  }
+  button.mpro-loading::after,
+  .btn-primary.mpro-loading::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 18px; height: 18px;
+    margin: -9px 0 0 -9px;
+    border: 2px solid rgba(255,255,255,.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: mpro-spin .7s linear infinite;
+  }
+  @keyframes mpro-spin { to { transform: rotate(360deg); } }
+
+  /* ---------- 0.15) HEADER / PAGE-HEAD ---------- */
+  .page-head { padding: 18px 14px 14px !important; }
+  .panel-hero {
+    padding: 20px 16px !important;
+    border-radius: 14px !important;
+  }
+  .panel-hero-greet { font-size: 1.25rem !important; }
+
+  .st-hero, .tp-hero {
+    padding: 22px 0 18px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+  }
+  .st-hero-avatar, .tp-hero-avatar { align-self: flex-end !important; }
+
+  /* ---------- 0.16) TOPBAR MENÜ AÇILINCA SCROLL KİLİT ---------- */
+  body.mpro-drawer-open,
+  body.mpro-sheet-open {
+    overflow: hidden !important;
+  }
+
+  /* ---------- 0.17) iOS input zoom engeli (genel) ---------- */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Çok küçük ekran: 380px altı */
+@media (max-width: 380px) {
+  .mpro-tab { font-size: .58rem !important; }
+  .mpro-tab svg { width: 18px !important; height: 18px !important; }
+  .mpro-tabbar { --mpro-tab-h: 58px; }
+}
