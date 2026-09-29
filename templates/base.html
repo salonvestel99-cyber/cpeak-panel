@@ -492,8 +492,7 @@ html[data-theme="light"] .bell-btn {
   transform: translateY(-4px);
   transition: opacity .18s ease, transform .18s ease, visibility .18s;
 }
-.ud:hover .ud-m,
-.ud:focus-within .ud-m {
+.ud.open .ud-m {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -2001,8 +2000,49 @@ html.dark .fb-cancel:hover {
 })();
 </script>
 <!-- /CKJS-INLINE -->
-    <!-- Dropdown duzeltmesi -->
-    <script src="{{ url_for('static', filename='dropdown-fix.js') }}" defer></script>
+
+    <script id="ud-t-js-toggle">
+      (function(){
+        "use strict";
+
+        function hepsiniKapat(haric){
+          document.querySelectorAll(".ud.open").forEach(function(el){
+            if (el !== haric) el.classList.remove("open");
+          });
+        }
+
+        function toggle(e){
+          var btn = e.target.closest && e.target.closest(".ud-t");
+          if (!btn) return;
+          e.preventDefault();
+          e.stopPropagation();
+
+          var parent = btn.parentElement;
+          var acikti = parent.classList.contains("open");
+
+          hepsiniKapat(parent);
+          if (acikti) {
+            parent.classList.remove("open");
+          } else {
+            parent.classList.add("open");
+          }
+        }
+
+        // Click + touch ayni handler ile (touch'ta click de tetiklenir)
+        document.addEventListener("click", function(e){
+          var btn = e.target.closest && e.target.closest(".ud-t");
+          if (btn) { toggle(e); return; }
+          // Disari tiklandiysa kapat
+          if (!e.target.closest || !e.target.closest(".ud")) hepsiniKapat(null);
+        }, true);
+
+        // ESC ile kapat
+        document.addEventListener("keydown", function(e){
+          if (e.key === "Escape" || e.keyCode === 27) hepsiniKapat(null);
+        });
+      })();
+    </script>
+
 
 
 </body>
