@@ -3,6 +3,383 @@
 {% block body_class %}login-page{% endblock %}
 {% block body %}
 
+<style>
+/* ============================================================
+   CPEAK_MOBILE_LOGIN_V1
+   C-PEAK · MOBİL GİRİŞ EKRANI (sadece max-width: 768px)
+   Tema renkleri: #e8765a (coral), #0a0a0c (bg), #fafaf9 (text)
+   Fontlar: Fraunces (başlık) + Inter (gövde)
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* ---------- 1. SAYFA ZEMİNİ ---------- */
+  body.login-page {
+    background: #0a0a0c !important;
+    min-height: 100dvh !important;
+    margin: 0 !important;
+  }
+
+  .login-page .login-shell {
+    min-height: 100dvh !important;
+    min-height: 100svh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 20px !important;
+    padding-top: max(20px, env(safe-area-inset-top)) !important;
+    padding-bottom: max(20px, env(safe-area-inset-bottom)) !important;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(232,118,90,.14), transparent 55%),
+      radial-gradient(circle at 100% 100%, rgba(232,118,90,.06), transparent 55%),
+      #0a0a0c !important;
+    overflow: hidden !important;
+  }
+
+  /* ---------- 2. HERO'YU MOBİLDE TAMAMEN GİZLE ---------- */
+  .login-page .login-hero,
+  .login-page .hero-orb,
+  .login-page .hero-clock {
+    display: none !important;
+  }
+
+  /* ---------- 3. WRAP TEK SÜTUN ---------- */
+  .login-page .login-wrap {
+    display: block !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    margin: 0 auto !important;
+    grid-template-columns: 1fr !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    min-height: auto !important;
+  }
+
+  .login-page .login-main {
+    width: 100% !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  /* ---------- 4. KART ---------- */
+  .login-page .login-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 36px 24px 28px !important;
+    background: rgba(24,24,27,.72) !important;
+    border: 1px solid rgba(232,118,90,.18) !important;
+    border-radius: 22px !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.05) inset,
+      0 30px 60px -24px rgba(0,0,0,.7),
+      0 0 0 1px rgba(255,255,255,.02) !important;
+    backdrop-filter: blur(24px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
+    color: #fafaf9 !important;
+  }
+
+  .login-page .login-card::before {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 18px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #e8765a 0%, #d65f43 100%);
+    box-shadow: 0 10px 20px -8px rgba(232,118,90,.6);
+  }
+
+  /* ---------- 5. BAŞLIK ---------- */
+  .login-page .login-card h2 {
+    font-family: 'Fraunces', Georgia, serif !important;
+    font-size: 28px !important;
+    font-weight: 500 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.02em !important;
+    color: #fafaf9 !important;
+    text-align: center !important;
+    margin: 0 0 8px !important;
+  }
+
+  .login-page .login-card .lead {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+    color: #a1a1aa !important;
+    text-align: center !important;
+    margin: 0 0 26px !important;
+  }
+
+  /* ---------- 6. ETİKETLER ---------- */
+  .login-page .login-card label {
+    display: block !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 11.5px !important;
+    font-weight: 600 !important;
+    letter-spacing: .06em !important;
+    text-transform: uppercase !important;
+    color: #71717a !important;
+    margin: 0 0 8px 2px !important;
+    padding: 0 !important;
+  }
+
+  /* ---------- 7. INPUT'LAR ---------- */
+  .login-page .login-card input[type="text"],
+  .login-page .login-card input[type="password"],
+  .login-page .login-card input[type="email"],
+  .login-page .login-card input[type="number"],
+  .login-page .login-card input:not([type="checkbox"]):not([type="hidden"]):not([type="submit"]) {
+    width: 100% !important;
+    padding: 15px 16px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: #fafaf9 !important;
+    background: rgba(255,255,255,.04) !important;
+    border: 1px solid rgba(255,255,255,.08) !important;
+    border-radius: 14px !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: border-color .2s, background .2s, box-shadow .2s !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    box-sizing: border-box !important;
+    min-height: 52px !important;
+  }
+
+  .login-page .login-card input::placeholder {
+    color: #52525b !important;
+    font-weight: 400 !important;
+  }
+
+  .login-page .login-card input:focus {
+    border-color: rgba(232,118,90,.6) !important;
+    background: rgba(255,255,255,.06) !important;
+    box-shadow: 0 0 0 4px rgba(232,118,90,.16) !important;
+  }
+
+  .login-page .login-card .input-eye,
+  .login-page .login-card #togglePw {
+    color: #71717a !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 10px !important;
+    border-radius: 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: none !important;
+    border: none !important;
+    transition: color .15s !important;
+  }
+  .login-page .login-card .input-eye:active {
+    color: #e8765a !important;
+  }
+
+  /* ---------- 8. FORM ARALIKLARI ---------- */
+  .login-page .login-card form { margin: 0 !important; }
+  .login-page .login-card form > * + * { margin-top: 16px !important; }
+
+  /* ---------- 9. HATIRLA + UNUTTUM ---------- */
+  .login-page .login-card form > div:has(.check-premium),
+  .login-page .login-card form > div:has(#forgotBtn) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+    margin-top: 4px !important;
+  }
+
+  .login-page .login-card .check-premium {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    color: #a1a1aa !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    margin: 0 !important;
+    padding: 6px 0 !important;
+    cursor: pointer !important;
+    user-select: none !important;
+  }
+
+  .login-page .login-card .check-premium input[type="checkbox"] {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    accent-color: #e8765a !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .login-page .login-card .link-premium,
+  .login-page .login-card #forgotBtn {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #e8765a !important;
+    background: none !important;
+    border: none !important;
+    padding: 6px 2px !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    margin: 0 !important;
+  }
+  .login-page .login-card .link-premium:active { opacity: .7 !important; }
+
+  /* ---------- 10. ANA BUTON ---------- */
+  .login-page .login-card .btn-primary,
+  .login-page .login-card button[type="submit"] {
+    width: 100% !important;
+    min-height: 54px !important;
+    padding: 16px 20px !important;
+    margin-top: 22px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    letter-spacing: .02em !important;
+    color: #ffffff !important;
+    text-transform: none !important;
+    background: linear-gradient(135deg, #e8765a 0%, #d65f43 100%) !important;
+    border: none !important;
+    border-radius: 14px !important;
+    cursor: pointer !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.18) inset,
+      0 12px 28px -12px rgba(232,118,90,.65) !important;
+    transition: transform .12s ease, box-shadow .2s !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .login-page .login-card .btn-primary:active,
+  .login-page .login-card button[type="submit"]:active {
+    transform: scale(.985) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.18) inset,
+      0 6px 14px -6px rgba(232,118,90,.7) !important;
+  }
+
+  /* ---------- 11. FLASH MESAJLARI ---------- */
+  .login-page .login-card .alert,
+  .login-page .login-card .flash,
+  .login-page .login-card .flash-message {
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin: 0 0 16px !important;
+  }
+
+  /* ---------- 12. TEMA BUTONU ---------- */
+  .login-page .theme-toggle-float {
+    top: max(14px, env(safe-area-inset-top)) !important;
+    right: 14px !important;
+    width: 44px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(24,24,27,.75) !important;
+    border: 1px solid rgba(255,255,255,.08) !important;
+    border-radius: 12px !important;
+    color: #a1a1aa !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    z-index: 20 !important;
+  }
+
+  /* ---------- 13. KÜÇÜK EKRAN ---------- */
+  @media (max-width: 380px) {
+    .login-page .login-card {
+      padding: 30px 18px 24px !important;
+      border-radius: 18px !important;
+    }
+    .login-page .login-card h2 { font-size: 25px !important; }
+    .login-page .login-card::before {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 14px;
+    }
+  }
+}
+
+/* ============================================================
+   AYDINLIK TEMA İÇİN MOBİL UYARLAMA
+   ============================================================ */
+@media (max-width: 768px) {
+  html[data-theme="light"] body.login-page {
+    background: #fafaf9 !important;
+  }
+
+  html[data-theme="light"] .login-page .login-shell {
+    background:
+      radial-gradient(circle at 15% 0%, rgba(232,118,90,.10), transparent 55%),
+      radial-gradient(circle at 100% 100%, rgba(232,118,90,.05), transparent 55%),
+      #fafaf9 !important;
+  }
+
+  html[data-theme="light"] .login-page .login-card {
+    background: rgba(255,255,255,.85) !important;
+    border-color: rgba(232,118,90,.22) !important;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.9) inset,
+      0 30px 60px -24px rgba(24,24,27,.15),
+      0 0 0 1px rgba(0,0,0,.03) !important;
+    color: #18181b !important;
+  }
+
+  html[data-theme="light"] .login-page .login-card h2 {
+    color: #0a2e20 !important;
+  }
+
+  html[data-theme="light"] .login-page .login-card .lead,
+  html[data-theme="light"] .login-page .login-card .check-premium {
+    color: #52525b !important;
+  }
+
+  html[data-theme="light"] .login-page .login-card label {
+    color: #71717a !important;
+  }
+
+  html[data-theme="light"] .login-page .login-card input:not([type="checkbox"]):not([type="hidden"]) {
+    background: rgba(0,0,0,.025) !important;
+    border-color: rgba(0,0,0,.08) !important;
+    color: #18181b !important;
+  }
+  html[data-theme="light"] .login-page .login-card input::placeholder {
+    color: #a1a1aa !important;
+  }
+  html[data-theme="light"] .login-page .login-card input:focus {
+    border-color: rgba(232,118,90,.55) !important;
+    background: #ffffff !important;
+    box-shadow: 0 0 0 4px rgba(232,118,90,.14) !important;
+  }
+
+  html[data-theme="light"] .login-page .theme-toggle-float {
+    background: rgba(255,255,255,.85) !important;
+    border-color: rgba(0,0,0,.08) !important;
+    color: #52525b !important;
+  }
+}
+</style>
+<!-- /CPEAK_MOBILE_LOGIN_V1 -->
+
+
 <a href="#" class="theme-toggle theme-toggle-float" data-theme-toggle aria-label="Tema değiştir" title="Koyu / Aydınlık mod" onclick="event.preventDefault();">
   <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
