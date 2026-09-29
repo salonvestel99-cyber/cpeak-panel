@@ -106,26 +106,28 @@ def _sablon(sayfa_basligi, icerik, vurgu_renk="#f59e0b", vurgu_gradient=None):
     k = _kurum()
     grad = vurgu_gradient or ("linear-gradient(135deg, " + vurgu_renk + " 0%, " + vurgu_renk + " 100%)")
 
-    # Sosyal medya butonlari
+    # Sosyal medya butonlari (yuvarlak beyaz + PNG logo)
+    web_base = k["web"].rstrip("/")
+
+    def _sosyal(url, platform):
+        if not url:
+            return ""
+        return (
+            '<a href="' + url + '" style="display:inline-block;margin:0 6px;text-decoration:none;">'
+            '<div style="width:52px;height:52px;background:#ffffff;border-radius:50%;'
+            'padding:11px;box-sizing:border-box;display:inline-block;'
+            'box-shadow:0 4px 16px rgba(0,0,0,0.14), 0 0 0 1px rgba(0,0,0,0.05);">'
+            '<img src="' + web_base + '/static/sosyal/' + platform + '.png" '
+            'alt="' + platform + '" '
+            'style="width:100%;height:100%;display:block;border:none;outline:none;">'
+            '</div></a>'
+        )
+
     sosyal_buttons = ""
-    if k["instagram"]:
-        sosyal_buttons += (
-            '<a href="' + k["instagram"] + '" class="social-btn" style="display:inline-block;'
-            'margin:0 4px 6px;padding:10px 18px;background-color:#f4f4f5;border:1px solid #e4e4e7;'
-            'border-radius:10px;color:#52525b;font-size:13px;font-weight:600;">Instagram</a>'
-        )
-    if k["youtube"]:
-        sosyal_buttons += (
-            '<a href="' + k["youtube"] + '" class="social-btn" style="display:inline-block;'
-            'margin:0 4px 6px;padding:10px 18px;background-color:#f4f4f5;border:1px solid #e4e4e7;'
-            'border-radius:10px;color:#52525b;font-size:13px;font-weight:600;">YouTube</a>'
-        )
-    if k["whatsapp"]:
-        sosyal_buttons += (
-            '<a href="' + k["whatsapp"] + '" class="social-btn" style="display:inline-block;'
-            'margin:0 4px 6px;padding:10px 18px;background-color:#f4f4f5;border:1px solid #e4e4e7;'
-            'border-radius:10px;color:#52525b;font-size:13px;font-weight:600;">WhatsApp</a>'
-        )
+    sosyal_buttons += _sosyal(k["instagram"], "instagram")
+    sosyal_buttons += _sosyal(k["youtube"], "youtube")
+    sosyal_buttons += _sosyal(k["whatsapp"], "whatsapp")
+
     sosyal_html = ""
     if sosyal_buttons:
         sosyal_html = (
@@ -387,7 +389,7 @@ def sablon_ozel(baslik, icerik_html, vurgu_renk="#f59e0b"):
 # ============================================================
 HAZIR_SABLONLAR = {
     "ozel": {
-        "ad":     "Ozel Metin",
+        "ad":     "Özel Metin",
         "konu":   "",
         "icerik": "",
         "renk":   "#f59e0b",
@@ -396,15 +398,23 @@ HAZIR_SABLONLAR = {
         "ad":     "Duyuru",
         "konu":   "Yeni Duyuru",
         "icerik": (
-            "<p>Sayin kullanici,"             "</p><p>Okulumuzla ilgili onemli bir duyurumuz bulunmaktadir:</p>"             "<p><b>[DUYURU ICERIGI]</b></p>"             "<p>Detayli bilgi icin lutfen okul yonetimi ile iletisime gecin.</p>"             "<p>Saygilarimizla,<br>C-Peak English</p>"
+            "<p>Sayın kullanıcı,</p>"
+            "<p>Okulumuzla ilgili önemli bir duyurumuz bulunmaktadır:</p>"
+            "<p><b>[DUYURU İÇERİĞİ]</b></p>"
+            "<p>Detaylı bilgi için lütfen okul yönetimi ile iletişime geçin.</p>"
+            "<p>Saygılarımızla,<br>C-Peak English</p>"
         ),
         "renk":   "#f59e0b",
     },
     "hatirlatma": {
-        "ad":     "Hatirlatma",
-        "konu":   "Hatirlatma",
+        "ad":     "Hatırlatma",
+        "konu":   "Hatırlatma",
         "icerik": (
-            "<p>Sayin kullanici,</p>"             "<p>Asagidaki konu hakkinda size bir hatirlatma yapmak istiyoruz:</p>"             "<p><b>[HATIRLATMA KONUSU]</b></p>"             "<p>Konuyla ilgili gerekli islemleri en kisa surede tamamlamanizi rica ederiz.</p>"             "<p>Saygilarimizla,<br>C-Peak English</p>"
+            "<p>Sayın kullanıcı,</p>"
+            "<p>Aşağıdaki konu hakkında size bir hatırlatma yapmak istiyoruz:</p>"
+            "<p><b>[HATIRLATMA KONUSU]</b></p>"
+            "<p>Konuyla ilgili gerekli işlemleri en kısa sürede tamamlamanızı rica ederiz.</p>"
+            "<p>Saygılarımızla,<br>C-Peak English</p>"
         ),
         "renk":   "#0891b2",
     },
@@ -412,7 +422,11 @@ HAZIR_SABLONLAR = {
         "ad":     "Kutlama / Tebrik",
         "konu":   "Tebrikler",
         "icerik": (
-            "<p>Sevgili ogrencimiz,</p>"             "<p>Gosterdiginiz basaridan dolayi sizi tebrik ederiz.</p>"             "<p><b>[BASARI DETAYI]</b></p>"             "<p>Basari ve mutluluklarinizin devamini dileriz.</p>"             "<p>Saygilarimizla,<br>C-Peak English</p>"
+            "<p>Sevgili öğrencimiz,</p>"
+            "<p>Gösterdiğiniz başarıdan dolayı sizi tebrik ederiz.</p>"
+            "<p><b>[BAŞARI DETAYI]</b></p>"
+            "<p>Başarı ve mutluluklarınızın devamını dileriz.</p>"
+            "<p>Saygılarımızla,<br>C-Peak English</p>"
         ),
         "renk":   "#16a34a",
     },
@@ -420,16 +434,64 @@ HAZIR_SABLONLAR = {
         "ad":     "Bilgilendirme",
         "konu":   "Bilgilendirme",
         "icerik": (
-            "<p>Sayin kullanici,</p>"             "<p>Asagidaki konuda sizi bilgilendirmek istiyoruz:</p>"             "<p><b>[BILGILENDIRME ICERIGI]</b></p>"             "<p>Saygilarimizla,<br>C-Peak English</p>"
+            "<p>Sayın kullanıcı,</p>"
+            "<p>Aşağıdaki konuda sizi bilgilendirmek istiyoruz:</p>"
+            "<p><b>[BİLGİLENDİRME İÇERİĞİ]</b></p>"
+            "<p>Saygılarımızla,<br>C-Peak English</p>"
         ),
         "renk":   "#2563eb",
     },
     "tesekkur": {
-        "ad":     "Tesekkur",
-        "konu":   "Tesekkurler",
+        "ad":     "Teşekkür",
+        "konu":   "Teşekkürler",
         "icerik": (
-            "<p>Sayin kullanici,</p>"             "<p>Gosterdiginiz ilgi ve emek icin tesekkur ederiz.</p>"             "<p><b>[TESSEKKUR NOTU]</b></p>"             "<p>Saygilarimizla,<br>C-Peak English</p>"
+            "<p>Sayın kullanıcı,</p>"
+            "<p>Gösterdiğiniz ilgi ve emek için teşekkür ederiz.</p>"
+            "<p><b>[TEŞEKKÜR NOTU]</b></p>"
+            "<p>Saygılarımızla,<br>C-Peak English</p>"
         ),
         "renk":   "#7c3aed",
+    },
+    "veli_toplanti": {
+        "ad":     "Veli Toplantısı",
+        "konu":   "Veli Toplantısı Daveti",
+        "icerik": (
+            "<p>Sayın veli,</p>"
+            "<p>Okulumuzda düzenlenecek veli toplantısına katılımınızı bekliyoruz.</p>"
+            "<p><b>Tarih:</b> [TOPLANTI TARİHİ]<br>"
+            "<b>Saat:</b> [TOPLANTI SAATİ]<br>"
+            "<b>Yer:</b> [TOPLANTI YERİ]</p>"
+            "<p>Toplantıda öğrencinizin gelişimi hakkında bilgi paylaşımı yapılacaktır.</p>"
+            "<p>Saygılarımızla,<br>C-Peak English</p>"
+        ),
+        "renk":   "#0891b2",
+    },
+    "odeme_hatirlatma": {
+        "ad":     "Ödeme Hatırlatma",
+        "konu":   "Ödeme Hatırlatması",
+        "icerik": (
+            "<p>Sayın veli,</p>"
+            "<p>Öğrencinizin eğitim ücreti ödemesiyle ilgili bir hatırlatma yapmak istiyoruz.</p>"
+            "<p><b>Ödeme Dönemi:</b> [DÖNEM]<br>"
+            "<b>Son Ödeme Tarihi:</b> [TARİH]<br>"
+            "<b>Tutar:</b> [TUTAR]</p>"
+            "<p>Ödemenizi belirtilen tarihe kadar yapmanızı rica ederiz.</p>"
+            "<p>Saygılarımızla,<br>C-Peak English</p>"
+        ),
+        "renk":   "#f59e0b",
+    },
+    "karne": {
+        "ad":     "Karne Bilgilendirme",
+        "konu":   "Dönem Sonu Karne Bilgilendirmesi",
+        "icerik": (
+            "<p>Sayın veli,</p>"
+            "<p>Öğrencinizin dönem sonu değerlendirmesi aşağıdaki gibidir:</p>"
+            "<p><b>Ortalama:</b> [ORTALAMA]<br>"
+            "<b>Devamsızlık:</b> [DEVAMSIZLIK] gün<br>"
+            "<b>Genel Durum:</b> [DURUM]</p>"
+            "<p>Detaylı bilgi için okul yönetimi ile iletişime geçebilirsiniz.</p>"
+            "<p>Saygılarımızla,<br>C-Peak English</p>"
+        ),
+        "renk":   "#16a34a",
     },
 }
