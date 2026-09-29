@@ -1259,3 +1259,165 @@ html:not([data-theme="dark"]):not(.dark) button.topbar-action.fb-topbar-btn {
     height: 20px !important;
   }
 }
+
+
+/* ============================================================
+   MOBIL PREMIUM IYILESTIRMELER
+   ============================================================ */
+
+/* ---------- Tema toggle: mobilde elle tutulur boyut ---------- */
+@media (max-width: 768px) {
+  button.topbar-action[data-theme-toggle],
+  #udThemeToggle {
+    min-width: 40px !important;
+    min-height: 40px !important;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 12px !important;
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+  }
+  button.topbar-action[data-theme-toggle] svg,
+  #udThemeToggle svg {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    max-width: 20px !important;
+    min-height: 20px !important;
+    max-height: 20px !important;
+  }
+  button.topbar-action[data-theme-toggle]::before,
+  button.topbar-action[data-theme-toggle]::after {
+    display: none !important;
+  }
+  button.topbar-action[data-theme-toggle] span {
+    display: none !important;
+  }
+  /* Light temada koyu zemin uzerinde kontrast */
+  html:not([data-theme="dark"]):not(.dark) button.topbar-action[data-theme-toggle] {
+    background: rgba(0,0,0,0.06) !important;
+    border-color: rgba(0,0,0,0.10) !important;
+    color: #52525b !important;
+  }
+  html[data-theme="dark"] button.topbar-action[data-theme-toggle],
+  html.dark button.topbar-action[data-theme-toggle] {
+    color: #e4e4e7 !important;
+  }
+}
+
+/* ---------- Sayfa geçiş animasyonu ---------- */
+@keyframes sayfaGiris {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main, .container, .mail-page, .admin-panel, section[data-panel] {
+  animation: sayfaGiris 0.32s cubic-bezier(0.25, 0.8, 0.25, 1) both;
+}
+
+/* Sayfa geçişinde flickeri önle */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------- Pull-to-refresh ---------- */
+.ptr-indicator {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -60px);
+  width: 42px;
+  height: 42px;
+  background: #f59e0b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(245,158,11,0.35);
+  z-index: 9999;
+  transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.2s;
+  opacity: 0;
+  pointer-events: none;
+}
+.ptr-indicator.goster {
+  opacity: 1;
+}
+.ptr-indicator svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  stroke-width: 2.4;
+  fill: none;
+  transition: transform 0.25s ease;
+}
+.ptr-indicator.dondur svg {
+  animation: ptrSpin 0.7s linear infinite;
+}
+@keyframes ptrSpin {
+  to { transform: rotate(360deg); }
+}
+.ptr-bitti svg {
+  stroke: #fff;
+}
+
+/* ============================================================
+   LOGIN SAYFASI MOBIL PREMIUM
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Login konteyner genel bosluk */
+  .login-page, .giris-page, .login-container, .login-wrap {
+    padding: 20px 18px !important;
+    min-height: calc(100vh - 80px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .login-card, .giris-card, .login-box {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 26px 22px !important;
+    border-radius: 20px !important;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.14) !important;
+  }
+  .login-card h1, .giris-card h1 {
+    font-size: 1.7rem !important;
+    margin-bottom: 6px !important;
+  }
+  .login-card input,
+  .giris-card input {
+    min-height: 50px !important;
+    font-size: 16px !important;
+    padding: 14px 16px !important;
+    border-radius: 12px !important;
+  }
+  .login-card button[type="submit"],
+  .giris-card button[type="submit"] {
+    min-height: 52px !important;
+    font-size: 1rem !important;
+    border-radius: 14px !important;
+    font-weight: 700 !important;
+    box-shadow: 0 6px 20px rgba(245,158,11,0.30) !important;
+  }
+  /* Checkbox alani */
+  .login-card label[for] span,
+  .giris-card label[for] span {
+    font-size: 0.92rem !important;
+  }
+}
+
+/* ---------- Footer mobil ---------- */
+@media (max-width: 768px) {
+  footer, .footer {
+    padding: 22px 16px !important;
+  }
+}
