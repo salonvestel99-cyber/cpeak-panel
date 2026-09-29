@@ -1333,14 +1333,14 @@ html:not([data-theme="dark"]):not(.dark) button.topbar-action.fb-topbar-btn {
   }
   .login-hero .hero-orb,
   .login-hero .hero-clock {
-    display: none !important;
+    display: block;
   }
   .login-hero .hero-content {
     padding: 0 !important;
     margin: 0 !important;
   }
   .login-hero .hero-eyebrow {
-    display: none !important;
+    display: block;
   }
 
   /* Buyuk logo blogu - kucuk versiyon */
@@ -1391,7 +1391,7 @@ html:not([data-theme="dark"]):not(.dark) button.topbar-action.fb-topbar-btn {
   /* Gizlenecek parcalar */
   .login-hero .hero-list,
   .login-hero .hero-stats {
-    display: none !important;
+    display: block;
   }
 
   /* Login card ve kayit kutusu - tam genislik */
@@ -1601,7 +1601,7 @@ html:not([data-theme="dark"]):not(.dark) button.topbar-action.fb-topbar-btn {
   .login-hero .hero-clock,
   .login-hero .hero-eyebrow,
   .login-hero .hero-stats {
-    display: none !important;
+    display: block;
   }
   .login-hero .hero-content {
     padding: 0 !important;
@@ -1927,7 +1927,7 @@ html:not([data-theme="dark"]):not(.dark) button.topbar-action.fb-topbar-btn {
   .login-hero .hero-clock,
   .login-hero .hero-eyebrow,
   .login-hero .hero-stats {
-    display: none !important;
+    display: block;
   }
 
   /* Hero content - dikey ortala */
@@ -2536,4 +2536,161 @@ html:not([data-theme="dark"]):not(.dark) button.topbar-action.fb-topbar-btn {
   .login-hero .hero-brand-title { font-size: 1.2rem !important; }
   .login-card { padding: 18px 14px 20px !important; border-radius: 16px !important; }
   .login-card h2 { font-size: 1.15rem !important; }
+}
+
+
+/* ============================================================
+   HERO ZORLA GORUNUR - v10 FINAL
+   Onceki tum gizleme kurallarini ezer
+   ============================================================ */
+@media (max-width: 768px) {
+  .login-hero,
+  aside.login-hero {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 400px !important;
+    padding: 0 !important;
+    margin: 0 0 22px 0 !important;
+    background: transparent !important;
+    transform: none !important;
+  }
+
+  .login-hero .hero-content,
+  .login-hero .hero-brand,
+  .login-hero .hero-brand-mark,
+  .login-hero .hero-brand-mark img,
+  .login-hero .hero-brand-text,
+  .login-hero .hero-brand-title,
+  .login-hero .hero-brand-sub,
+  .login-hero h1,
+  .login-hero h1.hero-typewriter,
+  .login-hero .hero-lead,
+  .login-hero .hero-list,
+  .login-hero .hero-list li {
+    display: revert !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Ozel durumlar - display degerleri */
+  .login-hero .hero-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .login-hero .hero-brand {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    margin: 0 0 18px 0 !important;
+  }
+  .login-hero .hero-brand-mark {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important;
+    height: 48px !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+  }
+  .login-hero .hero-brand-mark img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+  .login-hero .hero-brand-text {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .login-hero .hero-brand-title {
+    display: block !important;
+    font-size: 1.35rem !important;
+    font-weight: 800 !important;
+    line-height: 1.1 !important;
+  }
+  .login-hero .hero-brand-sub {
+    display: block !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.28em !important;
+    margin-top: 3px !important;
+  }
+  .login-hero h1,
+  .login-hero h1.hero-typewriter {
+    display: block !important;
+    font-size: 1.3rem !important;
+    line-height: 1.28 !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    margin: 0 0 10px 0 !important;
+    padding: 0 4px !important;
+    min-height: 2.6em !important;
+    max-height: 2.6em !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    color: #fafaf9 !important;
+  }
+  .login-hero h1.hero-typewriter .tw-text {
+    display: inline !important;
+    visibility: visible !important;
+    color: inherit !important;
+  }
+  .login-hero h1.hero-typewriter .tw-cursor {
+    display: inline-block !important;
+    visibility: visible !important;
+    color: #f59e0b !important;
+  }
+  .login-hero .hero-lead {
+    display: block !important;
+    font-size: 0.82rem !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    margin: 0 0 18px 0 !important;
+    padding: 0 8px !important;
+    color: #a1a1aa !important;
+    max-width: 340px !important;
+  }
+  .login-hero .hero-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 7px !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 320px !important;
+  }
+  .login-hero .hero-list li {
+    display: block !important;
+    font-size: 0.8rem !important;
+    color: #a1a1aa !important;
+    padding: 0 0 0 20px !important;
+    position: relative !important;
+    line-height: 1.4 !important;
+    text-align: left !important;
+  }
+  .login-hero .hero-list li::before {
+    content: "✦" !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    color: #f59e0b !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* Light tema */
+  html:not([data-theme="dark"]):not(.dark) .login-hero h1 { color: #18181b !important; }
+  html:not([data-theme="dark"]):not(.dark) .login-hero .hero-lead { color: #52525b !important; }
+  html:not([data-theme="dark"]):not(.dark) .login-hero .hero-list li { color: #52525b !important; }
+  html:not([data-theme="dark"]):not(.dark) .login-hero .hero-brand-title { color: #18181b !important; }
 }
