@@ -937,4 +937,13 @@ document.querySelectorAll("[data-count]").forEach(function (el) {
   requestAnimationFrame(adim);
 });
 </script>
+<script id="cpeak-login-visit-flag">
+/* Login sayfası ziyaretini işaretle — geri tuşu koruması için */
+(function () {
+  try {
+    sessionStorage.setItem("cpeak_login_visit", String(Date.now()));
+  } catch (e) {}
+})();
+</script>
+
 {% endblock %}

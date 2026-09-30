@@ -2044,5 +2044,98 @@ html.dark .fb-cancel:hover {
       })();
     </script>
 <script src="{{ url_for('static', filename='mobil_pro.js') }}?v=MOBIL_PRO_V1" defer></script>
+<script id="cpeak-login-guard">
+/* ============================================================
+   C-Peak · Login Sonrası Geri Tuşu Koruması
+   Amaç: Login → dashboard geçişinde geri tuşu login sayfasına
+   dönmesin. Kullanıcı geri basarsa panelde kalır + uyarı görür.
+   Sadece login'den hemen sonra aktif olur; normal gezinme bozulmaz.
+   ============================================================ */
+(function () {
+  "use strict";
+  if (window.__cpeakLoginGuard) return;
+  window.__cpeakLoginGuard = true;
+
+  /* Login sayfasında çalışmasın */
+  if (document.body && document.body.classList.contains("login-page")) return;
+
+  /* Login'den hemen sonra mı geldik? */
+  var ref = document.referrer || "";
+  var refLogin = /\/login(\?|$|\/|#)/i.test(ref)
+               || /\/giris(\?|$|\/|#)/i.test(ref);
+  var flag = null;
+  try { flag = sessionStorage.getItem("cpeak_login_visit"); } catch (e) {}
+  try { sessionStorage.removeItem("cpeak_login_visit"); } catch (e) {}
+
+  if (!refLogin && !flag) return;  /* Login'den gelmediyse karışma */
+
+  /* Yaş kontrolü: flag 30 dakikadan eskiyse sayma */
+  if (!refLogin && flag) {
+    var t = parseInt(flag, 10);
+    if (!isNaN(t) && (Date.now() - t) > 30 * 60 * 1000) return;
+  }
+
+  /* --- GUARD KUR --- */
+  var GUARD_STATE = { cpeakGuard: 1 };
+  try {
+    history.pushState(GUARD_STATE, "", location.href);
+  } catch (e) { return; }
+
+  function gosterToast() {
+    var t = document.getElementById("cpeak-guard-toast");
+    if (!t) {
+      t = document.createElement("div");
+      t.id = "cpeak-guard-toast";
+      t.setAttribute("role", "status");
+      t.style.cssText = [
+        "position:fixed",
+        "left:50%",
+        "bottom:calc(env(safe-area-inset-bottom, 0px) + 24px)",
+        "transform:translateX(-50%) translateY(16px)",
+        "background:rgba(24,24,27,.94)",
+        "color:#fafaf9",
+        "padding:12px 20px",
+        "border-radius:999px",
+        "font-family:Inter,system-ui,-apple-system,sans-serif",
+        "font-size:13.5px",
+        "font-weight:500",
+        "letter-spacing:.01em",
+        "box-shadow:0 12px 30px rgba(0,0,0,.32), 0 2px 6px rgba(0,0,0,.18)",
+        "z-index:2147483647",
+        "opacity:0",
+        "pointer-events:none",
+        "transition:opacity .22s ease, transform .22s ease",
+        "max-width:calc(100vw - 40px)",
+        "text-align:center",
+        "line-height:1.35",
+        "backdrop-filter:blur(10px)",
+        "-webkit-backdrop-filter:blur(10px)"
+      ].join(";");
+      document.body.appendChild(t);
+    }
+    t.textContent = "Çıkmak için menüden Çıkış Yap\u2019ı kullanın";
+    void t.offsetWidth;
+    t.style.opacity = "1";
+    t.style.transform = "translateX(-50%) translateY(0)";
+    clearTimeout(t._tm);
+    t._tm = setTimeout(function () {
+      t.style.opacity = "0";
+      t.style.transform = "translateX(-50%) translateY(16px)";
+    }, 2400);
+  }
+
+  window.addEventListener("popstate", function (e) {
+    /* Zaten guard state'indeyse karışma */
+    if (e.state && e.state.cpeakGuard) return;
+
+    /* Guard'ı yeniden kur + kullanıcıya bildir */
+    try {
+      history.pushState(GUARD_STATE, "", location.href);
+    } catch (err) { return; }
+    gosterToast();
+  });
+})();
+</script>
+
 </body>
 </html>
