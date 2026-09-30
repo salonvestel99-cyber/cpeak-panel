@@ -1,0 +1,61 @@
+/* ============================================================
+   C-Peak · PULL TO REFRESH göstergesi
+   Sadece @media (max-width: 900px)
+   ============================================================ */
+@media (max-width: 900px) {
+
+  /* Native PTR'yi bastır — kendi göstergemizi kullanacağız */
+  body:not(.login-page) {
+    overscroll-behavior-y: contain;
+  }
+
+  .mpro-ptr {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 2500;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(19,19,22,.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,.12);
+    color: #f59e0b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 8px 28px rgba(0,0,0,.28),
+      0 2px 6px rgba(0,0,0,.12);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(-60px);
+    transition: transform .22s cubic-bezier(.22,.9,.28,1), opacity .18s ease;
+    will-change: transform, opacity;
+  }
+
+  body.mpro-ptr-visible .mpro-ptr {
+    opacity: 1;
+  }
+
+  .mpro-ptr svg {
+    width: 20px;
+    height: 20px;
+    transform-origin: center;
+    transition: transform .08s linear;
+  }
+
+  body.mpro-ptr-loading .mpro-ptr svg {
+    animation: mpro-ptr-spin .75s linear infinite;
+  }
+  @keyframes mpro-ptr-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Hafif dokunma geri bildirimi (opsiyonel) */
+  body.mpro-ptr-loading {
+    cursor: progress;
+  }
+}

@@ -950,6 +950,7 @@ html.dark #cookieBanner .cookie-btn-primary {
       });
     </script>
 <link rel="stylesheet" href="{{ url_for('static', filename='mobil_pro.css') }}?v=MOBIL_PRO_V1">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobil_ptr.css') }}?v=MOBIL_PTR_V1">
 </head>
 <body class="{% block body_class %}{% endblock %}">
 {% block body %}
@@ -2137,5 +2138,6 @@ html.dark .fb-cancel:hover {
 })();
 </script>
 
+<script src="{{ url_for('static', filename='mobil_ptr.js') }}?v=MOBIL_PTR_V1" defer></script>
 </body>
 </html>
