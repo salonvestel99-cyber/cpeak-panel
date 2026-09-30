@@ -104,23 +104,7 @@
     return false;
   }
 
-  document.addEventListener("click", function (e) {
-    var el = e.target.closest && e.target.closest("a, button");
-    if (!el) return;
-    if (!logoutMu(el)) return;
-
-    /* Form submit butonu ise (POST logout) → history'ye zaten eklenmez */
-    if (el.tagName === "BUTTON" && el.form) return;
-
-    var href = el.getAttribute("href");
-    if (!href || href === "#") return;
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    /* location.replace → logout URL'si history'ye eklenmez */
-    window.location.replace(href);
-  }, true);
+  /* [geri_onay_v3] logout interception kaldırıldı */
 
   /* ========================================================
      3) BFCACHE — GERİ TUŞUYLA DÖNÜŞTE YENİLE
