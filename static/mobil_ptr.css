@@ -1,13 +1,8 @@
 /* ============================================================
-   C-Peak · PULL TO REFRESH göstergesi
-   Sadece @media (max-width: 900px)
+   C-Peak · Pull to Refresh göstergesi (v2)
+   PTR artık scroll'a karışmaz, sadece görsel gösterge.
    ============================================================ */
 @media (max-width: 900px) {
-
-  /* Native PTR'yi bastır — kendi göstergemizi kullanacağız */
-  body:not(.login-page) {
-    overscroll-behavior-y: contain;
-  }
 
   .mpro-ptr {
     position: fixed;
@@ -29,6 +24,7 @@
       0 8px 28px rgba(0,0,0,.28),
       0 2px 6px rgba(0,0,0,.12);
     opacity: 0;
+    /* KRİTİK: pointer-events none → tıklamayı da engellemez */
     pointer-events: none;
     transform: translateX(-50%) translateY(-60px);
     transition: transform .22s cubic-bezier(.22,.9,.28,1), opacity .18s ease;
@@ -52,10 +48,5 @@
   @keyframes mpro-ptr-spin {
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
-  }
-
-  /* Hafif dokunma geri bildirimi (opsiyonel) */
-  body.mpro-ptr-loading {
-    cursor: progress;
   }
 }
