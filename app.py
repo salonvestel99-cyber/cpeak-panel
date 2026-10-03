@@ -1839,3 +1839,46 @@ if __name__ == "__main__":
     _host  = _os.environ.get("FLASK_HOST", "127.0.0.1")
     _port  = int(_os.environ.get("FLASK_PORT", "5000"))
     app.run(debug=_debug, host=_host, port=_port)
+
+
+# ============================================
+# SEO: robots.txt (seo_patch.py tarafından eklendi)
+# ============================================
+@app.route('/robots.txt')
+def robots_txt():
+    content = """User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /panel
+Disallow: /ogrenci
+Disallow: /ogretmen
+Disallow: /veli
+Disallow: /odevler
+Disallow: /bildirimler
+Disallow: /giris
+
+Sitemap: https://www.cpeakenglish.com/sitemap.xml
+"""
+    return Response(content, mimetype='text/plain')
+
+
+# ============================================
+# SEO: sitemap.xml (seo_patch.py tarafından eklendi)
+# ============================================
+@app.route('/sitemap.xml')
+def sitemap_xml():
+    pages = [
+        "https://www.cpeakenglish.com/",
+        "https://www.cpeakenglish.com/hakkimizda",
+        "https://www.cpeakenglish.com/kurslar",
+        "https://www.cpeakenglish.com/iletisim",
+        "https://www.cpeakenglish.com/kvkk",
+    ]
+    today = datetime.now().date().isoformat()
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    for p in pages:
+        xml += f'  <url><loc>{p}</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>\n'
+    xml += '</urlset>'
+    return Response(xml, mimetype='application/xml')
+
