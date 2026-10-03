@@ -54,11 +54,11 @@
 }
 
 @media (max-width: 768px) {
-  /* Mobilde sag uste al: sol ustteki ml11-back ile cakismaz */
+  /* Mobilde sol ustte kal, ama ml11-back ile alt alta */
   .cpk-back-home {
     top: max(12px, env(safe-area-inset-top));
-    left: auto;
-    right: max(12px, env(safe-area-inset-right));
+    left: max(12px, env(safe-area-inset-left));
+    right: auto;
     padding: 8px 13px;
     font-size: .78rem;
     gap: 6px;
@@ -69,11 +69,10 @@
     height: 14px;
   }
 
-  /* ml11-back gorunurken (form aktif) benim buton biraz daha assagi insin,
-     cunku sag ustte hero markasi veya form basligi olabilir */
+  /* Form aktifken ml11-back de sol uste gelir.
+     Ana Sayfa butonunu onun hemen altina indir. */
   body.login-page.ml11-form-active .cpk-back-home {
-    top: max(14px, env(safe-area-inset-top));
-    right: max(14px, env(safe-area-inset-right));
+    top: calc(max(12px, env(safe-area-inset-top)) + 48px);
   }
 }
 </style>
