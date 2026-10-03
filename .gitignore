@@ -41,3 +41,9 @@ guvenlik_teshis.py
 *.bak_*
 _backups/
 *.bak
+
+*.bak.*
+seo_patch.py
+deepseek_*.py
+
+*.orig
