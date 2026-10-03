@@ -1,0 +1,130 @@
+{% extends "base_public.html" %}
+
+{% block title %}C-Peak English | Istanbul Ingilizce Kursu{% endblock %}
+{% block description %}C-Peak English, Istanbul Yildirim'da kucuk siniflarda deneyimli ogretmenlerle Ingilizce egitimi. Ogrenci, veli ve ogretmen panelleri ile takip edilebilir.{% endblock %}
+
+{% block head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "C-Peak English",
+  "url": "https://www.cpeakenglish.com",
+  "logo": "https://www.cpeakenglish.com/static/logochrome.png",
+  "description": "Istanbul Yildirim'da ogrenci, veli ve ogretmenlere ozel Ingilizce egitim merkezi.",
+  "telephone": "+905421808402",
+  "email": "info@cpeakenglish.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Yildirim Mahallesi, Bosna Sokak No: 29/A",
+    "addressLocality": "Istanbul",
+    "addressCountry": "TR"
+  },
+  "sameAs": [
+    "https://www.instagram.com/c_peak_english",
+    "https://www.youtube.com/@c-peak-english"
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<header class="lp-header">
+  <div class="lp-container lp-header-inner">
+    <a href="/" class="lp-logo">
+      <img src="{{ url_for('static', filename='logochrome.png') }}" alt="C-Peak English" width="44" height="44">
+      <span>C-Peak English</span>
+    </a>
+    <nav class="lp-nav">
+      <a href="#hakkimizda">Hakkimizda</a>
+      <a href="#kurslar">Kurslar</a>
+      <a href="#iletisim">Iletisim</a>
+      <a href="{{ url_for('login') }}" class="lp-btn lp-btn-primary">Giris Yap</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="lp-hero">
+    <div class="lp-container">
+      <h1>Ingilizceyi <span class="lp-highlight">Zirveye</span> Tasi</h1>
+      <p class="lp-subtitle">
+        Istanbul Yildirim'da kucuk siniflar, deneyimli ogretmenler ve dijital takip sistemiyle
+        ogrenci, veli ve ogretmen odakli Ingilizce egitimi.
+      </p>
+      <div class="lp-cta">
+        <a href="#kurslar" class="lp-btn lp-btn-primary lp-btn-lg">Kurslari Kesfet</a>
+        <a href="#iletisim" class="lp-btn lp-btn-outline lp-btn-lg">Bize Ulas</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section" id="hakkimizda">
+    <div class="lp-container">
+      <h2>Hakkimizda</h2>
+      <p>
+        C-Peak English, Ingilizce ogrenmeyi kolaylastiran ve takip edilebilir kilan modern bir
+        egitim merkezidir. Ogrencilerimizin gelisimini velilerle ve ogretmenlerle seffaf bir
+        sekilde paylasiyor, her adimda yanlarinda oluyoruz.
+      </p>
+    </div>
+  </section>
+
+  <section class="lp-section lp-section-alt" id="kurslar">
+    <div class="lp-container">
+      <h2>Kurslarimiz</h2>
+      <div class="lp-grid">
+        <div class="lp-card">
+          <h3>Genel Ingilizce</h3>
+          <p>Temel seviyeden ileri seviyeye kadar konusma, dinleme, okuma ve yazma becerileri.</p>
+        </div>
+        <div class="lp-card">
+          <h3>Sinav Hazirlik</h3>
+          <p>YDS, YDT, TOEFL, IELTS gibi sinavlara yonelik ozel programlar.</p>
+        </div>
+        <div class="lp-card">
+          <h3>Konusma Kulubu</h3>
+          <p>Gercek hayat senaryolari ile pratik yaparak akici konusma becerisi kazanma.</p>
+        </div>
+        <div class="lp-card">
+          <h3>Ogrenci & Veli Paneli</h3>
+          <p>Ders programi, odevler, bildirimler ve gelisim takibi tek bir panelde.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section" id="iletisim">
+    <div class="lp-container">
+      <h2>Iletisim</h2>
+      <div class="lp-contact">
+        <div class="lp-contact-item">
+          <strong>Adres</strong>
+          <p>Yildirim Mahallesi, Bosna Sokak No: 29/A, Istanbul</p>
+        </div>
+        <div class="lp-contact-item">
+          <strong>Telefon</strong>
+          <p><a href="tel:+905421808402">0542 180 84 02</a></p>
+        </div>
+        <div class="lp-contact-item">
+          <strong>E-posta</strong>
+          <p><a href="mailto:info@cpeakenglish.com">info@cpeakenglish.com</a></p>
+        </div>
+        <div class="lp-contact-item">
+          <strong>Sosyal Medya</strong>
+          <p>
+            <a href="https://www.instagram.com/c_peak_english" target="_blank" rel="noopener">Instagram</a> &middot;
+            <a href="https://www.youtube.com/@c-peak-english" target="_blank" rel="noopener">YouTube</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="lp-footer">
+  <div class="lp-container">
+    <p>&copy; 2026 C-Peak English. Tum haklari saklidir. &middot; <a href="{{ url_for('kvkk') }}">KVKK</a></p>
+  </div>
+</footer>
+{% endblock %}

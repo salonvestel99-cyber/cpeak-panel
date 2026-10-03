@@ -134,7 +134,9 @@ def kvkk():
 
 @app.route("/")
 def index():
-    return redirect(url_for("dashboard") if "user_id" in session else url_for("login"))
+    if "user_id" in session:
+        return redirect(url_for("dashboard"))
+    return render_template("index.html")
 
 @app.route("/giris", methods=["GET", "POST"])
 @app.limiter.limit("10 per minute", methods=["POST"])
