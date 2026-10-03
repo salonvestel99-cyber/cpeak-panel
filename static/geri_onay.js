@@ -5,7 +5,12 @@
    ============================================================ */
 (function () {
   "use strict";
-  if (window.__cpeakGeriOnayV4) return;
+  
+  // cpk: logged-out guard — oturum acmamis kullanicida hic calisma
+  if (!document.getElementById('logoutModal')) {
+    return;
+  }
+if (window.__cpeakGeriOnayV4) return;
   window.__cpeakGeriOnayV4 = true;
 
   function log() { /* production: sessiz */ }

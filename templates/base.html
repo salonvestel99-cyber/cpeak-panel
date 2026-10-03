@@ -1127,6 +1127,7 @@ html.dark #cookieBanner .cookie-btn-primary {
   </div>
 </div>
 
+{% if session.get('user_id') %}
 <div id="logoutModal" class="premium-modal-overlay">
   <div class="premium-modal-card">
     <div class="modal-icon-wrapper">
@@ -1140,6 +1141,7 @@ html.dark #cookieBanner .cookie-btn-primary {
     </div>
   </div>
 </div>
+{% endif %}
 
 <div id="confirmModal" class="premium-modal-overlay">
   <div class="premium-modal-card">
