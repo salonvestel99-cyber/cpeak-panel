@@ -1,4 +1,4 @@
-﻿from datetime import datetime
+from datetime import datetime
 # -*- coding: utf-8 -*-
 """Ana Flask uygulamasÄ±."""
 
@@ -1869,6 +1869,7 @@ Sitemap: https://www.cpeakenglish.com/sitemap.xml
 # SEO: sitemap.xml (seo_patch.py tarafÄ±ndan eklendi)
 # ============================================
 @app.route('/sitemap.xml')
+def sitemap_xml():
     pages = [
         "https://www.cpeakenglish.com/",
         "https://www.cpeakenglish.com/hakkimizda",
@@ -1884,9 +1885,7 @@ Sitemap: https://www.cpeakenglish.com/sitemap.xml
     xml += '</urlset>'
     return Response(xml, mimetype='application/xml')
 
-# ============================================
-# SEO: Public sayfalar (add_public_pages.py)
-# ============================================
+
 @app.route('/hakkimizda')
 def hakkimizda():
     return render_template('hakkimizda.html')
