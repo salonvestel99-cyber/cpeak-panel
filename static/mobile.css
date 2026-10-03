@@ -2694,3 +2694,138 @@ html:not([data-theme="dark"]):not(.dark) button.topbar-action.fb-topbar-btn {
   html:not([data-theme="dark"]):not(.dark) .login-hero .hero-list li { color: #52525b !important; }
   html:not([data-theme="dark"]):not(.dark) .login-hero .hero-brand-title { color: #18181b !important; }
 }
+
+/* LOGIN MOBIL - son gorunum duzenlemeleri */
+@media (max-width: 768px) {
+  body.login-page {
+    background:
+      radial-gradient(ellipse at 8% 8%, rgba(232, 118, 90, .16), transparent 42%),
+      radial-gradient(ellipse at 100% 90%, rgba(26, 122, 88, .13), transparent 46%),
+      #0d0d10 !important;
+  }
+
+  .login-main {
+    justify-content: center !important;
+    padding: max(68px, env(safe-area-inset-top)) 18px max(24px, env(safe-area-inset-bottom)) !important;
+  }
+
+  .login-hero {
+    max-width: 400px !important;
+    margin-bottom: 24px !important;
+  }
+  .login-hero .hero-eyebrow,
+  .login-hero .hero-list,
+  .login-hero .hero-stats,
+  .login-hero .hero-clock,
+  .login-hero .hero-orb {
+    display: none !important;
+  }
+  .login-hero .hero-brand {
+    margin-bottom: 16px !important;
+  }
+  .login-hero .hero-brand-mark {
+    width: 52px !important;
+    height: 52px !important;
+  }
+  .login-hero .hero-brand-title {
+    font-family: 'Fraunces', Georgia, serif !important;
+    font-size: 1.55rem !important;
+    font-weight: 600 !important;
+  }
+  .login-hero .hero-brand-sub {
+    color: #e8765a !important;
+    font-size: .62rem !important;
+    letter-spacing: .24em !important;
+  }
+  .login-hero h1,
+  .login-hero h1.hero-typewriter {
+    min-height: 0 !important;
+    max-height: none !important;
+    margin-bottom: 8px !important;
+    font-family: 'Fraunces', Georgia, serif !important;
+    font-size: 1.55rem !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0 !important;
+  }
+  .login-hero h1.hero-typewriter .tw-cursor { color: #e8765a !important; }
+  .login-hero .hero-lead {
+    max-width: 320px !important;
+    margin: 0 !important;
+    padding: 0 4px !important;
+    font-size: .88rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .login-card {
+    max-width: 400px !important;
+    padding: 26px 22px 24px !important;
+    border: 1px solid rgba(232, 118, 90, .2) !important;
+    border-radius: 20px !important;
+    background: rgba(24, 24, 27, .88) !important;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, .38), 0 1px 0 rgba(255, 255, 255, .06) inset !important;
+    backdrop-filter: blur(18px) saturate(125%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(125%) !important;
+  }
+  .login-card::before { display: none !important; }
+  .login-card h2 {
+    font-family: 'Fraunces', Georgia, serif !important;
+    font-size: 1.65rem !important;
+    font-weight: 500 !important;
+    text-align: left !important;
+    margin-bottom: 5px !important;
+    letter-spacing: 0 !important;
+  }
+  .login-card .lead {
+    margin-bottom: 22px !important;
+    text-align: left !important;
+    font-size: .86rem !important;
+  }
+  .login-card form label > span {
+    font-size: .7rem !important;
+    letter-spacing: .08em !important;
+  }
+  .login-card input[type="text"],
+  .login-card input[type="password"] {
+    min-height: 52px !important;
+    border-radius: 13px !important;
+    border-color: rgba(255, 255, 255, .11) !important;
+    background: rgba(255, 255, 255, .045) !important;
+  }
+  .login-card input:focus {
+    border-color: rgba(232, 118, 90, .75) !important;
+    box-shadow: 0 0 0 4px rgba(232, 118, 90, .13) !important;
+  }
+  .login-card .input-wrap .input-icon { color: #8b8b92 !important; }
+  .login-card .input-wrap .input-eye { min-width: 40px !important; min-height: 40px !important; }
+  .login-card .login-extra { margin-top: 10px !important; }
+  .login-card .link-premium { color: #e99078 !important; }
+  .login-card button[type="submit"] {
+    min-height: 54px !important;
+    margin-top: 8px !important;
+    border-radius: 13px !important;
+  }
+
+  html:not([data-theme="dark"]):not(.dark) body.login-page {
+    background:
+      radial-gradient(ellipse at 8% 8%, rgba(232, 118, 90, .10), transparent 42%),
+      radial-gradient(ellipse at 100% 90%, rgba(26, 122, 88, .08), transparent 46%),
+      #fafaf9 !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-card {
+    border-color: rgba(232, 118, 90, .2) !important;
+    background: rgba(255, 255, 255, .9) !important;
+    box-shadow: 0 24px 64px rgba(24, 24, 27, .12), 0 1px 0 #fff inset !important;
+  }
+  html:not([data-theme="dark"]):not(.dark) .login-card input[type="text"],
+  html:not([data-theme="dark"]):not(.dark) .login-card input[type="password"] {
+    border-color: #e4e4e7 !important;
+    background: rgba(24, 24, 27, .025) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-main { padding-left: 14px !important; padding-right: 14px !important; }
+  .login-hero { margin-bottom: 18px !important; }
+  .login-card { padding: 22px 18px 20px !important; }
+}
