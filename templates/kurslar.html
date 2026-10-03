@@ -1,23 +1,22 @@
 {% extends "base_seo.html" %}
 
-{% block title %}Kurslar — C-Peak English | İngilizce Eğitim Programları{% endblock %}
+{% block title %}Kurslar — C-Peak English | İlkokul & Ortaokul İngilizce{% endblock %}
 {% block body_class %}cpk-page{% endblock %}
 
+{% block description %}C-Peak English, ilkokul ve ortaokul öğrencilerine konuşma odaklı İngilizce eğitimi sunar. Küçük sınıflar, A1–C1 CEFR uyumlu program, öğrenci–veli–öğretmen dijital takip paneli.{% endblock %}
+{% block canonical %}https://www.cpeakenglish.com/kurslar{% endblock %}
+{% block og_title %}Kurslar — C-Peak English{% endblock %}
+{% block og_description %}İlkokul ve ortaokul öğrencilerine konuşma odaklı, CEFR uyumlu İngilizce eğitimi.{% endblock %}
+{% block og_url %}https://www.cpeakenglish.com/kurslar{% endblock %}
+{% block tw_title %}Kurslar — C-Peak English{% endblock %}
+{% block tw_description %}İlkokul ve ortaokul öğrencilerine konuşma odaklı İngilizce eğitimi.{% endblock %}
+
 {% block head %}
-<meta name="description" content="C-Peak English kursları: Genel İngilizce, YDS / YDT / TOEFL / IELTS sınav hazırlık, konuşma kulübü. Küçük sınıflar ve kişiye özel programlarla İstanbul Yıldırım'da.">
-<link rel="canonical" href="https://www.cpeakenglish.com/kurslar">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Kurslar — C-Peak English">
-<meta property="og:description" content="Genel İngilizce, sınav hazırlık ve konuşma kulübü programları.">
-<meta property="og:url" content="https://www.cpeakenglish.com/kurslar">
-<meta property="og:image" content="https://www.cpeakenglish.com/static/logochrome.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kurslar — C-Peak English">
-<meta name="twitter:description" content="Genel İngilizce, sınav hazırlık ve konuşma kulübü programları.">
-<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=20261003c">
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=20261003e">
 {% endblock %}
 
 {% block body %}
+
 <header class="cpk-header">
   <div class="cpk-header-inner">
     <a href="/" class="topbar-brand">
@@ -30,7 +29,6 @@
         <span class="topbar-brand-sub" lang="en">ENGLISH</span>
       </span>
     </a>
-
     <nav class="cpk-nav">
       <a href="/hakkimizda">Hakkımızda</a>
       <a href="/kurslar">Kurslar</a>
@@ -44,11 +42,12 @@
 
   <section class="cpk-page-hero">
     <div class="container">
-      <span class="cpk-eyebrow">Kurslarımız</span>
-      <h1 class="cpk-h1">Her seviyeye ve <em>hedefe</em> uygun programlar</h1>
+      <span class="cpk-eyebrow">Programlarımız</span>
+      <h1 class="cpk-h1">İlkokul ve ortaokul için <em>konuşma odaklı</em> İngilizce</h1>
       <p class="cpk-lead">
-        İngilizce öğrenme yolculuğunuzda nerede olursanız olun, size uygun bir kursumuz var.
-        Programlarımız öğrencilerimizin seviyesine ve hedeflerine göre kişiselleştirilir.
+        C-Peak English, ilkokul ve ortaokul öğrencilerine yönelik A1–C1 CEFR uyumlu,
+        küçük sınıflarda birebir ilgiyle yürütülen konuşma odaklı bir program sunar.
+        Dört temel beceriyi (dinleme, konuşma, okuma, yazma) dengeli şekilde geliştiriyoruz.
       </p>
     </div>
   </section>
@@ -59,69 +58,73 @@
 
         <article class="cpk-course">
           <div class="cpk-course-head">
-            <div class="cpk-card-icon">A</div>
-            <h2>Genel İngilizce</h2>
+            <div class="cpk-card-icon">İ</div>
+            <h2>İlkokul İngilizce (1–4. Sınıf)</h2>
           </div>
           <p class="cpk-course-desc">
-            Temel seviyeden ileri seviyeye (A1–C2) kadar konuşma, dinleme, okuma ve yazma
-            becerilerinin dengeli gelişimini hedefleyen programımız.
+            Oyunlar, şarkılar, hikâyeler ve interaktif aktivitelerle İngilizceyi sevdirerek
+            öğretiyoruz. Bu yaş grubunda önceliğimiz doğru telaffuz, temel kelime hazinesi
+            ve İngilizceyi kullanma özgüveni kazandırmaktır.
           </p>
           <ul class="cpk-course-meta">
-            <li><strong>Seviyeler:</strong> A1, A2, B1, B2, C1, C2</li>
-            <li><strong>Süre:</strong> Seviye başına 12 hafta</li>
-            <li><strong>Ders saati:</strong> Haftada 4 saat, küçük gruplar</li>
-            <li><strong>Materyal:</strong> Cambridge & Oxford kaynakları</li>
+            <li><strong>Yaş grubu:</strong> 6–10 yaş</li>
+            <li><strong>Seviye:</strong> A1 – A2</li>
+            <li><strong>Yaklaşım:</strong> Oyun temelli öğrenme</li>
+            <li><strong>Odak:</strong> Dinleme, konuşma, kelime</li>
           </ul>
         </article>
 
         <article class="cpk-course">
           <div class="cpk-course-head">
-            <div class="cpk-card-icon">B</div>
-            <h2>Sınav Hazırlık</h2>
+            <div class="cpk-card-icon">O</div>
+            <h2>Ortaokul İngilizce (5–8. Sınıf)</h2>
           </div>
           <p class="cpk-course-desc">
-            YDS, YDT, TOEFL ve IELTS gibi ulusal ve uluslararası sınavlara yönelik yoğun ve
-            stratejik hazırlık programı.
+            MEB müfredatıyla uyumlu, okul başarısını destekleyen ve LGS'ye hazırlayan program.
+            Dil bilgisi, okuma-anlama ve yazma becerilerinin yanı sıra konuşma pratiğine
+            ağırlık veriyoruz.
           </p>
           <ul class="cpk-course-meta">
-            <li><strong>Sınavlar:</strong> YDS, YDT, TOEFL, IELTS</li>
-            <li><strong>Yaklaşım:</strong> Deneme ağırlıklı + strateji dersleri</li>
-            <li><strong>Materyal:</strong> Güncel sınav formatına uygun kaynaklar</li>
-            <li><strong>Değerlendirme:</strong> Haftalık denemeler ve birebir geri bildirim</li>
+            <li><strong>Yaş grubu:</strong> 10–14 yaş</li>
+            <li><strong>Seviye:</strong> A2 – B2</li>
+            <li><strong>Yaklaşım:</strong> MEB müfredatı + LGS hazırlık</li>
+            <li><strong>Odak:</strong> Gramer, okuma, yazma, konuşma</li>
           </ul>
         </article>
 
         <article class="cpk-course">
           <div class="cpk-course-head">
-            <div class="cpk-card-icon">C</div>
-            <h2>Konuşma Kulübü</h2>
+            <div class="cpk-card-icon">K</div>
+            <h2>Konuşma Odaklı Eğitim</h2>
           </div>
           <p class="cpk-course-desc">
-            İngilizceyi akıcı ve özgüvenli konuşabilmek için gerçek hayat senaryolarıyla pratik
-            yapılan interaktif kulüp programı.
+            Dört temel beceriyi (dinleme, konuşma, okuma, yazma) dengeli geliştirirken, en çok
+            konuşma pratiğine ağırlık veriyoruz. Öğrencilerimiz gerçek hayat senaryoları ile
+            İngilizceyi aktif olarak kullanır.
           </p>
           <ul class="cpk-course-meta">
-            <li><strong>Odak:</strong> Günlük konuşma ve telaffuz</li>
+            <li><strong>Odak:</strong> Konuşma ve telaffuz</li>
             <li><strong>Format:</strong> Küçük gruplar, aktif katılım</li>
-            <li><strong>Konular:</strong> Günlük yaşam, iş, seyahat, kültür</li>
-            <li><strong>Kazanım:</strong> Akıcılık ve doğal ifade becerisi</li>
+            <li><strong>Kazanım:</strong> Akıcılık ve özgüven</li>
+            <li><strong>Uyum:</strong> CEFR A1 – C1</li>
           </ul>
         </article>
 
         <article class="cpk-course">
           <div class="cpk-course-head">
-            <div class="cpk-card-icon">D</div>
+            <div class="cpk-card-icon">P</div>
             <h2>Online Takip Paneli</h2>
           </div>
           <p class="cpk-course-desc">
-            Tüm kurslarımıza dahil olan dijital takip sistemi ile öğrenci, veli ve öğretmen aynı
-            platformda buluşur.
+            Tüm programlarımıza dahil olan dijital takip sistemi ile öğrenci, veli ve öğretmen
+            aynı platformda buluşur. Böylece gelişim şeffaf şekilde takip edilir ve iletişim
+            güçlenir.
           </p>
           <ul class="cpk-course-meta">
             <li><strong>Ders programı:</strong> Anlık güncel</li>
-            <li><strong>Ödevler:</strong> Öğretmen tarafından atanır, dijital takip edilir</li>
-            <li><strong>Bildirimler:</strong> Önemli duyurular otomatik iletilir</li>
-            <li><strong>Veli erişimi:</strong> Gelişim şeffaf şekilde takip edilir</li>
+            <li><strong>Ödevler:</strong> Dijital atanır ve takip edilir</li>
+            <li><strong>Bildirimler:</strong> Otomatik iletilir</li>
+            <li><strong>Veli erişimi:</strong> Gelişim şeffaf görülür</li>
           </ul>
         </article>
 
@@ -132,10 +135,10 @@
   <section class="cpk-section cpk-section-alt">
     <div class="container cpk-section-inner">
       <span class="cpk-eyebrow">Kayıt &amp; Bilgi</span>
-      <h2 class="cpk-h2">Hangi kurs size uygun, birlikte <em>belirleyelim</em></h2>
+      <h2 class="cpk-h2">Çocuğunuz için en uygun programı <em>birlikte</em> belirleyelim</h2>
       <p class="cpk-lead">
-        Seviye tespit sınavımızla başlayalım, hedeflerinizi konuşalım ve size en uygun programı
-        birlikte planlayalım. Kayıt ve ücret bilgisi için bize ulaşın.
+        Seviye tespit görüşmesiyle başlayalım, çocuğunuzun seviyesini ve hedefini birlikte
+        değerlendirelim. Kayıt ve ücret bilgisi için bize ulaşın.
       </p>
       <div class="cpk-inline-cta">
         <a href="/iletisim" class="btn-primary btn-copper">Bize Ulaşın</a>
@@ -158,4 +161,5 @@
     </span>
   </div>
 </footer>
+
 {% endblock %}

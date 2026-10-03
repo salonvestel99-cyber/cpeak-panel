@@ -1186,3 +1186,49 @@ html.dark .cpk-header .cpk-nav a:visited {
     letter-spacing: .3em !important;
   }
 }
+
+
+/* =========================================================
+   4'LU HERO STATS + Konuşma / A1-C1 gibi metin degerleri
+   ========================================================= */
+.cpk-hero-stats {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 24px 40px !important;
+  max-width: 780px !important;
+}
+.cpk-hero-stats .hero-stat {
+  align-items: center !important;
+  text-align: center !important;
+  min-width: 100px;
+}
+.cpk-hero-stats .hero-stat strong {
+  font-size: 1.55rem !important;
+  line-height: 1.1 !important;
+}
+/* Metinsel degerler (Konuşma, A1–C1) icin hafif kucultme */
+.cpk-hero-stats .hero-stat strong:not([data-num]) {
+  font-size: 1.35rem !important;
+}
+
+@media (max-width: 768px) {
+  .cpk-hero-stats {
+    gap: 18px 24px !important;
+    padding-top: 22px !important;
+    margin-top: 26px !important;
+  }
+  .cpk-hero-stats .hero-stat {
+    min-width: 80px;
+    flex: 0 0 auto;
+  }
+  .cpk-hero-stats .hero-stat strong {
+    font-size: 1.25rem !important;
+  }
+  .cpk-hero-stats .hero-stat strong:not([data-num]) {
+    font-size: 1.05rem !important;
+  }
+  .cpk-hero-stats .hero-stat span {
+    font-size: .72rem !important;
+  }
+}
