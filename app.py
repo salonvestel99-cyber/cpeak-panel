@@ -1869,10 +1869,6 @@ Sitemap: https://www.cpeakenglish.com/sitemap.xml
 @app.route('/sitemap.xml')
 def sitemap_xml():
     pages = [
-        "https://www.cpeakenglish.com/",
-        "https://www.cpeakenglish.com/hakkimizda",
-        "https://www.cpeakenglish.com/kurslar",
-        "https://www.cpeakenglish.com/iletisim",
         "https://www.cpeakenglish.com/kvkk",
     ]
     today = datetime.now().date().isoformat()
