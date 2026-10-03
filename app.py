@@ -21,6 +21,10 @@ app = Flask(__name__)
 # --- Guvenlik katmanlari ---
 from security import init_security
 init_security(app)
+# Ek HTTP güvenlik başlıkları (Cache-Control, CORP)
+from security_headers import init_headers
+init_headers(app)
+
 
 
 # ============================================================

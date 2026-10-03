@@ -28,6 +28,15 @@
     return e;
   }
 
+  function escapeHtml(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   function svgIcon(name) {
     var icons = {
       menu:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>',
@@ -110,10 +119,10 @@
           class: a.className && a.className.indexOf("active") !== -1 ? "mpro-active" : ""
         });
         var ik = ikonSec(a.getAttribute("href") || "", a.textContent || "");
-        copy.innerHTML = svgIcon(ik) + "<span>" + (a.textContent || "").trim() + "</span>";
+        copy.innerHTML = svgIcon(ik) + "<span>" + escapeHtml((a.textContent || "").trim()) + "</span>";
         if (a.tagName === "BUTTON") {
           copy = el("button", { class: "mpro-drawer-item", type: "button" });
-          copy.innerHTML = svgIcon(ik) + "<span>" + (a.textContent || "").trim() + "</span>";
+          copy.innerHTML = svgIcon(ik) + "<span>" + escapeHtml((a.textContent || "").trim()) + "</span>";
           copy.addEventListener("click", function () { a.click(); });
         }
         dr.appendChild(copy);

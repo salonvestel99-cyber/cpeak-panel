@@ -29,3 +29,11 @@ yapi_tara.py
 auto_init.py
 ck_premium.py
 "@ | Out-File -Encoding utf8 .gitignore
+# Kişisel yönetim script'leri (git'e gitmesin)
+admin_ekle.py
+admin_analiz.py
+logout_modal_analiz.py
+login_analiz.py
+
+# Kişisel yönetim script'leri (git'e gitmesin)
+guvenlik_teshis.py

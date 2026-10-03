@@ -8,13 +8,7 @@
   if (window.__cpeakGeriOnayV4) return;
   window.__cpeakGeriOnayV4 = true;
 
-  function log() {
-    try {
-      var a = Array.prototype.slice.call(arguments);
-      a.unshift("%c[GeriOnay]", "color:#f59e0b;font-weight:bold");
-      console.log.apply(console, a);
-    } catch (e) {}
-  }
+  function log() { /* production: sessiz */ }
 
   /* Login sayfasında devre dışı */
   if (document.body && document.body.classList.contains("login-page")) {
