@@ -37,3 +37,7 @@ login_analiz.py
 
 # Kişisel yönetim script'leri (git'e gitmesin)
 guvenlik_teshis.py
+
+*.bak_*
+_backups/
+*.bak
