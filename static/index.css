@@ -967,3 +967,124 @@ html.dark .cpk-map-wrap { border-color: rgba(255,255,255,.08); }
     margin-top: 0 !important;
   }
 }
+
+
+/* =========================================================
+   DESKTOP HEADER BRAND FIX — varsayilan link rengi mor gorunumu
+   ========================================================= */
+
+/* Marka linki: renk ve alt cizgi sifirla */
+.cpk-header .topbar-brand,
+.cpk-header .topbar-brand:link,
+.cpk-header .topbar-brand:visited,
+.cpk-header .topbar-brand:hover,
+.cpk-header .topbar-brand:active {
+  color: var(--ink) !important;
+  text-decoration: none !important;
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+}
+
+html[data-theme="dark"] .cpk-header .topbar-brand,
+html.dark .cpk-header .topbar-brand,
+html[data-theme="dark"] .cpk-header .topbar-brand:link,
+html.dark .cpk-header .topbar-brand:link,
+html[data-theme="dark"] .cpk-header .topbar-brand:visited,
+html.dark .cpk-header .topbar-brand:visited,
+html[data-theme="dark"] .cpk-header .topbar-brand:hover,
+html.dark .cpk-header .topbar-brand:hover {
+  color: #fafafa !important;
+}
+
+/* Marka metin blogu */
+.cpk-header .topbar-brand-text {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  line-height: 1;
+  text-decoration: none !important;
+}
+
+/* Ana baslik: C · Peak */
+.cpk-header .topbar-brand-title {
+  font-family: 'Fraunces', Georgia, serif !important;
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -.02em !important;
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+/* Ayrac */
+.cpk-header .topbar-brand-sep {
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  background: currentColor;
+  opacity: .35;
+  align-self: center;
+}
+
+/* ENGLISH alt basligi */
+.cpk-header .topbar-brand-sub {
+  font-family: 'Inter', sans-serif !important;
+  font-size: .68rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .28em !important;
+  color: var(--copper) !important;
+  text-decoration: none !important;
+  text-transform: uppercase;
+}
+
+/* Logo boyutu */
+.cpk-header .topbar-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cpk-header .topbar-brand-mark img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Nav linkleri de net gorunsun */
+.cpk-header .cpk-nav a,
+.cpk-header .cpk-nav a:link,
+.cpk-header .cpk-nav a:visited {
+  color: var(--ink) !important;
+  text-decoration: none !important;
+}
+html[data-theme="dark"] .cpk-header .cpk-nav a,
+html.dark .cpk-header .cpk-nav a,
+html[data-theme="dark"] .cpk-header .cpk-nav a:link,
+html.dark .cpk-header .cpk-nav a:link,
+html[data-theme="dark"] .cpk-header .cpk-nav a:visited,
+html.dark .cpk-header .cpk-nav a:visited {
+  color: #e4e4e7 !important;
+}
+.cpk-header .cpk-nav a:hover {
+  color: var(--copper) !important;
+}
+.cpk-header .cpk-nav-cta,
+.cpk-header .cpk-nav-cta:link,
+.cpk-header .cpk-nav-cta:visited {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+/* Mobilde de gecerli */
+@media (max-width: 768px) {
+  .cpk-header .topbar-brand-title {
+    font-size: 1.05rem !important;
+  }
+  .cpk-header .topbar-brand-sub {
+    font-size: .58rem !important;
+  }
+  .cpk-header .topbar-brand-mark img {
+    height: 34px !important;
+  }
+}
