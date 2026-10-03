@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("cpeak_theme");
+    if (!t && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      t = "dark";
+    }
+    if (t) {
+      document.documentElement.setAttribute("data-theme", t);
+      document.documentElement.classList.toggle("dark", t === "dark");
+    }
+  } catch (e) {}
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
+<title>{% block title %}C-Peak English | İstanbul İngilizce Kursu{% endblock %}</title>
+<meta name="description" content="{% block description %}C-Peak English, İstanbul Yıldırım'da küçük sınıflar ve modern yöntemlerle İngilizce eğitimi.{% endblock %}">
+<meta name="robots" content="{% block robots %}index, follow{% endblock %}">
+<link rel="canonical" href="{% block canonical %}https://www.cpeakenglish.com/{% endblock %}">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="C-Peak English">
+<meta property="og:title" content="{% block og_title %}C-Peak English | İstanbul İngilizce Kursu{% endblock %}">
+<meta property="og:description" content="{% block og_description %}İstanbul Yıldırım'da İngilizce eğitim merkezi.{% endblock %}">
+<meta property="og:url" content="{% block og_url %}https://www.cpeakenglish.com/{% endblock %}">
+<meta property="og:image" content="{% block og_image %}https://www.cpeakenglish.com/static/logochrome.png{% endblock %}">
+<meta property="og:locale" content="tr_TR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% block tw_title %}C-Peak English{% endblock %}">
+<meta name="twitter:description" content="{% block tw_description %}İstanbul Yıldırım'da İngilizce eğitim merkezi.{% endblock %}">
+<meta name="twitter:image" content="{% block tw_image %}https://www.cpeakenglish.com/static/logochrome.png{% endblock %}">
+
+<link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='logochrome.png') }}">
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Sadece gerekli CSS'ler (panel CSS'leri YOK) -->
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='hero.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}?v=20260928_062847">
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=20261003d">
+
+{% block head %}{% endblock %}
+</head>
+<body class="cpk-page {% block body_class %}{% endblock %}">
+{% block body %}{% endblock %}
+{% block scripts %}{% endblock %}
+</body>
+</html>

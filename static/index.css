@@ -739,3 +739,158 @@ html.dark .cpk-map-wrap { border-color: rgba(255,255,255,.08); }
     justify-content: center;
   }
 }
+
+
+/* =========================================================
+   MOBILE LANDING FIX (base.html'deki panel CSS'lerini notrler)
+   ========================================================= */
+@media (max-width: 768px) {
+  /* Panel CSS'lerin landing page'e sizmasini engelle */
+  body.cpk-page {
+    overflow-x: hidden !important;
+  }
+  body.cpk-page .cpk-header-inner {
+    padding: 12px 16px !important;
+  }
+  body.cpk-page .cpk-nav {
+    gap: 12px !important;
+  }
+  body.cpk-page .cpk-nav a:not(.cpk-nav-cta) {
+    display: none !important;
+  }
+  body.cpk-page .cpk-nav-cta {
+    padding: 8px 14px !important;
+    font-size: .82rem !important;
+    width: auto !important;
+    white-space: nowrap;
+  }
+  body.cpk-page .topbar-brand-title {
+    font-size: 1rem !important;
+  }
+  body.cpk-page .topbar-brand-sub {
+    font-size: .58rem !important;
+  }
+  body.cpk-page .topbar-brand-mark img {
+    height: 32px !important;
+  }
+
+  body.cpk-page .cpk-hero {
+    padding: 44px 16px 56px !important;
+  }
+  body.cpk-page .cpk-hero .hero-brand {
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin-bottom: 22px !important;
+  }
+  body.cpk-page .cpk-hero .hero-brand-mark img {
+    height: clamp(60px, 16vw, 78px) !important;
+  }
+  body.cpk-page .cpk-hero .hero-brand-title {
+    font-size: clamp(1.4rem, 6.5vw, 1.9rem) !important;
+  }
+  body.cpk-page .cpk-hero-title {
+    font-size: clamp(1.55rem, 7.5vw, 2.1rem) !important;
+    line-height: 1.15 !important;
+  }
+  body.cpk-page .cpk-hero-lead {
+    font-size: .94rem !important;
+    padding: 0 4px;
+  }
+  body.cpk-page .cpk-hero-list {
+    align-items: flex-start !important;
+    padding-left: 4px;
+    font-size: .9rem;
+  }
+  body.cpk-page .cpk-hero-cta {
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+    padding: 0 4px;
+  }
+  body.cpk-page .cpk-hero-cta .cpk-btn-lg {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center;
+  }
+  body.cpk-page .cpk-hero-stats {
+    flex-wrap: wrap !important;
+    gap: 18px 22px !important;
+    padding-top: 22px !important;
+    margin-top: 30px !important;
+  }
+  body.cpk-page .cpk-hero-stats .hero-stat {
+    min-width: 90px;
+  }
+  body.cpk-page .cpk-hero-stats .hero-stat strong {
+    font-size: 1.35rem !important;
+  }
+  body.cpk-page .cpk-hero-stats .hero-stat span {
+    font-size: .76rem !important;
+  }
+
+  body.cpk-page .cpk-section {
+    padding: 52px 0 !important;
+  }
+  body.cpk-page .container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  body.cpk-page .cpk-h2 {
+    font-size: clamp(1.35rem, 5.5vw, 1.75rem) !important;
+  }
+  body.cpk-page .cpk-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  body.cpk-page .cpk-features {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  body.cpk-page .cpk-contact {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  body.cpk-page .cpk-footer-inner {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 12px !important;
+    padding: 22px 16px !important;
+  }
+  body.cpk-page .cpk-footer-links {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 14px !important;
+  }
+
+  /* Alt sayfalar (hakkimizda, kurslar, iletisim) */
+  body.cpk-page .cpk-page-hero {
+    padding: 42px 0 26px !important;
+  }
+  body.cpk-page .cpk-h1 {
+    font-size: clamp(1.4rem, 6.5vw, 1.9rem) !important;
+  }
+  body.cpk-page .cpk-prose h2 {
+    font-size: 1.2rem !important;
+    margin-top: 30px !important;
+  }
+  body.cpk-page .cpk-course {
+    padding: 20px 18px !important;
+  }
+  body.cpk-page .cpk-course-meta {
+    grid-template-columns: 1fr !important;
+  }
+  body.cpk-page .cpk-contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  body.cpk-page .cpk-inline-cta {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  body.cpk-page .cpk-inline-cta .btn-primary,
+  body.cpk-page .cpk-inline-cta .btn-ghost {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center;
+  }
+}
