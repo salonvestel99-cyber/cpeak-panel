@@ -1088,3 +1088,101 @@ html.dark .cpk-header .cpk-nav a:visited {
     height: 34px !important;
   }
 }
+
+
+/* =========================================================
+   HERO LOGO FIX — bulanik arka plan logosu + kayip logo
+   ========================================================= */
+
+/* 1) Hero'nun arka planindaki bulanik dev logo'yu kaldir */
+.cpk-hero::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+}
+
+/* 2) Logonun etrafindaki asiri glow'u notrle */
+.cpk-hero .hero-brand-mark::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* 3) Hero'daki logoyu net ve dogru boyutta goster */
+.cpk-hero .hero-brand-mark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cpk-hero .hero-brand-mark img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: clamp(72px, 8vw, 96px) !important;
+  width: auto !important;
+  object-fit: contain;
+  mix-blend-mode: normal !important;
+  filter: drop-shadow(0 4px 16px rgba(180,83,9,.35)) !important;
+  opacity: 1 !important;
+}
+
+/* 4) Marka blogu (logo + yazi) duzgun hizalansin */
+.cpk-hero .hero-brand {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 18px !important;
+  margin: 0 auto 34px !important;
+  text-align: left;
+}
+
+.cpk-hero .hero-brand-text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  line-height: 1;
+}
+
+.cpk-hero .hero-brand-title {
+  font-family: 'Fraunces', Georgia, serif !important;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -.02em !important;
+  color: #fff !important;
+  line-height: 1 !important;
+}
+
+.cpk-hero .hero-brand-sub {
+  margin-top: 6px;
+  font-family: 'Inter', sans-serif !important;
+  font-size: .74rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .38em !important;
+  color: var(--copper) !important;
+  text-transform: uppercase;
+}
+
+/* 5) Mobilde alt alta kalsin ama temiz */
+@media (max-width: 768px) {
+  .cpk-hero .hero-brand {
+    flex-direction: column !important;
+    gap: 12px !important;
+    text-align: center;
+    margin-bottom: 24px !important;
+  }
+  .cpk-hero .hero-brand-text {
+    align-items: center !important;
+  }
+  .cpk-hero .hero-brand-mark img {
+    height: 72px !important;
+  }
+  .cpk-hero .hero-brand-title {
+    font-size: 1.6rem !important;
+  }
+  .cpk-hero .hero-brand-sub {
+    font-size: .6rem !important;
+    letter-spacing: .3em !important;
+  }
+}
