@@ -1,5 +1,6 @@
+﻿from datetime import datetime
 # -*- coding: utf-8 -*-
-"""Ana Flask uygulaması."""
+"""Ana Flask uygulamasÄ±."""
 
 import os
 from datetime import date, timedelta
@@ -21,7 +22,7 @@ app = Flask(__name__)
 # --- Guvenlik katmanlari ---
 from security import init_security
 init_security(app)
-# Ek HTTP güvenlik başlıkları (Cache-Control, CORP)
+# Ek HTTP gÃ¼venlik baÅŸlÄ±klarÄ± (Cache-Control, CORP)
 from security_headers import init_headers
 init_headers(app)
 
@@ -67,15 +68,15 @@ app.permanent_session_lifetime = timedelta(days=30)
 
 @app.context_processor
 def inject_now():
-    """Şablonlarda dinamik selamlama için saat bilgisi."""
+    """Åablonlarda dinamik selamlama iÃ§in saat bilgisi."""
     from datetime import datetime
     return {"now_hour": datetime.now().hour}
 
 def login_required(*roles):
-    """Çoklu rol destekli login kontrolü.
+    """Ã‡oklu rol destekli login kontrolÃ¼.
 
-    Kullanım:
-        @login_required()                     # herhangi bir giriş
+    KullanÄ±m:
+        @login_required()                     # herhangi bir giriÅŸ
         @login_required("admin")              # sadece admin
         @login_required("admin", "teacher")   # admin veya teacher
     """
@@ -85,7 +86,7 @@ def login_required(*roles):
             if "user_id" not in session:
                 return redirect(url_for("login"))
             if roles and session.get("role") not in roles:
-                flash("Bu sayfaya erişim yetkiniz yok.", "error")
+                flash("Bu sayfaya eriÅŸim yetkiniz yok.", "error")
                 return redirect(url_for("dashboard"))
             return fn(*args, **kwargs)
         return wrapper
@@ -151,12 +152,12 @@ def login():
             session["student_id"] = u["student_id"]
             session.permanent = bool(request.form.get("beni_hatirla"))
             return redirect(url_for("dashboard"))
-        flash("T.C. kimlik no veya şifre hatalı.", "error")
+        flash("T.C. kimlik no veya ÅŸifre hatalÄ±.", "error")
         return redirect(url_for("login"))
     return render_template("login.html")
 
 # ============================================================
-# ŞİFREMİ UNUTTUM — talep kaydı
+# ÅÄ°FREMÄ° UNUTTUM â€” talep kaydÄ±
 # ============================================================
 
 @app.route("/sifremi-unuttum", methods=["POST"])
@@ -173,7 +174,7 @@ def sifremi_unuttum():
         conn.execute(
             "INSERT INTO reset_requests (tc_no, user_name, role, email, mesaj, tarih) VALUES (?,?,?,?,?,?)",
             (tc, u["name"], u["role"], email or None,
-             "Kullanıcı şifre sıfırlama talep etti.",
+             "KullanÄ±cÄ± ÅŸifre sÄ±fÄ±rlama talep etti.",
              date.today().strftime("%d.%m.%Y %H:%M"))
         )
         conn.commit()
@@ -189,7 +190,7 @@ def sifremi_unuttum():
             except Exception as _e:
                 print(f"[sifremi_unuttum] email hata: {_e}", flush=True)
     conn.close()
-    flash("Talebiniz alındı. Yönetim en kısa sürede sizinle iletişime geçecek.", "success")
+    flash("Talebiniz alÄ±ndÄ±. YÃ¶netim en kÄ±sa sÃ¼rede sizinle iletiÅŸime geÃ§ecek.", "success")
     return redirect(url_for("login"))
 
 @app.route("/cikis", methods=["POST"])
@@ -209,7 +210,7 @@ def dashboard():
     }[session["role"]]))
 
 # ============================================================
-# ŞİFRE DEĞİŞTİRME (her kullanıcı)
+# ÅÄ°FRE DEÄÄ°ÅTÄ°RME (her kullanÄ±cÄ±)
 # ============================================================
 
 @app.route("/sifre-degistir", methods=["GET", "POST"])
@@ -223,15 +224,15 @@ def sifre_degistir():
         u = conn.execute("SELECT * FROM users WHERE id = ?", (session["user_id"],)).fetchone()
         if not u or not check_password_hash(u["password_hash"], eski):
             conn.close()
-            flash("Mevcut şifre hatalı.", "error")
+            flash("Mevcut ÅŸifre hatalÄ±.", "error")
             return redirect(url_for("sifre_degistir"))
         if len(yeni) < 5:
             conn.close()
-            flash("Yeni şifre en az 5 karakter olmalı.", "error")
+            flash("Yeni ÅŸifre en az 5 karakter olmalÄ±.", "error")
             return redirect(url_for("sifre_degistir"))
         if yeni != yeni2:
             conn.close()
-            flash("Yeni şifreler eşleşmiyor.", "error")
+            flash("Yeni ÅŸifreler eÅŸleÅŸmiyor.", "error")
             return redirect(url_for("sifre_degistir"))
         conn.execute("UPDATE users SET password_hash = ? WHERE id = ?",
                      (generate_password_hash(yeni), session["user_id"]))
@@ -245,12 +246,12 @@ def sifre_degistir():
         except Exception as _e:
             print(f"[sifre_degistir] mail hata: {_e}", flush=True)
         conn.close()
-        flash("Şifreniz güncellendi.", "success")
+        flash("Åifreniz gÃ¼ncellendi.", "success")
         return redirect(url_for("dashboard"))
     return render_template("sifre_degistir.html")
 
 # ============================================================
-# ÖĞRENCİ
+# Ã–ÄRENCÄ°
 # ============================================================
 
 @app.route("/ogrenci")
@@ -260,13 +261,13 @@ def student_panel():
     s = conn.execute("SELECT * FROM students WHERE user_id = ?", (session["user_id"],)).fetchone()
     conn.close()
     if not s:
-        flash("Öğrenci kaydınız bulunamadı.", "error")
+        flash("Ã–ÄŸrenci kaydÄ±nÄ±z bulunamadÄ±.", "error")
         return redirect(url_for("logout"))
     data = _ogrenci_verisi(s["id"])
     return render_template("student.html", ogrenci=dict(s), **data)
 
 # ============================================================
-# VELİ
+# VELÄ°
 # ============================================================
 
 @app.route("/veli")
@@ -274,7 +275,7 @@ def student_panel():
 def parent_panel():
     sid = session.get("student_id")
     if not sid:
-        flash("Veliye bağlı öğrenci bulunamadı.", "error")
+        flash("Veliye baÄŸlÄ± Ã¶ÄŸrenci bulunamadÄ±.", "error")
         return redirect(url_for("logout"))
     conn = get_db()
     s = conn.execute("SELECT * FROM students WHERE id = ?", (sid,)).fetchone()
@@ -287,7 +288,7 @@ def parent_panel():
     return render_template("parent.html", ogrenci=dict(s), ogrenci_ad=ogr_u["name"], **data)
 
 # ============================================================
-# ÖĞRETMEN
+# Ã–ÄRETMEN
 # ============================================================
 
 @app.route("/ogretmen")
@@ -301,19 +302,19 @@ def teacher_panel():
         (session["user_id"],)
     ).fetchall()
 
-    # Tüm öğrenciler
+    # TÃ¼m Ã¶ÄŸrenciler
     ogrenciler = conn.execute("""
         SELECT s.id, u.name AS ad, s.sinif, s.numara
         FROM students s JOIN users u ON u.id = s.user_id
         ORDER BY s.sinif, s.numara
     """).fetchall()
 
-    # Sınıflar (filtre için)
+    # SÄ±nÄ±flar (filtre iÃ§in)
     siniflar = [r["sinif"] for r in conn.execute(
         "SELECT DISTINCT sinif FROM students ORDER BY sinif"
     ).fetchall()]
 
-    # Son ödevler (tablo varsa)
+    # Son Ã¶devler (tablo varsa)
     try:
         odevler = conn.execute("""
             SELECT h.id, h.baslik, h.teslim,
@@ -326,7 +327,7 @@ def teacher_panel():
     except Exception:
         odevler = []
 
-    # Bugünkü yoklama
+    # BugÃ¼nkÃ¼ yoklama
     try:
         bugun = date.today().isoformat()
         bugun_yoklama = conn.execute(
@@ -338,17 +339,17 @@ def teacher_panel():
 
     conn.close()
 
-    # Bugünün tarihi (Türkçe)
+    # BugÃ¼nÃ¼n tarihi (TÃ¼rkÃ§e)
     d = date.today()
-    gunler = ["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"]
-    aylar = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran",
-             "Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"]
+    gunler = ["Pazartesi","SalÄ±","Ã‡arÅŸamba","PerÅŸembe","Cuma","Cumartesi","Pazar"]
+    aylar = ["Ocak","Åubat","Mart","Nisan","MayÄ±s","Haziran",
+             "Temmuz","AÄŸustos","EylÃ¼l","Ekim","KasÄ±m","AralÄ±k"]
     bugun_gun = f"{gunler[d.weekday()]}, {d.day} {aylar[d.month-1]}"
 
     if bugun_yoklama == 0:
-        yoklama_metni = "Henüz alınmadı"
+        yoklama_metni = "HenÃ¼z alÄ±nmadÄ±"
     else:
-        yoklama_metni = "öğrenci işaretli"
+        yoklama_metni = "Ã¶ÄŸrenci iÅŸaretli"
 
     return render_template("teacher.html",
                            dersler=[dict(x) for x in dersler],
@@ -361,7 +362,7 @@ def teacher_panel():
                            bugun_gun=bugun_gun)
 
 # ============================================================
-# DEVAMSIZLIK DETAY (ortak — rol kontrolü içinde)
+# DEVAMSIZLIK DETAY (ortak â€” rol kontrolÃ¼ iÃ§inde)
 # ============================================================
 
 @app.route("/devamsizlik/<int:sid>")
@@ -369,18 +370,18 @@ def teacher_panel():
 def devamsizlik_detay(sid):
     role = session["role"]
 
-    # Yetki: öğrenci sadece kendini, veli sadece çocuğunu
+    # Yetki: Ã¶ÄŸrenci sadece kendini, veli sadece Ã§ocuÄŸunu
     if role == "student":
         conn = get_db()
         own = conn.execute("SELECT id FROM students WHERE user_id = ?",
                            (session["user_id"],)).fetchone()
         conn.close()
         if not own or own["id"] != sid:
-            flash("Bu sayfaya erişim yetkiniz yok.", "error")
+            flash("Bu sayfaya eriÅŸim yetkiniz yok.", "error")
             return redirect(url_for("dashboard"))
     elif role == "parent":
         if session.get("student_id") != sid:
-            flash("Bu sayfaya erişim yetkiniz yok.", "error")
+            flash("Bu sayfaya eriÅŸim yetkiniz yok.", "error")
             return redirect(url_for("dashboard"))
 
     conn = get_db()
@@ -391,7 +392,7 @@ def devamsizlik_detay(sid):
     """, (sid,)).fetchone()
     if not s:
         conn.close()
-        flash("Öğrenci bulunamadı.", "error")
+        flash("Ã–ÄŸrenci bulunamadÄ±.", "error")
         return redirect(url_for("dashboard"))
 
     kayitlar = conn.execute("""
@@ -464,15 +465,15 @@ def admin_add_student():
     sinif = request.form.get("sinif", "").strip()
     numara = request.form.get("numara", "").strip()
     if not (ad and tc and sifre and sinif and numara):
-        flash("Tüm alanlar zorunlu.", "error")
+        flash("TÃ¼m alanlar zorunlu.", "error")
         return redirect(url_for("admin_panel"))
     conn = get_db()
     try:
         mevcut = conn.execute("SELECT role FROM users WHERE tc_no = ?", (tc,)).fetchone()
         if mevcut:
             conn.close()
-            rol_tr = {"student": "öğrenci", "parent": "veli", "teacher": "öğretmen", "admin": "yönetici"}.get(mevcut["role"], mevcut["role"])
-            flash(f"Bu T.C. ({tc}) zaten {rol_tr} olarak kayıtlı.", "error")
+            rol_tr = {"student": "Ã¶ÄŸrenci", "parent": "veli", "teacher": "Ã¶ÄŸretmen", "admin": "yÃ¶netici"}.get(mevcut["role"], mevcut["role"])
+            flash(f"Bu T.C. ({tc}) zaten {rol_tr} olarak kayÄ±tlÄ±.", "error")
             return redirect(url_for("admin_panel"))
 
         cur = conn.cursor()
@@ -501,11 +502,11 @@ def admin_add_student():
                            sablon_kayit(v_ad, v_tc, v_sifre, _giris))
         except Exception as _e:
             print(f"[admin_add_student] mail hata: {_e}", flush=True)
-        flash(f"Öğrenci eklendi: {ad}", "success")
+        flash(f"Ã–ÄŸrenci eklendi: {ad}", "success")
     except Exception as e:
         conn.rollback()
         if "UNIQUE" in str(e).upper():
-            flash("Bu T.C. numarası zaten sistemde kayıtlı.", "error")
+            flash("Bu T.C. numarasÄ± zaten sistemde kayÄ±tlÄ±.", "error")
         else:
             flash(f"Hata: {e}", "error")
     finally:
@@ -523,7 +524,7 @@ def admin_edit_student(sid):
     """, (sid,)).fetchone()
     if not s:
         conn.close()
-        flash("Öğrenci bulunamadı.", "error")
+        flash("Ã–ÄŸrenci bulunamadÄ±.", "error")
         return redirect(url_for("admin_panel"))
 
     veli = conn.execute(
@@ -560,7 +561,7 @@ def admin_edit_student(sid):
                 conn.execute("INSERT INTO users (tc_no, password_hash, name, role, student_id) VALUES (?,?,?,?,?)",
                              (v_tc, generate_password_hash(v_sifre), v_ad, "parent", sid))
             conn.commit()
-            flash("Öğrenci bilgileri güncellendi.", "success")
+            flash("Ã–ÄŸrenci bilgileri gÃ¼ncellendi.", "success")
             conn.close()
             return redirect(url_for("admin_panel"))
         except Exception as e:
@@ -579,7 +580,7 @@ def admin_edit_student(sid):
 def admin_sifre_sifirla(uid):
     yeni = request.form.get("yeni_sifre", "").strip()
     if len(yeni) < 5:
-        flash("Yeni şifre en az 5 karakter olmalı.", "error")
+        flash("Yeni ÅŸifre en az 5 karakter olmalÄ±.", "error")
         return redirect(url_for("admin_panel"))
     conn = get_db()
     try:
@@ -593,11 +594,11 @@ def admin_sifre_sifirla(uid):
                            sablon_sifre_sifirlandi(_k["name"], yeni))
         except Exception as _e:
             print(f"[admin_sifre_sifirla] mail hata: {_e}", flush=True)
-        flash("Şifre başarıyla değiştirildi.", "success")
+        flash("Åifre baÅŸarÄ±yla deÄŸiÅŸtirildi.", "success")
     except Exception as e:
         conn.rollback()
         if "UNIQUE" in str(e).upper():
-            flash("Bu T.C. numarası zaten sistemde kayıtlı.", "error")
+            flash("Bu T.C. numarasÄ± zaten sistemde kayÄ±tlÄ±.", "error")
         else:
             flash(f"Hata: {e}", "error")
     finally:
@@ -611,15 +612,15 @@ def admin_add_teacher():
     tc = request.form.get("tc", "").strip()
     sifre = request.form.get("sifre", "").strip()
     if not (ad and tc and sifre):
-        flash("Tüm alanlar zorunlu.", "error")
+        flash("TÃ¼m alanlar zorunlu.", "error")
         return redirect(url_for("admin_panel"))
     conn = get_db()
     try:
         mevcut = conn.execute("SELECT role FROM users WHERE tc_no = ?", (tc,)).fetchone()
         if mevcut:
             conn.close()
-            rol_tr = {"student": "öğrenci", "parent": "veli", "teacher": "öğretmen", "admin": "yönetici"}.get(mevcut["role"], mevcut["role"])
-            flash(f"Bu T.C. ({tc}) zaten {rol_tr} olarak kayıtlı. Aynı numara iki kez kullanılamaz.", "error")
+            rol_tr = {"student": "Ã¶ÄŸrenci", "parent": "veli", "teacher": "Ã¶ÄŸretmen", "admin": "yÃ¶netici"}.get(mevcut["role"], mevcut["role"])
+            flash(f"Bu T.C. ({tc}) zaten {rol_tr} olarak kayÄ±tlÄ±. AynÄ± numara iki kez kullanÄ±lamaz.", "error")
             return redirect(url_for("admin_panel"))
 
         conn.execute("INSERT INTO users (tc_no, password_hash, name, role) VALUES (?,?,?,?)",
@@ -633,11 +634,11 @@ def admin_add_teacher():
                            sablon_kayit(ad, tc, sifre, _giris))
         except Exception as _e:
             print(f"[admin_add_teacher] mail hata: {_e}", flush=True)
-        flash(f"Öğretmen eklendi: {ad}", "success")
+        flash(f"Ã–ÄŸretmen eklendi: {ad}", "success")
     except Exception as e:
         conn.rollback()
         if "UNIQUE" in str(e).upper():
-            flash(f"Bu T.C. ({tc}) zaten sistemde kayıtlı.", "error")
+            flash(f"Bu T.C. ({tc}) zaten sistemde kayÄ±tlÄ±.", "error")
         else:
             flash(f"Hata: {e}", "error")
     finally:
@@ -650,7 +651,7 @@ def admin_add_course():
     ad = request.form.get("ad", "").strip()
     ogr_id = request.form.get("ogretmen_id") or None
     if not ad:
-        flash("Ders adı zorunlu.", "error")
+        flash("Ders adÄ± zorunlu.", "error")
         return redirect(url_for("admin_panel"))
     conn = get_db()
     try:
@@ -661,7 +662,7 @@ def admin_add_course():
     except Exception as e:
         conn.rollback()
         if "UNIQUE" in str(e).upper():
-            flash("Bu T.C. numarası zaten sistemde kayıtlı.", "error")
+            flash("Bu T.C. numarasÄ± zaten sistemde kayÄ±tlÄ±.", "error")
         else:
             flash(f"Hata: {e}", "error")
     finally:
@@ -676,7 +677,7 @@ def admin_add_grade():
     sinav = request.form.get("sinav", "").strip()
     puan = request.form.get("puan", "").strip()
     if not (sid and cid and sinav and puan):
-        flash("Tüm alanlar zorunlu.", "error")
+        flash("TÃ¼m alanlar zorunlu.", "error")
         return redirect(url_for("admin_panel"))
     conn = get_db()
     try:
@@ -707,7 +708,7 @@ def admin_add_grade():
     except Exception as e:
         conn.rollback()
         if "UNIQUE" in str(e).upper():
-            flash("Bu T.C. numarası zaten sistemde kayıtlı.", "error")
+            flash("Bu T.C. numarasÄ± zaten sistemde kayÄ±tlÄ±.", "error")
         else:
             flash(f"Hata: {e}", "error")
     finally:
@@ -722,18 +723,18 @@ def admin_add_attendance():
     durum = request.form.get("durum", "").strip()
     aciklama = request.form.get("aciklama", "").strip()
     if not (sid and tarih and durum):
-        flash("Öğrenci, tarih ve durum zorunlu.", "error")
+        flash("Ã–ÄŸrenci, tarih ve durum zorunlu.", "error")
         return redirect(url_for("admin_panel"))
     conn = get_db()
     try:
         conn.execute("INSERT INTO attendance (student_id, tarih, durum, aciklama) VALUES (?,?,?,?)",
                      (int(sid), tarih, durum, aciklama or None))
         conn.commit()
-        flash("Devamsızlık kaydı eklendi.", "success")
+        flash("DevamsÄ±zlÄ±k kaydÄ± eklendi.", "success")
     except Exception as e:
         conn.rollback()
         if "UNIQUE" in str(e).upper():
-            flash("Bu T.C. numarası zaten sistemde kayıtlı.", "error")
+            flash("Bu T.C. numarasÄ± zaten sistemde kayÄ±tlÄ±.", "error")
         else:
             flash(f"Hata: {e}", "error")
     finally:
@@ -746,18 +747,18 @@ def admin_add_announcement():
     baslik = request.form.get("baslik", "").strip()
     icerik = request.form.get("icerik", "").strip()
     if not (baslik and icerik):
-        flash("Başlık ve içerik zorunlu.", "error")
+        flash("BaÅŸlÄ±k ve iÃ§erik zorunlu.", "error")
         return redirect(url_for("admin_panel"))
     conn = get_db()
     try:
         conn.execute("INSERT INTO announcements (baslik, icerik, tarih, yazar_id) VALUES (?,?,?,?)",
                      (baslik, icerik, date.today().strftime("%d.%m.%Y"), session["user_id"]))
         conn.commit()
-        flash("Duyuru yayınlandı.", "success")
+        flash("Duyuru yayÄ±nlandÄ±.", "success")
     except Exception as e:
         conn.rollback()
         if "UNIQUE" in str(e).upper():
-            flash("Bu T.C. numarası zaten sistemde kayıtlı.", "error")
+            flash("Bu T.C. numarasÄ± zaten sistemde kayÄ±tlÄ±.", "error")
         else:
             flash(f"Hata: {e}", "error")
     finally:
@@ -813,11 +814,11 @@ def admin_talep_sil(tid):
     try:
         conn.execute("DELETE FROM reset_requests WHERE id = ?", (tid,))
         conn.commit()
-        flash("Talep kaldırıldı.", "success")
+        flash("Talep kaldÄ±rÄ±ldÄ±.", "success")
     except Exception as e:
         conn.rollback()
         if "UNIQUE" in str(e).upper():
-            flash("Bu T.C. numarası zaten sistemde kayıtlı.", "error")
+            flash("Bu T.C. numarasÄ± zaten sistemde kayÄ±tlÄ±.", "error")
         else:
             flash(f"Hata: {e}", "error")
     finally:
@@ -838,11 +839,11 @@ def admin_delete(tip, oid):
         elif tip == "duyuru":
             conn.execute("DELETE FROM announcements WHERE id = ?", (oid,))
         conn.commit()
-        flash("Kayıt silindi.", "success")
+        flash("KayÄ±t silindi.", "success")
     except Exception as e:
         conn.rollback()
         if "UNIQUE" in str(e).upper():
-            flash("Bu T.C. numarası zaten sistemde kayıtlı.", "error")
+            flash("Bu T.C. numarasÄ± zaten sistemde kayÄ±tlÄ±.", "error")
         else:
             flash(f"Hata: {e}", "error")
     finally:
@@ -850,7 +851,7 @@ def admin_delete(tip, oid):
     return redirect(url_for("admin_panel"))
 
 # ============================================================
-# TOPLU NOT GİRİŞİ (admin + öğretmen)
+# TOPLU NOT GÄ°RÄ°ÅÄ° (admin + Ã¶ÄŸretmen)
 # ============================================================
 
 @app.route("/not-giris", methods=["GET"])
@@ -858,12 +859,12 @@ def admin_delete(tip, oid):
 def not_giris():
     role = session.get("role")
     if role not in ("admin", "teacher"):
-        flash("Bu sayfaya erişim yetkiniz yok.", "error")
+        flash("Bu sayfaya eriÅŸim yetkiniz yok.", "error")
         return redirect(url_for("dashboard"))
 
     conn = get_db()
 
-    # Öğretmen sadece kendi derslerini görsün
+    # Ã–ÄŸretmen sadece kendi derslerini gÃ¶rsÃ¼n
     if role == "teacher":
         courses = conn.execute(
             "SELECT id, ad FROM courses WHERE ogretmen_id = ? ORDER BY ad",
@@ -872,7 +873,7 @@ def not_giris():
     else:
         courses = conn.execute("SELECT id, ad FROM courses ORDER BY ad").fetchall()
 
-    # Tüm öğrenciler
+    # TÃ¼m Ã¶ÄŸrenciler
     students = conn.execute("""
         SELECT s.id, s.sinif, s.numara, u.name AS ad
         FROM students s JOIN users u ON u.id = s.user_id
@@ -912,7 +913,7 @@ def not_ekle_toplu():
     sinav = request.form.get("sinav", "").strip()
 
     if not course_id or not sinav:
-        flash("Ders ve sınav türü seçiniz.", "error")
+        flash("Ders ve sÄ±nav tÃ¼rÃ¼ seÃ§iniz.", "error")
         return redirect(url_for("not_giris"))
 
     conn = get_db()
@@ -936,7 +937,7 @@ def not_ekle_toplu():
             if puan < 0 or puan > 100:
                 continue
 
-            # Aynı kaydı sil (varsa), yenisini ekle
+            # AynÄ± kaydÄ± sil (varsa), yenisini ekle
             conn.execute(
                 "DELETE FROM grades WHERE student_id = ? AND course_id = ? AND sinav = ?",
                 (sid, course_id, sinav)
@@ -951,7 +952,7 @@ def not_ekle_toplu():
         if kaydedilen:
             flash(f"{kaydedilen} not kaydedildi.", "success")
         else:
-            flash("Hiçbir puan girilmedi.", "error")
+            flash("HiÃ§bir puan girilmedi.", "error")
     except Exception as e:
         conn.rollback()
         flash(f"Hata: {e}", "error")
@@ -961,7 +962,7 @@ def not_ekle_toplu():
     return redirect(url_for("not_giris", course_id=course_id, sinav=sinav))
 
 # ============================================================
-# TOPLU YOKLAMA (devamsızlık)
+# TOPLU YOKLAMA (devamsÄ±zlÄ±k)
 # ============================================================
 
 @app.route("/devamsizlik-giris", methods=["GET"])
@@ -969,21 +970,21 @@ def not_ekle_toplu():
 def devamsizlik_giris():
     role = session.get("role")
     if role not in ("admin", "teacher"):
-        flash("Bu sayfaya erişim yetkiniz yok.", "error")
+        flash("Bu sayfaya eriÅŸim yetkiniz yok.", "error")
         return redirect(url_for("dashboard"))
 
     conn = get_db()
 
-    # Sınıflar (filtre için)
+    # SÄ±nÄ±flar (filtre iÃ§in)
     siniflar = [r["sinif"] for r in conn.execute(
         "SELECT DISTINCT sinif FROM students ORDER BY sinif"
     ).fetchall()]
 
-    # Seçili tarih ve sınıf
+    # SeÃ§ili tarih ve sÄ±nÄ±f
     tarih = request.args.get("tarih", date.today().isoformat())
     sinif = request.args.get("sinif", "").strip()
 
-    # Öğrenciler (filtreye göre)
+    # Ã–ÄŸrenciler (filtreye gÃ¶re)
     if sinif:
         students = conn.execute("""
             SELECT s.id, s.sinif, s.numara, u.name AS ad
@@ -998,7 +999,7 @@ def devamsizlik_giris():
             ORDER BY s.sinif, s.numara
         """).fetchall()
 
-    # O gün için mevcut kayıtlar
+    # O gÃ¼n iÃ§in mevcut kayÄ±tlar
     mevcut = {}
     if tarih:
         rows = conn.execute(
@@ -1028,7 +1029,7 @@ def devamsizlik_kaydet():
     sinif = request.form.get("sinif", "").strip()
 
     if not tarih:
-        flash("Tarih seçiniz.", "error")
+        flash("Tarih seÃ§iniz.", "error")
         return redirect(url_for("devamsizlik_giris"))
 
     conn = get_db()
@@ -1048,7 +1049,7 @@ def devamsizlik_kaydet():
 
             aciklama = request.form.get(f"aciklama_{sid}", "").strip() or None
 
-            # Aynı gün + öğrenci için varsa güncelle
+            # AynÄ± gÃ¼n + Ã¶ÄŸrenci iÃ§in varsa gÃ¼ncelle
             conn.execute(
                 "DELETE FROM attendance WHERE student_id = ? AND tarih = ?",
                 (sid, tarih)
@@ -1076,9 +1077,9 @@ def devamsizlik_kaydet():
 
         conn.commit()
         if kaydedilen:
-            flash(f"{kaydedilen} devamsızlık kaydı yapıldı.", "success")
+            flash(f"{kaydedilen} devamsÄ±zlÄ±k kaydÄ± yapÄ±ldÄ±.", "success")
         else:
-            flash("Hiçbir öğrenci işaretlenmedi.", "error")
+            flash("HiÃ§bir Ã¶ÄŸrenci iÅŸaretlenmedi.", "error")
     except Exception as e:
         conn.rollback()
         flash(f"Hata: {e}", "error")
@@ -1091,7 +1092,7 @@ def devamsizlik_kaydet():
 # HAFTALIK DERS PROGRAMI
 # ============================================================
 
-GUN_ADI = {1: "Pazartesi", 2: "Salı", 3: "Çarşamba", 4: "Perşembe", 5: "Cuma", 6: "Cumartesi", 7: "Pazar"}
+GUN_ADI = {1: "Pazartesi", 2: "SalÄ±", 3: "Ã‡arÅŸamba", 4: "PerÅŸembe", 5: "Cuma", 6: "Cumartesi", 7: "Pazar"}
 
 @app.route("/ders-programi")
 @login_required()
@@ -1112,7 +1113,7 @@ def ders_programi():
             if s:
                 sinif = s["sinif"]
 
-    # Admin/öğretmen sınıf seçebilir
+    # Admin/Ã¶ÄŸretmen sÄ±nÄ±f seÃ§ebilir
     if role in ("admin", "teacher"):
         sinif = request.args.get("sinif", "").strip() or None
 
@@ -1144,7 +1145,7 @@ def odevler():
     conn = get_db()
 
     if role == "student":
-        # Öğrencinin sınıfı + dersler
+        # Ã–ÄŸrencinin sÄ±nÄ±fÄ± + dersler
         s = conn.execute("""
             SELECT id, sinif FROM students WHERE user_id = ?
         """, (session["user_id"],)).fetchone()
@@ -1174,7 +1175,7 @@ def odevler():
             ORDER BY h.id DESC
         """, (session["user_id"],)).fetchall()
     else:
-        # admin hepsini görsün
+        # admin hepsini gÃ¶rsÃ¼n
         rows = conn.execute("""
             SELECT h.id, h.baslik, h.verilis, h.teslim, h.sinif,
                    c.ad AS ders, u.name AS ogretmen
@@ -1203,7 +1204,7 @@ def odev_detay(hid):
 
     if not h:
         conn.close()
-        flash("Ödev bulunamadı.", "error")
+        flash("Ã–dev bulunamadÄ±.", "error")
         return redirect(url_for("odevler"))
 
     teslim_listesi = []
@@ -1252,7 +1253,7 @@ def odev_teslim(hid):
             VALUES (?, ?, 'yapildi', ?)
         """, (hid, s["id"], date.today().isoformat()))
         conn.commit()
-        flash("Ödev yapıldı olarak işaretlendi.", "success")
+        flash("Ã–dev yapÄ±ldÄ± olarak iÅŸaretlendi.", "success")
     except Exception as e:
         conn.rollback()
         flash(f"Hata: {e}", "error")
@@ -1273,7 +1274,7 @@ def ogretmen_odev_ver():
         teslim = request.form.get("teslim", "").strip()
 
         if not (ders_id and baslik and teslim):
-            flash("Ders, başlık ve teslim tarihi zorunlu.", "error")
+            flash("Ders, baÅŸlÄ±k ve teslim tarihi zorunlu.", "error")
             return redirect(url_for("ogretmen_odev_ver"))
 
         try:
@@ -1284,7 +1285,7 @@ def ogretmen_odev_ver():
                   baslik, icerik or None,
                   date.today().isoformat(), teslim))
             conn.commit()
-            flash("Ödev yayınlandı.", "success")
+            flash("Ã–dev yayÄ±nlandÄ±.", "success")
         except Exception as e:
             conn.rollback()
             flash(f"Hata: {e}", "error")
@@ -1305,7 +1306,7 @@ def ogretmen_odev_ver():
                            siniflar=siniflar)
 
 # ============================================================
-# DERS PROGRAMI DÜZENLEME (admin + öğretmen)
+# DERS PROGRAMI DÃœZENLEME (admin + Ã¶ÄŸretmen)
 # ============================================================
 
 @app.route("/ders-programi/duzenle", methods=["GET", "POST"])
@@ -1321,7 +1322,7 @@ def ders_programi_duzenle():
         ders_id = request.form.get("ders_id", type=int)
 
         if not (sinif and gun and saat and ders_id):
-            flash("Tüm alanlar zorunlu.", "error")
+            flash("TÃ¼m alanlar zorunlu.", "error")
             return redirect(url_for("ders_programi_duzenle", sinif=sinif))
 
         if role == "teacher":
@@ -1331,7 +1332,7 @@ def ders_programi_duzenle():
             ).fetchone()
             if not ders:
                 conn.close()
-                flash("Bu ders size atanmamış.", "error")
+                flash("Bu ders size atanmamÄ±ÅŸ.", "error")
                 return redirect(url_for("ders_programi_duzenle", sinif=sinif))
 
         try:
@@ -1400,12 +1401,12 @@ def ders_programi_sil(sid):
             """, (sid,)).fetchone()
             if not row or row["ogretmen_id"] != session["user_id"]:
                 conn.close()
-                flash("Bu kaydı silme yetkiniz yok.", "error")
+                flash("Bu kaydÄ± silme yetkiniz yok.", "error")
                 return redirect(url_for("ders_programi_duzenle", sinif=sinif))
 
         conn.execute("DELETE FROM schedule WHERE id = ?", (sid,))
         conn.commit()
-        flash("Kayıt silindi.", "success")
+        flash("KayÄ±t silindi.", "success")
     except Exception as e:
         conn.rollback()
         flash(f"Hata: {e}", "error")
@@ -1415,7 +1416,7 @@ def ders_programi_sil(sid):
 
 
 # ============================================================
-# ESKİ URL YÖNLENDİRMELERİ
+# ESKÄ° URL YÃ–NLENDÄ°RMELERÄ°
 # ============================================================
 
 @app.route("/admin/ders-programi")
@@ -1842,7 +1843,7 @@ if __name__ == "__main__":
 
 
 # ============================================
-# SEO: robots.txt (seo_patch.py tarafından eklendi)
+# SEO: robots.txt (seo_patch.py tarafÄ±ndan eklendi)
 # ============================================
 @app.route('/robots.txt')
 def robots_txt():
@@ -1863,7 +1864,7 @@ Sitemap: https://www.cpeakenglish.com/sitemap.xml
 
 
 # ============================================
-# SEO: sitemap.xml (seo_patch.py tarafından eklendi)
+# SEO: sitemap.xml (seo_patch.py tarafÄ±ndan eklendi)
 # ============================================
 @app.route('/sitemap.xml')
 def sitemap_xml():
