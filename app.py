@@ -1869,8 +1869,11 @@ Sitemap: https://www.cpeakenglish.com/sitemap.xml
 # SEO: sitemap.xml (seo_patch.py tarafÄ±ndan eklendi)
 # ============================================
 @app.route('/sitemap.xml')
-def sitemap_xml():
     pages = [
+        "https://www.cpeakenglish.com/",
+        "https://www.cpeakenglish.com/hakkimizda",
+        "https://www.cpeakenglish.com/kurslar",
+        "https://www.cpeakenglish.com/iletisim",
         "https://www.cpeakenglish.com/kvkk",
     ]
     today = datetime.now().date().isoformat()
@@ -1880,4 +1883,22 @@ def sitemap_xml():
         xml += f'  <url><loc>{p}</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>\n'
     xml += '</urlset>'
     return Response(xml, mimetype='application/xml')
+
+# ============================================
+# SEO: Public sayfalar (add_public_pages.py)
+# ============================================
+@app.route('/hakkimizda')
+def hakkimizda():
+    return render_template('hakkimizda.html')
+
+
+@app.route('/kurslar')
+def kurslar():
+    return render_template('kurslar.html')
+
+
+@app.route('/iletisim')
+def iletisim():
+    return render_template('iletisim.html')
+
 

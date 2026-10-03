@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Hakkımızda — C-Peak English | İstanbul İngilizce Kursu{% endblock %}
+{% block body_class %}cpk-page{% endblock %}
+
+{% block head %}
+<meta name="description" content="C-Peak English hakkında: İstanbul Yıldırım'da küçük sınıflar, deneyimli öğretmenler ve dijital takip sistemiyle İngilizce eğitimi veren modern bir eğitim merkezi.">
+<link rel="canonical" href="https://www.cpeakenglish.com/hakkimizda">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hakkımızda — C-Peak English">
+<meta property="og:description" content="İstanbul Yıldırım'da küçük sınıflar ve modern yöntemlerle İngilizce eğitimi.">
+<meta property="og:url" content="https://www.cpeakenglish.com/hakkimizda">
+<meta property="og:image" content="https://www.cpeakenglish.com/static/logochrome.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hakkımızda — C-Peak English">
+<meta name="twitter:description" content="İstanbul Yıldırım'da küçük sınıflar ve modern yöntemlerle İngilizce eğitimi.">
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=20261003c">
+{% endblock %}
+
+{% block body %}
+<header class="cpk-header">
+  <div class="cpk-header-inner">
+    <a href="/" class="topbar-brand">
+      <span class="topbar-brand-mark">
+        <img src="{{ url_for('static', filename='logochrome.png') }}" alt="C · Peak English">
+      </span>
+      <span class="topbar-brand-text">
+        <span class="topbar-brand-title">C · Peak</span>
+        <span class="topbar-brand-sep"></span>
+        <span class="topbar-brand-sub" lang="en">ENGLISH</span>
+      </span>
+    </a>
+
+    <nav class="cpk-nav">
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/kurslar">Kurslar</a>
+      <a href="/iletisim">İletişim</a>
+      <a href="{{ url_for('login') }}" class="btn-primary cpk-nav-cta">Giriş Yap</a>
+    </nav>
+  </div>
+</header>
+
+<main class="cpk-main">
+
+  <section class="cpk-page-hero">
+    <div class="container">
+      <span class="cpk-eyebrow">Hakkımızda</span>
+      <h1 class="cpk-h1">İngilizceyi <em>zirveye taşıyan</em> bir yaklaşım</h1>
+      <p class="cpk-lead">
+        C-Peak English, İngilizce öğrenmeyi kolaylaştıran ve takip edilebilir kılan modern bir
+        eğitim merkezidir. Öğrenci, veli ve öğretmen üçgeninde şeffaf bir iletişim kurarak her
+        öğrencinin potansiyelini en üst seviyeye çıkarmayı hedefliyoruz.
+      </p>
+    </div>
+  </section>
+
+  <section class="cpk-section">
+    <div class="container cpk-prose">
+      <h2>Hikayemiz</h2>
+      <p>
+        C-Peak English, İstanbul Yıldırım'da İngilizce eğitimine yeni bir soluk getirmek amacıyla
+        kuruldu. Klasik dershane yaklaşımının aksine, küçük sınıflarda birebir ilgiye odaklanıyor;
+        her öğrencimizin seviyesine ve hedefine uygun programlar hazırlıyoruz.
+      </p>
+      <p>
+        Amacımız sadece sınavlara hazırlamak değil; öğrencilerimizin İngilizceyi günlük hayatta
+        güvenle kullanabilen, düşünen ve üreten bireyler olmalarını sağlamak. Bu yüzden derslerimizi
+        konuşma odaklı, interaktif ve güncel materyallerle destekliyoruz.
+      </p>
+
+      <h2>Misyonumuz</h2>
+      <p>
+        Her yaştan ve seviyeden öğrenciye nitelikli İngilizce eğitimini erişilebilir kılmak; veli
+        ve öğretmenlerin öğrenci gelişimini şeffaf bir şekilde takip edebildiği bir sistem sunmak.
+      </p>
+
+      <h2>Vizyonumuz</h2>
+      <p>
+        Bölgenin en güvenilir ve tercih edilen İngilizce eğitim merkezi olmak; mezunlarımızın
+        İngilizceyi hayatlarının her alanında özgüvenle kullanmalarını sağlamak.
+      </p>
+
+      <h2>Değerlerimiz</h2>
+      <ul class="cpk-values">
+        <li><strong>Kalite:</strong> Her dersimiz deneyimli ve sertifikalı öğretmenler tarafından hazırlanır.</li>
+        <li><strong>Şeffaflık:</strong> Veli ve öğrencilerimiz gelişimi online panelden takip edebilir.</li>
+        <li><strong>Süreklilik:</strong> Öğrencilerimizin motivasyonunu canlı tutar, hedeflerine ulaşana kadar yanlarında oluruz.</li>
+        <li><strong>İnsan Odaklılık:</strong> Her öğrenci farklıdır. Programlarımızı kişiye özel şekillendiririz.</li>
+      </ul>
+
+      <h2>Neden C-Peak English?</h2>
+      <p>
+        Küçük sınıflarımız sayesinde her öğrenciye yeterli zaman ayırıyor, dijital panelimizle
+        velilerin çocuklarının gelişimini anlık takip etmesini sağlıyoruz. Ders programı, ödevler,
+        bildirimler — hepsi tek bir panelde. Bu şeffaflık öğrenci ve veli arasında güveni
+        güçlendiriyor.
+      </p>
+
+      <div class="cpk-inline-cta">
+        <a href="/kurslar" class="btn-primary btn-copper">Kurslarımızı İnceleyin</a>
+        <a href="/iletisim" class="btn-ghost">Bize Ulaşın</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="cpk-footer">
+  <div class="container cpk-footer-inner">
+    <span>© 2026 C-Peak English. Tüm hakları saklıdır.</span>
+    <span class="cpk-footer-links">
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/kurslar">Kurslar</a>
+      <a href="/iletisim">İletişim</a>
+      <a href="/kvkk">KVKK</a>
+      <a href="{{ url_for('login') }}">Giriş Yap</a>
+    </span>
+  </div>
+</footer>
+{% endblock %}

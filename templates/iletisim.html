@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}İletişim — C-Peak English | İstanbul İngilizce Kursu{% endblock %}
+{% block body_class %}cpk-page{% endblock %}
+
+{% block head %}
+<meta name="description" content="C-Peak English iletişim bilgileri: Yıldırım Mahallesi, Bosna Sokak No: 29/A, İstanbul. Telefon 0542 180 84 02. E-posta cpeakenglish@gmail.com.">
+<link rel="canonical" href="https://www.cpeakenglish.com/iletisim">
+<meta property="og:type" content="website">
+<meta property="og:title" content="İletişim — C-Peak English">
+<meta property="og:description" content="İstanbul Yıldırım'da İngilizce kursu. Adres, telefon ve sosyal medya bilgileri.">
+<meta property="og:url" content="https://www.cpeakenglish.com/iletisim">
+<meta property="og:image" content="https://www.cpeakenglish.com/static/logochrome.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="İletişim — C-Peak English">
+<meta name="twitter:description" content="İstanbul Yıldırım'da İngilizce kursu. Adres, telefon ve sosyal medya bilgileri.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "C-Peak English",
+  "url": "https://www.cpeakenglish.com",
+  "logo": "https://www.cpeakenglish.com/static/logochrome.png",
+  "telephone": "+905421808402",
+  "email": "cpeakenglish@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Yıldırım Mahallesi, Bosna Sokak No: 29/A",
+    "addressLocality": "İstanbul",
+    "addressCountry": "TR"
+  },
+  "sameAs": [
+    "https://www.instagram.com/c_peak_english",
+    "https://www.youtube.com/@c-peak-english"
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=20261003c">
+{% endblock %}
+
+{% block body %}
+<header class="cpk-header">
+  <div class="cpk-header-inner">
+    <a href="/" class="topbar-brand">
+      <span class="topbar-brand-mark">
+        <img src="{{ url_for('static', filename='logochrome.png') }}" alt="C · Peak English">
+      </span>
+      <span class="topbar-brand-text">
+        <span class="topbar-brand-title">C · Peak</span>
+        <span class="topbar-brand-sep"></span>
+        <span class="topbar-brand-sub" lang="en">ENGLISH</span>
+      </span>
+    </a>
+
+    <nav class="cpk-nav">
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/kurslar">Kurslar</a>
+      <a href="/iletisim">İletişim</a>
+      <a href="{{ url_for('login') }}" class="btn-primary cpk-nav-cta">Giriş Yap</a>
+    </nav>
+  </div>
+</header>
+
+<main class="cpk-main">
+
+  <section class="cpk-page-hero">
+    <div class="container">
+      <span class="cpk-eyebrow">İletişim</span>
+      <h1 class="cpk-h1">Bize <em>ulaşın</em></h1>
+      <p class="cpk-lead">
+        Sorularınız, kayıt ve seviye tespit sınavı için bize telefon, e-posta veya sosyal medya
+        üzerinden ulaşabilirsiniz. En kısa sürede size dönüş yapıyoruz.
+      </p>
+    </div>
+  </section>
+
+  <section class="cpk-section">
+    <div class="container">
+      <div class="cpk-contact-grid">
+
+        <div class="cpk-contact-block">
+          <h3>Adres</h3>
+          <p>
+            Yıldırım Mahallesi<br>
+            Bosna Sokak No: 29/A<br>
+            İstanbul
+          </p>
+        </div>
+
+        <div class="cpk-contact-block">
+          <h3>Telefon</h3>
+          <p>
+            <a href="tel:+905421808402">0542 180 84 02</a>
+          </p>
+        </div>
+
+        <div class="cpk-contact-block">
+          <h3>E-posta</h3>
+          <p>
+            <a href="mailto:cpeakenglish@gmail.com">cpeakenglish@gmail.com</a>
+          </p>
+        </div>
+
+        <div class="cpk-contact-block">
+          <h3>Sosyal Medya</h3>
+          <p>
+            <a href="https://www.instagram.com/c_peak_english" target="_blank" rel="noopener">Instagram</a><br>
+            <a href="https://www.youtube.com/@c-peak-english" target="_blank" rel="noopener">YouTube</a>
+          </p>
+        </div>
+
+      </div>
+
+      <div class="cpk-map-wrap">
+        <iframe
+          src="https://www.google.com/maps?q=Y%C4%B1ld%C4%B1r%C4%B1m+Mahallesi+Bosna+Sokak+No:29%2FA+%C4%B0stanbul&output=embed"
+          width="100%" height="380" style="border:0;border-radius:14px;"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="C-Peak English Konum"></iframe>
+      </div>
+
+      <div class="cpk-inline-cta" style="margin-top:40px;">
+        <a href="/kurslar" class="btn-primary btn-copper">Kurslarımızı İnceleyin</a>
+        <a href="/hakkimizda" class="btn-ghost">Hakkımızda</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="cpk-footer">
+  <div class="container cpk-footer-inner">
+    <span>© 2026 C-Peak English. Tüm hakları saklıdır.</span>
+    <span class="cpk-footer-links">
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/kurslar">Kurslar</a>
+      <a href="/iletisim">İletişim</a>
+      <a href="/kvkk">KVKK</a>
+      <a href="{{ url_for('login') }}">Giriş Yap</a>
+    </span>
+  </div>
+</footer>
+{% endblock %}
