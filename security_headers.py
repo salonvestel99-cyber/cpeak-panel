@@ -55,4 +55,22 @@ def init_headers(app):
             "geolocation=(), microphone=(), camera=(), payment=()",
         )
 
+        
+        # ---------- Content-Security-Policy ----------
+        # 'unsafe-inline' style zorunlu (tema toggle, inline <style> blokları)
+        # 'unsafe-inline' script YOK → XSS'i büyük ölçüde engeller
+        if not resp.headers.get("Content-Security-Policy"):
+            resp.headers["Content-Security-Policy"] = "; ".join([
+                "default-src 'self'",
+                "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.sib.com",
+                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+                "font-src 'self' https://fonts.gstatic.com data:",
+                "img-src 'self' data: https:",
+                "connect-src 'self' https://api.brevo.com https://*.supabase.co",
+                "frame-ancestors 'self'",
+                "base-uri 'self'",
+                "form-action 'self'",
+                "object-src 'none'",
+            ])
+
         return resp
