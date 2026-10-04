@@ -67,6 +67,7 @@ def init_headers(app):
                 "font-src 'self' https://fonts.gstatic.com data:",
                 "img-src 'self' data: https:",
                 "connect-src 'self' https://api.brevo.com https://*.supabase.co",
+                "frame-src 'self' https://www.openstreetmap.org https://www.google.com",
                 "frame-ancestors 'self'",
                 "base-uri 'self'",
                 "form-action 'self'",

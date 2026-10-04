@@ -216,24 +216,23 @@
           <span class="cpk-contact-label">Adres</span>
           <p>Yıldırım Mahallesi, Bosna Sokak No: 29/A<br>İstanbul</p>
       <a class="cpk-map" id="cpk-map-embed"
-         href="https://www.google.com/maps/search/?api=1&query=41.0615227%2C28.9003676"
+         href="https://www.google.com/maps/search/?api=1&query=41.0615227,28.9003676"
          target="_blank" rel="noopener"
          aria-label="Konumu haritalar uygulamasında aç">
         <iframe
           class="cpk-map-frame"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=28.8988676,41.0600227,28.9018676,41.0630227&layer=mapnik&marker=41.0615227,28.9003676"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=28.8988676%2C41.0600227%2C28.9018676%2C41.0630227&amp;layer=mapnik&amp;marker=41.0615227%2C28.9003676"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           title="C-Peak English konumu">
         </iframe>
-        <span class="cpk-map-overlay" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
-               stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        <span class="cpk-map-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+               stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                stroke-linejoin="round">
             <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"></path>
             <circle cx="12" cy="10" r="3"></circle>
           </svg>
-          <span>Haritalarda Aç</span>
         </span>
       </a>
 <style id="cpk-map-embed-style">
@@ -241,56 +240,58 @@
   display: block;
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  max-height: 360px;
-  border-radius: 14px;
+  aspect-ratio: 4 / 3;
+  max-height: 420px;
+  border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,.08);
-  background: #111;
+  border: 1px solid rgba(255,255,255,.10);
+  background: #1a1a1d;
   text-decoration: none;
   color: inherit;
-  margin-top: 16px;
-  transition: transform .18s ease, border-color .18s ease;
+  margin-top: 18px;
+  transition: border-color .2s ease, transform .2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .cpk-map:hover, .cpk-map:focus-visible {
-  transform: translateY(-2px);
   border-color: rgba(180,83,9,.55);
+  transform: translateY(-2px);
   outline: none;
 }
 .cpk-map-frame {
   width: 100%; height: 100%; border: 0; display: block;
-  filter: invert(.92) hue-rotate(180deg) brightness(.92) contrast(.92);
+  /* Koyu tema — haritayı hafifçe karart */
+  filter: brightness(.88) contrast(1.05) saturate(.9);
   pointer-events: none;
 }
-.cpk-map-overlay {
+/* Sağ altta küçük, zarif "haritada aç" rozeti */
+.cpk-map-badge {
   position: absolute;
-  left: 50%; bottom: 14px;
-  transform: translateX(-50%);
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 9px 16px;
-  border-radius: 999px;
-  background: rgba(0,0,0,.72);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  backdrop-filter: blur(14px) saturate(160%);
-  border: 1px solid rgba(255,255,255,.18);
-  color: #fff;
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: .84rem;
-  font-weight: 600;
-  letter-spacing: .01em;
-  box-shadow: 0 6px 20px rgba(0,0,0,.35);
-  pointer-events: none;
+  right: 12px; bottom: 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.78);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(255,255,255,.20);
+  color: #f59e0b;
+  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
 }
-.cpk-map-overlay svg { color: #f59e0b; }
-.cpk-map:hover .cpk-map-overlay {
-  background: rgba(180,83,9,.75);
-  border-color: rgba(180,83,9,.9);
+.cpk-map:hover .cpk-map-badge,
+.cpk-map:focus-visible .cpk-map-badge {
+  background: rgba(180,83,9,.9);
+  border-color: rgba(180,83,9,1);
+  color: #fff;
+  transform: scale(1.05);
 }
 @media (max-width: 640px) {
-  .cpk-map { aspect-ratio: 4 / 3; }
-  .cpk-map-overlay { font-size: .78rem; padding: 8px 14px; }
+  .cpk-map { aspect-ratio: 5 / 4; border-radius: 14px; }
+  .cpk-map-badge { width: 32px; height: 32px; right: 10px; bottom: 10px; }
 }
 </style>
+
+      
 
         </div>
         <div class="cpk-contact-item">
