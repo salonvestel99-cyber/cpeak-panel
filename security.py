@@ -92,6 +92,7 @@ def init_security(app):
         # CSP: site icerigi inline style/script kullaniyorsa unsafe-inline sart.
         # Dis kaynak yuklemiyorsan asagidaki liste guvenli.
         csp = {
+            "frame-src": "'self' https://www.openstreetmap.org https://www.google.com",
             "default-src": "'self'",
             "script-src": [
                 "'self'",
