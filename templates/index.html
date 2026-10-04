@@ -215,81 +215,251 @@
         <div class="cpk-contact-item">
           <span class="cpk-contact-label">Adres</span>
           <p>Yıldırım Mahallesi, Bosna Sokak No: 29/A<br>İstanbul</p>
-      <a class="cpk-map" id="cpk-map-embed"
-         href="https://www.google.com/maps/search/?api=1&query=41.0615227,28.9003676"
-         target="_blank" rel="noopener"
-         aria-label="Konumu haritalar uygulamasında aç">
-        <iframe
-          class="cpk-map-frame"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=28.8988676%2C41.0600227%2C28.9018676%2C41.0630227&amp;layer=mapnik&amp;marker=41.0615227%2C28.9003676"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="C-Peak English konumu">
-        </iframe>
-        <span class="cpk-map-badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
-               stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-               stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
-        </span>
-      </a>
+<section class="cpk-map-wrap" id="cpk-map-embed">
+  <div class="cpk-map-head">
+    <div class="cpk-map-info">
+      <span class="cpk-map-eyebrow">KONUM</span>
+      <p class="cpk-map-addr">
+        Yıldırım Mahallesi, Bosna Sokak No: 29/A<br>
+        Bayrampaşa / İstanbul
+      </p>
+    </div>
+    <a class="cpk-map-cta"
+       href="https://www.google.com/maps/dir/?api=1&destination=41.0615227,28.9003676"
+       target="_blank" rel="noopener"
+       aria-label="Yol tarifi al">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none"
+           stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+           stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      <span>Yol Tarifi</span>
+    </a>
+  </div>
+  <div id="cpk-map-canvas" class="cpk-map-canvas"
+       data-lat="41.0615227" data-lon="28.9003676"
+       role="region" aria-label="C-Peak English konumu"></div>
+</section>
+
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin="">
+<script defer
+        src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+<script id="cpk-map-init-js">
+(function () {
+  "use strict";
+  if (window.__cpkMapInit) return;
+  window.__cpkMapInit = true;
+
+  function init() {
+    var el = document.getElementById("cpk-map-canvas");
+    if (!el || !window.L) return;
+    var lat = parseFloat(el.dataset.lat) || 41.0615227;
+    var lon = parseFloat(el.dataset.lon) || 28.9003676;
+
+    var map = L.map(el, {
+      center: [lat, lon],
+      zoom: 17,
+      minZoom: 12,
+      maxZoom: 19,
+      scrollWheelZoom: false,
+      zoomControl: true,
+      attributionControl: true,
+      tap: true
+    });
+
+    L.tileLayer(
+      "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+      {
+        maxZoom: 19,
+        subdomains: "abcd",
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> ' +
+          '&copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'
+      }
+    ).addTo(map);
+
+    var pin = L.divIcon({
+      className: "cpk-map-pin",
+      html: '<span class="cpk-map-pin-pulse"></span>' +
+            '<span class="cpk-map-pin-dot"></span>',
+      iconSize: [20, 20],
+      iconAnchor: [10, 10]
+    });
+    L.marker([lat, lon], { icon: pin }).addTo(map);
+
+    if (map.zoomControl) map.zoomControl.setPosition("bottomright");
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(init, 80);
+    });
+  } else {
+    setTimeout(init, 80);
+  }
+})();
+</script>
 <style id="cpk-map-embed-style">
-.cpk-map {
-  display: block;
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  max-height: 420px;
-  border-radius: 16px;
+.cpk-map-wrap {
+  margin-top: 22px;
+  border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,.10);
-  background: #1a1a1d;
+  background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  border: 1px solid rgba(255,255,255,.09);
+  box-shadow:
+    0 24px 60px -24px rgba(0,0,0,.7),
+    0 4px 16px rgba(0,0,0,.25);
+}
+.cpk-map-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  background: rgba(0,0,0,.18);
+}
+.cpk-map-info { min-width: 0; }
+.cpk-map-eyebrow {
+  display: inline-block;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .66rem; font-weight: 700;
+  letter-spacing: .2em;
+  color: #f59e0b;
+  margin-bottom: 5px;
+}
+.cpk-map-addr {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .88rem; line-height: 1.45;
+  color: rgba(255,255,255,.78);
+}
+.cpk-map-cta {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 15px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+  color: #18181b;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .8rem; font-weight: 700;
+  letter-spacing: .01em;
   text-decoration: none;
-  color: inherit;
-  margin-top: 18px;
-  transition: border-color .2s ease, transform .2s ease;
+  white-space: nowrap;
+  box-shadow:
+    0 8px 22px -8px rgba(245,158,11,.6),
+    0 2px 6px rgba(0,0,0,.3);
+  transition: transform .15s ease, box-shadow .15s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.cpk-map:hover, .cpk-map:focus-visible {
-  border-color: rgba(180,83,9,.55);
-  transform: translateY(-2px);
+.cpk-map-cta:hover, .cpk-map-cta:focus-visible {
+  transform: translateY(-1px);
+  box-shadow:
+    0 12px 28px -8px rgba(245,158,11,.75),
+    0 3px 8px rgba(0,0,0,.35);
   outline: none;
 }
-.cpk-map-frame {
-  width: 100%; height: 100%; border: 0; display: block;
-  /* Koyu tema — haritayı hafifçe karart */
-  filter: brightness(.88) contrast(1.05) saturate(.9);
+.cpk-map-cta:active { transform: translateY(0); }
+.cpk-map-cta svg { stroke: currentColor; }
+
+.cpk-map-canvas {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #0f0f12;
+  position: relative;
+  z-index: 0;
+}
+.cpk-map-canvas .leaflet-container {
+  background: #0f0f12 !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+}
+.cpk-map-canvas .leaflet-control-zoom {
+  border: 0 !important;
+  box-shadow: 0 8px 24px -6px rgba(0,0,0,.55) !important;
+  margin: 12px !important;
+}
+.cpk-map-canvas .leaflet-control-zoom a {
+  width: 36px !important; height: 36px !important;
+  line-height: 34px !important;
+  background: rgba(20,20,24,.94) !important;
+  color: #f59e0b !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(160%) !important;
+  backdrop-filter: blur(12px) saturate(160%) !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  transition: background .15s ease, color .15s ease, transform .12s ease;
+}
+.cpk-map-canvas .leaflet-control-zoom a:first-child {
+  border-radius: 10px 10px 0 0 !important;
+}
+.cpk-map-canvas .leaflet-control-zoom a:last-child {
+  border-radius: 0 0 10px 10px !important;
+  border-top: 0 !important;
+}
+.cpk-map-canvas .leaflet-control-zoom a:hover,
+.cpk-map-canvas .leaflet-control-zoom a:focus {
+  background: rgba(180,83,9,.95) !important;
+  color: #fff !important;
+}
+.cpk-map-canvas .leaflet-control-zoom a:active {
+  transform: scale(.95);
+}
+.cpk-map-canvas .leaflet-control-attribution {
+  background: rgba(0,0,0,.7) !important;
+  color: rgba(255,255,255,.55) !important;
+  font-size: 10px !important;
+  padding: 3px 8px !important;
+  border-radius: 8px 0 0 0 !important;
+  border: 0 !important;
+}
+.cpk-map-canvas .leaflet-control-attribution a {
+  color: rgba(245,158,11,.85) !important;
+}
+
+.cpk-map-pin { position: relative; }
+.cpk-map-pin-dot {
+  position: absolute; left: 50%; top: 50%;
+  width: 16px; height: 16px;
+  transform: translate(-50%,-50%);
+  background: #f59e0b;
+  border: 2.5px solid #18181b;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 2px rgba(245,158,11,.35),
+    0 4px 14px rgba(0,0,0,.55);
+  z-index: 2;
+}
+.cpk-map-pin-pulse {
+  position: absolute; left: 50%; top: 50%;
+  width: 40px; height: 40px;
+  transform: translate(-50%,-50%);
+  background: rgba(245,158,11,.32);
+  border-radius: 50%;
+  animation: cpk-pin-pulse 1.9s ease-out infinite;
+  z-index: 1;
   pointer-events: none;
 }
-/* Sağ altta küçük, zarif "haritada aç" rozeti */
-.cpk-map-badge {
-  position: absolute;
-  right: 12px; bottom: 12px;
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  background: rgba(0,0,0,.78);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(255,255,255,.20);
-  color: #f59e0b;
-  box-shadow: 0 6px 18px rgba(0,0,0,.35);
-  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+@keyframes cpk-pin-pulse {
+  0%   { transform: translate(-50%,-50%) scale(.35); opacity: .9; }
+  70%  { transform: translate(-50%,-50%) scale(1.35); opacity: 0; }
+  100% { transform: translate(-50%,-50%) scale(1.35); opacity: 0; }
 }
-.cpk-map:hover .cpk-map-badge,
-.cpk-map:focus-visible .cpk-map-badge {
-  background: rgba(180,83,9,.9);
-  border-color: rgba(180,83,9,1);
-  color: #fff;
-  transform: scale(1.05);
-}
+
 @media (max-width: 640px) {
-  .cpk-map { aspect-ratio: 5 / 4; border-radius: 14px; }
-  .cpk-map-badge { width: 32px; height: 32px; right: 10px; bottom: 10px; }
+  .cpk-map-wrap { border-radius: 16px; margin-top: 18px; }
+  .cpk-map-head { padding: 14px 16px; gap: 12px; }
+  .cpk-map-addr { font-size: .84rem; }
+  .cpk-map-cta { padding: 8px 13px; font-size: .76rem; gap: 6px; }
+  .cpk-map-cta svg { width: 13px; height: 13px; }
+  .cpk-map-canvas { aspect-ratio: 5 / 4; }
 }
 </style>
+
+      
 
       
 

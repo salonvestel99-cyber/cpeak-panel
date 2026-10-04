@@ -63,7 +63,7 @@ def init_headers(app):
             resp.headers["Content-Security-Policy"] = "; ".join([
                 "default-src 'self'",
                 "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://cdn.sib.com",
-                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net",
                 "font-src 'self' https://fonts.gstatic.com data:",
                 "img-src 'self' data: https:",
                 "connect-src 'self' https://api.brevo.com https://*.supabase.co",

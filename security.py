@@ -101,8 +101,7 @@ def init_security(app):
             "style-src": [
                 "'self'",
                 "'unsafe-inline'",
-                "https://fonts.googleapis.com",
-            ],
+                "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
             "font-src": [
                 "'self'",
                 "data:",
