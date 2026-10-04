@@ -253,55 +253,107 @@
 <script id="cpk-map-init-js">
 (function () {
   "use strict";
-  if (window.__cpkMapInit) return;
-  window.__cpkMapInit = true;
+  if (window.__cpkMapInitV5) return;
+  window.__cpkMapInitV5 = true;
 
-  function init() {
-    var el = document.getElementById("cpk-map-canvas");
-    if (!el || !window.L) return;
-    var lat = parseFloat(el.dataset.lat) || 41.0615227;
-    var lon = parseFloat(el.dataset.lon) || 28.9003676;
+  var LOG = function () {
+    try {
+      var a = [].slice.call(arguments);
+      a.unshift("%c[CPK-Map]", "color:#f59e0b;font-weight:bold");
+      console.log.apply(console, a);
+    } catch (e) {}
+  };
+  LOG("init script yüklendi");
 
-    var map = L.map(el, {
-      center: [lat, lon],
-      zoom: 17,
-      minZoom: 12,
-      maxZoom: 19,
-      scrollWheelZoom: false,
-      zoomControl: true,
-      attributionControl: true,
-      tap: true
-    });
+  var deneme = 0;
+  var MAX = 40; // 4 sn
 
-    L.tileLayer(
-      "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-      {
-        maxZoom: 19,
-        subdomains: "abcd",
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> ' +
-          '&copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'
+  function leafletBekle() {
+    if (window.L) {
+      LOG("Leaflet hazır");
+      setTimeout(haritaKur, 50);
+      return;
+    }
+    deneme++;
+    if (deneme >= MAX) {
+      LOG("HATA: Leaflet 4sn içinde yüklenmedi (CDN veya CSP engeli)");
+      return;
+    }
+    if (deneme % 10 === 0) LOG("Leaflet bekleniyor... (" + deneme + ")");
+    setTimeout(leafletBekle, 100);
+  }
+
+  function haritaKur() {
+    try {
+      var el = document.getElementById("cpk-map-canvas");
+      if (!el) { LOG("HATA: #cpk-map-canvas yok"); return; }
+      var lat = parseFloat(el.dataset.lat) || 41.0615227;
+      var lon = parseFloat(el.dataset.lon) || 28.9003676;
+      LOG("Konum:", lat, lon);
+
+      var w = el.offsetWidth, h = el.offsetHeight;
+      LOG("Container boyut:", w + "x" + h);
+      if (w === 0 || h === 0) {
+        LOG("Container boyutu sıfır → 200ms sonra tekrar");
+        setTimeout(haritaKur, 200);
+        return;
       }
-    ).addTo(map);
 
-    var pin = L.divIcon({
-      className: "cpk-map-pin",
-      html: '<span class="cpk-map-pin-pulse"></span>' +
-            '<span class="cpk-map-pin-dot"></span>',
-      iconSize: [20, 20],
-      iconAnchor: [10, 10]
-    });
-    L.marker([lat, lon], { icon: pin }).addTo(map);
+      var map = L.map(el, {
+        center: [lat, lon],
+        zoom: 17,
+        minZoom: 12,
+        maxZoom: 19,
+        scrollWheelZoom: false,
+        zoomControl: true,
+        attributionControl: true
+      });
+      LOG("Map oluşturuldu");
 
-    if (map.zoomControl) map.zoomControl.setPosition("bottomright");
+      var tile = L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+        {
+          maxZoom: 19,
+          subdomains: "abcd",
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a> ' +
+            '&copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'
+        }
+      );
+      tile.on("tileerror", function (e) {
+        LOG("tile error:", e.tile && e.tile.src);
+      });
+      tile.addTo(map);
+      LOG("Tile layer eklendi");
+
+      var pin = L.divIcon({
+        className: "cpk-map-pin",
+        html: '<span class="cpk-map-pin-pulse"></span>' +
+              '<span class="cpk-map-pin-dot"></span>',
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
+      });
+      L.marker([lat, lon], { icon: pin }).addTo(map);
+      LOG("Pin eklendi");
+
+      if (map.zoomControl) map.zoomControl.setPosition("bottomright");
+
+      setTimeout(function () {
+        map.invalidateSize();
+        LOG("invalidateSize çağrıldı");
+      }, 150);
+
+      window.__cpkMap = map;
+      LOG("Hazır ✓");
+    } catch (err) {
+      LOG("HATA:", err);
+    }
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () {
-      setTimeout(init, 80);
-    });
+    document.addEventListener("DOMContentLoaded", leafletBekle);
   } else {
-    setTimeout(init, 80);
+    leafletBekle();
   }
 })();
 </script>
