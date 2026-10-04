@@ -126,7 +126,7 @@ def init_security(app):
             strict_transport_security_max_age=31536000,
             strict_transport_security_include_subdomains=True,
             strict_transport_security_preload=True,
-            content_security_policy=None  # CSP security_headers.py'de,
+            content_security_policy=None,  # CSP security_headers.py'de
             referrer_policy="strict-origin-when-cross-origin",
             session_cookie_secure=uretim,
             frame_options="DENY",
