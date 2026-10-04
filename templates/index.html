@@ -220,8 +220,8 @@
     <div class="cpk-map-info">
       <span class="cpk-map-eyebrow">KONUM</span>
       <p class="cpk-map-addr">
-        Yıldırım Mahallesi, Bosna Sokak No: 29/A<br>
-        Bayrampaşa / İstanbul
+        Bosna Sokak No: 29/A, Bayrampaşa<br>
+        İstanbul
       </p>
     </div>
     <a class="cpk-map-cta"
@@ -311,7 +311,7 @@
       LOG("Map oluşturuldu");
 
       var tile = L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+        "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?api_key=cb1_49pw_1_84f5c0fd5f2acc5f8f492556",
         {
           maxZoom: 19,
           subdomains: "abcd",
@@ -510,6 +510,78 @@
   .cpk-map-canvas { aspect-ratio: 5 / 4; }
 }
 </style>
+<style id="cpk-map-tune-v2">
+/* --- Harita: boyut + pin + zoom iyileştirmeleri --- */
+
+.cpk-map-canvas {
+  min-height: 300px;
+}
+
+.cpk-map-canvas .leaflet-control-zoom {
+  margin: 14px !important;
+}
+.cpk-map-canvas .leaflet-control-zoom a {
+  width: 44px !important;
+  height: 44px !important;
+  line-height: 42px !important;
+  font-size: 24px !important;
+  font-weight: 500 !important;
+}
+.cpk-map-canvas .leaflet-control-zoom a:first-child {
+  border-radius: 12px 12px 0 0 !important;
+}
+.cpk-map-canvas .leaflet-control-zoom a:last-child {
+  border-radius: 0 0 12px 12px !important;
+}
+
+.cpk-map-pin-dot {
+  width: 22px !important;
+  height: 22px !important;
+  border: 3px solid #18181b !important;
+  box-shadow:
+    0 0 0 3px rgba(245,158,11,.4),
+    0 6px 20px rgba(0,0,0,.6) !important;
+}
+.cpk-map-pin-pulse {
+  width: 56px !important;
+  height: 56px !important;
+}
+
+.cpk-map-head {
+  padding: 18px 22px !important;
+}
+.cpk-map-addr {
+  font-size: .92rem !important;
+  line-height: 1.5 !important;
+}
+
+@media (max-width: 640px) {
+  .cpk-map-canvas {
+    aspect-ratio: 4 / 3 !important;
+    min-height: 280px !important;
+  }
+  .cpk-map-head {
+    padding: 14px 16px !important;
+    gap: 10px !important;
+  }
+  .cpk-map-addr {
+    font-size: .86rem !important;
+  }
+  .cpk-map-cta {
+    padding: 10px 16px !important;
+    font-size: .82rem !important;
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  .cpk-map-canvas .leaflet-control-zoom a {
+    width: 40px !important;
+    height: 40px !important;
+    line-height: 38px !important;
+    font-size: 22px !important;
+  }
+}
+</style>
+
 
       
 
