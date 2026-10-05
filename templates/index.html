@@ -1520,6 +1520,182 @@ html.light .cpk-hero-bgchars .cpk-hb-card-age {
   color: #b45309 !important;
 }
 </style>
+<style id="cpk-mobil-fix-v2">
+/* ============================================================
+   SADECE MOBİL (< 900px)
+   ============================================================ */
+@media (max-width: 900px) {
+
+  /* --- 1) HERO: bg.png yazının arkasında --- */
+  .cpk-hero-bgchars {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Karakterleri tam arka plana al */
+  .cpk-hero-bgchars .cpk-hb-chars {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .cpk-hero-bgchars .cpk-hb-chars img {
+    position: absolute !important;
+    right: -20% !important;
+    bottom: -5% !important;
+    height: 85% !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    opacity: .30 !important;
+    filter: blur(.8px) drop-shadow(0 20px 40px rgba(0,0,0,.5)) !important;
+    animation: none !important;
+  }
+
+  /* Alt gradient kaldır */
+  .cpk-hero-bgchars .cpk-hb-chars::after {
+    display: none !important;
+  }
+
+  /* Metin katmanı öne gelsin */
+  .cpk-hero-bgchars .cpk-hb-hero {
+    position: relative !important;
+    z-index: 2 !important;
+    padding: 70px 22px 50px !important;
+  }
+
+  .cpk-hero-bgchars .cpk-hb-left {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  /* Yazı kontrastı için hafif gölge */
+  .cpk-hero-bgchars .cpk-hb-title {
+    text-shadow: 0 4px 30px rgba(0,0,0,.75),
+                 0 2px 12px rgba(0,0,0,.9) !important;
+  }
+  .cpk-hero-bgchars .cpk-hb-lead {
+    text-shadow: 0 2px 14px rgba(0,0,0,.85) !important;
+  }
+
+  /* Kartlar da önde kalsın */
+  .cpk-hero-bgchars .cpk-hb-features {
+    position: relative !important;
+    z-index: 3 !important;
+  }
+}
+
+/* Çok küçük ekran */
+@media (max-width: 500px) {
+  .cpk-hero-bgchars .cpk-hb-chars img {
+    right: -30% !important;
+    height: 78% !important;
+    opacity: .25 !important;
+  }
+}
+
+
+/* ============================================================
+   AÇIK TEMA — iletişim bölümü okunurluk
+   ============================================================ */
+html[data-theme="light"] #iletisim,
+html.light #iletisim,
+html[data-theme="light"] .cpk-contact-sec,
+html.light .cpk-contact-sec {
+  color: #18181b !important;
+}
+
+/* Başlıklar */
+html[data-theme="light"] #iletisim .cpk-h2,
+html.light #iletisim .cpk-h2,
+html[data-theme="light"] #iletisim h1,
+html.light #iletisim h1,
+html[data-theme="light"] #iletisim h2,
+html.light #iletisim h2 {
+  color: #18181b !important;
+}
+
+/* Eyebrow */
+html[data-theme="light"] #iletisim .cpk-eyebrow,
+html.light #iletisim .cpk-eyebrow {
+  color: #b45309 !important;
+}
+
+/* Açıklama */
+html[data-theme="light"] #iletisim .cpk-contact-lead,
+html.light #iletisim .cpk-contact-lead {
+  color: rgba(24,24,27,.7) !important;
+}
+
+/* Satır başlıkları (ADRES/TELEFON/E-POSTA) */
+html[data-theme="light"] #iletisim .cpk-contact-row dt,
+html.light #iletisim .cpk-contact-row dt {
+  color: rgba(24,24,27,.5) !important;
+}
+
+/* Satır değerleri */
+html[data-theme="light"] #iletisim .cpk-contact-row dd,
+html.light #iletisim .cpk-contact-row dd {
+  color: #18181b !important;
+}
+
+html[data-theme="light"] #iletisim .cpk-contact-row dd a,
+html.light #iletisim .cpk-contact-row dd a {
+  color: #18181b !important;
+}
+
+html[data-theme="light"] #iletisim .cpk-contact-row dd a:hover,
+html.light #iletisim .cpk-contact-row dd a:hover {
+  color: #b45309 !important;
+}
+
+/* Çizgiler */
+html[data-theme="light"] #iletisim .cpk-contact-list,
+html.light #iletisim .cpk-contact-list,
+html[data-theme="light"] #iletisim .cpk-contact-row,
+html.light #iletisim .cpk-contact-row {
+  border-color: rgba(24,24,27,.10) !important;
+}
+
+/* Sosyal medya ayırıcı */
+html[data-theme="light"] #iletisim .cpk-sep,
+html.light #iletisim .cpk-sep {
+  color: rgba(24,24,27,.3) !important;
+}
+
+/* Harita CTA butonu - açık temada da görünür */
+html[data-theme="light"] #iletisim .cpk-map-cta,
+html.light #iletisim .cpk-map-cta {
+  background: rgba(24,24,27,.88) !important;
+  color: #fff !important;
+  border-color: rgba(24,24,27,.4) !important;
+}
+
+/* Genel güvenlik: açık temada beyaz kalan tüm hero-iletişim metinleri */
+html[data-theme="light"] #iletisim *,
+html.light #iletisim * {
+  --tw-text-opacity: 1;
+}
+
+/* Kartların içindeki linkler */
+html[data-theme="light"] #iletisim .cpk-contact-social a,
+html.light #iletisim .cpk-contact-social a {
+  color: #18181b !important;
+}
+
+html[data-theme="light"] #iletisim .cpk-contact-social a:hover,
+html.light #iletisim .cpk-contact-social a:hover {
+  color: #b45309 !important;
+}
+</style>
 </section>
 
 </main>
