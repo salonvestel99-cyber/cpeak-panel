@@ -499,4 +499,153 @@ body { margin: 0; }
   });
 })();
 </script>
+
+
+<!-- cpk:sinav-geri-uyari -->
+<script>
+(function(){
+  "use strict";
+  var MARKER = "sinav-geri-uyari";
+  if (window["__" + MARKER]) return;
+  window["__" + MARKER] = true;
+
+  var testAktif = false;
+  var guardKurulu = false;
+
+  function guardKur() {
+    if (guardKurulu) return;
+    try {
+      history.pushState({ cpkQuizGuard: Date.now() }, "", location.href);
+      guardKurulu = true;
+    } catch(e) {}
+  }
+
+  function guardBirak() { guardKurulu = false; }
+
+  // Modal oluştur
+  function modal() {
+    var m = document.getElementById("cpk-quiz-cikis");
+    if (m) return m;
+    m = document.createElement("div");
+    m.id = "cpk-quiz-cikis";
+    m.setAttribute("role", "dialog");
+    m.setAttribute("aria-modal", "true");
+    m.style.cssText = [
+      "position:fixed","inset:0","z-index:2147483600",
+      "background:rgba(0,0,0,.65)",
+      "display:none","align-items:center","justify-content:center",
+      "padding:20px","backdrop-filter:blur(8px)",
+      "-webkit-backdrop-filter:blur(8px)",
+      "opacity:0","transition:opacity .2s ease"
+    ].join(";");
+    m.innerHTML =
+      '<div style="background:#131316;border:1px solid rgba(255,255,255,.1);' +
+      'border-radius:20px;padding:28px 24px;max-width:420px;width:100%;' +
+      'box-shadow:0 24px 60px rgba(0,0,0,.6);' +
+      'font-family:Nunito,system-ui,sans-serif;color:#fff;' +
+      'transform:translateY(12px);transition:transform .22s ease;">' +
+      '<h3 style="margin:0 0 10px;font-size:1.3rem;font-weight:900;' +
+      'letter-spacing:-0.015em;">Testten çıkmak istiyor musun?</h3>' +
+      '<p style="margin:0 0 22px;font-size:.96rem;line-height:1.55;' +
+      'color:rgba(255,255,255,.65);">Cevapların kaydedilmeyecek. ' +
+      'Baştan başlaman gerekecek.</p>' +
+      '<div style="display:flex;flex-direction:column;gap:10px;">' +
+      '<button type="button" data-karar="devam" style="padding:15px 22px;' +
+      'border-radius:999px;background:linear-gradient(135deg,#fbbf24,#d97706);' +
+      'color:#18181b;font-family:inherit;font-size:1rem;font-weight:800;' +
+      'border:0;cursor:pointer;">Teste Devam Et</button>' +
+      '<button type="button" data-karar="cik" style="padding:14px 22px;' +
+      'border-radius:999px;background:transparent;color:#fff;' +
+      'border:1.5px solid rgba(255,255,255,.18);font-family:inherit;' +
+      'font-size:.96rem;font-weight:700;cursor:pointer;">Çık</button>' +
+      '</div></div>';
+    document.body.appendChild(m);
+
+    m.addEventListener("click", function(e){
+      var btn = e.target.closest && e.target.closest("[data-karar]");
+      if (btn) {
+        var k = btn.getAttribute("data-karar");
+        if (k === "devam") { gizle(); guardKur(); }
+        else if (k === "cik") {
+          testAktif = false;
+          gizle();
+          history.back();
+        }
+        return;
+      }
+      if (e.target === m) { gizle(); guardKur(); }
+    });
+    return m;
+  }
+
+  function goster() {
+    var m = modal();
+    m.style.display = "flex";
+    requestAnimationFrame(function(){
+      m.style.opacity = "1";
+      var k = m.firstElementChild;
+      if (k) k.style.transform = "translateY(0)";
+    });
+  }
+  function gizle() {
+    var m = document.getElementById("cpk-quiz-cikis");
+    if (!m) return;
+    m.style.opacity = "0";
+    var k = m.firstElementChild;
+    if (k) k.style.transform = "translateY(12px)";
+    setTimeout(function(){ m.style.display = "none"; }, 200);
+  }
+
+  // Test başladığında flag aç
+  // Start butonu zaten mevcut, ona hook koy
+  document.addEventListener("click", function(e){
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var btn = t.closest("#cpk-st-basla");
+    if (btn) {
+      setTimeout(function(){
+        testAktif = true;
+        guardKur();
+      }, 50);
+    }
+    // Form gönderildiğinde flag'i kapat (çıkış serbest)
+    var sub = t.closest("#cpk-st-submit");
+    if (sub) {
+      setTimeout(function(){ testAktif = false; guardBirak(); }, 50);
+    }
+  }, true);
+
+  // Test bitince flag kapansın (sonuç ekranına geçildiğinde)
+  var mo = new MutationObserver(function(){
+    var elResult = document.getElementById("cpk-st-result");
+    if (elResult && elResult.style.display !== "none") {
+      testAktif = false;
+      guardBirak();
+    }
+  });
+  setTimeout(function(){
+    var r = document.getElementById("cpk-st-result");
+    if (r) mo.observe(r, { attributes: true, attributeFilter: ["style"] });
+  }, 500);
+
+  // Tarayıcı geri tuşu
+  window.addEventListener("popstate", function(e){
+    if (!testAktif) return;
+    if (e.state && e.state.cpkQuizGuard) return;
+    guardBirak();
+    guardKur();
+    goster();
+  });
+
+  // Sayfa kapatma / yenileme
+  window.addEventListener("beforeunload", function(e){
+    if (!testAktif) return;
+    e.preventDefault();
+    e.returnValue = "";
+    return "";
+  });
+})();
+</script>
+<!-- /cpk:sinav-geri-uyari -->
+
 {% endblock %}
