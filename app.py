@@ -1836,6 +1836,33 @@ def admin_mail_gonder():
     )
 # ============================================================
 
+
+# ============================================
+# 429 — Çok Fazla İstek
+# ============================================
+@app.errorhandler(429)
+def _too_many_requests(e):
+    try:
+        from flask import render_template
+        return render_template("429.html"), 429
+    except Exception:
+        return (
+            "<!doctype html><html><head><meta charset='utf-8'>"
+            "<title>429 — Çok Fazla İstek</title></head>"
+            "<body style='font-family:system-ui;background:#0a0a0b;color:#fff;"
+            "display:flex;align-items:center;justify-content:center;"
+            "min-height:100vh;margin:0;text-align:center;padding:20px'>"
+            "<div><h1 style='font-size:4rem;margin:0;color:#f59e0b'>429</h1>"
+            "<p style='color:#aaa'>Biraz yavaş gidelim. 1-2 dakika sonra "
+            "tekrar deneyin.</p>"
+            "<a href='/' style='display:inline-block;margin-top:16px;"
+            "padding:12px 22px;border-radius:999px;background:#f59e0b;"
+            "color:#18181b;text-decoration:none;font-weight:700'>"
+            "Ana Sayfaya Dön</a></div></body></html>",
+            429,
+        )
+
+
 if __name__ == "__main__":
     import os as _os
     _debug = _os.environ.get("FLASK_DEBUG", "1").lower() in ("1","true","yes","on")

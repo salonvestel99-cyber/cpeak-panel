@@ -1,0 +1,123 @@
+{% extends "base_seo.html" %}
+
+{% block title %}Çok Fazla İstek — C-Peak English{% endblock %}
+{% block body_class %}cpk-page{% endblock %}
+
+{% block head %}
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=429">
+<style>
+.cpk-429-wrap {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+}
+.cpk-429-card {
+  max-width: 520px;
+  text-align: center;
+}
+.cpk-429-code {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(5rem, 18vw, 8rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #f59e0b, #b45309);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+}
+.cpk-429-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.018em;
+  color: #fff;
+  margin: 0 0 14px;
+}
+.cpk-429-lead {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,.62);
+  margin: 0 0 32px;
+}
+.cpk-429-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cpk-429-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+  color: #18181b;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .92rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 24px -8px rgba(245,158,11,.55);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.cpk-429-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -8px rgba(245,158,11,.7);
+  outline: none;
+}
+.cpk-429-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 13px 22px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.2);
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background .18s ease, border-color .18s ease;
+}
+.cpk-429-btn-ghost:hover {
+  background: rgba(255,255,255,.05);
+  border-color: rgba(245,158,11,.5);
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<main class="cpk-main">
+  <div class="cpk-429-wrap">
+    <div class="cpk-429-card">
+      <div class="cpk-429-code">429</div>
+      <h1 class="cpk-429-title">Biraz yavaş gidelim</h1>
+      <p class="cpk-429-lead">
+        Kısa süre içinde çok fazla istek gönderildi. Lütfen 1-2 dakika
+        bekleyip tekrar deneyin.
+      </p>
+      <div class="cpk-429-actions">
+        <a href="/" class="cpk-429-btn">
+          Ana Sayfaya Dön
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+               stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="javascript:location.reload()" class="cpk-429-btn-ghost">
+          Tekrar Dene
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
