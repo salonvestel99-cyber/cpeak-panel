@@ -110,9 +110,6 @@
 
 <main class="cpk-main">
 <section class="cpk-hero cpk-hero-bg">
-    <div class="cpk-bg-image" aria-hidden="true"></div>
-    <div class="cpk-bg-overlay" aria-hidden="true"></div>
-
     <div class="cpk-bg-inner">
       <span class="cpk-bg-eyebrow">Bayrampaşa · İstanbul</span>
 
@@ -164,45 +161,23 @@
   isolation: isolate;
 }
 
-/* --- Arka plan resmi --- */
-.cpk-bg-image {
+/* Hafif amber glow arka plan */
+.cpk-hero-bg::before {
+  content: "";
   position: absolute;
   inset: 0;
-  background-image: url("/static/background.jpg");
-  background-size: cover;
-  background-position: center 40%;
-  background-repeat: no-repeat;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 40%,
+      rgba(245,158,11,.10) 0%,
+      rgba(245,158,11,0) 70%),
+    radial-gradient(ellipse 50% 40% at 20% 80%,
+      rgba(245,158,11,.06) 0%,
+      rgba(245,158,11,0) 65%);
+  pointer-events: none;
   z-index: 0;
-  transform: scale(1.02);
-  animation: cpk-bg-slow-zoom 24s ease-in-out infinite alternate;
-}
-@keyframes cpk-bg-slow-zoom {
-  from { transform: scale(1.02); }
-  to   { transform: scale(1.08); }
 }
 
-/* --- Overlay: okunabilirlik --- */
-.cpk-bg-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    /* radial: metnin olduğu yeri karart */
-    radial-gradient(
-      ellipse 70% 55% at 50% 55%,
-      rgba(0,0,0,.62) 0%,
-      rgba(0,0,0,.35) 45%,
-      rgba(0,0,0,0) 85%
-    ),
-    /* linear: üst ve alt geçişler */
-    linear-gradient(180deg,
-      rgba(10,10,11,.55) 0%,
-      rgba(10,10,11,.15) 22%,
-      rgba(10,10,11,.05) 50%,
-      rgba(10,10,11,.35) 78%,
-      rgba(10,10,11,.85) 100%
-    );
-}
+
 
 /* --- İçerik --- */
 .cpk-bg-inner {
@@ -344,25 +319,8 @@
     min-height: 88svh;
     padding: 40px 22px;
   }
-  .cpk-bg-image {
-    background-position: center 45%;
-  }
-  .cpk-bg-overlay {
-    background:
-      radial-gradient(
-        ellipse 85% 60% at 50% 55%,
-        rgba(0,0,0,.7) 0%,
-        rgba(0,0,0,.4) 55%,
-        rgba(0,0,0,0) 90%
-      ),
-      linear-gradient(180deg,
-        rgba(10,10,11,.6) 0%,
-        rgba(10,10,11,.2) 25%,
-        rgba(10,10,11,.1) 55%,
-        rgba(10,10,11,.5) 82%,
-        rgba(10,10,11,.92) 100%
-      );
-  }
+  
+  
 }
 
 /* --- Mobil --- */
@@ -372,10 +330,7 @@
     min-height: 92svh;
     padding: 30px 18px;
   }
-  .cpk-bg-image {
-    background-position: center 42%;
-    animation: none;
-  }
+  
   .cpk-bg-inner { max-width: 100%; }
   .cpk-bg-eyebrow {
     font-size: .62rem;
@@ -423,7 +378,7 @@
 
 /* --- Reduced motion --- */
 @media (prefers-reduced-motion: reduce) {
-  .cpk-bg-image { animation: none; }
+  
 }
     </style>
   </section>
