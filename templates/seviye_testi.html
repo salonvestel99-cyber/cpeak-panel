@@ -1,0 +1,502 @@
+{% extends "base_seo.html" %}
+
+{% block title %}Seviye Testi — C-Peak English{% endblock %}
+{% block body_class %}cpk-page{% endblock %}
+
+{% block head %}
+<meta name="description" content="21 soruda İngilizce seviyeni öğren. Çocuklar için hazırlanmış ücretsiz seviye testi.">
+<link rel="canonical" href="https://www.cpeakenglish.com/seviye-testi">
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=seviye">
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap">
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+.cpk-st-wrap {
+  min-height: 100vh;
+  background: #0a0a0b;
+  font-family: 'Nunito', system-ui, sans-serif;
+  color: #fff;
+  padding: 32px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cpk-st-card {
+  width: 100%;
+  max-width: 640px;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.012));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 24px;
+  padding: 40px 32px;
+  box-shadow: 0 24px 60px -24px rgba(0,0,0,.7);
+}
+.cpk-st-logo {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; margin-bottom: 28px;
+}
+.cpk-st-logo img { width: 40px; height: 40px; border-radius: 50%; background: #fff; padding: 2px; }
+.cpk-st-logo-txt { display: flex; flex-direction: column; line-height: 1; text-align: left; }
+.cpk-st-logo-txt strong { font-size: .92rem; font-weight: 800; color: #fff; }
+.cpk-st-logo-txt em { font-size: .58rem; font-weight: 700; letter-spacing: .22em; color: rgba(255,255,255,.5); font-style: normal; margin-top: 3px; }
+
+.cpk-st-title { font-size: clamp(1.6rem, 4vw, 2.1rem); font-weight: 900; line-height: 1.15; letter-spacing: -0.024em; margin: 0 0 12px; color: #fff; }
+.cpk-st-title em { font-style: italic; color: #f59e0b; }
+.cpk-st-lead { font-size: 1rem; line-height: 1.6; color: rgba(255,255,255,.65); margin: 0 0 30px; }
+
+/* Progress */
+.cpk-st-progress-wrap { margin-bottom: 28px; }
+.cpk-st-progress-bar { height: 4px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
+.cpk-st-progress-fill { height: 100%; background: linear-gradient(90deg, #fbbf24, #f59e0b); width: 0; transition: width .3s ease; border-radius: 2px; }
+.cpk-st-progress-txt { display: flex; justify-content: space-between; font-size: .74rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px; }
+
+/* Question */
+.cpk-st-q-cat { display: inline-block; font-size: .68rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #f59e0b; margin-bottom: 12px; }
+.cpk-st-q-text { font-size: clamp(1.1rem, 2.6vw, 1.28rem); font-weight: 700; line-height: 1.4; color: #fff; margin: 0 0 28px; letter-spacing: -0.008em; }
+
+/* Options */
+.cpk-st-options { display: flex; flex-direction: column; gap: 10px; }
+.cpk-st-opt {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px; border-radius: 14px;
+  background: rgba(255,255,255,.035);
+  border: 1.5px solid rgba(255,255,255,.08);
+  color: #fff; font-family: inherit; font-size: 1rem; font-weight: 600;
+  text-align: left; cursor: pointer;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.cpk-st-opt:hover, .cpk-st-opt:focus-visible {
+  background: rgba(245,158,11,.08);
+  border-color: rgba(245,158,11,.4);
+  transform: translateY(-1px);
+  outline: none;
+}
+.cpk-st-opt-key {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 8px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  font-weight: 800; font-size: .86rem; color: rgba(255,255,255,.7);
+  flex-shrink: 0;
+  transition: background .18s ease, color .18s ease, border-color .18s ease;
+}
+.cpk-st-opt:hover .cpk-st-opt-key { background: #f59e0b; color: #18181b; border-color: #f59e0b; }
+
+/* Buttons */
+.cpk-st-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 16px 28px; border-radius: 999px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 55%, #d97706 100%);
+  color: #18181b; font-family: inherit; font-size: 1rem; font-weight: 800;
+  border: 0; cursor: pointer; text-decoration: none;
+  box-shadow: 0 14px 32px -10px rgba(245,158,11,.65), 0 4px 12px rgba(0,0,0,.28);
+  transition: transform .18s ease, box-shadow .18s ease;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+}
+.cpk-st-btn:hover, .cpk-st-btn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -10px rgba(245,158,11,.85), 0 6px 16px rgba(0,0,0,.32);
+  outline: none;
+}
+.cpk-st-btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 14px 24px; border-radius: 999px;
+  background: transparent; border: 1.5px solid rgba(255,255,255,.18);
+  color: #fff; font-family: inherit; font-size: .94rem; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+  margin-top: 10px;
+}
+.cpk-st-btn-ghost:hover, .cpk-st-btn-ghost:focus-visible {
+  background: rgba(255,255,255,.05);
+  border-color: rgba(245,158,11,.5);
+  outline: none;
+}
+
+/* Start screen */
+.cpk-st-features { display: flex; flex-direction: column; gap: 12px; margin: 0 0 30px; padding: 0; list-style: none; }
+.cpk-st-features li { display: flex; gap: 12px; align-items: flex-start; font-size: .94rem; color: rgba(255,255,255,.7); line-height: 1.5; }
+.cpk-st-features svg { flex-shrink: 0; margin-top: 2px; color: #f59e0b; }
+
+/* Form */
+.cpk-st-form { display: flex; flex-direction: column; gap: 14px; }
+.cpk-st-field { display: flex; flex-direction: column; gap: 6px; }
+.cpk-st-label { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+.cpk-st-input {
+  padding: 14px 16px; border-radius: 12px;
+  background: rgba(255,255,255,.04);
+  border: 1.5px solid rgba(255,255,255,.1);
+  color: #fff; font-family: inherit; font-size: 1rem; font-weight: 500;
+  transition: border-color .18s ease, background .18s ease;
+}
+.cpk-st-input:focus { outline: none; border-color: #f59e0b; background: rgba(245,158,11,.05); }
+.cpk-st-input::placeholder { color: rgba(255,255,255,.3); }
+
+/* Result */
+.cpk-st-result-level { text-align: center; padding: 24px 0 30px; }
+.cpk-st-result-code {
+  font-size: clamp(3.2rem, 12vw, 5rem); font-weight: 900; line-height: 1;
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; margin-bottom: 12px;
+  letter-spacing: -0.03em;
+}
+.cpk-st-result-name { font-size: 1.5rem; font-weight: 800; color: #fff; margin: 0 0 10px; }
+.cpk-st-result-desc { font-size: .98rem; line-height: 1.6; color: rgba(255,255,255,.65); max-width: 480px; margin: 0 auto 20px; }
+.cpk-st-result-score { display: inline-block; padding: 8px 18px; border-radius: 999px; background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.25); font-size: .84rem; font-weight: 700; color: #fbbf24; }
+
+/* Success */
+.cpk-st-success-icon {
+  width: 72px; height: 72px; margin: 0 auto 22px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: rgba(245,158,11,.14); border: 1px solid rgba(245,158,11,.35);
+  color: #f59e0b;
+}
+.cpk-st-success-txt { text-align: center; font-size: 1.05rem; line-height: 1.6; color: rgba(255,255,255,.7); margin: 0 0 30px; }
+
+.cpk-st-error {
+  display: none; padding: 12px 16px; border-radius: 10px;
+  background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.3);
+  color: #fca5a5; font-size: .9rem; font-weight: 600; margin-bottom: 6px;
+}
+
+@media (max-width: 500px) {
+  .cpk-st-wrap { padding: 20px 14px 50px; }
+  .cpk-st-card { padding: 30px 22px; border-radius: 20px; }
+  .cpk-st-opt { padding: 14px 16px; font-size: .96rem; }
+  .cpk-st-opt-key { width: 28px; height: 28px; font-size: .8rem; }
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="cpk-st-wrap">
+  <div class="cpk-st-card">
+
+    <!-- Logo -->
+    <div class="cpk-st-logo">
+      <img src="/static/logochrome.png" alt="">
+      <div class="cpk-st-logo-txt">
+        <strong>C · Peak</strong>
+        <em>ENGLISH</em>
+      </div>
+    </div>
+
+    <!-- ============ BAŞLANGIÇ EKRANI ============ -->
+    <div id="cpk-st-start">
+      <h1 class="cpk-st-title">Seviyeni <em>3 dakikada</em> öğren</h1>
+      <p class="cpk-st-lead">
+        21 soruluk kısa bir test. Sonunda CEFR seviyeni öğrenirsin.
+      </p>
+
+      <ul class="cpk-st-features">
+        <li>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          7 dil bilgisi sorusu
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          7 kelime bilgisi sorusu
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          7 okuma-anlama sorusu
+        </li>
+      </ul>
+
+      <button type="button" class="cpk-st-btn" id="cpk-st-basla">
+        Testi Başlat
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+
+    <!-- ============ SORU EKRANI ============ -->
+    <div id="cpk-st-quiz" style="display:none;">
+      <div class="cpk-st-progress-wrap">
+        <div class="cpk-st-progress-txt">
+          <span id="cpk-st-cat">DİL BİLGİSİ</span>
+          <span id="cpk-st-counter">1 / 21</span>
+        </div>
+        <div class="cpk-st-progress-bar"><div class="cpk-st-progress-fill" id="cpk-st-progress"></div></div>
+      </div>
+
+      <h2 class="cpk-st-q-text" id="cpk-st-q-text">Soru yükleniyor...</h2>
+
+      <div class="cpk-st-options" id="cpk-st-options"></div>
+    </div>
+
+    <!-- ============ SONUÇ EKRANI ============ -->
+    <div id="cpk-st-result" style="display:none;">
+      <div class="cpk-st-result-level">
+        <div class="cpk-st-result-code" id="cpk-st-level">B1</div>
+        <h2 class="cpk-st-result-name" id="cpk-st-level-name">Orta Seviye</h2>
+        <p class="cpk-st-result-desc" id="cpk-st-level-desc"></p>
+        <span class="cpk-st-result-score" id="cpk-st-score">15 / 21 doğru</span>
+      </div>
+
+      <hr style="border:0;border-top:1px solid rgba(255,255,255,.08);margin:24px 0;">
+
+      <h3 style="font-size:1.15rem;font-weight:800;margin:0 0 8px;color:#fff;text-align:center;">Seviyeni geliştirmek ister misin?</h3>
+      <p style="text-align:center;font-size:.94rem;color:rgba(255,255,255,.6);margin:0 0 22px;">Ücretsiz deneme dersi için bilgilerini bırak.</p>
+
+      <form class="cpk-st-form" id="cpk-st-form" novalidate>
+        <div class="cpk-st-field">
+          <label class="cpk-st-label" for="cpk-st-isim">Öğrenci Adı</label>
+          <input class="cpk-st-input" type="text" id="cpk-st-isim" name="isim" placeholder="Örn: Elif Yılmaz" required>
+        </div>
+        <div class="cpk-st-field">
+          <label class="cpk-st-label" for="cpk-st-tel">Veli Telefonu</label>
+          <input class="cpk-st-input" type="tel" id="cpk-st-tel" name="telefon" placeholder="05XX XXX XX XX" required>
+        </div>
+        <div class="cpk-st-field">
+          <label class="cpk-st-label" for="cpk-st-sinif">Sınıf</label>
+          <select class="cpk-st-input" id="cpk-st-sinif" name="sinif" required>
+            <option value="">Seçiniz</option>
+            <option>1. sınıf</option>
+            <option>2. sınıf</option>
+            <option>3. sınıf</option>
+            <option>4. sınıf</option>
+            <option>5. sınıf</option>
+            <option>6. sınıf</option>
+            <option>7. sınıf</option>
+            <option>8. sınıf</option>
+            <option>Lise</option>
+            <option>Diğer</option>
+          </select>
+        </div>
+
+        <div class="cpk-st-error" id="cpk-st-error"></div>
+
+        <button type="submit" class="cpk-st-btn" id="cpk-st-submit">
+          Bilgilerimi Gönder
+        </button>
+      </form>
+    </div>
+
+    <!-- ============ TEŞEKKÜR EKRANI ============ -->
+    <div id="cpk-st-done" style="display:none;">
+      <div class="cpk-st-success-icon">
+        <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+      </div>
+      <h2 style="font-size:1.5rem;font-weight:900;text-align:center;margin:0 0 12px;color:#fff;">Teşekkürler!</h2>
+      <p class="cpk-st-success-txt">
+        Bilgilerin bize ulaştı. En kısa sürede seninle iletişime geçip
+        ücretsiz deneme dersini planlayacağız.
+      </p>
+      <a href="/" class="cpk-st-btn" style="text-decoration:none;">
+        Ana Sayfaya Dön
+      </a>
+      <a href="/kurslar" class="cpk-st-btn-ghost" style="text-decoration:none;">
+        Kursları İncele
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============================================
+  // SORULAR
+  // ============================================
+  var SORULAR = [
+    // --- GRAMMAR (7) ---
+    {cat:"Grammar", q:"My brother ___ football every Saturday.", opts:["play","plays","playing","played"], dogru:1},
+    {cat:"Grammar", q:"Look! The cat ___ on the sofa.", opts:["sleep","sleeps","is sleeping","slept"], dogru:2},
+    {cat:"Grammar", q:"We ___ to Ankara last summer.", opts:["go","went","have gone","going"], dogru:1},
+    {cat:"Grammar", q:"Ayşe is ___ than her sister.", opts:["tall","taller","tallest","more tall"], dogru:1},
+    {cat:"Grammar", q:"I ___ my homework already.", opts:["finish","finished","have finished","am finishing"], dogru:2},
+    {cat:"Grammar", q:"If it ___ tomorrow, we will stay at home.", opts:["rain","rains","will rain","rained"], dogru:1},
+    {cat:"Grammar", q:"The book ___ by a famous writer in 1920.", opts:["wrote","is written","was written","has written"], dogru:2},
+
+    // --- VOCABULARY (7) ---
+    {cat:"Kelime", q:"I drink ___ every morning.", opts:["bread","milk","chair","window"], dogru:1},
+    {cat:"Kelime", q:"My father's brother is my ___.", opts:["uncle","aunt","cousin","nephew"], dogru:0},
+    {cat:"Kelime", q:"Choose the opposite of \"expensive\".", opts:["cheap","large","heavy","strong"], dogru:0},
+    {cat:"Kelime", q:"We had a ___ time at the party yesterday.", opts:["bad","sad","great","small"], dogru:2},
+    {cat:"Kelime", q:"Choose the closest meaning to \"huge\".", opts:["very small","very fast","very big","very old"], dogru:2},
+    {cat:"Kelime", q:"She was very ___ after the long trip.", opts:["tired","tire","tiring","tires"], dogru:0},
+    {cat:"Kelime", q:"Choose the closest meaning to \"essential\".", opts:["optional","necessary","rare","boring"], dogru:1},
+
+    // --- READING (7) ---
+    {cat:"Okuma", q:"My Best Friend — My name is Elif. I am twelve years old. How old is Elif?", opts:["Ten","Eleven","Twelve","Thirteen"], dogru:2},
+    {cat:"Okuma", q:"Where does Elif live?", opts:["Ankara","Bayrampaşa, İstanbul","İzmir","Zeynep's house"], dogru:1},
+    {cat:"Okuma", q:"What does Zeynep like doing?", opts:["Cooking and painting","Reading books and playing the piano","Swimming and running","Watching TV all day"], dogru:1},
+    {cat:"Okuma", q:"What do Elif and Zeynep do on Saturdays?", opts:["They go to the cinema","They stay at school","They go to the park, ride bikes, eat sandwiches","They visit grandparents"], dogru:2},
+    {cat:"Okuma", q:"What do they do in winter?", opts:["They go to the park","They stay at home and watch cartoons","They play football outside","They ride their bikes"], dogru:1},
+    {cat:"Okuma", q:"What does Zeynep want to be when she grows up?", opts:["A doctor","A singer","An English teacher","A pilot"], dogru:2},
+    {cat:"Okuma", q:"What is the main idea of this text?", opts:["Elif wants to be a doctor","Zeynep loves playing the piano","The friendship between Elif and Zeynep","Life in Istanbul"], dogru:2}
+  ];
+
+  // ============================================
+  // DURUM
+  // ============================================
+  var idx = 0;
+  var cevaplar = [];
+
+  var elStart = document.getElementById("cpk-st-start");
+  var elQuiz = document.getElementById("cpk-st-quiz");
+  var elResult = document.getElementById("cpk-st-result");
+  var elDone = document.getElementById("cpk-st-done");
+  var elQText = document.getElementById("cpk-st-q-text");
+  var elOpts = document.getElementById("cpk-st-options");
+  var elCounter = document.getElementById("cpk-st-counter");
+  var elCat = document.getElementById("cpk-st-cat");
+  var elProg = document.getElementById("cpk-st-progress");
+
+  // ============================================
+  // SORU GÖSTER
+  // ============================================
+  function soruGoster() {
+    if (idx >= SORULAR.length) { bitir(); return; }
+    var s = SORULAR[idx];
+    elCat.textContent = s.cat.toUpperCase();
+    elCounter.textContent = (idx + 1) + " / " + SORULAR.length;
+    elProg.style.width = (((idx) / SORULAR.length) * 100) + "%";
+    elQText.textContent = s.q;
+    elOpts.innerHTML = "";
+    var keys = ["A","B","C","D"];
+    s.opts.forEach(function(opt, i){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "cpk-st-opt";
+      b.innerHTML = '<span class="cpk-st-opt-key">' + keys[i] + '</span><span>' + opt + '</span>';
+      b.addEventListener("click", function(){ cevapla(i); });
+      elOpts.appendChild(b);
+    });
+  }
+
+  function cevapla(secim) {
+    cevaplar.push(secim);
+    idx++;
+    elProg.style.width = (((idx) / SORULAR.length) * 100) + "%";
+    soruGoster();
+  }
+
+  // ============================================
+  // BİTİR — seviye hesapla
+  // ============================================
+  function bitir() {
+    var dogru = 0;
+    for (var i = 0; i < SORULAR.length; i++) {
+      if (cevaplar[i] === SORULAR[i].dogru) dogru++;
+    }
+
+    var seviye, isim, desc;
+    if (dogru <= 5) {
+      seviye = "A1"; isim = "Başlangıç";
+      desc = "İngilizceye yeni başlıyorsun. Küçük sınıflarda bol konuşma pratiğiyle hızlı ilerleyebilirsin.";
+    } else if (dogru <= 10) {
+      seviye = "A2"; isim = "Temel";
+      desc = "Temel kalıpları biliyorsun. Konuşma ve kelime dağarcığını genişletmek sıradaki adım.";
+    } else if (dogru <= 15) {
+      seviye = "B1"; isim = "Orta";
+      desc = "İyi bir temelin var. Konuşma odaklı derslerle B2'ye kolayca çıkabilirsin.";
+    } else {
+      seviye = "B2"; isim = "Orta-İleri";
+      desc = "Güçlü bir seviyedesin. İnce ayrıntılar ve akıcılık üzerine çalışmak için harika bir noktadasın.";
+    }
+
+    document.getElementById("cpk-st-level").textContent = seviye;
+    document.getElementById("cpk-st-level-name").textContent = isim;
+    document.getElementById("cpk-st-level-desc").textContent = desc;
+    document.getElementById("cpk-st-score").textContent = dogru + " / " + SORULAR.length + " doğru";
+
+    // Form için gizli alan
+    document.getElementById("cpk-st-form").dataset.puan = dogru;
+    document.getElementById("cpk-st-form").dataset.seviye = seviye;
+
+    elQuiz.style.display = "none";
+    elResult.style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // ============================================
+  // FORM GÖNDER
+  // ============================================
+  document.getElementById("cpk-st-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var f = e.target;
+    var isim = f.isim.value.trim();
+    var tel = f.telefon.value.trim();
+    var sinif = f.sinif.value.trim();
+    var err = document.getElementById("cpk-st-error");
+
+    if (!isim || isim.length < 3) {
+      err.textContent = "Lütfen öğrencinin adını yazın.";
+      err.style.display = "block";
+      return;
+    }
+    if (!tel || tel.replace(/\D/g, "").length < 10) {
+      err.textContent = "Lütfen geçerli bir telefon numarası girin.";
+      err.style.display = "block";
+      return;
+    }
+    if (!sinif) {
+      err.textContent = "Lütfen sınıfı seçin.";
+      err.style.display = "block";
+      return;
+    }
+    err.style.display = "none";
+
+    var btn = document.getElementById("cpk-st-submit");
+    btn.disabled = true;
+    btn.textContent = "Gönderiliyor...";
+
+    var veri = {
+      isim: isim,
+      telefon: tel,
+      sinif: sinif,
+      puan: parseInt(f.dataset.puan, 10),
+      seviye: f.dataset.seviye,
+      cevaplar: JSON.stringify(cevaplar)
+    };
+
+    fetch("/seviye-testi/gonder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(veri)
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if (res.ok) {
+        elResult.style.display = "none";
+        elDone.style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        err.textContent = res.mesaj || "Bir hata oluştu. Tekrar deneyin.";
+        err.style.display = "block";
+        btn.disabled = false;
+        btn.textContent = "Bilgilerimi Gönder";
+      }
+    })
+    .catch(function(){
+      err.textContent = "Bağlantı hatası. İnternetinizi kontrol edin.";
+      err.style.display = "block";
+      btn.disabled = false;
+      btn.textContent = "Bilgilerimi Gönder";
+    });
+  });
+
+  // ============================================
+  // BAŞLAT
+  // ============================================
+  document.getElementById("cpk-st-basla").addEventListener("click", function(){
+    elStart.style.display = "none";
+    elQuiz.style.display = "block";
+    idx = 0;
+    cevaplar = [];
+    soruGoster();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
+</script>
+{% endblock %}

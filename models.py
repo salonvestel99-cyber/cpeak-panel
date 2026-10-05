@@ -314,3 +314,39 @@ def seed_admin():
         print(f"  [seed] Admin olusturuldu -> T.C.: {tc}  |  Sifre: {sifre}")
     finally:
         conn.close()
+
+
+# === CPK_SEVIYE_TESTI ===
+def _seviye_testi_tablo(conn):
+    """Tablo yoksa oluştur."""
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS seviye_testleri (
+            id SERIAL PRIMARY KEY,
+            isim TEXT NOT NULL,
+            telefon TEXT NOT NULL,
+            sinif TEXT,
+            puan INTEGER NOT NULL,
+            seviye TEXT NOT NULL,
+            cevaplar TEXT,
+            tarih TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    conn.commit()
+
+
+def seviye_testi_kaydet(isim, telefon, sinif, puan, seviye, cevaplar):
+    """Seviye testi sonucunu kaydeder."""
+    conn = get_db()
+    try:
+        _seviye_testi_tablo(conn)
+        conn.execute(
+            "INSERT INTO seviye_testleri "
+            "(isim, telefon, sinif, puan, seviye, cevaplar) "
+            "VALUES (?, ?, ?, ?, ?, ?)",
+            (isim, telefon, sinif, puan, seviye, cevaplar),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+# === /CPK_SEVIYE_TESTI ===
+

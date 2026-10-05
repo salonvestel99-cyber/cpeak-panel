@@ -1863,6 +1863,37 @@ def _too_many_requests(e):
         )
 
 
+
+# === CPK_SEVIYE_TESTI ===
+@app.route("/seviye-testi")
+def seviye_testi():
+    return render_template("seviye_testi.html")
+
+
+@app.route("/seviye-testi/gonder", methods=["POST"])
+def seviye_testi_gonder():
+    from flask import request, jsonify
+    try:
+        veri = request.get_json(silent=True) or {}
+        isim = (veri.get("isim") or "").strip()[:80]
+        tel = (veri.get("telefon") or "").strip()[:20]
+        sinif = (veri.get("sinif") or "").strip()[:30]
+        puan = int(veri.get("puan") or 0)
+        seviye = (veri.get("seviye") or "").strip()[:10]
+        cevaplar = (veri.get("cevaplar") or "")[:500]
+
+        if not isim or not tel:
+            return jsonify(ok=False, mesaj="Eksik bilgi"), 400
+
+        from models import seviye_testi_kaydet
+        seviye_testi_kaydet(isim, tel, sinif, puan, seviye, cevaplar)
+        return jsonify(ok=True)
+    except Exception as e:
+        app.logger.exception("seviye_testi_gonder hata")
+        return jsonify(ok=False, mesaj="Sunucu hatası"), 500
+# === /CPK_SEVIYE_TESTI ===
+
+
 if __name__ == "__main__":
     import os as _os
     _debug = _os.environ.get("FLASK_DEBUG", "1").lower() in ("1","true","yes","on")
