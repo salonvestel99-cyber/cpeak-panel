@@ -606,15 +606,16 @@ body { margin: 0; }
     {cat:"Okuma", q:"What is the main idea of this text?", opts:["Elif wants to be a doctor","Zeynep loves playing the piano","The friendship between Elif and Zeynep","Life in Istanbul"], dogru:2}
   ];
 
-  // ============================================
-  // DURUM
-  // ============================================
-  var SURE_SN = 25 * 60;  // 25 dakika
+  var STORAGE_KEY = "cpk_sinav_v1";
+  var SURE_SN = 25 * 60;
+  var AUTO_NEXT_MS = 450;
+
   var idx = 0;
   var cevaplar = new Array(SORULAR.length).fill(-1);
   var timerInterval = null;
   var kalanSn = SURE_SN;
   var sinavAktif = false;
+  var autoNextTimer = null;
 
   var elStart = document.getElementById("cpk-st-start");
   var elQuiz = document.getElementById("cpk-st-quiz");
@@ -633,15 +634,45 @@ body { margin: 0; }
   var elHint = document.getElementById("cpk-exam-hint");
 
   // ============================================
+  // STORAGE
+  // ============================================
+  function storageKaydet() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        cevaplar: cevaplar,
+        idx: idx,
+        kalanSn: kalanSn,
+        aktif: sinavAktif,
+        zaman: Date.now()
+      }));
+    } catch(e) {}
+  }
+
+  function storageYukle() {
+    try {
+      var v = localStorage.getItem(STORAGE_KEY);
+      if (!v) return null;
+      var obj = JSON.parse(v);
+      if (obj.zaman && (Date.now() - obj.zaman) > 30 * 60 * 1000) {
+        storageTemizle();
+        return null;
+      }
+      return obj;
+    } catch(e) { return null; }
+  }
+
+  function storageTemizle() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+  }
+
+  // ============================================
   // TIMER
   // ============================================
   function timerGuncelle() {
     var m = Math.floor(kalanSn / 60);
     var s = kalanSn % 60;
     elTimerTxt.textContent = (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
-    if (kalanSn <= 300) {  // son 5 dakika
-      elTimer.classList.add("cpk-warning");
-    }
+    if (kalanSn <= 300) elTimer.classList.add("cpk-warning");
   }
 
   function timerBaslat() {
@@ -650,6 +681,7 @@ body { margin: 0; }
     timerInterval = setInterval(function(){
       kalanSn--;
       timerGuncelle();
+      storageKaydet();
       if (kalanSn <= 0) {
         timerDurdur();
         alert("Süre doldu! Cevapların otomatik gönderiliyor.");
@@ -657,12 +689,13 @@ body { margin: 0; }
       }
     }, 1000);
   }
+
   function timerDurdur() {
     if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
   }
 
   // ============================================
-  // NAVİGASYON GRID
+  // NAV GRID
   // ============================================
   function navGuncelle() {
     elNav.innerHTML = "";
@@ -675,8 +708,10 @@ body { margin: 0; }
         if (cevaplar[i] !== -1) b.classList.add("cpk-answered");
         if (i === idx) b.classList.add("cpk-current");
         b.addEventListener("click", function(){
+          if (autoNextTimer) { clearTimeout(autoNextTimer); autoNextTimer = null; }
           idx = i;
           soruGoster();
+          storageKaydet();
         });
         elNav.appendChild(b);
       })(i);
@@ -684,7 +719,7 @@ body { margin: 0; }
   }
 
   // ============================================
-  // SORU GÖSTER
+  // SORU
   // ============================================
   function soruGoster() {
     var s = SORULAR[idx];
@@ -703,7 +738,6 @@ body { margin: 0; }
       elOpts.appendChild(b);
     });
 
-    // Buton durumları
     btnPrev.disabled = (idx === 0);
     var cevaplanan = cevaplar.filter(function(c){ return c !== -1; }).length;
     var hepsiCevaplandi = (cevaplanan === SORULAR.length);
@@ -720,12 +754,9 @@ body { margin: 0; }
       btnNext.classList.remove("cpk-exam-btn-finish");
     }
 
-    // Hint
-    if (cevaplanan === 0) {
-      elHint.textContent = "Bir şık seçerek devam edebilirsin.";
-    } else if (hepsiCevaplandi) {
-      elHint.textContent = "Tüm soruları cevapladın. Sınavı bitirebilirsin.";
-    } else {
+    if (cevaplanan === 0) elHint.textContent = "Bir şık seçerek devam edebilirsin.";
+    else if (hepsiCevaplandi) elHint.textContent = "Tüm soruları cevapladın. Sınavı bitirebilirsin.";
+    else {
       var bos = SORULAR.length - cevaplanan;
       elHint.textContent = bos + " soru boş.";
     }
@@ -734,26 +765,39 @@ body { margin: 0; }
   }
 
   function sec(i) {
+    // Önceki otomatik geçişi iptal et
+    if (autoNextTimer) { clearTimeout(autoNextTimer); autoNextTimer = null; }
+
     cevaplar[idx] = i;
-    // Seçili class güncelle
     var opts = elOpts.querySelectorAll(".cpk-exam-opt");
     opts.forEach(function(el, k){
       el.classList.toggle("cpk-selected", k === i);
     });
     navGuncelle();
+    storageKaydet();
 
-    // Otomatik sonraki (opsiyonel, kapalı)
-    // Son soru değilse sonrakine geçme — kullanıcı kendisi geçsin
+    // Otomatik sonraki soru (son soru değilse)
+    var sonSoru = (idx === SORULAR.length - 1);
+    if (!sonSoru) {
+      autoNextTimer = setTimeout(function(){
+        autoNextTimer = null;
+        idx++;
+        soruGoster();
+        storageKaydet();
+      }, AUTO_NEXT_MS);
+    }
   }
 
   // ============================================
   // BUTONLAR
   // ============================================
   btnPrev.addEventListener("click", function(){
-    if (idx > 0) { idx--; soruGoster(); }
+    if (autoNextTimer) { clearTimeout(autoNextTimer); autoNextTimer = null; }
+    if (idx > 0) { idx--; soruGoster(); storageKaydet(); }
   });
 
   btnNext.addEventListener("click", function(){
+    if (autoNextTimer) { clearTimeout(autoNextTimer); autoNextTimer = null; }
     var sonSoru = (idx === SORULAR.length - 1);
     var cevaplanan = cevaplar.filter(function(c){ return c !== -1; }).length;
     var hepsiCevaplandi = (cevaplanan === SORULAR.length);
@@ -773,6 +817,7 @@ body { margin: 0; }
     } else {
       idx++;
       soruGoster();
+      storageKaydet();
     }
   });
 
@@ -819,6 +864,7 @@ body { margin: 0; }
   function bitir() {
     timerDurdur();
     sinavAktif = false;
+    storageTemizle();
 
     var dogru = 0;
     for (var i = 0; i < SORULAR.length; i++) {
@@ -906,9 +952,10 @@ body { margin: 0; }
   });
 
   // ============================================
-  // BAŞLAT
+  // BAŞLAT / DEVAM ET
   // ============================================
-  document.getElementById("cpk-st-basla").addEventListener("click", function(){
+  function baslatSifirdan() {
+    storageTemizle();
     elStart.style.display = "none";
     elQuiz.style.display = "block";
     idx = 0;
@@ -917,11 +964,47 @@ body { margin: 0; }
     sinavAktif = true;
     soruGoster();
     timerBaslat();
+    storageKaydet();
     window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+  }
+
+  function devamEt(kayit) {
+    elStart.style.display = "none";
+    elQuiz.style.display = "block";
+    idx = kayit.idx || 0;
+    cevaplar = (kayit.cevaplar && kayit.cevaplar.length === SORULAR.length)
+      ? kayit.cevaplar
+      : new Array(SORULAR.length).fill(-1);
+    kalanSn = kayit.kalanSn || SURE_SN;
+    sinavAktif = true;
+    soruGoster();
+    timerBaslat();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.getElementById("cpk-st-basla").addEventListener("click", baslatSifirdan);
+
+  // Sayfa açılışında kayıtlı sınav var mı?
+  var kayit = storageYukle();
+  if (kayit && kayit.aktif) {
+    var cevaplanan = (kayit.cevaplar || []).filter(function(c){ return c !== -1; }).length;
+    setTimeout(function(){
+      var onay = confirm(
+        "Yarım kalan sınavın var.\n\n" +
+        "Cevapladığın soru: " + cevaplanan + " / " + SORULAR.length + "\n" +
+        "Kalan süre: " + Math.floor(kayit.kalanSn / 60) + " dk\n\n" +
+        "Kaldığın yerden devam etmek ister misin?"
+      );
+      if (onay) {
+        devamEt(kayit);
+      } else {
+        storageTemizle();
+      }
+    }, 300);
+  }
 
   // ============================================
-  // SAYFADAN ÇIKIŞ KORUMASI
+  // SAYFADAN ÇIKIŞ
   // ============================================
   window.addEventListener("beforeunload", function(e){
     if (sinavAktif) {
