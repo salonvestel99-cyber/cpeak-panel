@@ -1,0 +1,153 @@
+{% extends "base_seo.html" %}
+
+{% block title %}Blog — C-Peak English | İngilizce Öğrenme Rehberi{% endblock %}
+{% block body_class %}cpk-page{% endblock %}
+
+{% block head %}
+<meta name="description" content="İngilizce öğrenme, sınav hazırlığı, dil edinimi ve Bayrampaşa'da İngilizce eğitimi üzerine faydalı rehberler.">
+<link rel="canonical" href="https://www.cpeakenglish.com/blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog — C-Peak English">
+<meta property="og:description" content="İngilizce öğrenme üzerine faydalı rehberler.">
+<meta property="og:url" content="https://www.cpeakenglish.com/blog">
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=blog">
+<style>
+.cpk-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+.cpk-blog-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 26px 24px 22px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 14px 40px -20px rgba(0,0,0,.55);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  text-decoration: none;
+  color: inherit;
+}
+.cpk-blog-card:hover, .cpk-blog-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(245,158,11,.45);
+  box-shadow: 0 22px 60px -20px rgba(245,158,11,.28);
+  outline: none;
+}
+.cpk-blog-date {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #f59e0b;
+}
+.cpk-blog-title {
+  margin: 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.32rem;
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.012em;
+  color: #fff;
+}
+.cpk-blog-desc {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .92rem;
+  line-height: 1.55;
+  color: rgba(255,255,255,.72);
+}
+.cpk-blog-more {
+  margin-top: auto;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .84rem;
+  font-weight: 600;
+  color: #f59e0b;
+  letter-spacing: .01em;
+}
+.cpk-blog-empty {
+  padding: 60px 20px;
+  text-align: center;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: rgba(255,255,255,.55);
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<header class="cpk-header">
+  <div class="cpk-header-inner">
+    <a href="/" class="topbar-brand">
+      <span class="topbar-brand-mark">
+        <img src="{{ url_for('static', filename='logochrome.png') }}" alt="C · Peak English">
+      </span>
+      <span class="topbar-brand-text">
+        <span class="topbar-brand-title">C · Peak</span>
+        <span class="topbar-brand-sep"></span>
+        <span class="topbar-brand-sub" lang="en">ENGLISH</span>
+      </span>
+    </a>
+    <nav class="cpk-nav">
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/kurslar">Kurslar</a>
+      <a href="/blog">Blog</a>
+      <a href="/iletisim">İletişim</a>
+      <a href="{{ url_for('login') }}" class="btn-primary cpk-nav-cta">Giriş Yap</a>
+    </nav>
+  </div>
+</header>
+
+<main class="cpk-main">
+  <section class="cpk-page-hero">
+    <div class="container">
+      <span class="cpk-eyebrow">Blog</span>
+      <h1 class="cpk-h1">İngilizce <em>öğrenme</em> rehberi</h1>
+      <p class="cpk-lead">
+        Sınav hazırlığı, konuşma pratiği, çocuklara İngilizce ve daha fazlası.
+        Bayrampaşa ve İstanbul'da İngilizce eğitimi üzerine pratik yazılar.
+      </p>
+    </div>
+  </section>
+
+  <section class="cpk-section">
+    <div class="container">
+      {% if yazilar %}
+      <div class="cpk-blog-grid">
+        {% for y in yazilar %}
+        <a href="/blog/{{ y.slug }}" class="cpk-blog-card">
+          {% if y.date %}
+          <span class="cpk-blog-date">{{ y.date }}</span>
+          {% endif %}
+          <h2 class="cpk-blog-title">{{ y.title }}</h2>
+          {% if y.description %}
+          <p class="cpk-blog-desc">{{ y.description }}</p>
+          {% endif %}
+          <span class="cpk-blog-more">Devamını Oku →</span>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="cpk-blog-empty">Henüz yazı yok.</div>
+      {% endif %}
+    </div>
+  </section>
+</main>
+
+<footer class="cpk-footer">
+  <div class="container cpk-footer-inner">
+    <span>© 2026 C-Peak English. Tüm hakları saklıdır.</span>
+    <span class="cpk-footer-links">
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/kurslar">Kurslar</a>
+      <a href="/blog">Blog</a>
+      <a href="/iletisim">İletişim</a>
+      <a href="/kvkk">KVKK</a>
+      <a href="{{ url_for('login') }}">Giriş Yap</a>
+    </span>
+  </div>
+</footer>
+{% endblock %}

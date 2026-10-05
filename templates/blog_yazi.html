@@ -1,0 +1,151 @@
+{% extends "base_seo.html" %}
+
+{% block title %}{{ yazi.title }} — C-Peak English{% endblock %}
+{% block body_class %}cpk-page{% endblock %}
+
+{% block head %}
+<meta name="description" content="{{ yazi.description }}">
+<link rel="canonical" href="https://www.cpeakenglish.com/blog/{{ yazi.slug }}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ yazi.title }}">
+<meta property="og:description" content="{{ yazi.description }}">
+<meta property="og:url" content="https://www.cpeakenglish.com/blog/{{ yazi.slug }}">
+<meta property="article:published_time" content="{{ yazi.date }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ yazi.title }}">
+<meta name="twitter:description" content="{{ yazi.description }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=blog">
+<style>
+.cpk-blog-article {
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.06rem;
+  line-height: 1.72;
+  color: rgba(255,255,255,.86);
+}
+.cpk-blog-article h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.018em;
+  color: #fff;
+  margin: 0 0 14px;
+}
+.cpk-blog-article h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.28rem, 3.2vw, 1.55rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: #fff;
+  margin: 40px 0 14px;
+}
+.cpk-blog-article h3 {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f59e0b;
+  margin: 28px 0 10px;
+}
+.cpk-blog-article p { margin: 0 0 18px; }
+.cpk-blog-article a {
+  color: #f59e0b;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cpk-blog-article ul, .cpk-blog-article ol {
+  margin: 0 0 20px;
+  padding-left: 24px;
+}
+.cpk-blog-article li { margin-bottom: 8px; }
+.cpk-blog-article strong { color: #fff; font-weight: 700; }
+.cpk-blog-article blockquote {
+  margin: 22px 0;
+  padding: 4px 0 4px 20px;
+  border-left: 3px solid #f59e0b;
+  font-style: italic;
+  color: rgba(255,255,255,.7);
+}
+.cpk-blog-article hr {
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,.1);
+  margin: 36px 0 22px;
+}
+.cpk-blog-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: .82rem;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 28px;
+}
+.cpk-blog-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,.3); }
+.cpk-blog-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .86rem;
+  font-weight: 600;
+  color: #f59e0b;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+.cpk-blog-back:hover { text-decoration: underline; }
+</style>
+{% endblock %}
+
+{% block body %}
+<header class="cpk-header">
+  <div class="cpk-header-inner">
+    <a href="/" class="topbar-brand">
+      <span class="topbar-brand-mark">
+        <img src="{{ url_for('static', filename='logochrome.png') }}" alt="C · Peak English">
+      </span>
+      <span class="topbar-brand-text">
+        <span class="topbar-brand-title">C · Peak</span>
+        <span class="topbar-brand-sep"></span>
+        <span class="topbar-brand-sub" lang="en">ENGLISH</span>
+      </span>
+    </a>
+    <nav class="cpk-nav">
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/kurslar">Kurslar</a>
+      <a href="/blog">Blog</a>
+      <a href="/iletisim">İletişim</a>
+      <a href="{{ url_for('login') }}" class="btn-primary cpk-nav-cta">Giriş Yap</a>
+    </nav>
+  </div>
+</header>
+
+<main class="cpk-main">
+  <section class="cpk-section">
+    <div class="container">
+      <div class="cpk-blog-article">
+        <a href="/blog" class="cpk-blog-back">← Tüm Yazılar</a>
+        <div class="cpk-blog-meta">
+          {% if yazi.date %}<span>{{ yazi.date }}</span>{% endif %}
+          {% if yazi.date %}<span class="cpk-blog-meta-dot"></span>{% endif %}
+          <span>{{ yazi.author }}</span>
+        </div>
+        {{ yazi.html | safe }}
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="cpk-footer">
+  <div class="container cpk-footer-inner">
+    <span>© 2026 C-Peak English. Tüm hakları saklıdır.</span>
+    <span class="cpk-footer-links">
+      <a href="/hakkimizda">Hakkımızda</a>
+      <a href="/kurslar">Kurslar</a>
+      <a href="/blog">Blog</a>
+      <a href="/iletisim">İletişim</a>
+      <a href="/kvkk">KVKK</a>
+      <a href="{{ url_for('login') }}">Giriş Yap</a>
+    </span>
+  </div>
+</footer>
+{% endblock %}

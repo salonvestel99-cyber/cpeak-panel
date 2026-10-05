@@ -52,5 +52,29 @@
 <body class="cpk-page {% block body_class %}{% endblock %}">
 {% block body %}{% endblock %}
 {% block scripts %}{% endblock %}
+
+<script id="cpk-blog-nav-injector">
+(function () {
+  "use strict";
+  function ekle() {
+    var nav = document.querySelector(".cpk-nav");
+    if (!nav) return;
+    if (nav.querySelector('a[href="/blog"]')) return;
+    var link = document.createElement("a");
+    link.href = "/blog";
+    link.textContent = "Blog";
+    var iletisim = nav.querySelector('a[href="/iletisim"]');
+    if (iletisim) nav.insertBefore(link, iletisim);
+    else nav.appendChild(link);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ekle);
+  } else {
+    ekle();
+  }
+  setTimeout(ekle, 500);
+})();
+</script>
+
 </body>
 </html>

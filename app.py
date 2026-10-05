@@ -1877,6 +1877,10 @@ def sitemap_xml():
         "https://www.cpeakenglish.com/iletisim",
         "https://www.cpeakenglish.com/kvkk",
     ]
+    from cpk_blog import tum_yazilar as _blog_yazilar
+    for _y in _blog_yazilar():
+        pages.append(f"https://www.cpeakenglish.com/blog/{_y['slug']}")
+
     today = datetime.now().date().isoformat()
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -1885,6 +1889,23 @@ def sitemap_xml():
     xml += '</urlset>'
     return Response(xml, mimetype='application/xml')
 
+
+# === CPK_BLOG ROUTES (blog_kur.py) ===
+@app.route("/blog")
+def blog_listesi():
+    from cpk_blog import tum_yazilar
+    yazilar = tum_yazilar()
+    return render_template("blog.html", yazilar=yazilar)
+
+
+@app.route("/blog/<slug>")
+def blog_yazi(slug):
+    from cpk_blog import yazi_bul
+    yazi = yazi_bul(slug)
+    if not yazi:
+        return "Yazı bulunamadı", 404
+    return render_template("blog_yazi.html", yazi=yazi)
+# === /CPK_BLOG ROUTES ===
 
 @app.route('/hakkimizda')
 def hakkimizda():
