@@ -109,437 +109,242 @@
 </header>
 
 <main class="cpk-main">
-<section class="cpk-hero cpk-hero-kids-v3">
-    <div class="cpk-kids-glow" aria-hidden="true">
-      <span class="cpk-glow cpk-glow-1"></span>
-      <span class="cpk-glow cpk-glow-2"></span>
+<section class="cpk-hero cpk-hero-temp">
+    <div class="cpk-temp-bg" aria-hidden="true">
+      <span class="cpk-temp-line cpk-line-1"></span>
+      <span class="cpk-temp-line cpk-line-2"></span>
     </div>
 
-    <div class="cpk-kids-inner">
-      <div class="cpk-kids-left">
-        <div class="cpk-kids-brand">
-          <img src="/static/logochrome.png" alt="C · Peak English">
-          <span class="cpk-kids-brand-text">
-            <strong>C · Peak</strong>
-            <em>ENGLISH</em>
-          </span>
-        </div>
+    <div class="cpk-temp-inner">
+      <span class="cpk-temp-eyebrow">Bayrampaşa · İstanbul</span>
 
-        <span class="cpk-kids-eyebrow">Bayrampaşa · İstanbul</span>
+      <h1 class="cpk-temp-title">
+        İngilizceyi<br>
+        <em>oyun gibi</em> öğren
+      </h1>
 
-        <h1 class="cpk-kids-title">
-          İngilizceyi<br>
-          <em>oyun gibi</em> öğren
-        </h1>
+      <p class="cpk-temp-lead">
+        Küçük sınıflar, neşeli dersler ve bol bol konuşma.
+        Bayrampaşa'da çocuklar için İngilizce artık çok daha keyifli.
+      </p>
 
-        <p class="cpk-kids-lead">
-          Küçük sınıflar, neşeli dersler ve bol bol konuşma.
-          Bayrampaşa'da çocuklar için İngilizce artık çok daha keyifli.
-        </p>
-
-        <div class="cpk-kids-chips">
-          <span class="cpk-kid-chip">
-            <span class="cpk-chip-emoji">🎨</span>
-            Oyunla öğren
-          </span>
-          <span class="cpk-kid-chip">
-            <span class="cpk-chip-emoji">💬</span>
-            Bol konuşma
-          </span>
-          <span class="cpk-kid-chip">
-            <span class="cpk-chip-emoji">🏆</span>
-            Küçük sınıflar
-          </span>
-        </div>
-
-        <div class="cpk-kids-cta">
-          <a href="/iletisim" class="cpk-btn-kids">
-            Ücretsiz Deneme Dersi
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"
-                 stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
-                 stroke-linejoin="round" aria-hidden="true">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
-          <a href="/kurslar" class="cpk-btn-kids-ghost">
-            Kursları Gör
-          </a>
-        </div>
-
-        <div class="cpk-kids-trust">
-          <span class="cpk-trust-label">Veliler için</span>
-          <span class="cpk-trust-item">Sertifikalı öğretmenler</span>
-          <span class="cpk-trust-dot">·</span>
-          <span class="cpk-trust-item">Online panel</span>
-          <span class="cpk-trust-dot">·</span>
-          <span class="cpk-trust-item">Aylık karne</span>
-        </div>
+      <div class="cpk-temp-cta">
+        <a href="/iletisim" class="cpk-temp-btn">
+          Ücretsiz Deneme Dersi
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none"
+               stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="/kurslar" class="cpk-temp-btn-ghost">
+          Kursları Gör
+        </a>
       </div>
 
-      <div class="cpk-kids-right">
-        <div class="cpk-kids-stage">
-          <div class="cpk-kids-img-wrap">
-            <img src="/static/kids-hero.png"
-                 alt=""
-                 class="cpk-kids-img"
-                 onerror="this.style.display='none';this.parentNode.classList.add('cpk-no-img')">
-          </div>
-          <div class="cpk-kids-emoji-fallback" aria-hidden="true">
-            <span class="cpk-emoji cpk-e1">🎓</span>
-            <span class="cpk-emoji cpk-e2">📚</span>
-            <span class="cpk-emoji cpk-e3">🚀</span>
-            <span class="cpk-emoji cpk-e4">⭐</span>
-            <span class="cpk-emoji cpk-e5">🎨</span>
-          </div>
-        </div>
+      <div class="cpk-temp-foot">
+        Sertifikalı öğretmenler
+        <span>·</span>
+        Online veli paneli
+        <span>·</span>
+        Aylık karne
       </div>
     </div>
 
-    <style id="cpk-hero-kids-v3-style">
-.cpk-hero-kids-v3 {
+    <style id="cpk-hero-temp-style">
+.cpk-hero-temp {
   position: relative;
   overflow: hidden;
-  padding: 0;
   background: #0a0a0b;
+  padding: 120px 24px 110px;
   isolation: isolate;
 }
 
-.cpk-kids-glow {
+/* Arka plan ince amber çizgiler */
+.cpk-temp-bg {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
 }
-.cpk-glow {
+.cpk-temp-line {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  pointer-events: none;
+  width: 1px;
+  background: linear-gradient(180deg,
+    rgba(245,158,11,0) 0%,
+    rgba(245,158,11,.35) 50%,
+    rgba(245,158,11,0) 100%);
 }
-.cpk-glow-1 {
-  width: 520px; height: 520px;
-  background: #f59e0b;
-  top: -180px; left: -140px;
-  opacity: .14;
+.cpk-line-1 {
+  height: 340px;
+  top: 15%;
+  left: 12%;
+  transform: rotate(12deg);
 }
-.cpk-glow-2 {
-  width: 420px; height: 420px;
-  background: #f59e0b;
-  bottom: -160px; right: -120px;
-  opacity: .10;
+.cpk-line-2 {
+  height: 280px;
+  bottom: 20%;
+  right: 14%;
+  transform: rotate(-8deg);
+  opacity: .6;
 }
 
-.cpk-kids-inner {
+.cpk-temp-inner {
   position: relative;
   z-index: 1;
-  max-width: 1200px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 80px 32px 90px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
+  text-align: center;
 }
 
-.cpk-kids-left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  color: #fff;
-  max-width: 540px;
-}
-
-.cpk-kids-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 32px;
-  padding: 8px 16px 8px 8px;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 999px;
-}
-.cpk-kids-brand img {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  background: #fff;
-  padding: 2px;
-}
-.cpk-kids-brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-}
-.cpk-kids-brand-text strong {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: .86rem;
-  font-weight: 700;
-  color: #fff;
-}
-.cpk-kids-brand-text em {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: .58rem;
-  font-weight: 700;
-  letter-spacing: .22em;
-  color: rgba(255,255,255,.5);
-  font-style: normal;
-  margin-top: 3px;
-}
-
-.cpk-kids-eyebrow {
+.cpk-temp-eyebrow {
   display: inline-block;
   font-family: 'Inter', system-ui, sans-serif;
   font-size: .68rem;
   font-weight: 700;
-  letter-spacing: .22em;
+  letter-spacing: .26em;
   text-transform: uppercase;
   color: #f59e0b;
-  background: rgba(245,158,11,.10);
-  border: 1px solid rgba(245,158,11,.24);
-  padding: 7px 14px;
-  border-radius: 999px;
-  margin-bottom: 22px;
+  margin-bottom: 28px;
+  opacity: .9;
 }
 
-.cpk-kids-title {
+.cpk-temp-title {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: clamp(2.2rem, 5.2vw, 3.8rem);
+  font-size: clamp(2.4rem, 6.4vw, 4.4rem);
   font-weight: 800;
   line-height: 1.02;
-  letter-spacing: -0.032em;
+  letter-spacing: -0.034em;
   color: #fff;
-  margin: 0 0 22px;
+  margin: 0 0 24px;
 }
-.cpk-kids-title em {
+.cpk-temp-title em {
   font-style: italic;
   font-weight: 800;
   color: #f59e0b;
-  display: inline-block;
 }
 
-.cpk-kids-lead {
+.cpk-temp-lead {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: rgba(255,255,255,.72);
-  margin: 0 0 26px;
-  max-width: 460px;
+  font-size: 1.08rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,.62);
+  max-width: 520px;
+  margin: 0 auto 40px;
 }
 
-.cpk-kids-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin-bottom: 32px;
-}
-.cpk-kid-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 15px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.035);
-  border: 1px solid rgba(255,255,255,.10);
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: .86rem;
-  font-weight: 600;
-  color: rgba(255,255,255,.88);
-  transition: background .2s ease, border-color .2s ease, transform .2s ease;
-  cursor: default;
-}
-.cpk-kid-chip:hover {
-  background: rgba(245,158,11,.08);
-  border-color: rgba(245,158,11,.4);
-  transform: translateY(-2px);
-}
-.cpk-chip-emoji {
-  font-size: 1rem;
-  line-height: 1;
-  display: inline-block;
-}
-
-.cpk-kids-cta {
+.cpk-temp-cta {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  justify-content: center;
+  margin-bottom: 44px;
 }
-.cpk-btn-kids {
+
+.cpk-temp-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 15px 26px;
+  gap: 9px;
+  padding: 15px 28px;
   border-radius: 999px;
   background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
   color: #18181b;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: .96rem;
-  font-weight: 800;
+  font-size: .98rem;
+  font-weight: 700;
   text-decoration: none;
   box-shadow:
-    0 12px 28px -8px rgba(245,158,11,.55),
-    0 4px 12px rgba(0,0,0,.25);
+    0 12px 30px -8px rgba(245,158,11,.6),
+    0 4px 12px rgba(0,0,0,.3);
   transition: transform .18s cubic-bezier(.22,.9,.28,1),
               box-shadow .18s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.cpk-btn-kids:hover, .cpk-btn-kids:focus-visible {
+.cpk-temp-btn:hover, .cpk-temp-btn:focus-visible {
   transform: translateY(-2px);
   box-shadow:
-    0 16px 36px -8px rgba(245,158,11,.75),
-    0 6px 16px rgba(0,0,0,.3);
+    0 16px 38px -8px rgba(245,158,11,.8),
+    0 6px 16px rgba(0,0,0,.35);
   outline: none;
 }
-.cpk-btn-kids:active { transform: translateY(0); }
-.cpk-btn-kids svg { transition: transform .18s ease; }
-.cpk-btn-kids:hover svg { transform: translateX(3px); }
+.cpk-temp-btn:active { transform: translateY(0); }
+.cpk-temp-btn svg { transition: transform .18s ease; }
+.cpk-temp-btn:hover svg { transform: translateX(3px); }
 
-.cpk-btn-kids-ghost {
+.cpk-temp-btn-ghost {
   display: inline-flex;
   align-items: center;
-  padding: 15px 24px;
+  padding: 15px 26px;
   border-radius: 999px;
   background: transparent;
-  border: 1.5px solid rgba(255,255,255,.22);
+  border: 1px solid rgba(255,255,255,.2);
   color: #fff;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: .96rem;
-  font-weight: 700;
+  font-size: .98rem;
+  font-weight: 600;
   text-decoration: none;
   transition: background .18s ease, border-color .18s ease, transform .18s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.cpk-btn-kids-ghost:hover,
-.cpk-btn-kids-ghost:focus-visible {
-  background: rgba(255,255,255,.06);
+.cpk-temp-btn-ghost:hover,
+.cpk-temp-btn-ghost:focus-visible {
+  background: rgba(255,255,255,.05);
   border-color: rgba(245,158,11,.5);
   transform: translateY(-2px);
   outline: none;
 }
 
-.cpk-kids-trust {
+.cpk-temp-foot {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 12px;
   font-family: 'Inter', system-ui, sans-serif;
   font-size: .82rem;
-  color: rgba(255,255,255,.62);
+  font-weight: 500;
+  color: rgba(255,255,255,.45);
+  letter-spacing: .005em;
 }
-.cpk-trust-label {
-  font-size: .64rem;
-  font-weight: 700;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(245,158,11,.85);
-  margin-right: 4px;
-}
-.cpk-trust-dot { color: rgba(255,255,255,.3); }
-
-.cpk-kids-right {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 420px;
-}
-.cpk-kids-stage {
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-  aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.cpk-kids-img-wrap {
-  position: relative;
-  width: 100%; height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.cpk-kids-img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 30px 50px rgba(0,0,0,.55));
-  animation: cpk-kids-float 5s ease-in-out infinite;
-}
-@keyframes cpk-kids-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
+.cpk-temp-foot span {
+  color: rgba(255,255,255,.2);
 }
 
-.cpk-kids-emoji-fallback {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-.cpk-kids-img-wrap:not(.cpk-no-img) + .cpk-kids-emoji-fallback {
-  display: none;
-}
-
-.cpk-emoji {
-  position: absolute;
-  line-height: 1;
-  filter: drop-shadow(0 14px 28px rgba(0,0,0,.5));
-  animation: cpk-kids-float 4.5s ease-in-out infinite;
-}
-.cpk-e1 { top: 8%; left: 12%; animation-delay: 0s; font-size: 5rem; }
-.cpk-e2 { top: 22%; right: 8%; animation-delay: .6s; font-size: 4.6rem; }
-.cpk-e3 { bottom: 24%; left: 8%; animation-delay: 1.2s; font-size: 4.8rem; }
-.cpk-e4 { bottom: 10%; right: 18%; animation-delay: 1.8s; font-size: 4rem; }
-.cpk-e5 { top: 46%; left: 44%; animation-delay: 2.4s; font-size: 5.4rem; z-index: 1; }
-
-@media (max-width: 900px) {
-  .cpk-kids-inner {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    padding: 56px 22px 66px;
+@media (max-width: 720px) {
+  .cpk-hero-temp {
+    padding: 80px 20px 80px;
   }
-  .cpk-kids-left {
-    max-width: 100%;
-    align-items: center;
-    text-align: center;
+  .cpk-temp-title {
+    font-size: clamp(2rem, 9vw, 3rem);
   }
-  .cpk-kids-brand { align-self: center; }
-  .cpk-kids-title { font-size: clamp(1.9rem, 8vw, 2.8rem); }
-  .cpk-kids-lead {
-    margin-left: auto;
-    margin-right: auto;
+  .cpk-temp-lead {
+    font-size: .98rem;
+    margin-bottom: 32px;
   }
-  .cpk-kids-chips { justify-content: center; }
-  .cpk-kids-cta {
+  .cpk-temp-cta {
     width: 100%;
-    justify-content: center;
     flex-direction: column;
+    margin-bottom: 34px;
   }
-  .cpk-btn-kids,
-  .cpk-btn-kids-ghost {
+  .cpk-temp-btn,
+  .cpk-temp-btn-ghost {
     width: 100%;
     justify-content: center;
   }
-  .cpk-kids-trust {
-    justify-content: center;
-    text-align: center;
+  .cpk-temp-foot {
+    font-size: .76rem;
+    gap: 8px;
   }
-  .cpk-kids-right { min-height: 300px; }
-  .cpk-kids-stage { max-width: 340px; }
-  .cpk-emoji { font-size: 3rem; }
-  .cpk-e1 { font-size: 3.6rem; }
-  .cpk-e2 { font-size: 3.3rem; }
-  .cpk-e3 { font-size: 3.4rem; }
-  .cpk-e4 { font-size: 2.9rem; }
-  .cpk-e5 { font-size: 3.9rem; }
+  .cpk-temp-line {
+    opacity: .5;
+  }
 }
     </style>
   </section>
+
+
 
 
   <!-- ============== HERO ============== -->
