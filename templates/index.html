@@ -2076,6 +2076,22 @@ body[data-theme="light"] #iletisim .cpk-contact-social a {
   }
 }
 </style>
+<style id="cpk-mobil-bg-kaldir">
+/* Mobilde hero karakter görselini gizle */
+@media (max-width: 900px) {
+  .cpk-hero-bgchars .cpk-hb-chars,
+  .cpk-hero-bgchars .cpk-hb-chars img {
+    display: none !important;
+  }
+  /* Hero'yu mobilde normal akışa döndür */
+  .cpk-hero-bgchars {
+    min-height: auto !important;
+  }
+  .cpk-hero-bgchars .cpk-hb-hero {
+    padding: 60px 22px 40px !important;
+  }
+}
+</style>
 </section>
 
 </main>
