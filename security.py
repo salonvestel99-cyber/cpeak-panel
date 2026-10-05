@@ -138,7 +138,8 @@ def init_security(app):
     # ---------- 4) CSRF ----------
     try:
         from flask_wtf.csrf import CSRFProtect
-        CSRFProtect(app)
+        _csrf = CSRFProtect(app)
+        app.csrf = _csrf
         app.logger.info("CSRF korumasi aktif")
     except ImportError:
         app.logger.warning("flask-wtf yok, atlandi")

@@ -1871,6 +1871,7 @@ def seviye_testi():
 
 
 @app.route("/seviye-testi/gonder", methods=["POST"])
+@app.csrf.exempt
 def seviye_testi_gonder():
     from flask import request, jsonify
     try:
