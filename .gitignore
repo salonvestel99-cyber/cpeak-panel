@@ -47,3 +47,10 @@ seo_patch.py
 deepseek_*.py
 
 *.orig
+
+# Tek seferlik hero/iletiþim yamalarý
+hero_*.py
+iletisim_*.py
+rate_*.py
+sosyal_hover.py
+zoom_fix.py
