@@ -350,3 +350,57 @@ def seviye_testi_kaydet(isim, telefon, sinif, puan, seviye, cevaplar):
         conn.close()
 # === /CPK_SEVIYE_TESTI ===
 
+
+# === CPK_TELEGRAM ===
+def telegram_bildirim_gonder(mesaj):
+    """Telegram bot üzerinden mesaj gönderir. Sessizce çalışır."""
+    import os as _os
+    try:
+        import urllib.request as _ur
+        import urllib.parse as _up
+    except ImportError:
+        return False
+
+    token = _os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+    chat_id = _os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+    if not token or not chat_id:
+        return False
+
+    try:
+        url = f"https://api.telegram.org/bot{token}/sendMessage"
+        veri = _up.urlencode({
+            "chat_id": chat_id,
+            "text": mesaj,
+            "parse_mode": "HTML",
+            "disable_web_page_preview": "true",
+        }).encode("utf-8")
+        req = _ur.Request(url, data=veri, method="POST")
+        with _ur.urlopen(req, timeout=8) as r:
+            return r.status == 200
+    except Exception:
+        return False
+
+
+def seviye_testi_bildirim(isim, telefon, sinif, puan, seviye, tarih_str):
+    """Test sonucunu formatlayıp Telegram'a gönderir."""
+    from datetime import datetime as _dt
+    seviye_adlari = {
+        "A1": "Başlangıç",
+        "A2": "Temel",
+        "B1": "Orta",
+        "B2": "Orta-İleri",
+    }
+    seviye_adi = seviye_adlari.get(seviye, seviye)
+    metin = (
+        "🧪 <b>Yeni Seviye Testi</b>\n\n"
+        f"👤 <b>{isim}</b>\n"
+        f"📚 {sinif}\n"
+        f"📞 <code>{telefon}</code>\n"
+        f"🎯 <b>{seviye}</b> · {seviye_adi}\n"
+        f"✅ {puan} / 21 doğru\n"
+        f"🕐 {tarih_str}\n\n"
+        f"<a href=\"https://wa.me/{telefon.replace(' ', '').replace('+', '').replace('(', '').replace(')', '').replace('-', '')}\">WhatsApp'tan yaz</a>"
+    )
+    return telegram_bildirim_gonder(metin)
+# === /CPK_TELEGRAM ===
+

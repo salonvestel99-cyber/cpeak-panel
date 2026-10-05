@@ -1885,13 +1885,37 @@ def seviye_testi_gonder():
         if not isim or not tel:
             return jsonify(ok=False, mesaj="Eksik bilgi"), 400
 
-        from models import seviye_testi_kaydet
+        from models import seviye_testi_kaydet, seviye_testi_bildirim
         seviye_testi_kaydet(isim, tel, sinif, puan, seviye, cevaplar)
+
+        # Telegram bildirimi (sessizce çalışır)
+        try:
+            from datetime import datetime as _dt
+            _tarih = _dt.now().strftime("%d.%m.%Y %H:%M")
+            seviye_testi_bildirim(isim, tel, sinif, puan, seviye, _tarih)
+        except Exception:
+            app.logger.exception("Telegram bildirim hatası")
+
         return jsonify(ok=True)
     except Exception as e:
         app.logger.exception("seviye_testi_gonder hata")
         return jsonify(ok=False, mesaj="Sunucu hatası"), 500
 # === /CPK_SEVIYE_TESTI ===
+
+
+
+# === CPK_WHATSAPP_CTX ===
+@app.context_processor
+def _cpk_wa_ctx():
+    import os as _os
+    numara = _os.environ.get("WHATSAPP_NUMARA", "").strip()
+    mesaj = "Merhaba, C-Peak English seviye testini tamamladım. Deneme dersi hakkında bilgi almak istiyorum."
+    import urllib.parse as _up
+    return {
+        "whatsapp_numara": numara,
+        "wa_mesaj": _up.quote(mesaj),
+    }
+# === /CPK_WHATSAPP_CTX ===
 
 
 if __name__ == "__main__":
