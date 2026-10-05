@@ -109,232 +109,307 @@
 </header>
 
 <main class="cpk-main">
-<section class="cpk-hero cpk-hero-clean">
+<section class="cpk-hero cpk-hero-study">
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap">
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
-  <div class="cpk-hc-bg" aria-hidden="true">
-    <span class="cpk-hc-glow cpk-hc-glow-1"></span>
-    <span class="cpk-hc-glow cpk-hc-glow-2"></span>
+  <div class="cpk-hs-bg" aria-hidden="true">
+    <span class="cpk-hs-glow cpk-hs-glow-1"></span>
+    <span class="cpk-hs-glow cpk-hs-glow-2"></span>
   </div>
 
-  <div class="cpk-hc-inner">
-    <div class="cpk-hc-left">
-      <span class="cpk-hc-eyebrow">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
-             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
-          <circle cx="12" cy="10" r="3"/>
-        </svg>
-        Bayrampaşa · İstanbul
-      </span>
+  <!-- ========== HERO ========== -->
+  <div class="cpk-hs-hero">
+    <div class="cpk-hs-hero-inner">
 
-      <h1 class="cpk-hc-title">
-        İngilizceyi<br>
-        <em>oyun gibi</em> öğren
-      </h1>
-
-      <p class="cpk-hc-lead">
-        Bayrampaşa'da çocuklar için küçük sınıflar,
-        neşeli dersler ve bol bol konuşma.
-      </p>
-
-      <div class="cpk-hc-cta">
-        <a href="/iletisim" class="cpk-hc-btn">
-          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor"
-               stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      <!-- SOL -->
+      <div class="cpk-hs-left">
+        <span class="cpk-hs-eyebrow">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+               stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
           </svg>
-          <span>Ücretsiz Deneme Dersi</span>
-        </a>
-        <a href="/kurslar" class="cpk-hc-btn-ghost">
-          Kursları İncele
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
-               stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          Bayrampaşa · İstanbul
+        </span>
+
+        <h1 class="cpk-hs-title">
+          İngilizceyi<br>
+          <em>oyun gibi</em> öğren
+        </h1>
+
+        <p class="cpk-hs-lead">
+          Bayrampaşa'da çocuklar için küçük sınıflar,
+          neşeli dersler ve bol bol konuşma.
+        </p>
+
+        <div class="cpk-hs-cta">
+          <a href="/iletisim" class="cpk-hs-btn">
+            Ücretsiz Deneme Dersi
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                 stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                 stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+          <a href="/kurslar" class="cpk-hs-btn-ghost">
+            Kursları İncele
+          </a>
+        </div>
+
+        <ul class="cpk-hs-trust">
+          <li>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none"
+                 stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                 stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
+            </svg>
+            Sertifikalı öğretmenler
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none"
+                 stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                 stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
+            </svg>
+            Veli paneli
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none"
+                 stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                 stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
+            </svg>
+            Aylık karne
+          </li>
+        </ul>
+      </div>
+
+      <!-- SAĞ: görsel slotu -->
+      <div class="cpk-hs-right" aria-hidden="true">
+        <div class="cpk-hs-scene">
+          <!-- Görsel varsa görünür -->
+          <div class="cpk-hs-img" id="cpk-hs-img"></div>
+          <!-- Fallback daire -->
+          <div class="cpk-hs-circle">
+            <span class="cpk-hs-circle-inner"></span>
+            <span class="cpk-hs-circle-ring cpk-hs-r1"></span>
+            <span class="cpk-hs-circle-ring cpk-hs-r2"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== FEATURE KARTLARI ========== -->
+  <div class="cpk-hs-features">
+    <div class="cpk-hs-features-inner">
+
+      <a href="/kurslar" class="cpk-hs-card">
+        <span class="cpk-hs-card-icon cpk-ic-1">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </span>
+        <h3 class="cpk-hs-card-title">İlkokul</h3>
+        <p class="cpk-hs-card-desc">
+          Oyunlarla, şarkılarla, hikayelerle İngilizceye ilk adım.
+        </p>
+        <span class="cpk-hs-card-more">
+          Detay
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+               stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
             <line x1="5" y1="12" x2="19" y2="12"/>
             <polyline points="12 5 19 12 12 19"/>
           </svg>
-        </a>
-      </div>
+        </span>
+      </a>
 
-      <ul class="cpk-hc-trust">
-        <li>
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
-               stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M9 12l2 2 4-4"/>
-            <circle cx="12" cy="12" r="10"/>
+      <a href="/kurslar" class="cpk-hs-card">
+        <span class="cpk-hs-card-icon cpk-ic-2">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-3.5L6 21l1.5-7.5L2 9h7z"/>
           </svg>
-          Sertifikalı öğretmenler
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
-               stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M9 12l2 2 4-4"/>
-            <circle cx="12" cy="12" r="10"/>
+        </span>
+        <h3 class="cpk-hs-card-title">Ortaokul</h3>
+        <p class="cpk-hs-card-desc">
+          Konuşma odaklı dersler, düzenli seviye takibi, sınav hazırlığı.
+        </p>
+        <span class="cpk-hs-card-more">
+          Detay
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+               stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
           </svg>
-          Veli paneli
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
-               stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M9 12l2 2 4-4"/>
-            <circle cx="12" cy="12" r="10"/>
-          </svg>
-          Aylık karne
-        </li>
-      </ul>
-    </div>
+        </span>
+      </a>
 
-    <div class="cpk-hc-right">
-      <!-- LOTTIE SLOT: URL'yi buraya koy -->
-      <lottie-player
-        id="cpk-hero-lottie"
-        src=""
-        background="transparent"
-        speed="1"
-        loop
-        autoplay
-        class="cpk-hc-lottie"
-        style="display:none;">
-      </lottie-player>
+      <a href="/kurslar" class="cpk-hs-card">
+        <span class="cpk-hs-card-icon cpk-ic-3">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </span>
+        <h3 class="cpk-hs-card-title">YKS Hazırlık</h3>
+        <p class="cpk-hs-card-desc">
+          Yoğun program, deneme analizi ve birebir takip.
+        </p>
+        <span class="cpk-hs-card-more">
+          Detay
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
+               stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </span>
+      </a>
 
-      <!-- Fallback: Lottie URL yoksa görünen organik orb -->
-      <div class="cpk-hc-orb" id="cpk-hero-orb" aria-hidden="true">
-        <span class="cpk-hc-orb-inner"></span>
-        <span class="cpk-hc-orb-ring cpk-hc-orb-ring-1"></span>
-        <span class="cpk-hc-orb-ring cpk-hc-orb-ring-2"></span>
-        <span class="cpk-hc-orb-dot cpk-hc-orb-dot-1"></span>
-        <span class="cpk-hc-orb-dot cpk-hc-orb-dot-2"></span>
-      </div>
     </div>
   </div>
 
   <script>
-  (function () {
-    var player = document.getElementById("cpk-hero-lottie");
-    var orb = document.getElementById("cpk-hero-orb");
-    if (!player || !orb) return;
-    var src = player.getAttribute("src");
-    if (src && src.length > 5) {
-      player.style.display = "block";
-      orb.style.display = "none";
-    }
+  (function(){
+    var img = document.getElementById("cpk-hs-img");
+    if (!img) return;
+    var test = new Image();
+    test.onload = function(){
+      img.style.backgroundImage = 'url("/static/hero-kids.png")';
+      img.style.opacity = "1";
+    };
+    test.onerror = function(){ /* görsel yok → fallback kalır */ };
+    test.src = "/static/hero-kids.png";
   })();
   </script>
 
-  <style id="cpk-hero-clean-style">
-.cpk-hero-clean {
-  --hc-bg: #0a0a0b;
-  --hc-ink: #ffffff;
-  --hc-ink-2: rgba(255,255,255,.68);
-  --hc-ink-3: rgba(255,255,255,.44);
-  --hc-amber: #f59e0b;
-  --hc-amber-2: #fbbf24;
+  <style id="cpk-hero-study-style">
+/* ============================================================
+   C-Peak · Hero Study — marka renkleri
+   ============================================================ */
+.cpk-hero-study {
+  --hs-bg: #0a0a0b;
+  --hs-ink: #ffffff;
+  --hs-ink-2: rgba(255,255,255,.68);
+  --hs-ink-3: rgba(255,255,255,.44);
+  --hs-amber: #f59e0b;
+  --hs-amber-2: #fbbf24;
+  --hs-line: rgba(255,255,255,.07);
 
   position: relative;
   overflow: hidden;
-  background: var(--hc-bg);
-  padding: 110px 32px 120px;
-  isolation: isolate;
+  background: var(--hs-bg);
   font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  isolation: isolate;
 }
 
-/* --- Arka plan glow --- */
-.cpk-hc-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+/* --- Arka plan --- */
+.cpk-hs-bg {
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 0;
 }
-.cpk-hc-glow {
+.cpk-hs-glow {
   position: absolute;
   border-radius: 50%;
   filter: blur(110px);
   pointer-events: none;
 }
-.cpk-hc-glow-1 {
+.cpk-hs-glow-1 {
   width: 620px; height: 620px;
   background: #f59e0b;
-  top: -220px; left: -180px;
-  opacity: .12;
+  top: -240px; left: -180px;
+  opacity: .13;
 }
-.cpk-hc-glow-2 {
-  width: 500px; height: 500px;
+.cpk-hs-glow-2 {
+  width: 480px; height: 480px;
   background: #f59e0b;
-  bottom: -200px; right: -140px;
-  opacity: .08;
-}
-
-/* --- Grid --- */
-.cpk-hc-inner {
-  position: relative;
-  z-index: 1;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 80px;
-  align-items: center;
+  top: 40%; right: -160px;
+  opacity: .09;
 }
 
 /* ============================================================
-   SOL
+   HERO
    ============================================================ */
-.cpk-hc-left {
+.cpk-hs-hero {
+  position: relative;
+  z-index: 1;
+  padding: 90px 32px 70px;
+}
+.cpk-hs-hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* --- SOL --- */
+.cpk-hs-left {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 600px;
+  max-width: 580px;
 }
 
-.cpk-hc-eyebrow {
+.cpk-hs-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 7px;
   font-size: .82rem;
   font-weight: 700;
-  letter-spacing: .04em;
-  color: var(--hc-amber-2);
-  margin-bottom: 24px;
-  opacity: .95;
+  letter-spacing: .03em;
+  color: var(--hs-amber-2);
+  margin-bottom: 22px;
 }
-.cpk-hc-eyebrow svg { flex-shrink: 0; opacity: .9; }
+.cpk-hs-eyebrow svg { opacity: .9; flex-shrink: 0; }
 
-.cpk-hc-title {
+.cpk-hs-title {
   font-family: 'Nunito', sans-serif;
   font-size: clamp(2.6rem, 5.6vw, 4.4rem);
   font-weight: 900;
   line-height: 1.02;
   letter-spacing: -0.03em;
-  color: var(--hc-ink);
-  margin: 0 0 24px;
+  color: var(--hs-ink);
+  margin: 0 0 22px;
 }
-.cpk-hc-title em {
+.cpk-hs-title em {
   font-style: italic;
   font-weight: 900;
-  color: var(--hc-amber);
+  color: var(--hs-amber);
 }
 
-.cpk-hc-lead {
+.cpk-hs-lead {
   font-family: 'Nunito', sans-serif;
-  font-size: 1.12rem;
+  font-size: 1.1rem;
   font-weight: 500;
   line-height: 1.6;
-  color: var(--hc-ink-2);
-  margin: 0 0 36px;
+  color: var(--hs-ink-2);
+  margin: 0 0 34px;
   max-width: 480px;
 }
 
-/* --- CTA --- */
-.cpk-hc-cta {
+.cpk-hs-cta {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 38px;
+  margin-bottom: 34px;
 }
 
-.cpk-hc-btn {
+.cpk-hs-btn {
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -345,7 +420,6 @@
   font-family: 'Nunito', sans-serif;
   font-size: 1.02rem;
   font-weight: 800;
-  letter-spacing: -0.005em;
   text-decoration: none;
   box-shadow:
     0 16px 36px -12px rgba(245,158,11,.7),
@@ -355,7 +429,7 @@
               box-shadow .2s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.cpk-hc-btn:hover, .cpk-hc-btn:focus-visible {
+.cpk-hs-btn:hover, .cpk-hs-btn:focus-visible {
   transform: translateY(-2px);
   box-shadow:
     0 22px 44px -12px rgba(245,158,11,.9),
@@ -363,18 +437,16 @@
     inset 0 1px 0 rgba(255,255,255,.5);
   outline: none;
 }
-.cpk-hc-btn:active { transform: translateY(0); }
-.cpk-hc-btn svg { flex-shrink: 0; }
+.cpk-hs-btn:active { transform: translateY(0); }
 
-.cpk-hc-btn-ghost {
+.cpk-hs-btn-ghost {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   padding: 17px 26px;
   border-radius: 999px;
   background: transparent;
   border: 1.5px solid rgba(255,255,255,.16);
-  color: var(--hc-ink);
+  color: var(--hs-ink);
   font-family: 'Nunito', sans-serif;
   font-size: 1.02rem;
   font-weight: 700;
@@ -382,208 +454,285 @@
   transition: background .2s ease, border-color .2s ease, transform .2s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.cpk-hc-btn-ghost:hover,
-.cpk-hc-btn-ghost:focus-visible {
+.cpk-hs-btn-ghost:hover,
+.cpk-hs-btn-ghost:focus-visible {
   background: rgba(255,255,255,.05);
   border-color: rgba(245,158,11,.55);
   transform: translateY(-2px);
   outline: none;
 }
-.cpk-hc-btn-ghost svg {
-  transition: transform .2s ease;
-}
-.cpk-hc-btn-ghost:hover svg { transform: translateX(3px); }
 
-/* --- Trust satırı --- */
-.cpk-hc-trust {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
+.cpk-hs-trust {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-wrap: wrap; gap: 22px;
   font-family: 'Nunito', sans-serif;
   font-size: .9rem;
   font-weight: 600;
-  color: var(--hc-ink-3);
+  color: var(--hs-ink-3);
 }
-.cpk-hc-trust li {
+.cpk-hs-trust li {
   display: inline-flex;
   align-items: center;
   gap: 7px;
 }
-.cpk-hc-trust svg {
-  color: var(--hc-amber);
+.cpk-hs-trust svg {
+  color: var(--hs-amber);
   flex-shrink: 0;
   opacity: .85;
 }
 
-/* ============================================================
-   SAĞ — Lottie / Orb
-   ============================================================ */
-.cpk-hc-right {
+/* --- SAĞ sahne --- */
+.cpk-hs-right {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 460px;
+  min-height: 500px;
 }
 
-.cpk-hc-lottie {
-  width: 100%;
-  max-width: 480px;
-  height: auto;
-  aspect-ratio: 1 / 1;
-}
-
-/* --- Fallback: organik orb --- */
-.cpk-hc-orb {
+.cpk-hs-scene {
   position: relative;
   width: 100%;
-  max-width: 460px;
+  max-width: 500px;
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.cpk-hc-orb-inner {
+/* Görsel slotu (varsa gösterilir) */
+.cpk-hs-img {
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  transition: opacity .4s ease;
+  z-index: 3;
+  filter: drop-shadow(0 30px 60px rgba(245,158,11,.25));
+}
+
+/* Fallback: amber daire */
+.cpk-hs-circle {
+  position: relative;
+  width: 72%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.cpk-hs-circle-inner {
   position: absolute;
   top: 50%; left: 50%;
-  width: 55%;
-  height: 55%;
+  width: 100%; height: 100%;
   transform: translate(-50%,-50%);
   border-radius: 50%;
   background:
     radial-gradient(circle at 35% 30%,
-      rgba(255,220,140,.85) 0%,
-      rgba(245,158,11,.6) 40%,
-      rgba(217,119,6,.35) 70%,
+      rgba(255,220,140,.9) 0%,
+      rgba(245,158,11,.55) 40%,
+      rgba(217,119,6,.25) 72%,
       rgba(217,119,6,0) 100%);
-  filter: blur(2px);
-  animation: cpk-hc-breathe 4.5s ease-in-out infinite;
+  filter: blur(1px);
+  animation: cpk-hs-breathe 5s ease-in-out infinite;
   box-shadow:
-    0 40px 90px -20px rgba(245,158,11,.55),
-    0 0 60px rgba(245,158,11,.35);
+    0 40px 90px -20px rgba(245,158,11,.5),
+    0 0 60px rgba(245,158,11,.3);
 }
 
-.cpk-hc-orb-ring {
+.cpk-hs-circle-ring {
   position: absolute;
   top: 50%; left: 50%;
   border-radius: 50%;
   border: 1px solid rgba(245,158,11,.28);
   transform: translate(-50%,-50%);
-  animation: cpk-hc-pulse 4.5s ease-out infinite;
+  animation: cpk-hs-pulse 5s ease-out infinite;
 }
-.cpk-hc-orb-ring-1 {
-  width: 70%; height: 70%;
+.cpk-hs-r1 {
+  width: 100%; height: 100%;
   animation-delay: 0s;
 }
-.cpk-hc-orb-ring-2 {
-  width: 90%; height: 90%;
-  animation-delay: 1.5s;
+.cpk-hs-r2 {
+  width: 125%; height: 125%;
+  animation-delay: 1.8s;
   opacity: .5;
 }
 
-.cpk-hc-orb-dot {
-  position: absolute;
-  border-radius: 50%;
-  background: #fbbf24;
-  box-shadow: 0 0 20px rgba(245,158,11,.6);
-  animation: cpk-hc-float 6s ease-in-out infinite;
-}
-.cpk-hc-orb-dot-1 {
-  width: 10px; height: 10px;
-  top: 20%; right: 18%;
-  animation-delay: 0s;
-}
-.cpk-hc-orb-dot-2 {
-  width: 7px; height: 7px;
-  bottom: 26%; left: 15%;
-  animation-delay: 2.5s;
-  opacity: .8;
-}
-
-@keyframes cpk-hc-breathe {
+@keyframes cpk-hs-breathe {
   0%, 100% { transform: translate(-50%,-50%) scale(1); }
   50%      { transform: translate(-50%,-50%) scale(1.06); }
 }
-
-@keyframes cpk-hc-pulse {
+@keyframes cpk-hs-pulse {
   0%   { transform: translate(-50%,-50%) scale(.85); opacity: 0; }
   50%  { opacity: .8; }
   100% { transform: translate(-50%,-50%) scale(1.15); opacity: 0; }
 }
 
-@keyframes cpk-hc-float {
-  0%, 100% { translate: 0 0; }
-  50%      { translate: 0 -12px; }
+/* ============================================================
+   FEATURE KARTLARI
+   ============================================================ */
+.cpk-hs-features {
+  position: relative;
+  z-index: 1;
+  padding: 20px 32px 100px;
+}
+.cpk-hs-features-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.cpk-hs-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px 28px 28px;
+  border-radius: 22px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,.045),
+    rgba(255,255,255,.015));
+  border: 1px solid rgba(255,255,255,.07);
+  text-decoration: none;
+  color: inherit;
+  transition: transform .25s cubic-bezier(.22,.9,.28,1),
+              border-color .25s ease,
+              background .25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.cpk-hs-card:hover,
+.cpk-hs-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(245,158,11,.4);
+  background: linear-gradient(180deg,
+    rgba(245,158,11,.06),
+    rgba(245,158,11,.015));
+  outline: none;
+}
+
+.cpk-hs-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px; height: 54px;
+  border-radius: 16px;
+  background: rgba(245,158,11,.12);
+  border: 1px solid rgba(245,158,11,.24);
+  color: var(--hs-amber);
+  margin-bottom: 4px;
+  transition: background .25s ease, color .25s ease, transform .25s ease;
+}
+.cpk-hs-card:hover .cpk-hs-card-icon {
+  background: var(--hs-amber);
+  color: #18181b;
+  transform: scale(1.05);
+}
+
+.cpk-ic-1 { /* aynı stil, ileride farklılaştırılabilir */ }
+.cpk-ic-2 { }
+.cpk-ic-3 { }
+
+.cpk-hs-card-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--hs-ink);
+  margin: 0;
+}
+
+.cpk-hs-card-desc {
+  font-family: 'Nunito', sans-serif;
+  font-size: .98rem;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--hs-ink-2);
+  margin: 0 0 8px;
+}
+
+.cpk-hs-card-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Nunito', sans-serif;
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--hs-amber);
+  margin-top: auto;
+  letter-spacing: .005em;
+}
+.cpk-hs-card-more svg {
+  transition: transform .2s ease;
+}
+.cpk-hs-card:hover .cpk-hs-card-more svg {
+  transform: translateX(3px);
 }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1000px) {
-  .cpk-hc-inner {
+  .cpk-hs-hero-inner {
     grid-template-columns: 1fr;
-    gap: 56px;
+    gap: 48px;
     text-align: center;
   }
-  .cpk-hc-left {
+  .cpk-hs-left {
     max-width: 100%;
     align-items: center;
     text-align: center;
   }
-  .cpk-hc-lead { margin-left: auto; margin-right: auto; }
-  .cpk-hc-cta { justify-content: center; }
-  .cpk-hc-trust { justify-content: center; }
-  .cpk-hc-right {
-    min-height: 340px;
-    order: 2;
+  .cpk-hs-lead { margin-left: auto; margin-right: auto; }
+  .cpk-hs-cta { justify-content: center; }
+  .cpk-hs-trust { justify-content: center; }
+  .cpk-hs-right { min-height: 380px; order: 2; }
+  .cpk-hs-scene { max-width: 400px; }
+
+  .cpk-hs-features-inner {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
-  .cpk-hc-orb,
-  .cpk-hc-lottie { max-width: 340px; }
 }
 
 @media (max-width: 640px) {
-  .cpk-hero-clean {
-    padding: 68px 20px 76px;
-  }
-  .cpk-hc-title {
-    font-size: clamp(2.1rem, 9.5vw, 3rem);
-  }
-  .cpk-hc-lead {
-    font-size: 1rem;
-    margin-bottom: 30px;
-  }
-  .cpk-hc-cta {
+  .cpk-hs-hero { padding: 62px 20px 48px; }
+  .cpk-hs-features { padding: 20px 20px 72px; }
+
+  .cpk-hs-title { font-size: clamp(2.1rem, 9.5vw, 3rem); }
+  .cpk-hs-lead { font-size: 1rem; margin-bottom: 28px; }
+  .cpk-hs-cta {
     width: 100%;
     flex-direction: column;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
   }
-  .cpk-hc-btn,
-  .cpk-hc-btn-ghost {
+  .cpk-hs-btn,
+  .cpk-hs-btn-ghost {
     width: 100%;
     justify-content: center;
   }
-  .cpk-hc-trust {
-    gap: 14px;
-    font-size: .84rem;
-  }
-  .cpk-hc-right { min-height: 280px; }
-  .cpk-hc-orb,
-  .cpk-hc-lottie { max-width: 280px; }
+  .cpk-hs-trust { gap: 14px; font-size: .84rem; }
+  .cpk-hs-right { min-height: 300px; }
+  .cpk-hs-scene { max-width: 320px; }
+
+  .cpk-hs-card { padding: 26px 22px 24px; }
+  .cpk-hs-card-icon { width: 48px; height: 48px; }
+  .cpk-hs-card-title { font-size: 1.25rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cpk-hc-orb-inner,
-  .cpk-hc-orb-ring,
-  .cpk-hc-orb-dot {
+  .cpk-hs-circle-inner,
+  .cpk-hs-circle-ring {
     animation: none;
   }
 }
   </style>
 </section>
+
+
 
 
 
