@@ -109,20 +109,24 @@
 </header>
 
 <main class="cpk-main">
-<section class="cpk-hero cpk-hero-chars">
+<section class="cpk-hero cpk-hero-bgchars">
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap">
 
-  <div class="cpk-hk-bg" aria-hidden="true">
-    <span class="cpk-hk-glow cpk-hk-glow-1"></span>
-    <span class="cpk-hk-glow cpk-hk-glow-2"></span>
+  <!-- Arka plan parıltıları -->
+  <div class="cpk-hb-glow cpk-hb-glow-1" aria-hidden="true"></div>
+  <div class="cpk-hb-glow cpk-hb-glow-2" aria-hidden="true"></div>
+
+  <!-- Karakterler — arka planın parçası -->
+  <div class="cpk-hb-chars" aria-hidden="true">
+    <img src="/static/bg.png" alt="">
   </div>
 
-  <div class="cpk-hk-hero">
-    <div class="cpk-hk-hero-inner">
-
-      <div class="cpk-hk-left">
-        <span class="cpk-hk-eyebrow">
+  <!-- İçerik -->
+  <div class="cpk-hb-hero">
+    <div class="cpk-hb-inner">
+      <div class="cpk-hb-left">
+        <span class="cpk-hb-eyebrow">
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                stroke-linejoin="round" aria-hidden="true">
@@ -132,18 +136,18 @@
           Bayrampaşa · İstanbul
         </span>
 
-        <h1 class="cpk-hk-title">
+        <h1 class="cpk-hb-title">
           İngilizceyi<br>
           <em>oyun gibi</em> öğren
         </h1>
 
-        <p class="cpk-hk-lead">
+        <p class="cpk-hb-lead">
           Bayrampaşa'da çocuklar için küçük sınıflar,
           neşeli dersler ve bol bol konuşma.
         </p>
 
-        <div class="cpk-hk-cta">
-          <a href="/iletisim" class="cpk-hk-btn">
+        <div class="cpk-hb-cta">
+          <a href="/iletisim" class="cpk-hb-btn">
             Ücretsiz Deneme Dersi
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none"
                  stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
@@ -152,12 +156,12 @@
               <polyline points="12 5 19 12 12 19"/>
             </svg>
           </a>
-          <a href="/kurslar" class="cpk-hk-btn-ghost">
+          <a href="/kurslar" class="cpk-hb-btn-ghost">
             Kursları İncele
           </a>
         </div>
 
-        <ul class="cpk-hk-trust">
+        <ul class="cpk-hb-trust">
           <li>
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none"
                  stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
@@ -184,33 +188,14 @@
           </li>
         </ul>
       </div>
-
-      <div class="cpk-hk-right" aria-hidden="true">
-        <div class="cpk-hk-chars">
-          <img src="/static/bg.png"
-               alt=""
-               class="cpk-hk-img"
-               onerror="this.style.display='none';this.parentNode.classList.add('cpk-hk-fallback');">
-          <div class="cpk-hk-placeholder">
-            <svg viewBox="0 0 24 24" width="64" height="64" fill="none"
-                 stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
-                 stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="4"/>
-              <circle cx="9" cy="9" r="2"/>
-              <path d="M21 15l-5-5L5 21"/>
-            </svg>
-            <span>bg.png bulunamadı</span>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 
-  <div class="cpk-hk-features">
-    <div class="cpk-hk-features-inner">
-      <a href="/kurslar" class="cpk-hk-card">
-        <span class="cpk-hk-card-icon">
+  <!-- Kartlar -->
+  <div class="cpk-hb-features">
+    <div class="cpk-hb-features-inner">
+      <a href="/kurslar" class="cpk-hb-card">
+        <span class="cpk-hb-card-icon">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none"
                stroke="currentColor" stroke-width="2" stroke-linecap="round"
                stroke-linejoin="round" aria-hidden="true">
@@ -218,9 +203,9 @@
             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
           </svg>
         </span>
-        <h3 class="cpk-hk-card-title">İlkokul</h3>
-        <p class="cpk-hk-card-desc">Oyunlarla, şarkılarla, hikayelerle ilk adım.</p>
-        <span class="cpk-hk-card-more">
+        <h3 class="cpk-hb-card-title">İlkokul</h3>
+        <p class="cpk-hb-card-desc">Oyunlarla, şarkılarla, hikayelerle ilk adım.</p>
+        <span class="cpk-hb-card-more">
           Detay
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
@@ -231,17 +216,17 @@
         </span>
       </a>
 
-      <a href="/kurslar" class="cpk-hk-card">
-        <span class="cpk-hk-card-icon">
+      <a href="/kurslar" class="cpk-hb-card">
+        <span class="cpk-hb-card-icon">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none"
                stroke="currentColor" stroke-width="2" stroke-linecap="round"
                stroke-linejoin="round" aria-hidden="true">
             <path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-3.5L6 21l1.5-7.5L2 9h7z"/>
           </svg>
         </span>
-        <h3 class="cpk-hk-card-title">Ortaokul</h3>
-        <p class="cpk-hk-card-desc">Konuşma odaklı dersler, seviye takibi.</p>
-        <span class="cpk-hk-card-more">
+        <h3 class="cpk-hb-card-title">Ortaokul</h3>
+        <p class="cpk-hb-card-desc">Konuşma odaklı dersler, seviye takibi.</p>
+        <span class="cpk-hb-card-more">
           Detay
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
@@ -252,8 +237,8 @@
         </span>
       </a>
 
-      <a href="/kurslar" class="cpk-hk-card">
-        <span class="cpk-hk-card-icon">
+      <a href="/kurslar" class="cpk-hb-card">
+        <span class="cpk-hb-card-icon">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none"
                stroke="currentColor" stroke-width="2" stroke-linecap="round"
                stroke-linejoin="round" aria-hidden="true">
@@ -261,9 +246,9 @@
             <path d="M6 12v5c3 3 9 3 12 0v-5"/>
           </svg>
         </span>
-        <h3 class="cpk-hk-card-title">YKS Hazırlık</h3>
-        <p class="cpk-hk-card-desc">Yoğun program, deneme analizi, birebir.</p>
-        <span class="cpk-hk-card-more">
+        <h3 class="cpk-hb-card-title">YKS Hazırlık</h3>
+        <p class="cpk-hb-card-desc">Yoğun program, deneme analizi, birebir.</p>
+        <span class="cpk-hb-card-more">
           Detay
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
@@ -273,224 +258,390 @@
           </svg>
         </span>
       </a>
-
     </div>
   </div>
 
-  <style id="cpk-hero-chars-style">
-.cpk-hero-chars {
-  --hk-bg: #0a0a0b;
-  --hk-ink: #ffffff;
-  --hk-ink-2: rgba(255,255,255,.68);
-  --hk-ink-3: rgba(255,255,255,.44);
-  --hk-amber: #f59e0b;
-  --hk-amber-2: #fbbf24;
+  <style id="cpk-hero-bgchars-style">
+/* ============================================================
+   C-Peak · Hero — karakterler arka plana gömülü
+   ============================================================ */
+.cpk-hero-bgchars {
   position: relative;
   overflow: hidden;
-  background: var(--hk-bg);
+  background: #0a0a0b;
   font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
   isolation: isolate;
-}
-.cpk-hk-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-.cpk-hk-glow {
-  position: absolute; border-radius: 50%;
-  filter: blur(110px); pointer-events: none;
-}
-.cpk-hk-glow-1 {
-  width: 620px; height: 620px; background: #f59e0b;
-  top: -240px; left: -180px; opacity: .13;
-}
-.cpk-hk-glow-2 {
-  width: 500px; height: 500px; background: #f59e0b;
-  top: 20%; right: -180px; opacity: .10;
+  min-height: 720px;
 }
 
-.cpk-hk-hero { position: relative; z-index: 1; padding: 90px 32px 60px; }
-.cpk-hk-hero-inner {
-  max-width: 1200px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1.15fr;
-  gap: 40px; align-items: center;
+/* Arka plan amber glow */
+.cpk-hb-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+.cpk-hb-glow-1 {
+  width: 640px; height: 640px;
+  background: #f59e0b;
+  top: -260px; left: -180px;
+  opacity: .13;
+}
+.cpk-hb-glow-2 {
+  width: 520px; height: 520px;
+  background: #f59e0b;
+  bottom: -220px; right: -140px;
+  opacity: .10;
 }
 
-.cpk-hk-left {
-  display: flex; flex-direction: column;
-  align-items: flex-start; max-width: 560px;
+/* Karakter grubu — arka plan katmanı */
+.cpk-hb-chars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
 }
-.cpk-hk-eyebrow {
-  display: inline-flex; align-items: center; gap: 7px;
-  font-size: .82rem; font-weight: 700; letter-spacing: .03em;
-  color: var(--hk-amber-2); margin-bottom: 22px;
+.cpk-hb-chars img {
+  position: absolute;
+  right: -4%;
+  bottom: 0;
+  height: 92%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: right bottom;
+  filter: drop-shadow(0 30px 70px rgba(0,0,0,.55));
+  animation: cpk-hb-float 6s ease-in-out infinite;
+  opacity: .97;
 }
-.cpk-hk-eyebrow svg { opacity: .9; flex-shrink: 0; }
-.cpk-hk-title {
+
+@keyframes cpk-hb-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+/* Metin katmanı */
+.cpk-hb-hero {
+  position: relative;
+  z-index: 2;
+  padding: 90px 32px 60px;
+}
+.cpk-hb-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cpk-hb-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 580px;
+}
+
+.cpk-hb-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: #fbbf24;
+  margin-bottom: 22px;
+}
+.cpk-hb-eyebrow svg { opacity: .9; flex-shrink: 0; }
+
+.cpk-hb-title {
   font-family: 'Nunito', sans-serif;
-  font-size: clamp(2.6rem, 5.6vw, 4.4rem);
-  font-weight: 900; line-height: 1.02;
-  letter-spacing: -0.03em; color: var(--hk-ink);
+  font-size: clamp(2.6rem, 5.4vw, 4.4rem);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: #fff;
   margin: 0 0 22px;
+  text-shadow: 0 4px 24px rgba(0,0,0,.5);
 }
-.cpk-hk-title em { font-style: italic; font-weight: 900; color: var(--hk-amber); }
-.cpk-hk-lead {
+.cpk-hb-title em {
+  font-style: italic;
+  font-weight: 900;
+  color: #f59e0b;
+}
+
+.cpk-hb-lead {
   font-family: 'Nunito', sans-serif;
-  font-size: 1.1rem; font-weight: 500; line-height: 1.6;
-  color: var(--hk-ink-2); margin: 0 0 34px; max-width: 460px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: rgba(255,255,255,.72);
+  margin: 0 0 34px;
+  max-width: 460px;
+  text-shadow: 0 2px 12px rgba(0,0,0,.6);
 }
-.cpk-hk-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 34px; }
-.cpk-hk-btn {
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 17px 30px; border-radius: 999px;
+
+.cpk-hb-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 34px;
+}
+
+.cpk-hb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 17px 30px;
+  border-radius: 999px;
   background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 55%, #d97706 100%);
-  color: #18181b; font-family: 'Nunito', sans-serif;
-  font-size: 1.02rem; font-weight: 800; text-decoration: none;
-  box-shadow: 0 16px 36px -12px rgba(245,158,11,.7),
-              0 6px 14px rgba(0,0,0,.28),
-              inset 0 1px 0 rgba(255,255,255,.4);
-  transition: transform .2s cubic-bezier(.22,.9,.28,1), box-shadow .2s ease;
+  color: #18181b;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow:
+    0 16px 36px -12px rgba(245,158,11,.7),
+    0 6px 14px rgba(0,0,0,.4),
+    inset 0 1px 0 rgba(255,255,255,.4);
+  transition: transform .2s cubic-bezier(.22,.9,.28,1),
+              box-shadow .2s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.cpk-hk-btn:hover, .cpk-hk-btn:focus-visible {
+.cpk-hb-btn:hover, .cpk-hb-btn:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 22px 44px -12px rgba(245,158,11,.9),
-              0 8px 18px rgba(0,0,0,.32),
-              inset 0 1px 0 rgba(255,255,255,.5);
+  box-shadow:
+    0 22px 44px -12px rgba(245,158,11,.9),
+    0 8px 18px rgba(0,0,0,.42),
+    inset 0 1px 0 rgba(255,255,255,.5);
   outline: none;
 }
-.cpk-hk-btn:active { transform: translateY(0); }
-.cpk-hk-btn-ghost {
-  display: inline-flex; align-items: center;
-  padding: 17px 26px; border-radius: 999px;
-  background: transparent; border: 1.5px solid rgba(255,255,255,.16);
-  color: var(--hk-ink); font-family: 'Nunito', sans-serif;
-  font-size: 1.02rem; font-weight: 700; text-decoration: none;
+.cpk-hb-btn:active { transform: translateY(0); }
+
+.cpk-hb-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 17px 26px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.04);
+  border: 1.5px solid rgba(255,255,255,.22);
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: background .2s ease, border-color .2s ease, transform .2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.cpk-hk-btn-ghost:hover, .cpk-hk-btn-ghost:focus-visible {
-  background: rgba(255,255,255,.05);
+.cpk-hb-btn-ghost:hover,
+.cpk-hb-btn-ghost:focus-visible {
+  background: rgba(255,255,255,.09);
   border-color: rgba(245,158,11,.55);
-  transform: translateY(-2px); outline: none;
+  transform: translateY(-2px);
+  outline: none;
 }
-.cpk-hk-trust {
+
+.cpk-hb-trust {
   list-style: none; padding: 0; margin: 0;
   display: flex; flex-wrap: wrap; gap: 22px;
   font-family: 'Nunito', sans-serif;
-  font-size: .9rem; font-weight: 600; color: var(--hk-ink-3);
+  font-size: .9rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.5);
 }
-.cpk-hk-trust li { display: inline-flex; align-items: center; gap: 7px; }
-.cpk-hk-trust svg { color: var(--hk-amber); flex-shrink: 0; opacity: .85; }
+.cpk-hb-trust li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.cpk-hb-trust svg {
+  color: #f59e0b;
+  flex-shrink: 0;
+  opacity: .9;
+}
 
-.cpk-hk-right {
-  position: relative; display: flex;
-  align-items: center; justify-content: center;
-  min-height: 520px;
+/* ============================================================
+   KARTLAR
+   ============================================================ */
+.cpk-hb-features {
+  position: relative;
+  z-index: 2;
+  padding: 20px 32px 100px;
+  background: linear-gradient(180deg,
+    rgba(10,10,11,0),
+    rgba(10,10,11,.55) 25%,
+    rgba(10,10,11,.85) 60%,
+    rgba(10,10,11,1) 100%);
 }
-.cpk-hk-chars {
-  position: relative; width: 100%; max-width: 720px;
-  display: flex; align-items: center; justify-content: center;
+.cpk-hb-features-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
 }
-.cpk-hk-img {
-  width: 100%; height: auto; max-height: 560px;
-  object-fit: contain;
-  filter: drop-shadow(0 30px 60px rgba(0,0,0,.55))
-          drop-shadow(0 8px 24px rgba(245,158,11,.15));
-  animation: cpk-hk-float 6s ease-in-out infinite;
-}
-@keyframes cpk-hk-float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-10px); }
-}
-.cpk-hk-placeholder {
-  display: none; flex-direction: column;
-  align-items: center; justify-content: center; gap: 14px;
-  width: 100%; min-height: 320px; border-radius: 24px;
-  border: 1.5px dashed rgba(245,158,11,.35);
-  background: rgba(245,158,11,.04);
-  color: rgba(255,255,255,.4);
-  font-size: .9rem; font-weight: 600; padding: 40px;
-}
-.cpk-hk-placeholder svg { color: rgba(245,158,11,.5); }
-.cpk-hk-chars.cpk-hk-fallback .cpk-hk-placeholder { display: flex; }
 
-.cpk-hk-features { position: relative; z-index: 1; padding: 20px 32px 100px; }
-.cpk-hk-features-inner {
-  max-width: 1200px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
-}
-.cpk-hk-card {
-  display: flex; flex-direction: column; gap: 14px;
-  padding: 30px 26px 26px; border-radius: 20px;
-  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.012));
+.cpk-hb-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 30px 26px 26px;
+  border-radius: 20px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,.04),
+    rgba(255,255,255,.012));
   border: 1px solid rgba(255,255,255,.07);
-  text-decoration: none; color: inherit;
+  text-decoration: none;
+  color: inherit;
   transition: transform .25s cubic-bezier(.22,.9,.28,1),
-              border-color .25s ease, background .25s ease;
+              border-color .25s ease,
+              background .25s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.cpk-hk-card:hover, .cpk-hk-card:focus-visible {
+.cpk-hb-card:hover,
+.cpk-hb-card:focus-visible {
   transform: translateY(-4px);
   border-color: rgba(245,158,11,.4);
-  background: linear-gradient(180deg, rgba(245,158,11,.06), rgba(245,158,11,.012));
+  background: linear-gradient(180deg,
+    rgba(245,158,11,.06),
+    rgba(245,158,11,.012));
   outline: none;
 }
-.cpk-hk-card-icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 48px; height: 48px; border-radius: 14px;
-  background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.22);
-  color: var(--hk-amber);
+
+.cpk-hb-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  background: rgba(245,158,11,.12);
+  border: 1px solid rgba(245,158,11,.22);
+  color: #f59e0b;
   transition: background .25s ease, color .25s ease, transform .25s ease;
 }
-.cpk-hk-card:hover .cpk-hk-card-icon {
-  background: var(--hk-amber); color: #18181b; transform: scale(1.06);
+.cpk-hb-card:hover .cpk-hb-card-icon {
+  background: #f59e0b;
+  color: #18181b;
+  transform: scale(1.06);
 }
-.cpk-hk-card-title {
-  font-family: 'Nunito', sans-serif;
-  font-size: 1.32rem; font-weight: 800;
-  letter-spacing: -0.015em; color: #fff; margin: 0;
-}
-.cpk-hk-card-desc {
-  font-family: 'Nunito', sans-serif;
-  font-size: .95rem; font-weight: 500; line-height: 1.55;
-  color: var(--hk-ink-2); margin: 0 0 6px;
-}
-.cpk-hk-card-more {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: 'Nunito', sans-serif;
-  font-size: .88rem; font-weight: 700;
-  color: var(--hk-amber); margin-top: auto;
-}
-.cpk-hk-card-more svg { transition: transform .2s ease; }
-.cpk-hk-card:hover .cpk-hk-card-more svg { transform: translateX(3px); }
 
-@media (max-width: 1000px) {
-  .cpk-hk-hero-inner {
-    grid-template-columns: 1fr; gap: 40px; text-align: center;
+.cpk-hb-card-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.32rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: #fff;
+  margin: 0;
+}
+
+.cpk-hb-card-desc {
+  font-family: 'Nunito', sans-serif;
+  font-size: .95rem;
+  font-weight: 500;
+  line-height: 1.55;
+  color: rgba(255,255,255,.68);
+  margin: 0 0 6px;
+}
+
+.cpk-hb-card-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Nunito', sans-serif;
+  font-size: .88rem;
+  font-weight: 700;
+  color: #f59e0b;
+  margin-top: auto;
+}
+.cpk-hb-card-more svg {
+  transition: transform .2s ease;
+}
+.cpk-hb-card:hover .cpk-hb-card-more svg {
+  transform: translateX(3px);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .cpk-hero-bgchars { min-height: 640px; }
+  .cpk-hb-chars img {
+    right: -8%;
+    height: 78%;
+    opacity: .85;
   }
-  .cpk-hk-left {
-    max-width: 100%; align-items: center; text-align: center;
-    margin: 0 auto; order: 1;
+  .cpk-hb-left { max-width: 520px; }
+}
+
+@media (max-width: 900px) {
+  .cpk-hero-bgchars {
+    min-height: auto;
+    padding-bottom: 60px;
   }
-  .cpk-hk-lead { margin-left: auto; margin-right: auto; }
-  .cpk-hk-cta { justify-content: center; }
-  .cpk-hk-trust { justify-content: center; }
-  .cpk-hk-right { order: 2; min-height: 380px; }
-  .cpk-hk-chars { max-width: 520px; }
-  .cpk-hk-img { max-height: 420px; }
-  .cpk-hk-features-inner { grid-template-columns: 1fr; gap: 12px; }
+  .cpk-hb-chars {
+    position: relative;
+    height: 340px;
+    inset: auto;
+    order: 2;
+    margin-top: -40px;
+  }
+  .cpk-hb-chars img {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    height: 100%;
+    margin: 0 auto;
+    display: block;
+    max-width: 90%;
+  }
+  .cpk-hb-hero {
+    padding: 62px 24px 30px;
+    text-align: center;
+  }
+  .cpk-hb-left {
+    max-width: 100%;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .cpk-hb-lead { margin-left: auto; margin-right: auto; }
+  .cpk-hb-cta { justify-content: center; }
+  .cpk-hb-trust { justify-content: center; }
+
+  .cpk-hb-features {
+    padding: 30px 24px 72px;
+    background: transparent;
+  }
+  .cpk-hb-features-inner {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 @media (max-width: 640px) {
-  .cpk-hk-hero { padding: 62px 20px 40px; }
-  .cpk-hk-features { padding: 20px 20px 72px; }
-  .cpk-hk-title { font-size: clamp(2.1rem, 9.5vw, 3rem); }
-  .cpk-hk-lead { font-size: 1rem; margin-bottom: 28px; }
-  .cpk-hk-cta { width: 100%; flex-direction: column; margin-bottom: 28px; }
-  .cpk-hk-btn, .cpk-hk-btn-ghost { width: 100%; justify-content: center; }
-  .cpk-hk-trust { gap: 14px; font-size: .84rem; }
-  .cpk-hk-right { min-height: 280px; }
-  .cpk-hk-chars { max-width: 380px; }
-  .cpk-hk-img { max-height: 320px; }
-  .cpk-hk-card { padding: 24px 20px 22px; }
+  .cpk-hero-bgchars { min-height: auto; }
+  .cpk-hb-title { font-size: clamp(2rem, 9vw, 2.9rem); }
+  .cpk-hb-lead { font-size: 1rem; margin-bottom: 26px; }
+  .cpk-hb-cta {
+    width: 100%;
+    flex-direction: column;
+    margin-bottom: 26px;
+  }
+  .cpk-hb-btn,
+  .cpk-hb-btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+  .cpk-hb-trust { gap: 14px; font-size: .82rem; }
+
+  .cpk-hb-chars { height: 260px; }
+
+  .cpk-hb-card { padding: 24px 20px 22px; }
 }
   </style>
 </section>
+
+
 
 
 
