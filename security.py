@@ -142,50 +142,50 @@ def init_security(app):
         app.logger.info("CSRF korumasi aktif")
     except ImportError:
         app.logger.warning("flask-wtf yok, atlandi")
-        # ---------- 5) Rate Limiting ----------
-        try:
-            from flask_limiter import Limiter
-            from flask_limiter.util import get_remote_address
+    # ---------- 5) Rate Limiting ----------
+    try:
+        from flask_limiter import Limiter
+        from flask_limiter.util import get_remote_address
 
-            # Static dosyalar ve resimler limitten muaf
-            _STATIK_UZANTI = (
-                ".css", ".js", ".mjs", ".png", ".jpg", ".jpeg", ".gif",
-                ".svg", ".ico", ".webp", ".avif", ".woff", ".woff2",
-                ".ttf", ".eot", ".otf", ".map", ".txt", ".xml",
-                ".webmanifest", ".json",
-            )
+        # Static dosyalar ve resimler limitten muaf
+        _STATIK_UZANTI = (
+            ".css", ".js", ".mjs", ".png", ".jpg", ".jpeg", ".gif",
+            ".svg", ".ico", ".webp", ".avif", ".woff", ".woff2",
+            ".ttf", ".eot", ".otf", ".map", ".txt", ".xml",
+            ".webmanifest", ".json",
+        )
 
-            def _limitten_muaf():
-                try:
-                    from flask import request
-                    p = request.path or ""
-                    if p.startswith("/static/"):
-                        return True
-                    # Uzantı kontrolü
-                    if p.lower().endswith(_STATIK_UZANTI):
-                        return True
-                    # Sağlık kontrolü
-                    if p in ("/healthz", "/favicon.ico", "/robots.txt",
-                             "/sitemap.xml"):
-                        return True
-                except Exception:
-                    pass
-                return False
+        def _limitten_muaf():
+            try:
+                from flask import request
+                p = request.path or ""
+                if p.startswith("/static/"):
+                    return True
+                # Uzantı kontrolü
+                if p.lower().endswith(_STATIK_UZANTI):
+                    return True
+                # Sağlık kontrolü
+                if p in ("/healthz", "/favicon.ico", "/robots.txt",
+                         "/sitemap.xml"):
+                    return True
+            except Exception:
+                pass
+            return False
 
-            limiter = Limiter(
-                key_func=get_remote_address,
-                app=app,
-                default_limits=["5000 per day", "1000 per hour"],
-                storage_uri=os.environ.get(
-                    "RATELIMIT_STORAGE_URI", "memory://"
-                ),
-                default_limits_exempt_when=_limitten_muaf,
-                headers_enabled=True,  # X-RateLimit-* header'ları
-            )
-            app.limiter = limiter
-            app.logger.info("Rate limiting aktif (5000/gun, 1000/saat)")
-        except ImportError:
-            app.logger.warning("flask-limiter yok, atlandi")
+        limiter = Limiter(
+            key_func=get_remote_address,
+            app=app,
+            default_limits=["5000 per day", "1000 per hour"],
+            storage_uri=os.environ.get(
+                "RATELIMIT_STORAGE_URI", "memory://"
+            ),
+            default_limits_exempt_when=_limitten_muaf,
+            headers_enabled=True,  # X-RateLimit-* header'ları
+        )
+        app.limiter = limiter
+        app.logger.info("Rate limiting aktif (5000/gun, 1000/saat)")
+    except ImportError:
+        app.logger.warning("flask-limiter yok, atlandi")
 
 
     # ---------- 6) Loglama ----------
