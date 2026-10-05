@@ -118,11 +118,10 @@
     <span class="cpk-hs-glow cpk-hs-glow-2"></span>
   </div>
 
-  <!-- ========== HERO ========== -->
   <div class="cpk-hs-hero">
     <div class="cpk-hs-hero-inner">
 
-      <!-- SOL -->
+      <!-- ============ SOL ============ -->
       <div class="cpk-hs-left">
         <span class="cpk-hs-eyebrow">
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
@@ -187,30 +186,80 @@
         </ul>
       </div>
 
-      <!-- SAĞ: görsel slotu -->
-      <div class="cpk-hs-right" aria-hidden="true">
-        <div class="cpk-hs-scene">
-          <!-- Görsel varsa görünür -->
-          <div class="cpk-hs-img" id="cpk-hs-img"></div>
-          <!-- Fallback daire -->
-          <div class="cpk-hs-circle">
-            <span class="cpk-hs-circle-inner"></span>
-            <span class="cpk-hs-circle-ring cpk-hs-r1"></span>
-            <span class="cpk-hs-circle-ring cpk-hs-r2"></span>
+      <!-- ============ SAĞ ============ -->
+      <div class="cpk-hs-right">
+
+        <!-- 1) İstatistik şeridi -->
+        <div class="cpk-hs-stats">
+          <div class="cpk-hs-stat">
+            <strong>150<span>+</span></strong>
+            <em>Mutlu öğrenci</em>
+          </div>
+          <span class="cpk-hs-stat-line" aria-hidden="true"></span>
+          <div class="cpk-hs-stat">
+            <strong>8-12</strong>
+            <em>Kişilik sınıf</em>
+          </div>
+          <span class="cpk-hs-stat-line" aria-hidden="true"></span>
+          <div class="cpk-hs-stat">
+            <strong>A1-C1</strong>
+            <em>Seviye aralığı</em>
           </div>
         </div>
+
+        <!-- 2) Fotoğraf/video alanı -->
+        <div class="cpk-hs-media">
+          <img src="/static/hero-photo.jpg"
+               alt="C-Peak English sınıfından bir kare"
+               class="cpk-hs-media-img"
+               onerror="this.style.display='none';this.parentNode.classList.add('cpk-no-media');">
+          <div class="cpk-hs-media-fallback" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="44" height="44" fill="none"
+                 stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                 stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="4"/>
+              <circle cx="9" cy="9" r="2"/>
+              <path d="M21 15l-5-5L5 21"/>
+            </svg>
+            <span>Sınıfımızdan bir kare</span>
+            <small>static/hero-photo.jpg ekleyin</small>
+          </div>
+        </div>
+
+        <!-- 3) Seviye testi CTA -->
+        <a href="/seviye-testi" class="cpk-hs-level">
+          <span class="cpk-hs-level-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                 stroke-linejoin="round">
+              <path d="M9 11l3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+          </span>
+          <span class="cpk-hs-level-text">
+            <strong>Hangi seviyedesin?</strong>
+            <em>3 dakikada öğren</em>
+          </span>
+          <svg class="cpk-hs-level-arrow" viewBox="0 0 24 24" width="16" height="16"
+               fill="none" stroke="currentColor" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+
       </div>
 
     </div>
   </div>
 
-  <!-- ========== FEATURE KARTLARI ========== -->
+  <!-- ============ KARTLAR ============ -->
   <div class="cpk-hs-features">
     <div class="cpk-hs-features-inner">
 
       <a href="/kurslar" class="cpk-hs-card">
-        <span class="cpk-hs-card-icon cpk-ic-1">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none"
+        <span class="cpk-hs-card-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none"
                stroke="currentColor" stroke-width="2" stroke-linecap="round"
                stroke-linejoin="round" aria-hidden="true">
             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
@@ -218,9 +267,7 @@
           </svg>
         </span>
         <h3 class="cpk-hs-card-title">İlkokul</h3>
-        <p class="cpk-hs-card-desc">
-          Oyunlarla, şarkılarla, hikayelerle İngilizceye ilk adım.
-        </p>
+        <p class="cpk-hs-card-desc">Oyunlarla, şarkılarla, hikayelerle ilk adım.</p>
         <span class="cpk-hs-card-more">
           Detay
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
@@ -233,17 +280,15 @@
       </a>
 
       <a href="/kurslar" class="cpk-hs-card">
-        <span class="cpk-hs-card-icon cpk-ic-2">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none"
+        <span class="cpk-hs-card-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none"
                stroke="currentColor" stroke-width="2" stroke-linecap="round"
                stroke-linejoin="round" aria-hidden="true">
             <path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-3.5L6 21l1.5-7.5L2 9h7z"/>
           </svg>
         </span>
         <h3 class="cpk-hs-card-title">Ortaokul</h3>
-        <p class="cpk-hs-card-desc">
-          Konuşma odaklı dersler, düzenli seviye takibi, sınav hazırlığı.
-        </p>
+        <p class="cpk-hs-card-desc">Konuşma odaklı dersler, seviye takibi.</p>
         <span class="cpk-hs-card-more">
           Detay
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
@@ -256,8 +301,8 @@
       </a>
 
       <a href="/kurslar" class="cpk-hs-card">
-        <span class="cpk-hs-card-icon cpk-ic-3">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none"
+        <span class="cpk-hs-card-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none"
                stroke="currentColor" stroke-width="2" stroke-linecap="round"
                stroke-linejoin="round" aria-hidden="true">
             <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
@@ -265,9 +310,7 @@
           </svg>
         </span>
         <h3 class="cpk-hs-card-title">YKS Hazırlık</h3>
-        <p class="cpk-hs-card-desc">
-          Yoğun program, deneme analizi ve birebir takip.
-        </p>
+        <p class="cpk-hs-card-desc">Yoğun program, deneme analizi, birebir.</p>
         <span class="cpk-hs-card-more">
           Detay
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
@@ -282,23 +325,9 @@
     </div>
   </div>
 
-  <script>
-  (function(){
-    var img = document.getElementById("cpk-hs-img");
-    if (!img) return;
-    var test = new Image();
-    test.onload = function(){
-      img.style.backgroundImage = 'url("/static/hero-kids.png")';
-      img.style.opacity = "1";
-    };
-    test.onerror = function(){ /* görsel yok → fallback kalır */ };
-    test.src = "/static/hero-kids.png";
-  })();
-  </script>
-
   <style id="cpk-hero-study-style">
 /* ============================================================
-   C-Peak · Hero Study — marka renkleri
+   C-Peak · Hero — Sol metin + Sağ blok
    ============================================================ */
 .cpk-hero-study {
   --hs-bg: #0a0a0b;
@@ -307,7 +336,6 @@
   --hs-ink-3: rgba(255,255,255,.44);
   --hs-amber: #f59e0b;
   --hs-amber-2: #fbbf24;
-  --hs-line: rgba(255,255,255,.07);
 
   position: relative;
   overflow: hidden;
@@ -316,7 +344,6 @@
   isolation: isolate;
 }
 
-/* --- Arka plan --- */
 .cpk-hs-bg {
   position: absolute; inset: 0;
   pointer-events: none; z-index: 0;
@@ -336,12 +363,12 @@
 .cpk-hs-glow-2 {
   width: 480px; height: 480px;
   background: #f59e0b;
-  top: 40%; right: -160px;
-  opacity: .09;
+  bottom: -200px; right: -120px;
+  opacity: .08;
 }
 
 /* ============================================================
-   HERO
+   HERO — grid
    ============================================================ */
 .cpk-hs-hero {
   position: relative;
@@ -353,7 +380,7 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1.05fr 1fr;
-  gap: 60px;
+  gap: 64px;
   align-items: center;
 }
 
@@ -481,98 +508,193 @@
   opacity: .85;
 }
 
-/* --- SAĞ sahne --- */
+/* ============================================================
+   SAĞ BLOK
+   ============================================================ */
 .cpk-hs-right {
-  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 500px;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
 }
 
-.cpk-hs-scene {
+/* ---------- 1) İstatistik şeridi ---------- */
+.cpk-hs-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 6px;
+}
+.cpk-hs-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+.cpk-hs-stat strong {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.018em;
+  line-height: 1;
+  color: #fff;
+}
+.cpk-hs-stat strong span {
+  color: var(--hs-amber);
+  font-weight: 800;
+}
+.cpk-hs-stat em {
+  font-family: 'Nunito', sans-serif;
+  font-size: .76rem;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: .02em;
+  color: var(--hs-ink-3);
+}
+.cpk-hs-stat-line {
+  width: 1px;
+  height: 28px;
+  background: rgba(255,255,255,.10);
+  flex-shrink: 0;
+}
+
+/* ---------- 2) Fotoğraf alanı ---------- */
+.cpk-hs-media {
   position: relative;
   width: 100%;
-  max-width: 500px;
-  aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  aspect-ratio: 4 / 3;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #111114;
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow:
+    0 30px 60px -30px rgba(0,0,0,.7),
+    0 4px 16px rgba(0,0,0,.3);
+}
+.cpk-hs-media-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-/* Görsel slotu (varsa gösterilir) */
-.cpk-hs-img {
+/* Placeholder */
+.cpk-hs-media-fallback {
   position: absolute;
   inset: 0;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0;
-  transition: opacity .4s ease;
-  z-index: 3;
-  filter: drop-shadow(0 30px 60px rgba(245,158,11,.25));
-}
-
-/* Fallback: amber daire */
-.cpk-hs-circle {
-  position: relative;
-  width: 72%;
-  aspect-ratio: 1 / 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1;
-}
-
-.cpk-hs-circle-inner {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 100%; height: 100%;
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
+  gap: 12px;
+  color: rgba(255,255,255,.32);
   background:
-    radial-gradient(circle at 35% 30%,
-      rgba(255,220,140,.9) 0%,
-      rgba(245,158,11,.55) 40%,
-      rgba(217,119,6,.25) 72%,
-      rgba(217,119,6,0) 100%);
-  filter: blur(1px);
-  animation: cpk-hs-breathe 5s ease-in-out infinite;
-  box-shadow:
-    0 40px 90px -20px rgba(245,158,11,.5),
-    0 0 60px rgba(245,158,11,.3);
+    radial-gradient(circle at 30% 30%,
+      rgba(245,158,11,.08),
+      rgba(245,158,11,0) 60%),
+    radial-gradient(circle at 70% 70%,
+      rgba(245,158,11,.05),
+      rgba(245,158,11,0) 65%);
+  text-align: center;
+  padding: 20px;
+}
+.cpk-hs-media-fallback svg {
+  color: rgba(245,158,11,.45);
+}
+.cpk-hs-media-fallback span {
+  font-family: 'Nunito', sans-serif;
+  font-size: .95rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.55);
+}
+.cpk-hs-media-fallback small {
+  font-family: 'Nunito', sans-serif;
+  font-size: .72rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.28);
+  letter-spacing: .02em;
 }
 
-.cpk-hs-circle-ring {
-  position: absolute;
-  top: 50%; left: 50%;
-  border-radius: 50%;
-  border: 1px solid rgba(245,158,11,.28);
-  transform: translate(-50%,-50%);
-  animation: cpk-hs-pulse 5s ease-out infinite;
-}
-.cpk-hs-r1 {
-  width: 100%; height: 100%;
-  animation-delay: 0s;
-}
-.cpk-hs-r2 {
-  width: 125%; height: 125%;
-  animation-delay: 1.8s;
-  opacity: .5;
+/* Görsel yüklendiyse fallback'i gizle */
+.cpk-hs-media:not(.cpk-no-media) .cpk-hs-media-fallback {
+  display: none;
 }
 
-@keyframes cpk-hs-breathe {
-  0%, 100% { transform: translate(-50%,-50%) scale(1); }
-  50%      { transform: translate(-50%,-50%) scale(1.06); }
+/* ---------- 3) Seviye testi CTA ---------- */
+.cpk-hs-level {
+  display: grid;
+  grid-template-columns: 44px 1fr 20px;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg,
+    rgba(245,158,11,.08),
+    rgba(245,158,11,.02));
+  border: 1px solid rgba(245,158,11,.22);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    background .2s ease,
+    border-color .2s ease,
+    transform .2s cubic-bezier(.22,.9,.28,1);
+  -webkit-tap-highlight-color: transparent;
 }
-@keyframes cpk-hs-pulse {
-  0%   { transform: translate(-50%,-50%) scale(.85); opacity: 0; }
-  50%  { opacity: .8; }
-  100% { transform: translate(-50%,-50%) scale(1.15); opacity: 0; }
+.cpk-hs-level:hover,
+.cpk-hs-level:focus-visible {
+  background: linear-gradient(135deg,
+    rgba(245,158,11,.14),
+    rgba(245,158,11,.04));
+  border-color: rgba(245,158,11,.5);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.cpk-hs-level-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(245,158,11,.16);
+  color: var(--hs-amber);
+  flex-shrink: 0;
+}
+
+.cpk-hs-level-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.cpk-hs-level-text strong {
+  font-family: 'Nunito', sans-serif;
+  font-size: .98rem;
+  font-weight: 800;
+  letter-spacing: -0.005em;
+  color: #fff;
+  line-height: 1.2;
+}
+.cpk-hs-level-text em {
+  font-family: 'Nunito', sans-serif;
+  font-size: .8rem;
+  font-weight: 500;
+  font-style: normal;
+  color: var(--hs-ink-3);
+}
+
+.cpk-hs-level-arrow {
+  color: var(--hs-amber);
+  transition: transform .2s ease;
+}
+.cpk-hs-level:hover .cpk-hs-level-arrow,
+.cpk-hs-level:focus-visible .cpk-hs-level-arrow {
+  transform: translateX(3px);
 }
 
 /* ============================================================
-   FEATURE KARTLARI
+   KARTLAR
    ============================================================ */
 .cpk-hs-features {
   position: relative;
@@ -584,18 +706,18 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 18px;
 }
 
 .cpk-hs-card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 32px 28px 28px;
-  border-radius: 22px;
+  gap: 14px;
+  padding: 30px 26px 26px;
+  border-radius: 20px;
   background: linear-gradient(180deg,
-    rgba(255,255,255,.045),
-    rgba(255,255,255,.015));
+    rgba(255,255,255,.04),
+    rgba(255,255,255,.012));
   border: 1px solid rgba(255,255,255,.07);
   text-decoration: none;
   color: inherit;
@@ -610,7 +732,7 @@
   border-color: rgba(245,158,11,.4);
   background: linear-gradient(180deg,
     rgba(245,158,11,.06),
-    rgba(245,158,11,.015));
+    rgba(245,158,11,.012));
   outline: none;
 }
 
@@ -618,40 +740,35 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 54px; height: 54px;
-  border-radius: 16px;
+  width: 48px; height: 48px;
+  border-radius: 14px;
   background: rgba(245,158,11,.12);
-  border: 1px solid rgba(245,158,11,.24);
+  border: 1px solid rgba(245,158,11,.22);
   color: var(--hs-amber);
-  margin-bottom: 4px;
   transition: background .25s ease, color .25s ease, transform .25s ease;
 }
 .cpk-hs-card:hover .cpk-hs-card-icon {
   background: var(--hs-amber);
   color: #18181b;
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
-
-.cpk-ic-1 { /* aynı stil, ileride farklılaştırılabilir */ }
-.cpk-ic-2 { }
-.cpk-ic-3 { }
 
 .cpk-hs-card-title {
   font-family: 'Nunito', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.32rem;
   font-weight: 800;
   letter-spacing: -0.015em;
-  color: var(--hs-ink);
+  color: #fff;
   margin: 0;
 }
 
 .cpk-hs-card-desc {
   font-family: 'Nunito', sans-serif;
-  font-size: .98rem;
+  font-size: .95rem;
   font-weight: 500;
   line-height: 1.55;
   color: var(--hs-ink-2);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
 }
 
 .cpk-hs-card-more {
@@ -659,11 +776,10 @@
   align-items: center;
   gap: 6px;
   font-family: 'Nunito', sans-serif;
-  font-size: .9rem;
+  font-size: .88rem;
   font-weight: 700;
   color: var(--hs-amber);
   margin-top: auto;
-  letter-spacing: .005em;
 }
 .cpk-hs-card-more svg {
   transition: transform .2s ease;
@@ -678,23 +794,28 @@
 @media (max-width: 1000px) {
   .cpk-hs-hero-inner {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 56px;
     text-align: center;
   }
   .cpk-hs-left {
     max-width: 100%;
     align-items: center;
     text-align: center;
+    margin: 0 auto;
   }
   .cpk-hs-lead { margin-left: auto; margin-right: auto; }
   .cpk-hs-cta { justify-content: center; }
   .cpk-hs-trust { justify-content: center; }
-  .cpk-hs-right { min-height: 380px; order: 2; }
-  .cpk-hs-scene { max-width: 400px; }
+
+  .cpk-hs-right {
+    max-width: 540px;
+    margin: 0 auto;
+    width: 100%;
+  }
 
   .cpk-hs-features-inner {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 12px;
   }
 }
 
@@ -715,22 +836,22 @@
     justify-content: center;
   }
   .cpk-hs-trust { gap: 14px; font-size: .84rem; }
-  .cpk-hs-right { min-height: 300px; }
-  .cpk-hs-scene { max-width: 320px; }
 
-  .cpk-hs-card { padding: 26px 22px 24px; }
-  .cpk-hs-card-icon { width: 48px; height: 48px; }
-  .cpk-hs-card-title { font-size: 1.25rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cpk-hs-circle-inner,
-  .cpk-hs-circle-ring {
-    animation: none;
+  .cpk-hs-stats {
+    gap: 8px;
+    padding: 4px 2px;
   }
+  .cpk-hs-stat strong { font-size: 1.2rem; }
+  .cpk-hs-stat em { font-size: .68rem; }
+
+  .cpk-hs-media { aspect-ratio: 16 / 11; }
+
+  .cpk-hs-card { padding: 24px 20px 22px; }
 }
   </style>
 </section>
+
+
 
 
 
