@@ -398,6 +398,74 @@ body { margin: 0; }
   .cpk-exam-btn { padding: 12px 18px; font-size: .9rem; }
   .cpk-exam-q { font-size: 1.05rem; }
 }
+
+<style>
+.cpk-reading-panel {
+  margin: 0 0 24px;
+  border: 1px solid rgba(245,158,11,.24);
+  border-radius: 14px;
+  background: rgba(245,158,11,.04);
+  overflow: hidden;
+  transition: border-color .2s ease;
+}
+.cpk-reading-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 18px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: .92rem;
+  font-weight: 800;
+  color: #fbbf24;
+  letter-spacing: .01em;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .18s ease;
+}
+.cpk-reading-toggle:hover { background: rgba(245,158,11,.05); }
+.cpk-reading-toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.cpk-reading-toggle svg { flex-shrink: 0; }
+.cpk-reading-chevron {
+  transition: transform .22s ease;
+  color: rgba(245,158,11,.7);
+}
+.cpk-reading-panel.cpk-open .cpk-reading-chevron {
+  transform: rotate(180deg);
+}
+.cpk-reading-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease;
+  padding: 0 18px;
+}
+.cpk-reading-panel.cpk-open .cpk-reading-content {
+  max-height: 800px;
+  padding: 4px 18px 20px;
+}
+.cpk-reading-content h3 {
+  margin: 6px 0 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.008em;
+}
+.cpk-reading-content p {
+  margin: 0 0 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: .94rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,.78);
+}
+.cpk-reading-content p:last-child { margin-bottom: 0; }
+</style>
 </style>
 {% endblock %}
 
@@ -461,6 +529,22 @@ body { margin: 0; }
       </div>
 
       <!-- Soru navigasyonu -->
+      <!-- Okuma metni paneli -->
+      <div class="cpk-reading-panel" id="cpk-reading-panel" style="display:none;">
+        <button type="button" class="cpk-reading-toggle" id="cpk-reading-toggle" aria-expanded="false">
+          <span class="cpk-reading-toggle-label">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Okuma Metni
+          </span>
+          <svg class="cpk-reading-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="cpk-reading-content" id="cpk-reading-content">
+          <h3>My Best Friend</h3>
+          <p>My name is Elif. I am twelve years old and I live in Bayrampaşa, İstanbul. I have a best friend. Her name is Zeynep. We are in the same class at school. Zeynep is tall and has long black hair. She loves reading books and playing the piano.</p>
+          <p>Every Saturday, we go to the park near our house. We ride our bikes and eat sandwiches that my mother prepares for us. Sometimes we play football with our friends. In winter, we cannot go to the park, so we stay at home and watch cartoons.</p>
+          <p>Zeynep's favourite subject is English. She wants to be an English teacher when she grows up. I want to be a doctor. We are different, but we are very good friends.</p>
+        </div>
+      </div>
       <div class="cpk-exam-nav" id="cpk-exam-nav"></div>
 
       <!-- Soru -->
@@ -634,6 +718,36 @@ body { margin: 0; }
   var elHint = document.getElementById("cpk-exam-hint");
 
   // ============================================
+  // OKUMA METNİ PANELİ
+  // ============================================
+  var readingPanel = document.getElementById("cpk-reading-panel");
+  var readingToggle = document.getElementById("cpk-reading-toggle");
+  var isMobile = window.matchMedia("(max-width: 640px)").matches;
+
+  if (readingToggle) {
+    // İlk durum: masaüstünde açık, mobilde kapalı
+    if (!isMobile) {
+      readingPanel.classList.add("cpk-open");
+      readingToggle.setAttribute("aria-expanded", "true");
+    }
+    readingToggle.addEventListener("click", function(){
+      var acik = readingPanel.classList.toggle("cpk-open");
+      readingToggle.setAttribute("aria-expanded", acik ? "true" : "false");
+    });
+  }
+
+  function okumaPanelGuncelle() {
+    if (!readingPanel) return;
+    var s = SORULAR[idx];
+    if (s && s.cat === "Okuma") {
+      readingPanel.style.display = "block";
+    } else {
+      readingPanel.style.display = "none";
+    }
+  }
+
+
+  // ============================================
   // STORAGE
   // ============================================
   function storageKaydet() {
@@ -762,6 +876,7 @@ body { margin: 0; }
     }
 
     navGuncelle();
+    okumaPanelGuncelle();
   }
 
   function sec(i) {
