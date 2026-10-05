@@ -14,85 +14,195 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ yazi.title }}">
 <meta name="twitter:description" content="{{ yazi.description }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=blog">
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=blogv2">
 <style>
-.cpk-blog-article {
+/* ============================================================
+   C-Peak · Blog Yazısı — Okuma Deneyimi
+   ============================================================ */
+.cpk-post-wrap {
   max-width: 720px;
   margin: 0 auto;
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 1.06rem;
-  line-height: 1.72;
-  color: rgba(255,255,255,.86);
+  padding: 72px 24px 100px;
 }
-.cpk-blog-article h1 {
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.018em;
-  color: #fff;
-  margin: 0 0 14px;
-}
-.cpk-blog-article h2 {
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: clamp(1.28rem, 3.2vw, 1.55rem);
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.012em;
-  color: #fff;
-  margin: 40px 0 14px;
-}
-.cpk-blog-article h3 {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #f59e0b;
-  margin: 28px 0 10px;
-}
-.cpk-blog-article p { margin: 0 0 18px; }
-.cpk-blog-article a {
-  color: #f59e0b;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.cpk-blog-article ul, .cpk-blog-article ol {
-  margin: 0 0 20px;
-  padding-left: 24px;
-}
-.cpk-blog-article li { margin-bottom: 8px; }
-.cpk-blog-article strong { color: #fff; font-weight: 700; }
-.cpk-blog-article blockquote {
-  margin: 22px 0;
-  padding: 4px 0 4px 20px;
-  border-left: 3px solid #f59e0b;
-  font-style: italic;
-  color: rgba(255,255,255,.7);
-}
-.cpk-blog-article hr {
-  border: 0;
-  border-top: 1px solid rgba(255,255,255,.1);
-  margin: 36px 0 22px;
-}
-.cpk-blog-meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: .82rem;
-  color: rgba(255,255,255,.5);
-  margin-bottom: 28px;
-}
-.cpk-blog-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,.3); }
-.cpk-blog-back {
+.cpk-post-back {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: .86rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .82rem;
   font-weight: 600;
-  color: #f59e0b;
+  letter-spacing: .04em;
+  color: rgba(255,255,255,.5);
   text-decoration: none;
+  margin-bottom: 36px;
+  transition: color .18s ease;
+}
+.cpk-post-back:hover { color: #f59e0b; }
+.cpk-post-back svg { width: 12px; height: 12px; }
+
+.cpk-post-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.42);
   margin-bottom: 20px;
 }
-.cpk-blog-back:hover { text-decoration: underline; }
+.cpk-post-meta .dot {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.3);
+}
+
+.cpk-post-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.9rem, 5.2vw, 2.9rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+  color: #fff;
+  margin: 0 0 22px;
+}
+
+.cpk-post-lead {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.06rem, 2.4vw, 1.22rem);
+  line-height: 1.55;
+  color: rgba(255,255,255,.68);
+  margin: 0 0 44px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+/* --- İçerik --- */
+.cpk-post-body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.08rem;
+  line-height: 1.78;
+  color: rgba(255,255,255,.82);
+  letter-spacing: -0.003em;
+}
+.cpk-post-body > p:first-of-type::first-letter {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 4.2em;
+  font-weight: 500;
+  line-height: .88;
+  float: left;
+  padding: .08em .12em 0 0;
+  color: #f59e0b;
+}
+.cpk-post-body h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.34rem, 3.4vw, 1.62rem);
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: -0.014em;
+  color: #fff;
+  margin: 54px 0 16px;
+}
+.cpk-post-body h3 {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: -0.004em;
+  color: #fff;
+  margin: 34px 0 12px;
+}
+.cpk-post-body p { margin: 0 0 22px; }
+.cpk-post-body a {
+  color: #f59e0b;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color .15s ease;
+}
+.cpk-post-body a:hover { color: #fff; }
+.cpk-post-body ul, .cpk-post-body ol {
+  margin: 0 0 24px;
+  padding-left: 22px;
+}
+.cpk-post-body li { margin-bottom: 10px; padding-left: 4px; }
+.cpk-post-body strong { color: #fff; font-weight: 700; }
+.cpk-post-body em { font-style: italic; color: rgba(255,255,255,.9); }
+.cpk-post-body blockquote {
+  margin: 30px 0;
+  padding: 4px 0 4px 24px;
+  border-left: 2px solid #f59e0b;
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-size: 1.14rem;
+  line-height: 1.55;
+  color: rgba(255,255,255,.75);
+}
+.cpk-post-body hr {
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,.09);
+  margin: 48px auto;
+  width: 40px;
+}
+.cpk-post-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .9em;
+  background: rgba(255,255,255,.06);
+  padding: 2px 6px;
+  border-radius: 5px;
+  color: #f59e0b;
+}
+
+/* --- Yazı sonu --- */
+.cpk-post-foot {
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  text-align: center;
+}
+.cpk-post-foot-tag {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-size: 1.04rem;
+  color: rgba(255,255,255,.5);
+}
+.cpk-post-foot-share {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.cpk-post-foot-share a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.7);
+  text-decoration: none;
+  transition: all .18s ease;
+}
+.cpk-post-foot-share a:hover {
+  background: #f59e0b;
+  border-color: #f59e0b;
+  color: #18181b;
+  transform: translateY(-2px);
+}
+.cpk-post-foot-share svg { width: 15px; height: 15px; }
+
+@media (max-width: 640px) {
+  .cpk-post-wrap { padding: 44px 20px 72px; }
+  .cpk-post-body > p:first-of-type::first-letter {
+    font-size: 3.4em;
+    padding: .1em .1em 0 0;
+  }
+  .cpk-post-body h2 { margin-top: 40px; }
+}
 </style>
 {% endblock %}
 
@@ -120,19 +230,54 @@
 </header>
 
 <main class="cpk-main">
-  <section class="cpk-section">
-    <div class="container">
-      <div class="cpk-blog-article">
-        <a href="/blog" class="cpk-blog-back">← Tüm Yazılar</a>
-        <div class="cpk-blog-meta">
-          {% if yazi.date %}<span>{{ yazi.date }}</span>{% endif %}
-          {% if yazi.date %}<span class="cpk-blog-meta-dot"></span>{% endif %}
-          <span>{{ yazi.author }}</span>
-        </div>
-        {{ yazi.html | safe }}
+  <article class="cpk-post-wrap">
+    <a href="/blog" class="cpk-post-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      Tüm yazılar
+    </a>
+
+    <div class="cpk-post-meta">
+      <span>{{ yazi.date_tr }}</span>
+      <span class="dot"></span>
+      <span>{{ yazi.author }}</span>
+    </div>
+
+    <h1 class="cpk-post-title">{{ yazi.title }}</h1>
+
+    {% if yazi.description %}
+    <p class="cpk-post-lead">{{ yazi.description }}</p>
+    {% endif %}
+
+    <div class="cpk-post-body">
+      {{ yazi.html | safe }}
+    </div>
+
+    <div class="cpk-post-foot">
+      <span class="cpk-post-foot-tag">— C-Peak English</span>
+      <div class="cpk-post-foot-share">
+        <a href="https://www.instagram.com/c_peak_english" target="_blank"
+           rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </a>
+        <a href="https://www.youtube.com/@c-peak-english" target="_blank"
+           rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 8.5a3 3 0 0 0-2.1-2.1C18 6 12 6 12 6s-6 0-7.9.4A3 3 0 0 0 2 8.5 31 31 0 0 0 2 12a31 31 0 0 0 .1 3.5 3 3 0 0 0 2.1 2.1C6 18 12 18 12 18s6 0 7.9-.4a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.1-3.5z"></path>
+            <polygon points="10 9 16 12 10 15 10 9" fill="currentColor" stroke="none"></polygon>
+          </svg>
+        </a>
       </div>
     </div>
-  </section>
+  </article>
 </main>
 
 <footer class="cpk-footer">

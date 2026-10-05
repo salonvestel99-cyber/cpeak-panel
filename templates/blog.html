@@ -10,70 +10,172 @@
 <meta property="og:title" content="Blog — C-Peak English">
 <meta property="og:description" content="İngilizce öğrenme üzerine faydalı rehberler.">
 <meta property="og:url" content="https://www.cpeakenglish.com/blog">
-<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=blog">
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=blogv2">
 <style>
-.cpk-blog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-  margin-top: 32px;
+/* ============================================================
+   C-Peak · Blog — Editorial
+   ============================================================ */
+.cpk-blog-hero {
+  padding: 80px 0 44px;
+  text-align: left;
 }
-.cpk-blog-card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 26px 24px 22px;
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 14px 40px -20px rgba(0,0,0,.55);
-  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+.cpk-blog-hero .container { max-width: 900px; }
+.cpk-blog-eyebrow {
+  display: inline-block;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: #f59e0b;
+  margin-bottom: 18px;
+}
+.cpk-blog-h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.024em;
+  color: #fff;
+  margin: 0 0 22px;
+  max-width: 760px;
+}
+.cpk-blog-h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(255,255,255,.72);
+}
+.cpk-blog-intro {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.02rem;
+  line-height: 1.68;
+  color: rgba(255,255,255,.6);
+  max-width: 620px;
+  margin: 0;
+}
+
+/* --- İçindekiler listesi --- */
+.cpk-blog-list {
+  padding: 20px 0 100px;
+}
+.cpk-blog-list .container { max-width: 900px; }
+
+.cpk-post-row {
+  display: grid;
+  grid-template-columns: 56px 1fr 40px;
+  gap: 20px;
+  align-items: center;
+  padding: 34px 4px;
+  border-top: 1px solid rgba(255,255,255,.08);
   text-decoration: none;
   color: inherit;
+  transition: padding .25s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.cpk-blog-card:hover, .cpk-blog-card:focus-visible {
-  transform: translateY(-3px);
-  border-color: rgba(245,158,11,.45);
-  box-shadow: 0 22px 60px -20px rgba(245,158,11,.28);
+.cpk-post-row:last-child {
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.cpk-post-row:hover,
+.cpk-post-row:focus-visible {
+  padding-left: 12px;
+  padding-right: 0;
   outline: none;
 }
-.cpk-blog-date {
+.cpk-post-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.08rem;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255,255,255,.32);
+  align-self: start;
+  padding-top: 4px;
+  transition: color .2s ease;
+}
+.cpk-post-row:hover .cpk-post-num,
+.cpk-post-row:focus-visible .cpk-post-num {
+  color: #f59e0b;
+}
+.cpk-post-body { min-width: 0; }
+.cpk-post-date {
+  display: block;
   font-family: 'Inter', system-ui, sans-serif;
   font-size: .72rem;
   font-weight: 600;
-  letter-spacing: .12em;
+  letter-spacing: .16em;
   text-transform: uppercase;
-  color: #f59e0b;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 8px;
 }
-.cpk-blog-title {
-  margin: 0;
+.cpk-post-title {
   font-family: 'Fraunces', Georgia, serif;
-  font-size: 1.32rem;
-  font-weight: 600;
-  line-height: 1.28;
-  letter-spacing: -0.012em;
+  font-size: clamp(1.4rem, 3.6vw, 1.85rem);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.018em;
   color: #fff;
+  margin: 0 0 10px;
+  transition: color .2s ease;
 }
-.cpk-blog-desc {
-  margin: 0;
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: .92rem;
-  line-height: 1.55;
-  color: rgba(255,255,255,.72);
-}
-.cpk-blog-more {
-  margin-top: auto;
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: .84rem;
-  font-weight: 600;
+.cpk-post-row:hover .cpk-post-title,
+.cpk-post-row:focus-visible .cpk-post-title {
   color: #f59e0b;
-  letter-spacing: .01em;
 }
-.cpk-blog-empty {
-  padding: 60px 20px;
-  text-align: center;
+.cpk-post-desc {
   font-family: 'Inter', system-ui, sans-serif;
+  font-size: .94rem;
+  line-height: 1.6;
   color: rgba(255,255,255,.55);
+  margin: 0;
+  max-width: 620px;
+}
+.cpk-post-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.55);
+  align-self: center;
+  transition: all .22s ease;
+  flex-shrink: 0;
+}
+.cpk-post-arrow svg {
+  width: 14px;
+  height: 14px;
+  transition: transform .22s ease;
+}
+.cpk-post-row:hover .cpk-post-arrow,
+.cpk-post-row:focus-visible .cpk-post-arrow {
+  background: #f59e0b;
+  border-color: #f59e0b;
+  color: #18181b;
+}
+.cpk-post-row:hover .cpk-post-arrow svg,
+.cpk-post-row:focus-visible .cpk-post-arrow svg {
+  transform: translateX(2px);
+}
+
+.cpk-blog-empty {
+  padding: 80px 0;
+  text-align: center;
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: rgba(255,255,255,.4);
+}
+
+@media (max-width: 640px) {
+  .cpk-blog-hero { padding: 48px 0 32px; }
+  .cpk-post-row {
+    grid-template-columns: 40px 1fr;
+    gap: 14px;
+    padding: 26px 0;
+  }
+  .cpk-post-arrow { display: none; }
+  .cpk-post-title { font-size: 1.28rem; }
+  .cpk-post-desc { font-size: .88rem; }
 }
 </style>
 {% endblock %}
@@ -102,36 +204,43 @@
 </header>
 
 <main class="cpk-main">
-  <section class="cpk-page-hero">
+  <section class="cpk-blog-hero">
     <div class="container">
-      <span class="cpk-eyebrow">Blog</span>
-      <h1 class="cpk-h1">İngilizce <em>öğrenme</em> rehberi</h1>
-      <p class="cpk-lead">
+      <span class="cpk-blog-eyebrow">Blog</span>
+      <h1 class="cpk-blog-h1">
+        İngilizce öğrenmeye dair <em>notlar, rehberler ve denemeler.</em>
+      </h1>
+      <p class="cpk-blog-intro">
         Sınav hazırlığı, konuşma pratiği, çocuklara İngilizce ve daha fazlası.
         Bayrampaşa ve İstanbul'da İngilizce eğitimi üzerine pratik yazılar.
       </p>
     </div>
   </section>
 
-  <section class="cpk-section">
+  <section class="cpk-blog-list">
     <div class="container">
       {% if yazilar %}
-      <div class="cpk-blog-grid">
         {% for y in yazilar %}
-        <a href="/blog/{{ y.slug }}" class="cpk-blog-card">
-          {% if y.date %}
-          <span class="cpk-blog-date">{{ y.date }}</span>
-          {% endif %}
-          <h2 class="cpk-blog-title">{{ y.title }}</h2>
-          {% if y.description %}
-          <p class="cpk-blog-desc">{{ y.description }}</p>
-          {% endif %}
-          <span class="cpk-blog-more">Devamını Oku →</span>
+        <a href="/blog/{{ y.slug }}" class="cpk-post-row">
+          <span class="cpk-post-num">{{ "%02d"|format(loop.index) }}</span>
+          <div class="cpk-post-body">
+            <span class="cpk-post-date">{{ y.date_tr }}</span>
+            <h2 class="cpk-post-title">{{ y.title }}</h2>
+            {% if y.description %}
+            <p class="cpk-post-desc">{{ y.description }}</p>
+            {% endif %}
+          </div>
+          <span class="cpk-post-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </span>
         </a>
         {% endfor %}
-      </div>
       {% else %}
-      <div class="cpk-blog-empty">Henüz yazı yok.</div>
+        <div class="cpk-blog-empty">Henüz yazı yok.</div>
       {% endif %}
     </div>
   </section>

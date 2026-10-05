@@ -86,9 +86,3 @@ C-Peak English'te amacımız kalabalık sınıflarda sıra bekleyen öğrenciler
 ## Sonuç
 
 Bu 7 soruyu bir deftere yaz. Her kursa gittiğinde sor. Cevapları karşılaştır. Sana net, somut, yazılı cevap veren kursu seç.
-
----
-
-**Ücretsiz deneme dersi için:** 0542 180 84 02  
-**Web:** cpeakenglish.com  
-**Instagram:** @c_peak_english

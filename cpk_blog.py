@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 cpk_blog.py — Markdown blog yükleyici.
-
-Kullanım:
-    from cpk_blog import tum_yazilar, yazi_bul
-    yazilar = tum_yazilar()          # liste
-    yazi = yazi_bul("slug")          # tek yazı veya None
 """
 import re
 from pathlib import Path
@@ -18,16 +13,15 @@ except ImportError:
 
 BLOG_DIR = Path(__file__).resolve().parent / "content" / "blog"
 
+_AYLAR = ["", "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
+          "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
+
 
 def _slugla(metin):
-    """Türkçe karakterleri sadeleştirip URL-slug yapar."""
     esleme = str.maketrans({
-        "ç": "c", "Ç": "c",
-        "ğ": "g", "Ğ": "g",
-        "ı": "i", "İ": "i",
-        "ö": "o", "Ö": "o",
-        "ş": "s", "Ş": "s",
-        "ü": "u", "Ü": "u",
+        "ç": "c", "Ç": "c", "ğ": "g", "Ğ": "g",
+        "ı": "i", "İ": "i", "ö": "o", "Ö": "o",
+        "ş": "s", "Ş": "s", "ü": "u", "Ü": "u",
     })
     s = metin.translate(esleme).lower()
     s = re.sub(r"[^a-z0-9]+", "-", s)
@@ -35,7 +29,6 @@ def _slugla(metin):
 
 
 def _frontmatter(metin):
-    """---\n...\n---\n gövde"""
     m = re.match(r"^---\s*\n(.*?)\n---\s*\n?(.*)$", metin, re.DOTALL)
     if not m:
         return {}, metin
@@ -51,14 +44,22 @@ def _frontmatter(metin):
     return meta, body
 
 
+def _tarih_tr(iso):
+    """2026-10-05 -> 5 Ekim 2026"""
+    try:
+        y, m, d = iso.split("-")
+        return f"{int(d)} {_AYLAR[int(m)]} {y}"
+    except Exception:
+        return iso
+
+
 def _render_md(metin):
     if not _MD_VAR:
-        # Fallback: satır satır <p>
         parcalar = [p.strip() for p in metin.split("\n\n") if p.strip()]
         return "\n".join(f"<p>{p}</p>" for p in parcalar)
     return _md.markdown(
         metin,
-        extensions=["extra", "smarty", "sane_lists", "toc"],
+        extensions=["extra", "smarty", "sane_lists"],
     )
 
 
@@ -66,11 +67,13 @@ def _yazi_yukle(path):
     ic = path.read_text(encoding="utf-8")
     meta, body = _frontmatter(ic)
     slug = meta.get("slug") or _slugla(meta.get("title") or path.stem)
+    tarih_iso = meta.get("date", "")
     return {
         "slug": slug,
         "title": meta.get("title") or path.stem,
         "description": meta.get("description", ""),
-        "date": meta.get("date", ""),
+        "date": tarih_iso,
+        "date_tr": _tarih_tr(tarih_iso),
         "keywords": meta.get("keywords", ""),
         "author": meta.get("author", "C-Peak English"),
         "html": _render_md(body),
