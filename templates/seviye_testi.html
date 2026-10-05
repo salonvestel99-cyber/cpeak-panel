@@ -7,7 +7,7 @@
 <meta name="description" content="21 soruda İngilizce seviyeni öğren. Çocuklar için hazırlanmış ücretsiz seviye testi.">
 <link rel="canonical" href="https://www.cpeakenglish.com/seviye-testi">
 <meta name="robots" content="index, follow">
-<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=seviye">
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=sinav">
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap">
 <style>
@@ -19,110 +19,281 @@ body { margin: 0; }
   background: #0a0a0b;
   font-family: 'Nunito', system-ui, sans-serif;
   color: #fff;
-  padding: 32px 20px 60px;
+  padding: 24px 16px 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .cpk-st-card {
   width: 100%;
-  max-width: 640px;
+  max-width: 720px;
   background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.012));
   border: 1px solid rgba(255,255,255,.08);
   border-radius: 24px;
-  padding: 40px 32px;
+  padding: 32px 28px;
   box-shadow: 0 24px 60px -24px rgba(0,0,0,.7);
 }
-.cpk-st-logo {
-  display: flex; align-items: center; justify-content: center;
-  gap: 10px; margin-bottom: 28px;
-}
-.cpk-st-logo img { width: 40px; height: 40px; border-radius: 50%; background: #fff; padding: 2px; }
+
+/* Logo */
+.cpk-st-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 24px; }
+.cpk-st-logo img { width: 36px; height: 36px; border-radius: 50%; background: #fff; padding: 2px; }
 .cpk-st-logo-txt { display: flex; flex-direction: column; line-height: 1; text-align: left; }
-.cpk-st-logo-txt strong { font-size: .92rem; font-weight: 800; color: #fff; }
-.cpk-st-logo-txt em { font-size: .58rem; font-weight: 700; letter-spacing: .22em; color: rgba(255,255,255,.5); font-style: normal; margin-top: 3px; }
+.cpk-st-logo-txt strong { font-size: .88rem; font-weight: 800; color: #fff; }
+.cpk-st-logo-txt em { font-size: .56rem; font-weight: 700; letter-spacing: .22em; color: rgba(255,255,255,.5); font-style: normal; margin-top: 3px; }
 
-.cpk-st-title { font-size: clamp(1.6rem, 4vw, 2.1rem); font-weight: 900; line-height: 1.15; letter-spacing: -0.024em; margin: 0 0 12px; color: #fff; }
+.cpk-st-title { font-size: clamp(1.5rem, 3.6vw, 1.9rem); font-weight: 900; line-height: 1.15; letter-spacing: -0.024em; margin: 0 0 12px; color: #fff; }
 .cpk-st-title em { font-style: italic; color: #f59e0b; }
-.cpk-st-lead { font-size: 1rem; line-height: 1.6; color: rgba(255,255,255,.65); margin: 0 0 30px; }
+.cpk-st-lead { font-size: .96rem; line-height: 1.6; color: rgba(255,255,255,.65); margin: 0 0 26px; }
 
-/* Progress */
-.cpk-st-progress-wrap { margin-bottom: 28px; }
-.cpk-st-progress-bar { height: 4px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
-.cpk-st-progress-fill { height: 100%; background: linear-gradient(90deg, #fbbf24, #f59e0b); width: 0; transition: width .3s ease; border-radius: 2px; }
-.cpk-st-progress-txt { display: flex; justify-content: space-between; font-size: .74rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 10px; }
+/* ============================================================ */
+/* SINAV ÜST BAR */
+/* ============================================================ */
+.cpk-exam-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  margin: -32px -28px 24px;
+  background: rgba(10,10,11,.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  border-radius: 24px 24px 0 0;
+}
+.cpk-exam-bar-left { display: flex; align-items: center; gap: 10px; }
+.cpk-exam-label {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #f59e0b;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: rgba(245,158,11,.10);
+  border: 1px solid rgba(245,158,11,.24);
+}
 
-/* Question */
-.cpk-st-q-cat { display: inline-block; font-size: .68rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #f59e0b; margin-bottom: 12px; }
-.cpk-st-q-text { font-size: clamp(1.1rem, 2.6vw, 1.28rem); font-weight: 700; line-height: 1.4; color: #fff; margin: 0 0 28px; letter-spacing: -0.008em; }
+.cpk-exam-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.05);
+  border: 1.5px solid rgba(255,255,255,.10);
+  font-family: 'Nunito', sans-serif;
+  font-size: .98rem;
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: #fff;
+  transition: background .3s ease, border-color .3s ease, color .3s ease;
+  font-variant-numeric: tabular-nums;
+}
+.cpk-exam-timer svg { width: 16px; height: 16px; color: #f59e0b; flex-shrink: 0; transition: color .3s ease; }
+.cpk-exam-timer.cpk-warning {
+  background: rgba(239,68,68,.12);
+  border-color: rgba(239,68,68,.5);
+  color: #fca5a5;
+  animation: cpk-timer-pulse 1.2s ease-in-out infinite;
+}
+.cpk-exam-timer.cpk-warning svg { color: #ef4444; }
+@keyframes cpk-timer-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .6; }
+}
 
-/* Options */
-.cpk-st-options { display: flex; flex-direction: column; gap: 10px; }
-.cpk-st-opt {
-  display: flex; align-items: center; gap: 14px;
-  padding: 16px 20px; border-radius: 14px;
-  background: rgba(255,255,255,.035);
+/* ============================================================ */
+/* SORU NAVİGASYONU */
+/* ============================================================ */
+.cpk-exam-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 14px;
+  margin-bottom: 22px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 14px;
+}
+.cpk-exam-nav-btn {
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  background: rgba(255,255,255,.04);
+  border: 1.5px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.55);
+  font-family: inherit;
+  font-size: .82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .16s ease, border-color .16s ease, color .16s ease, transform .16s ease;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0;
+}
+.cpk-exam-nav-btn:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); color: #fff; }
+.cpk-exam-nav-btn.cpk-answered {
+  background: rgba(245,158,11,.15);
+  border-color: rgba(245,158,11,.5);
+  color: #fbbf24;
+}
+.cpk-exam-nav-btn.cpk-current {
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  border-color: #fbbf24;
+  color: #18181b;
+  transform: scale(1.06);
+  box-shadow: 0 4px 12px -2px rgba(245,158,11,.5);
+}
+
+/* ============================================================ */
+/* SORU */
+/* ============================================================ */
+.cpk-exam-qcat {
+  display: inline-block;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #f59e0b;
+  margin-bottom: 10px;
+}
+.cpk-exam-qnum {
+  display: inline-block;
+  font-size: .76rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.4);
+  margin-left: 10px;
+  letter-spacing: .06em;
+}
+.cpk-exam-q {
+  font-size: clamp(1.1rem, 2.4vw, 1.24rem);
+  font-weight: 700;
+  line-height: 1.45;
+  color: #fff;
+  margin: 0 0 24px;
+  letter-spacing: -0.008em;
+}
+
+.cpk-exam-opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.cpk-exam-opt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 18px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.03);
   border: 1.5px solid rgba(255,255,255,.08);
-  color: #fff; font-family: inherit; font-size: 1rem; font-weight: 600;
-  text-align: left; cursor: pointer;
-  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all .16s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.cpk-st-opt:hover, .cpk-st-opt:focus-visible {
-  background: rgba(245,158,11,.08);
-  border-color: rgba(245,158,11,.4);
-  transform: translateY(-1px);
-  outline: none;
+.cpk-exam-opt:hover { background: rgba(245,158,11,.06); border-color: rgba(245,158,11,.35); }
+.cpk-exam-opt.cpk-selected {
+  background: rgba(245,158,11,.12);
+  border-color: #f59e0b;
+  box-shadow: 0 4px 14px -4px rgba(245,158,11,.4);
 }
-.cpk-st-opt-key {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 32px; height: 32px; border-radius: 8px;
+.cpk-exam-opt-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 8px;
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.1);
-  font-weight: 800; font-size: .86rem; color: rgba(255,255,255,.7);
+  font-weight: 800;
+  font-size: .86rem;
+  color: rgba(255,255,255,.7);
   flex-shrink: 0;
-  transition: background .18s ease, color .18s ease, border-color .18s ease;
+  transition: all .16s ease;
 }
-.cpk-st-opt:hover .cpk-st-opt-key { background: #f59e0b; color: #18181b; border-color: #f59e0b; }
+.cpk-exam-opt.cpk-selected .cpk-exam-opt-key {
+  background: #f59e0b;
+  color: #18181b;
+  border-color: #f59e0b;
+}
 
-/* Buttons */
-.cpk-st-btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
-  padding: 16px 28px; border-radius: 999px;
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 55%, #d97706 100%);
-  color: #18181b; font-family: inherit; font-size: 1rem; font-weight: 800;
-  border: 0; cursor: pointer; text-decoration: none;
-  box-shadow: 0 14px 32px -10px rgba(245,158,11,.65), 0 4px 12px rgba(0,0,0,.28);
-  transition: transform .18s ease, box-shadow .18s ease;
+/* ============================================================ */
+/* ALT KONTROL */
+/* ============================================================ */
+.cpk-exam-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.cpk-exam-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: .96rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 0;
+  transition: all .18s ease;
   -webkit-tap-highlight-color: transparent;
-  width: 100%;
+  text-decoration: none;
 }
-.cpk-st-btn:hover, .cpk-st-btn:focus-visible {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 40px -10px rgba(245,158,11,.85), 0 6px 16px rgba(0,0,0,.32);
-  outline: none;
+.cpk-exam-btn-prev {
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.7);
 }
-.cpk-st-btn-ghost {
-  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
-  padding: 14px 24px; border-radius: 999px;
-  background: transparent; border: 1.5px solid rgba(255,255,255,.18);
-  color: #fff; font-family: inherit; font-size: .94rem; font-weight: 700;
-  cursor: pointer; text-decoration: none;
-  transition: background .18s ease, border-color .18s ease, transform .18s ease;
-  -webkit-tap-highlight-color: transparent;
-  width: 100%;
-  margin-top: 10px;
-}
-.cpk-st-btn-ghost:hover, .cpk-st-btn-ghost:focus-visible {
+.cpk-exam-btn-prev:hover:not(:disabled) {
   background: rgba(255,255,255,.05);
-  border-color: rgba(245,158,11,.5);
-  outline: none;
+  border-color: rgba(255,255,255,.3);
+  color: #fff;
+}
+.cpk-exam-btn-next {
+  flex: 1;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 55%, #d97706 100%);
+  color: #18181b;
+  box-shadow: 0 10px 24px -8px rgba(245,158,11,.5);
+}
+.cpk-exam-btn-next:hover { transform: translateY(-1px); box-shadow: 0 14px 30px -8px rgba(245,158,11,.7); }
+.cpk-exam-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.cpk-exam-btn-finish {
+  flex: 1;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #fff;
+  box-shadow: 0 10px 24px -8px rgba(34,197,94,.5);
+}
+.cpk-exam-btn-finish:hover { transform: translateY(-1px); box-shadow: 0 14px 30px -8px rgba(34,197,94,.7); }
+
+.cpk-exam-hint {
+  margin-top: 14px;
+  font-size: .82rem;
+  color: rgba(255,255,255,.4);
+  text-align: center;
 }
 
-/* Start screen */
-.cpk-st-features { display: flex; flex-direction: column; gap: 12px; margin: 0 0 30px; padding: 0; list-style: none; }
-.cpk-st-features li { display: flex; gap: 12px; align-items: flex-start; font-size: .94rem; color: rgba(255,255,255,.7); line-height: 1.5; }
-.cpk-st-features svg { flex-shrink: 0; margin-top: 2px; color: #f59e0b; }
+/* ============================================================ */
+/* SONUÇ */
+/* ============================================================ */
+.cpk-st-result-level { text-align: center; padding: 20px 0 28px; }
+.cpk-st-result-code {
+  font-size: clamp(3rem, 11vw, 4.8rem); font-weight: 900; line-height: 1;
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; margin-bottom: 12px; letter-spacing: -0.03em;
+}
+.cpk-st-result-name { font-size: 1.5rem; font-weight: 800; color: #fff; margin: 0 0 10px; }
+.cpk-st-result-desc { font-size: .98rem; line-height: 1.6; color: rgba(255,255,255,.65); max-width: 480px; margin: 0 auto 20px; }
+.cpk-st-result-score { display: inline-block; padding: 8px 18px; border-radius: 999px; background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.25); font-size: .84rem; font-weight: 700; color: #fbbf24; }
 
 /* Form */
 .cpk-st-form { display: flex; flex-direction: column; gap: 14px; }
@@ -138,18 +309,11 @@ body { margin: 0; }
 .cpk-st-input:focus { outline: none; border-color: #f59e0b; background: rgba(245,158,11,.05); }
 .cpk-st-input::placeholder { color: rgba(255,255,255,.3); }
 
-/* Result */
-.cpk-st-result-level { text-align: center; padding: 24px 0 30px; }
-.cpk-st-result-code {
-  font-size: clamp(3.2rem, 12vw, 5rem); font-weight: 900; line-height: 1;
-  background: linear-gradient(135deg, #fbbf24, #d97706);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent; margin-bottom: 12px;
-  letter-spacing: -0.03em;
+.cpk-st-error {
+  display: none; padding: 12px 16px; border-radius: 10px;
+  background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.3);
+  color: #fca5a5; font-size: .9rem; font-weight: 600; margin-bottom: 6px;
 }
-.cpk-st-result-name { font-size: 1.5rem; font-weight: 800; color: #fff; margin: 0 0 10px; }
-.cpk-st-result-desc { font-size: .98rem; line-height: 1.6; color: rgba(255,255,255,.65); max-width: 480px; margin: 0 auto 20px; }
-.cpk-st-result-score { display: inline-block; padding: 8px 18px; border-radius: 999px; background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.25); font-size: .84rem; font-weight: 700; color: #fbbf24; }
 
 /* Success */
 .cpk-st-success-icon {
@@ -160,17 +324,79 @@ body { margin: 0; }
 }
 .cpk-st-success-txt { text-align: center; font-size: 1.05rem; line-height: 1.6; color: rgba(255,255,255,.7); margin: 0 0 30px; }
 
-.cpk-st-error {
-  display: none; padding: 12px 16px; border-radius: 10px;
-  background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.3);
-  color: #fca5a5; font-size: .9rem; font-weight: 600; margin-bottom: 6px;
+.cpk-st-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 16px 28px; border-radius: 999px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 55%, #d97706 100%);
+  color: #18181b; font-family: inherit; font-size: 1rem; font-weight: 800;
+  border: 0; cursor: pointer; text-decoration: none;
+  box-shadow: 0 14px 32px -10px rgba(245,158,11,.65), 0 4px 12px rgba(0,0,0,.28);
+  transition: transform .18s ease, box-shadow .18s ease;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
 }
+.cpk-st-btn:hover { transform: translateY(-2px); box-shadow: 0 20px 40px -10px rgba(245,158,11,.85), 0 6px 16px rgba(0,0,0,.32); }
+.cpk-st-btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 14px 24px; border-radius: 999px;
+  background: transparent; border: 1.5px solid rgba(255,255,255,.18);
+  color: #fff; font-family: inherit; font-size: .94rem; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  transition: all .18s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+.cpk-st-btn-ghost:hover { background: rgba(255,255,255,.05); border-color: rgba(245,158,11,.5); }
+
+/* WhatsApp butonu */
+.cpk-st-btn-wa {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 16px 28px; border-radius: 999px;
+  background: #25D366; color: #fff;
+  font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 14px 32px -10px rgba(37,211,102,.6), 0 4px 12px rgba(0,0,0,.28);
+  transition: all .18s ease;
+  margin-top: 12px;
+}
+.cpk-st-btn-wa:hover { background: #20BD5A; transform: translateY(-2px); box-shadow: 0 20px 40px -10px rgba(37,211,102,.8); }
+
+.cpk-st-features { display: flex; flex-direction: column; gap: 12px; margin: 0 0 26px; padding: 0; list-style: none; }
+.cpk-st-features li { display: flex; gap: 12px; align-items: flex-start; font-size: .94rem; color: rgba(255,255,255,.7); line-height: 1.5; }
+.cpk-st-features svg { flex-shrink: 0; margin-top: 2px; color: #f59e0b; }
+
+/* Modal */
+.cpk-modal {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,.7);
+  backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.cpk-modal.cpk-active { display: flex; }
+.cpk-modal-card {
+  max-width: 420px; width: 100%;
+  background: #131316;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.6);
+}
+.cpk-modal-title { margin: 0 0 10px; font-size: 1.28rem; font-weight: 900; letter-spacing: -0.015em; color: #fff; }
+.cpk-modal-desc { margin: 0 0 22px; font-size: .96rem; line-height: 1.55; color: rgba(255,255,255,.65); }
+.cpk-modal-actions { display: flex; flex-direction: column; gap: 10px; }
 
 @media (max-width: 500px) {
-  .cpk-st-wrap { padding: 20px 14px 50px; }
-  .cpk-st-card { padding: 30px 22px; border-radius: 20px; }
-  .cpk-st-opt { padding: 14px 16px; font-size: .96rem; }
-  .cpk-st-opt-key { width: 28px; height: 28px; font-size: .8rem; }
+  .cpk-st-wrap { padding: 16px 12px 50px; }
+  .cpk-st-card { padding: 24px 18px; border-radius: 20px; }
+  .cpk-exam-bar { margin: -24px -18px 20px; padding: 10px 14px; border-radius: 20px 20px 0 0; }
+  .cpk-exam-timer { padding: 7px 13px; font-size: .9rem; }
+  .cpk-exam-label { font-size: .62rem; padding: 4px 8px; }
+  .cpk-exam-nav { padding: 10px; gap: 5px; }
+  .cpk-exam-nav-btn { width: 30px; height: 30px; font-size: .76rem; }
+  .cpk-exam-opt { padding: 13px 15px; font-size: .94rem; }
+  .cpk-exam-btn { padding: 12px 18px; font-size: .9rem; }
+  .cpk-exam-q { font-size: 1.05rem; }
 }
 </style>
 {% endblock %}
@@ -188,7 +414,7 @@ body { margin: 0; }
       </div>
     </div>
 
-    <!-- ============ BAŞLANGIÇ EKRANI ============ -->
+    <!-- ============ BAŞLANGIÇ ============ -->
     <div id="cpk-st-start">
       <h1 class="cpk-st-title">Seviyeni <em>3 dakikada</em> öğren</h1>
       <p class="cpk-st-lead">
@@ -208,30 +434,60 @@ body { margin: 0; }
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
           7 okuma-anlama sorusu
         </li>
+        <li>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          25 dakika süre
+        </li>
       </ul>
 
       <button type="button" class="cpk-st-btn" id="cpk-st-basla">
-        Testi Başlat
+        Sınavı Başlat
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
     </div>
 
-    <!-- ============ SORU EKRANI ============ -->
+    <!-- ============ SINAV ============ -->
     <div id="cpk-st-quiz" style="display:none;">
-      <div class="cpk-st-progress-wrap">
-        <div class="cpk-st-progress-txt">
-          <span id="cpk-st-cat">DİL BİLGİSİ</span>
-          <span id="cpk-st-counter">1 / 21</span>
+
+      <!-- Üst bar -->
+      <div class="cpk-exam-bar">
+        <div class="cpk-exam-bar-left">
+          <span class="cpk-exam-label">SINAV</span>
         </div>
-        <div class="cpk-st-progress-bar"><div class="cpk-st-progress-fill" id="cpk-st-progress"></div></div>
+        <div class="cpk-exam-timer" id="cpk-timer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="cpk-timer-txt">25:00</span>
+        </div>
       </div>
 
-      <h2 class="cpk-st-q-text" id="cpk-st-q-text">Soru yükleniyor...</h2>
+      <!-- Soru navigasyonu -->
+      <div class="cpk-exam-nav" id="cpk-exam-nav"></div>
 
-      <div class="cpk-st-options" id="cpk-st-options"></div>
+      <!-- Soru -->
+      <div>
+        <span class="cpk-exam-qcat" id="cpk-st-cat">GRAMMAR</span>
+        <span class="cpk-exam-qnum" id="cpk-st-counter">Soru 1 / 21</span>
+      </div>
+      <h2 class="cpk-exam-q" id="cpk-st-q-text">Soru yükleniyor...</h2>
+
+      <div class="cpk-exam-opts" id="cpk-st-options"></div>
+
+      <!-- Alt kontrol -->
+      <div class="cpk-exam-controls">
+        <button type="button" class="cpk-exam-btn cpk-exam-btn-prev" id="cpk-btn-prev" disabled>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Önceki
+        </button>
+        <button type="button" class="cpk-exam-btn cpk-exam-btn-next" id="cpk-btn-next">
+          <span id="cpk-btn-next-txt">Sonraki</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+
+      <p class="cpk-exam-hint" id="cpk-exam-hint">Bir şık seçerek devam edebilirsin.</p>
     </div>
 
-    <!-- ============ SONUÇ EKRANI ============ -->
+    <!-- ============ SONUÇ ============ -->
     <div id="cpk-st-result" style="display:none;">
       <div class="cpk-st-result-level">
         <div class="cpk-st-result-code" id="cpk-st-level">B1</div>
@@ -279,7 +535,7 @@ body { margin: 0; }
       </form>
     </div>
 
-    <!-- ============ TEŞEKKÜR EKRANI ============ -->
+    <!-- ============ TEŞEKKÜR ============ -->
     <div id="cpk-st-done" style="display:none;">
       <div class="cpk-st-success-icon">
         <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
@@ -289,59 +545,31 @@ body { margin: 0; }
         Bilgilerin bize ulaştı. En kısa sürede seninle iletişime geçip
         ücretsiz deneme dersini planlayacağız.
       </p>
-      
+      <a href="/" class="cpk-st-btn" style="text-decoration:none;">Ana Sayfaya Dön</a>
+
       <a href="https://wa.me/{{ whatsapp_numara }}?text={{ wa_mesaj }}"
-         class="cpk-st-btn-wa"
-         target="_blank" rel="noopener">
+         class="cpk-st-btn-wa" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
         <span>WhatsApp'tan Bilgi Al</span>
       </a>
 
-      <style>
-        .cpk-st-btn-wa {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          width: 100%;
-          padding: 16px 28px;
-          border-radius: 999px;
-          background: #25D366;
-          color: #fff;
-          font-family: 'Nunito', sans-serif;
-          font-size: 1rem;
-          font-weight: 800;
-          letter-spacing: -0.005em;
-          text-decoration: none;
-          box-shadow:
-            0 14px 32px -10px rgba(37,211,102,.6),
-            0 4px 12px rgba(0,0,0,.28);
-          transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-          -webkit-tap-highlight-color: transparent;
-          margin-top: 12px;
-        }
-        .cpk-st-btn-wa:hover, .cpk-st-btn-wa:focus-visible {
-          background: #20BD5A;
-          transform: translateY(-2px);
-          box-shadow:
-            0 20px 40px -10px rgba(37,211,102,.8),
-            0 6px 16px rgba(0,0,0,.32);
-          outline: none;
-        }
-        .cpk-st-btn-wa:active { transform: translateY(0); }
-        .cpk-st-btn-wa svg { flex-shrink: 0; }
-      </style>
-
-      <a href="/" class="cpk-st-btn" style="text-decoration:none;">
-        Ana Sayfaya Dön
-      </a>
-      <a href="/kurslar" class="cpk-st-btn-ghost" style="text-decoration:none;">
-        Kursları İncele
-      </a>
+      <a href="/kurslar" class="cpk-st-btn-ghost" style="text-decoration:none;">Kursları İncele</a>
     </div>
 
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="cpk-modal" id="cpk-modal">
+  <div class="cpk-modal-card">
+    <h3 class="cpk-modal-title" id="cpk-modal-title">Emin misin?</h3>
+    <p class="cpk-modal-desc" id="cpk-modal-desc"></p>
+    <div class="cpk-modal-actions">
+      <button type="button" class="cpk-st-btn" id="cpk-modal-yes">Evet</button>
+      <button type="button" class="cpk-st-btn-ghost" id="cpk-modal-no" style="margin-top:0;">Vazgeç</button>
+    </div>
   </div>
 </div>
 
@@ -353,7 +581,6 @@ body { margin: 0; }
   // SORULAR
   // ============================================
   var SORULAR = [
-    // --- GRAMMAR (7) ---
     {cat:"Grammar", q:"My brother ___ football every Saturday.", opts:["play","plays","playing","played"], dogru:1},
     {cat:"Grammar", q:"Look! The cat ___ on the sofa.", opts:["sleep","sleeps","is sleeping","slept"], dogru:2},
     {cat:"Grammar", q:"We ___ to Ankara last summer.", opts:["go","went","have gone","going"], dogru:1},
@@ -362,7 +589,6 @@ body { margin: 0; }
     {cat:"Grammar", q:"If it ___ tomorrow, we will stay at home.", opts:["rain","rains","will rain","rained"], dogru:1},
     {cat:"Grammar", q:"The book ___ by a famous writer in 1920.", opts:["wrote","is written","was written","has written"], dogru:2},
 
-    // --- VOCABULARY (7) ---
     {cat:"Kelime", q:"I drink ___ every morning.", opts:["bread","milk","chair","window"], dogru:1},
     {cat:"Kelime", q:"My father's brother is my ___.", opts:["uncle","aunt","cousin","nephew"], dogru:0},
     {cat:"Kelime", q:"Choose the opposite of \"expensive\".", opts:["cheap","large","heavy","strong"], dogru:0},
@@ -371,7 +597,6 @@ body { margin: 0; }
     {cat:"Kelime", q:"She was very ___ after the long trip.", opts:["tired","tire","tiring","tires"], dogru:0},
     {cat:"Kelime", q:"Choose the closest meaning to \"essential\".", opts:["optional","necessary","rare","boring"], dogru:1},
 
-    // --- READING (7) ---
     {cat:"Okuma", q:"My Best Friend — My name is Elif. I am twelve years old. How old is Elif?", opts:["Ten","Eleven","Twelve","Thirteen"], dogru:2},
     {cat:"Okuma", q:"Where does Elif live?", opts:["Ankara","Bayrampaşa, İstanbul","İzmir","Zeynep's house"], dogru:1},
     {cat:"Okuma", q:"What does Zeynep like doing?", opts:["Cooking and painting","Reading books and playing the piano","Swimming and running","Watching TV all day"], dogru:1},
@@ -384,8 +609,12 @@ body { margin: 0; }
   // ============================================
   // DURUM
   // ============================================
+  var SURE_SN = 25 * 60;  // 25 dakika
   var idx = 0;
-  var cevaplar = [];
+  var cevaplar = new Array(SORULAR.length).fill(-1);
+  var timerInterval = null;
+  var kalanSn = SURE_SN;
+  var sinavAktif = false;
 
   var elStart = document.getElementById("cpk-st-start");
   var elQuiz = document.getElementById("cpk-st-quiz");
@@ -395,41 +624,202 @@ body { margin: 0; }
   var elOpts = document.getElementById("cpk-st-options");
   var elCounter = document.getElementById("cpk-st-counter");
   var elCat = document.getElementById("cpk-st-cat");
-  var elProg = document.getElementById("cpk-st-progress");
+  var elNav = document.getElementById("cpk-exam-nav");
+  var elTimer = document.getElementById("cpk-timer");
+  var elTimerTxt = document.getElementById("cpk-timer-txt");
+  var btnPrev = document.getElementById("cpk-btn-prev");
+  var btnNext = document.getElementById("cpk-btn-next");
+  var btnNextTxt = document.getElementById("cpk-btn-next-txt");
+  var elHint = document.getElementById("cpk-exam-hint");
+
+  // ============================================
+  // TIMER
+  // ============================================
+  function timerGuncelle() {
+    var m = Math.floor(kalanSn / 60);
+    var s = kalanSn % 60;
+    elTimerTxt.textContent = (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+    if (kalanSn <= 300) {  // son 5 dakika
+      elTimer.classList.add("cpk-warning");
+    }
+  }
+
+  function timerBaslat() {
+    timerDurdur();
+    timerGuncelle();
+    timerInterval = setInterval(function(){
+      kalanSn--;
+      timerGuncelle();
+      if (kalanSn <= 0) {
+        timerDurdur();
+        alert("Süre doldu! Cevapların otomatik gönderiliyor.");
+        bitir();
+      }
+    }, 1000);
+  }
+  function timerDurdur() {
+    if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+  }
+
+  // ============================================
+  // NAVİGASYON GRID
+  // ============================================
+  function navGuncelle() {
+    elNav.innerHTML = "";
+    for (var i = 0; i < SORULAR.length; i++) {
+      (function(i){
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "cpk-exam-nav-btn";
+        b.textContent = (i + 1);
+        if (cevaplar[i] !== -1) b.classList.add("cpk-answered");
+        if (i === idx) b.classList.add("cpk-current");
+        b.addEventListener("click", function(){
+          idx = i;
+          soruGoster();
+        });
+        elNav.appendChild(b);
+      })(i);
+    }
+  }
 
   // ============================================
   // SORU GÖSTER
   // ============================================
   function soruGoster() {
-    if (idx >= SORULAR.length) { bitir(); return; }
     var s = SORULAR[idx];
     elCat.textContent = s.cat.toUpperCase();
-    elCounter.textContent = (idx + 1) + " / " + SORULAR.length;
-    elProg.style.width = (((idx) / SORULAR.length) * 100) + "%";
+    elCounter.textContent = "Soru " + (idx + 1) + " / " + SORULAR.length;
     elQText.textContent = s.q;
     elOpts.innerHTML = "";
     var keys = ["A","B","C","D"];
     s.opts.forEach(function(opt, i){
       var b = document.createElement("button");
       b.type = "button";
-      b.className = "cpk-st-opt";
-      b.innerHTML = '<span class="cpk-st-opt-key">' + keys[i] + '</span><span>' + opt + '</span>';
-      b.addEventListener("click", function(){ cevapla(i); });
+      b.className = "cpk-exam-opt";
+      if (cevaplar[idx] === i) b.classList.add("cpk-selected");
+      b.innerHTML = '<span class="cpk-exam-opt-key">' + keys[i] + '</span><span>' + opt + '</span>';
+      b.addEventListener("click", function(){ sec(i); });
       elOpts.appendChild(b);
     });
+
+    // Buton durumları
+    btnPrev.disabled = (idx === 0);
+    var cevaplanan = cevaplar.filter(function(c){ return c !== -1; }).length;
+    var hepsiCevaplandi = (cevaplanan === SORULAR.length);
+    var sonSoru = (idx === SORULAR.length - 1);
+
+    if (hepsiCevaplandi && sonSoru) {
+      btnNextTxt.textContent = "Sınavı Bitir";
+      btnNext.classList.add("cpk-exam-btn-finish");
+    } else if (sonSoru) {
+      btnNextTxt.textContent = "Boşları Kontrol Et";
+      btnNext.classList.remove("cpk-exam-btn-finish");
+    } else {
+      btnNextTxt.textContent = "Sonraki";
+      btnNext.classList.remove("cpk-exam-btn-finish");
+    }
+
+    // Hint
+    if (cevaplanan === 0) {
+      elHint.textContent = "Bir şık seçerek devam edebilirsin.";
+    } else if (hepsiCevaplandi) {
+      elHint.textContent = "Tüm soruları cevapladın. Sınavı bitirebilirsin.";
+    } else {
+      var bos = SORULAR.length - cevaplanan;
+      elHint.textContent = bos + " soru boş.";
+    }
+
+    navGuncelle();
   }
 
-  function cevapla(secim) {
-    cevaplar.push(secim);
-    idx++;
-    elProg.style.width = (((idx) / SORULAR.length) * 100) + "%";
-    soruGoster();
+  function sec(i) {
+    cevaplar[idx] = i;
+    // Seçili class güncelle
+    var opts = elOpts.querySelectorAll(".cpk-exam-opt");
+    opts.forEach(function(el, k){
+      el.classList.toggle("cpk-selected", k === i);
+    });
+    navGuncelle();
+
+    // Otomatik sonraki (opsiyonel, kapalı)
+    // Son soru değilse sonrakine geçme — kullanıcı kendisi geçsin
   }
 
   // ============================================
-  // BİTİR — seviye hesapla
+  // BUTONLAR
+  // ============================================
+  btnPrev.addEventListener("click", function(){
+    if (idx > 0) { idx--; soruGoster(); }
+  });
+
+  btnNext.addEventListener("click", function(){
+    var sonSoru = (idx === SORULAR.length - 1);
+    var cevaplanan = cevaplar.filter(function(c){ return c !== -1; }).length;
+    var hepsiCevaplandi = (cevaplanan === SORULAR.length);
+
+    if (sonSoru) {
+      if (hepsiCevaplandi) {
+        bitirOnay();
+      } else {
+        var bos = SORULAR.length - cevaplanan;
+        modalGoster(
+          "Boş sorular var",
+          bos + " soru hâlâ boş. Yine de sınavı bitirmek istiyor musun?",
+          "Evet, Bitir",
+          bitir
+        );
+      }
+    } else {
+      idx++;
+      soruGoster();
+    }
+  });
+
+  // ============================================
+  // MODAL
+  // ============================================
+  var modalEl = document.getElementById("cpk-modal");
+  var modalTitle = document.getElementById("cpk-modal-title");
+  var modalDesc = document.getElementById("cpk-modal-desc");
+  var modalYes = document.getElementById("cpk-modal-yes");
+  var modalNo = document.getElementById("cpk-modal-no");
+  var modalCallback = null;
+
+  function modalGoster(title, desc, yesTxt, cb) {
+    modalTitle.textContent = title;
+    modalDesc.textContent = desc;
+    modalYes.textContent = yesTxt;
+    modalCallback = cb;
+    modalEl.classList.add("cpk-active");
+  }
+  function modalKapat() {
+    modalEl.classList.remove("cpk-active");
+    modalCallback = null;
+  }
+  modalYes.addEventListener("click", function(){
+    var cb = modalCallback;
+    modalKapat();
+    if (cb) cb();
+  });
+  modalNo.addEventListener("click", modalKapat);
+
+  function bitirOnay() {
+    modalGoster(
+      "Sınavı bitir?",
+      "Cevaplarını kontrol ettin mi? Bitirdikten sonra geri dönemezsin.",
+      "Evet, Bitir",
+      bitir
+    );
+  }
+
+  // ============================================
+  // BİTİR
   // ============================================
   function bitir() {
+    timerDurdur();
+    sinavAktif = false;
+
     var dogru = 0;
     for (var i = 0; i < SORULAR.length; i++) {
       if (cevaplar[i] === SORULAR[i].dogru) dogru++;
@@ -455,9 +845,9 @@ body { margin: 0; }
     document.getElementById("cpk-st-level-desc").textContent = desc;
     document.getElementById("cpk-st-score").textContent = dogru + " / " + SORULAR.length + " doğru";
 
-    // Form için gizli alan
-    document.getElementById("cpk-st-form").dataset.puan = dogru;
-    document.getElementById("cpk-st-form").dataset.seviye = seviye;
+    var f = document.getElementById("cpk-st-form");
+    f.dataset.puan = dogru;
+    f.dataset.seviye = seviye;
 
     elQuiz.style.display = "none";
     elResult.style.display = "block";
@@ -465,7 +855,7 @@ body { margin: 0; }
   }
 
   // ============================================
-  // FORM GÖNDER
+  // FORM
   // ============================================
   document.getElementById("cpk-st-form").addEventListener("submit", function(e){
     e.preventDefault();
@@ -475,21 +865,9 @@ body { margin: 0; }
     var sinif = f.sinif.value.trim();
     var err = document.getElementById("cpk-st-error");
 
-    if (!isim || isim.length < 3) {
-      err.textContent = "Lütfen öğrencinin adını yazın.";
-      err.style.display = "block";
-      return;
-    }
-    if (!tel || tel.replace(/\D/g, "").length < 10) {
-      err.textContent = "Lütfen geçerli bir telefon numarası girin.";
-      err.style.display = "block";
-      return;
-    }
-    if (!sinif) {
-      err.textContent = "Lütfen sınıfı seçin.";
-      err.style.display = "block";
-      return;
-    }
+    if (!isim || isim.length < 3) { err.textContent = "Lütfen öğrencinin adını yazın."; err.style.display = "block"; return; }
+    if (!tel || tel.replace(/\D/g, "").length < 10) { err.textContent = "Lütfen geçerli bir telefon numarası girin."; err.style.display = "block"; return; }
+    if (!sinif) { err.textContent = "Lütfen sınıfı seçin."; err.style.display = "block"; return; }
     err.style.display = "none";
 
     var btn = document.getElementById("cpk-st-submit");
@@ -497,9 +875,7 @@ body { margin: 0; }
     btn.textContent = "Gönderiliyor...";
 
     var veri = {
-      isim: isim,
-      telefon: tel,
-      sinif: sinif,
+      isim: isim, telefon: tel, sinif: sinif,
       puan: parseInt(f.dataset.puan, 10),
       seviye: f.dataset.seviye,
       cevaplar: JSON.stringify(cevaplar)
@@ -519,15 +895,13 @@ body { margin: 0; }
       } else {
         err.textContent = res.mesaj || "Bir hata oluştu. Tekrar deneyin.";
         err.style.display = "block";
-        btn.disabled = false;
-        btn.textContent = "Bilgilerimi Gönder";
+        btn.disabled = false; btn.textContent = "Bilgilerimi Gönder";
       }
     })
     .catch(function(){
       err.textContent = "Bağlantı hatası. İnternetinizi kontrol edin.";
       err.style.display = "block";
-      btn.disabled = false;
-      btn.textContent = "Bilgilerimi Gönder";
+      btn.disabled = false; btn.textContent = "Bilgilerimi Gönder";
     });
   });
 
@@ -538,159 +912,24 @@ body { margin: 0; }
     elStart.style.display = "none";
     elQuiz.style.display = "block";
     idx = 0;
-    cevaplar = [];
+    cevaplar = new Array(SORULAR.length).fill(-1);
+    kalanSn = SURE_SN;
+    sinavAktif = true;
     soruGoster();
+    timerBaslat();
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-})();
-</script>
 
-
-<!-- cpk:sinav-geri-uyari -->
-<script>
-(function(){
-  "use strict";
-  var MARKER = "sinav-geri-uyari";
-  if (window["__" + MARKER]) return;
-  window["__" + MARKER] = true;
-
-  var testAktif = false;
-  var guardKurulu = false;
-
-  function guardKur() {
-    if (guardKurulu) return;
-    try {
-      history.pushState({ cpkQuizGuard: Date.now() }, "", location.href);
-      guardKurulu = true;
-    } catch(e) {}
-  }
-
-  function guardBirak() { guardKurulu = false; }
-
-  // Modal oluştur
-  function modal() {
-    var m = document.getElementById("cpk-quiz-cikis");
-    if (m) return m;
-    m = document.createElement("div");
-    m.id = "cpk-quiz-cikis";
-    m.setAttribute("role", "dialog");
-    m.setAttribute("aria-modal", "true");
-    m.style.cssText = [
-      "position:fixed","inset:0","z-index:2147483600",
-      "background:rgba(0,0,0,.65)",
-      "display:none","align-items:center","justify-content:center",
-      "padding:20px","backdrop-filter:blur(8px)",
-      "-webkit-backdrop-filter:blur(8px)",
-      "opacity:0","transition:opacity .2s ease"
-    ].join(";");
-    m.innerHTML =
-      '<div style="background:#131316;border:1px solid rgba(255,255,255,.1);' +
-      'border-radius:20px;padding:28px 24px;max-width:420px;width:100%;' +
-      'box-shadow:0 24px 60px rgba(0,0,0,.6);' +
-      'font-family:Nunito,system-ui,sans-serif;color:#fff;' +
-      'transform:translateY(12px);transition:transform .22s ease;">' +
-      '<h3 style="margin:0 0 10px;font-size:1.3rem;font-weight:900;' +
-      'letter-spacing:-0.015em;">Testten çıkmak istiyor musun?</h3>' +
-      '<p style="margin:0 0 22px;font-size:.96rem;line-height:1.55;' +
-      'color:rgba(255,255,255,.65);">Cevapların kaydedilmeyecek. ' +
-      'Baştan başlaman gerekecek.</p>' +
-      '<div style="display:flex;flex-direction:column;gap:10px;">' +
-      '<button type="button" data-karar="devam" style="padding:15px 22px;' +
-      'border-radius:999px;background:linear-gradient(135deg,#fbbf24,#d97706);' +
-      'color:#18181b;font-family:inherit;font-size:1rem;font-weight:800;' +
-      'border:0;cursor:pointer;">Teste Devam Et</button>' +
-      '<button type="button" data-karar="cik" style="padding:14px 22px;' +
-      'border-radius:999px;background:transparent;color:#fff;' +
-      'border:1.5px solid rgba(255,255,255,.18);font-family:inherit;' +
-      'font-size:.96rem;font-weight:700;cursor:pointer;">Çık</button>' +
-      '</div></div>';
-    document.body.appendChild(m);
-
-    m.addEventListener("click", function(e){
-      var btn = e.target.closest && e.target.closest("[data-karar]");
-      if (btn) {
-        var k = btn.getAttribute("data-karar");
-        if (k === "devam") { gizle(); guardKur(); }
-        else if (k === "cik") {
-          testAktif = false;
-          gizle();
-          history.back();
-        }
-        return;
-      }
-      if (e.target === m) { gizle(); guardKur(); }
-    });
-    return m;
-  }
-
-  function goster() {
-    var m = modal();
-    m.style.display = "flex";
-    requestAnimationFrame(function(){
-      m.style.opacity = "1";
-      var k = m.firstElementChild;
-      if (k) k.style.transform = "translateY(0)";
-    });
-  }
-  function gizle() {
-    var m = document.getElementById("cpk-quiz-cikis");
-    if (!m) return;
-    m.style.opacity = "0";
-    var k = m.firstElementChild;
-    if (k) k.style.transform = "translateY(12px)";
-    setTimeout(function(){ m.style.display = "none"; }, 200);
-  }
-
-  // Test başladığında flag aç
-  // Start butonu zaten mevcut, ona hook koy
-  document.addEventListener("click", function(e){
-    var t = e.target;
-    if (!t || !t.closest) return;
-    var btn = t.closest("#cpk-st-basla");
-    if (btn) {
-      setTimeout(function(){
-        testAktif = true;
-        guardKur();
-      }, 50);
-    }
-    // Form gönderildiğinde flag'i kapat (çıkış serbest)
-    var sub = t.closest("#cpk-st-submit");
-    if (sub) {
-      setTimeout(function(){ testAktif = false; guardBirak(); }, 50);
-    }
-  }, true);
-
-  // Test bitince flag kapansın (sonuç ekranına geçildiğinde)
-  var mo = new MutationObserver(function(){
-    var elResult = document.getElementById("cpk-st-result");
-    if (elResult && elResult.style.display !== "none") {
-      testAktif = false;
-      guardBirak();
-    }
-  });
-  setTimeout(function(){
-    var r = document.getElementById("cpk-st-result");
-    if (r) mo.observe(r, { attributes: true, attributeFilter: ["style"] });
-  }, 500);
-
-  // Tarayıcı geri tuşu
-  window.addEventListener("popstate", function(e){
-    if (!testAktif) return;
-    if (e.state && e.state.cpkQuizGuard) return;
-    guardBirak();
-    guardKur();
-    goster();
-  });
-
-  // Sayfa kapatma / yenileme
+  // ============================================
+  // SAYFADAN ÇIKIŞ KORUMASI
+  // ============================================
   window.addEventListener("beforeunload", function(e){
-    if (!testAktif) return;
-    e.preventDefault();
-    e.returnValue = "";
-    return "";
+    if (sinavAktif) {
+      e.preventDefault();
+      e.returnValue = "";
+      return "";
+    }
   });
 })();
 </script>
-<!-- /cpk:sinav-geri-uyari -->
-
 {% endblock %}
