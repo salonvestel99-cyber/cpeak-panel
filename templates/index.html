@@ -1696,6 +1696,200 @@ html.light #iletisim .cpk-contact-social a:hover {
   color: #b45309 !important;
 }
 </style>
+<style id="cpk-mobil-fix-v3">
+/* ============================================================
+   1) AÇIK TEMA — İLETİŞİM BÖLÜMÜ (birden çok selector)
+   ============================================================ */
+html[data-theme="light"] #iletisim,
+html.light #iletisim,
+html[data-bs-theme="light"] #iletisim,
+body.light #iletisim,
+body.light-theme #iletisim,
+body[data-theme="light"] #iletisim,
+html[data-theme="light"] .cpk-contact-sec,
+html.light .cpk-contact-sec,
+body.light .cpk-contact-sec,
+body.light-theme .cpk-contact-sec {
+  color: #18181b !important;
+  background: #ffffff !important;
+}
+
+/* TÜM metin — zorla */
+html[data-theme="light"] #iletisim *,
+html.light #iletisim *,
+html[data-bs-theme="light"] #iletisim *,
+body.light #iletisim *,
+body.light-theme #iletisim *,
+body[data-theme="light"] #iletisim *,
+html[data-theme="light"] .cpk-contact-sec *,
+html.light .cpk-contact-sec *,
+body.light .cpk-contact-sec *,
+body.light-theme .cpk-contact-sec * {
+  color: #18181b !important;
+  text-shadow: none !important;
+}
+
+/* Eyebrow, title, lead — net tonlar */
+html[data-theme="light"] #iletisim .cpk-eyebrow,
+html.light #iletisim .cpk-eyebrow,
+body.light #iletisim .cpk-eyebrow,
+body.light-theme #iletisim .cpk-eyebrow,
+html[data-theme="light"] #iletisim .cpk-contact-sec .cpk-eyebrow,
+html.light #iletisim .cpk-contact-sec .cpk-eyebrow {
+  color: #b45309 !important;
+}
+
+html[data-theme="light"] #iletisim .cpk-contact-lead,
+html.light #iletisim .cpk-contact-lead,
+body.light #iletisim .cpk-contact-lead,
+body.light-theme #iletisim .cpk-contact-lead {
+  color: rgba(24,24,27,.7) !important;
+}
+
+html[data-theme="light"] #iletisim .cpk-contact-row dt,
+html.light #iletisim .cpk-contact-row dt,
+body.light #iletisim .cpk-contact-row dt,
+body.light-theme #iletisim .cpk-contact-row dt {
+  color: rgba(24,24,27,.55) !important;
+}
+
+html[data-theme="light"] #iletisim .cpk-contact-row dd a,
+html.light #iletisim .cpk-contact-row dd a,
+body.light #iletisim .cpk-contact-row dd a,
+body.light-theme #iletisim .cpk-contact-row dd a,
+html[data-theme="light"] #iletisim .cpk-contact-social a,
+html.light #iletisim .cpk-contact-social a,
+body.light #iletisim .cpk-contact-social a,
+body.light-theme #iletisim .cpk-contact-social a {
+  color: #18181b !important;
+}
+
+html[data-theme="light"] #iletisim .cpk-sep,
+html.light #iletisim .cpk-sep,
+body.light #iletisim .cpk-sep,
+body.light-theme #iletisim .cpk-sep {
+  color: rgba(24,24,27,.3) !important;
+}
+
+html[data-theme="light"] #iletisim .cpk-contact-row,
+html.light #iletisim .cpk-contact-row,
+body.light #iletisim .cpk-contact-row,
+body.light-theme #iletisim .cpk-contact-row,
+html[data-theme="light"] #iletisim .cpk-contact-list,
+html.light #iletisim .cpk-contact-list {
+  border-color: rgba(24,24,27,.10) !important;
+}
+
+/* ============================================================
+   2) MOBİL — KARAKTERLER KÜÇÜK VE ARKADA
+   ============================================================ */
+@media (max-width: 900px) {
+
+  /* Karakterleri arkaya al, kartların üzerini kaplamasın */
+  .cpk-hero-bgchars .cpk-hb-chars {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .cpk-hero-bgchars .cpk-hb-chars img {
+    position: absolute !important;
+    right: -15% !important;
+    bottom: 0 !important;
+    height: 55% !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    opacity: .18 !important;
+    filter: blur(1.2px) !important;
+    animation: none !important;
+  }
+
+  .cpk-hero-bgchars .cpk-hb-chars::after {
+    display: none !important;
+  }
+
+  /* Metin katmanı önde */
+  .cpk-hero-bgchars .cpk-hb-hero {
+    position: relative !important;
+    z-index: 3 !important;
+    padding: 70px 22px 40px !important;
+  }
+
+  .cpk-hero-bgchars .cpk-hb-left {
+    position: relative;
+    z-index: 4;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  /* Başlık — net */
+  .cpk-hero-bgchars .cpk-hb-title {
+    text-shadow: 0 4px 30px rgba(0,0,0,.85),
+                 0 2px 12px rgba(0,0,0,.95) !important;
+  }
+  .cpk-hero-bgchars .cpk-hb-lead {
+    text-shadow: 0 2px 14px rgba(0,0,0,.9) !important;
+  }
+
+  /* KARTLAR — net, opak zemin */
+  .cpk-hero-bgchars .cpk-hb-features {
+    position: relative !important;
+    z-index: 5 !important;
+    background: linear-gradient(180deg,
+      rgba(10,10,11,.9) 0%,
+      rgba(10,10,11,.98) 30%,
+      #0a0a0b 100%) !important;
+    margin-top: 0 !important;
+    padding: 30px 22px 72px !important;
+  }
+
+  .cpk-hero-bgchars .cpk-hb-card {
+    background: #131316 !important;
+    border-color: rgba(255,255,255,.10) !important;
+    box-shadow: 0 8px 24px -12px rgba(0,0,0,.6) !important;
+  }
+
+  .cpk-hero-bgchars .cpk-hb-card-title {
+    color: #fff !important;
+  }
+  .cpk-hero-bgchars .cpk-hb-card-desc {
+    color: rgba(255,255,255,.65) !important;
+  }
+  .cpk-hero-bgchars .cpk-hb-card-num {
+    color: rgba(255,255,255,.28) !important;
+  }
+  .cpk-hero-bgchars .cpk-hb-card-age {
+    color: #f59e0b !important;
+  }
+  .cpk-hero-bgchars .cpk-hb-card-more {
+    border-color: rgba(255,255,255,.15) !important;
+    color: rgba(255,255,255,.55) !important;
+  }
+
+  /* Trust satırı da net olsun */
+  .cpk-hero-bgchars .cpk-hb-trust {
+    position: relative;
+    z-index: 4;
+    text-shadow: 0 2px 8px rgba(0,0,0,.9) !important;
+  }
+}
+
+/* Çok küçük ekran */
+@media (max-width: 500px) {
+  .cpk-hero-bgchars .cpk-hb-chars img {
+    right: -20% !important;
+    height: 48% !important;
+    opacity: .15 !important;
+  }
+}
+</style>
 </section>
 
 </main>
