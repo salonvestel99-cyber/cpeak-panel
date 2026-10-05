@@ -126,7 +126,7 @@
   <div class="cpk-hb-hero">
     <div class="cpk-hb-inner">
       <div class="cpk-hb-left">
-        <span class="cpk-hb-eyebrow">
+        <a href="#iletisim" class="cpk-hb-eyebrow cpk-hb-eyebrow-link" aria-label="İletişim ve konum bölümüne git">
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none"
                stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                stroke-linejoin="round" aria-hidden="true">
@@ -134,7 +134,7 @@
             <circle cx="12" cy="10" r="3"/>
           </svg>
           Bayrampaşa · İstanbul
-        </span>
+        </a>
 
         <h1 class="cpk-hb-title">
           İngilizceyi<br>
@@ -147,8 +147,8 @@
         </p>
 
         <div class="cpk-hb-cta">
-          <a href="/iletisim" class="cpk-hb-btn">
-            Ücretsiz Deneme Dersi
+          <a href="/seviye-testi" class="cpk-hb-btn">
+            Seviye Testini Çöz
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none"
                  stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
                  stroke-linejoin="round" aria-hidden="true">
@@ -1329,7 +1329,57 @@
   }
 }
     </style>
-  </section>
+  <style id="cpk-hb-link-fix">
+/* Yumuşak kaydırma */
+html { scroll-behavior: smooth; }
+
+/* Eyebrow link — tıklanabilir */
+.cpk-hb-eyebrow-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .2s ease, transform .2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Nunito', sans-serif;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: #fbbf24;
+  margin-bottom: 22px;
+  -webkit-tap-highlight-color: transparent;
+}
+.cpk-hb-eyebrow-link:hover,
+.cpk-hb-eyebrow-link:focus-visible {
+  color: #fde68a;
+  transform: translateY(-1px);
+  outline: none;
+}
+.cpk-hb-eyebrow-link svg {
+  opacity: .9;
+  flex-shrink: 0;
+  transition: transform .2s ease;
+}
+.cpk-hb-eyebrow-link:hover svg {
+  transform: scale(1.15);
+}
+.cpk-hb-eyebrow-link::after {
+  content: "→";
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity .2s ease, transform .2s ease;
+  font-size: 1em;
+  color: inherit;
+  margin-left: 2px;
+}
+.cpk-hb-eyebrow-link:hover::after,
+.cpk-hb-eyebrow-link:focus-visible::after {
+  opacity: .85;
+  transform: translateX(0);
+}
+</style>
+</section>
 
 </main>
 
