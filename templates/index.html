@@ -718,4 +718,84 @@
   }
 }
 </style>
+<style id="cpk-zoom-fix">
+/* ============================================================
+   C-Peak · Harita Zoom Kontrolleri — Ortalama Fix
+   ============================================================ */
+
+.cpk-map-canvas .leaflet-control-zoom {
+  border: 0 !important;
+  box-shadow: 0 6px 20px -4px rgba(0,0,0,.5) !important;
+  margin: 14px !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+
+.cpk-map-canvas .leaflet-control-zoom a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 1 !important;
+  padding: 0 !important;
+  background: rgba(20,20,24,.94) !important;
+  color: rgba(255,255,255,.82) !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 0 !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 300 !important;
+  text-align: center !important;
+  text-indent: 0 !important;
+  transition: background .15s ease, color .15s ease !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* İlk tuş (üst) */
+.cpk-map-canvas .leaflet-control-zoom a:first-child {
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  border-bottom: 0 !important;
+}
+
+/* Son tuş (alt) */
+.cpk-map-canvas .leaflet-control-zoom a:last-child {
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+  border-top: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.cpk-map-canvas .leaflet-control-zoom a:hover,
+.cpk-map-canvas .leaflet-control-zoom a:focus {
+  background: #f59e0b !important;
+  color: #18181b !important;
+  outline: none !important;
+}
+
+.cpk-map-canvas .leaflet-control-zoom a:active {
+  background: #b45309 !important;
+  color: #fff !important;
+}
+
+/* İçindeki span'ı da düzelt (Leaflet <span aria-hidden="true">+</span> kullanır) */
+.cpk-map-canvas .leaflet-control-zoom a > span {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  line-height: 1 !important;
+  font-size: inherit !important;
+}
+
+/* Mobilde biraz küçült */
+@media (max-width: 900px) {
+  .cpk-map-canvas .leaflet-control-zoom a {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 20px !important;
+  }
+}
+</style>
 {% endblock %}
