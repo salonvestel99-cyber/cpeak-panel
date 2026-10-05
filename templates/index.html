@@ -1379,6 +1379,147 @@ html { scroll-behavior: smooth; }
   transform: translateX(0);
 }
 </style>
+<style id="cpk-hero-mobil-isik-fix">
+/* ============================================================
+   1) MOBİL — karakterleri sakinleştir
+   ============================================================ */
+@media (max-width: 900px) {
+
+  /* Karakterler metnin arkasına geçmesin */
+  .cpk-hero-bgchars .cpk-hb-chars {
+    position: relative !important;
+    height: 300px !important;
+    margin-top: -10px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .cpk-hero-bgchars .cpk-hb-chars img {
+    position: relative !important;
+    height: 100% !important;
+    width: auto !important;
+    max-width: 85% !important;
+    margin: 0 auto !important;
+    display: block !important;
+    opacity: .95 !important;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,.5)) !important;
+    right: auto !important;
+    bottom: auto !important;
+  }
+
+  /* Alt gradient mobilde gereksiz */
+  .cpk-hero-bgchars .cpk-hb-chars::after {
+    display: none !important;
+  }
+
+  /* Metin sırası */
+  .cpk-hb-hero { padding: 56px 22px 24px !important; }
+  .cpk-hb-left { text-align: center; align-items: center; margin: 0 auto; }
+  .cpk-hb-lead { margin-left: auto; margin-right: auto; }
+  .cpk-hb-cta { justify-content: center; }
+  .cpk-hb-trust { justify-content: center; }
+
+  /* Kartlar */
+  .cpk-hb-features { padding: 30px 22px 72px !important; margin-top: 0 !important; }
+  .cpk-hb-features-inner { grid-template-columns: 1fr !important; gap: 12px !important; }
+}
+
+@media (max-width: 500px) {
+  .cpk-hero-bgchars .cpk-hb-chars { height: 240px !important; }
+  .cpk-hb-title { font-size: clamp(1.9rem, 8.5vw, 2.6rem) !important; }
+}
+
+/* ============================================================
+   2) AÇIK TEMA — okunabilirlik
+   ============================================================ */
+html[data-theme="light"],
+html.light {
+
+  /* Hero zemini */
+}
+html[data-theme="light"] .cpk-hero-bgchars,
+html.light .cpk-hero-bgchars {
+  background: #f7f7f8 !important;
+  color: #18181b !important;
+}
+
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-glow,
+html.light .cpk-hero-bgchars .cpk-hb-glow {
+  opacity: .08 !important;
+}
+
+/* Başlık ve metin */
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-title,
+html.light .cpk-hero-bgchars .cpk-hb-title {
+  color: #18181b !important;
+  text-shadow: none !important;
+}
+
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-lead,
+html.light .cpk-hero-bgchars .cpk-hb-lead {
+  color: rgba(24,24,27,.72) !important;
+  text-shadow: none !important;
+}
+
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-eyebrow,
+html.light .cpk-hero-bgchars .cpk-hb-eyebrow,
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-eyebrow-link,
+html.light .cpk-hero-bgchars .cpk-hb-eyebrow-link {
+  color: #b45309 !important;
+}
+
+/* Ghost buton açık temada */
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-btn-ghost,
+html.light .cpk-hero-bgchars .cpk-hb-btn-ghost {
+  color: #18181b !important;
+  border-color: rgba(24,24,27,.28) !important;
+  background: rgba(24,24,27,.03) !important;
+}
+
+/* Trust satırı */
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-trust,
+html.light .cpk-hero-bgchars .cpk-hb-trust {
+  color: rgba(24,24,27,.55) !important;
+}
+
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-trust svg,
+html.light .cpk-hero-bgchars .cpk-hb-trust svg {
+  color: #d97706 !important;
+}
+
+/* Kartlar */
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-card,
+html.light .cpk-hero-bgchars .cpk-hb-card {
+  background: #ffffff !important;
+  border-color: rgba(24,24,27,.10) !important;
+  box-shadow: 0 8px 24px -12px rgba(0,0,0,.10) !important;
+}
+
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-card-title,
+html.light .cpk-hero-bgchars .cpk-hb-card-title {
+  color: #18181b !important;
+}
+
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-card-desc,
+html.light .cpk-hero-bgchars .cpk-hb-card-desc {
+  color: rgba(24,24,27,.65) !important;
+}
+
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-card-num,
+html.light .cpk-hero-bgchars .cpk-hb-card-num {
+  color: rgba(24,24,27,.28) !important;
+}
+
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-card-more,
+html.light .cpk-hero-bgchars .cpk-hb-card-more {
+  border-color: rgba(24,24,27,.15) !important;
+  color: rgba(24,24,27,.5) !important;
+}
+
+html[data-theme="light"] .cpk-hero-bgchars .cpk-hb-card-age,
+html.light .cpk-hero-bgchars .cpk-hb-card-age {
+  color: #b45309 !important;
+}
+</style>
 </section>
 
 </main>
