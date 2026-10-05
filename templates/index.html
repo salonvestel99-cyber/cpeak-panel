@@ -109,27 +109,25 @@
 </header>
 
 <main class="cpk-main">
-<section class="cpk-hero cpk-hero-temp">
-    <div class="cpk-temp-bg" aria-hidden="true">
-      <span class="cpk-temp-line cpk-line-1"></span>
-      <span class="cpk-temp-line cpk-line-2"></span>
-    </div>
+<section class="cpk-hero cpk-hero-bg">
+    <div class="cpk-bg-image" aria-hidden="true"></div>
+    <div class="cpk-bg-overlay" aria-hidden="true"></div>
 
-    <div class="cpk-temp-inner">
-      <span class="cpk-temp-eyebrow">Bayrampaşa · İstanbul</span>
+    <div class="cpk-bg-inner">
+      <span class="cpk-bg-eyebrow">Bayrampaşa · İstanbul</span>
 
-      <h1 class="cpk-temp-title">
+      <h1 class="cpk-bg-title">
         İngilizceyi<br>
         <em>oyun gibi</em> öğren
       </h1>
 
-      <p class="cpk-temp-lead">
+      <p class="cpk-bg-lead">
         Küçük sınıflar, neşeli dersler ve bol bol konuşma.
         Bayrampaşa'da çocuklar için İngilizce artık çok daha keyifli.
       </p>
 
-      <div class="cpk-temp-cta">
-        <a href="/iletisim" class="cpk-temp-btn">
+      <div class="cpk-bg-cta">
+        <a href="/iletisim" class="cpk-bg-btn">
           Ücretsiz Deneme Dersi
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none"
                stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
@@ -138,12 +136,12 @@
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </a>
-        <a href="/kurslar" class="cpk-temp-btn-ghost">
+        <a href="/kurslar" class="cpk-bg-btn-ghost">
           Kursları Gör
         </a>
       </div>
 
-      <div class="cpk-temp-foot">
+      <div class="cpk-bg-foot">
         Sertifikalı öğretmenler
         <span>·</span>
         Online veli paneli
@@ -152,197 +150,285 @@
       </div>
     </div>
 
-    <style id="cpk-hero-temp-style">
-.cpk-hero-temp {
+    <style id="cpk-hero-bg-style">
+.cpk-hero-bg {
   position: relative;
   overflow: hidden;
+  min-height: 92vh;
+  min-height: 92svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
   background: #0a0a0b;
-  padding: 120px 24px 110px;
   isolation: isolate;
 }
 
-/* Arka plan ince amber çizgiler */
-.cpk-temp-bg {
+/* --- Arka plan resmi --- */
+.cpk-bg-image {
   position: absolute;
   inset: 0;
-  pointer-events: none;
+  background-image: url("/static/background.jpg");
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
   z-index: 0;
-  overflow: hidden;
+  transform: scale(1.02);
+  animation: cpk-bg-slow-zoom 24s ease-in-out infinite alternate;
 }
-.cpk-temp-line {
+@keyframes cpk-bg-slow-zoom {
+  from { transform: scale(1.02); }
+  to   { transform: scale(1.08); }
+}
+
+/* --- Overlay: okunabilirlik --- */
+.cpk-bg-overlay {
   position: absolute;
-  width: 1px;
-  background: linear-gradient(180deg,
-    rgba(245,158,11,0) 0%,
-    rgba(245,158,11,.35) 50%,
-    rgba(245,158,11,0) 100%);
-}
-.cpk-line-1 {
-  height: 340px;
-  top: 15%;
-  left: 12%;
-  transform: rotate(12deg);
-}
-.cpk-line-2 {
-  height: 280px;
-  bottom: 20%;
-  right: 14%;
-  transform: rotate(-8deg);
-  opacity: .6;
-}
-
-.cpk-temp-inner {
-  position: relative;
+  inset: 0;
   z-index: 1;
-  max-width: 720px;
-  margin: 0 auto;
-  text-align: center;
+  background:
+    /* radial: metnin olduğu yeri karart */
+    radial-gradient(
+      ellipse 70% 55% at 50% 55%,
+      rgba(0,0,0,.62) 0%,
+      rgba(0,0,0,.35) 45%,
+      rgba(0,0,0,0) 85%
+    ),
+    /* linear: üst ve alt geçişler */
+    linear-gradient(180deg,
+      rgba(10,10,11,.55) 0%,
+      rgba(10,10,11,.15) 22%,
+      rgba(10,10,11,.05) 50%,
+      rgba(10,10,11,.35) 78%,
+      rgba(10,10,11,.85) 100%
+    );
 }
 
-.cpk-temp-eyebrow {
+/* --- İçerik --- */
+.cpk-bg-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  text-align: center;
+  color: #fff;
+  padding: 0 4px;
+}
+
+.cpk-bg-eyebrow {
   display: inline-block;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: .68rem;
+  font-size: .7rem;
   font-weight: 700;
-  letter-spacing: .26em;
+  letter-spacing: .28em;
   text-transform: uppercase;
-  color: #f59e0b;
-  margin-bottom: 28px;
-  opacity: .9;
+  color: #fff;
+  background: rgba(245,158,11,.22);
+  border: 1px solid rgba(245,158,11,.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  border-radius: 999px;
+  margin-bottom: 26px;
+  text-shadow: 0 1px 2px rgba(0,0,0,.4);
 }
 
-.cpk-temp-title {
+.cpk-bg-title {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: clamp(2.4rem, 6.4vw, 4.4rem);
+  font-size: clamp(2.4rem, 7vw, 4.8rem);
   font-weight: 800;
   line-height: 1.02;
-  letter-spacing: -0.034em;
+  letter-spacing: -0.036em;
   color: #fff;
-  margin: 0 0 24px;
+  margin: 0 0 22px;
+  text-shadow:
+    0 2px 8px rgba(0,0,0,.5),
+    0 8px 32px rgba(0,0,0,.35);
 }
-.cpk-temp-title em {
+.cpk-bg-title em {
   font-style: italic;
   font-weight: 800;
-  color: #f59e0b;
+  color: #fbbf24;
 }
 
-.cpk-temp-lead {
+.cpk-bg-lead {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 1.08rem;
-  line-height: 1.65;
-  color: rgba(255,255,255,.62);
-  max-width: 520px;
-  margin: 0 auto 40px;
+  font-size: clamp(1rem, 1.6vw, 1.14rem);
+  line-height: 1.6;
+  color: rgba(255,255,255,.92);
+  max-width: 540px;
+  margin: 0 auto 38px;
+  text-shadow: 0 1px 4px rgba(0,0,0,.55), 0 4px 16px rgba(0,0,0,.3);
 }
 
-.cpk-temp-cta {
+.cpk-bg-cta {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 44px;
+  margin-bottom: 40px;
 }
 
-.cpk-temp-btn {
+.cpk-bg-btn {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  padding: 15px 28px;
+  padding: 16px 30px;
   border-radius: 999px;
   background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
   color: #18181b;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: .98rem;
+  font-size: 1rem;
   font-weight: 700;
   text-decoration: none;
   box-shadow:
-    0 12px 30px -8px rgba(245,158,11,.6),
-    0 4px 12px rgba(0,0,0,.3);
+    0 14px 34px -8px rgba(245,158,11,.7),
+    0 6px 18px rgba(0,0,0,.35);
   transition: transform .18s cubic-bezier(.22,.9,.28,1),
               box-shadow .18s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.cpk-temp-btn:hover, .cpk-temp-btn:focus-visible {
+.cpk-bg-btn:hover, .cpk-bg-btn:focus-visible {
   transform: translateY(-2px);
   box-shadow:
-    0 16px 38px -8px rgba(245,158,11,.8),
-    0 6px 16px rgba(0,0,0,.35);
+    0 18px 42px -8px rgba(245,158,11,.85),
+    0 8px 22px rgba(0,0,0,.4);
   outline: none;
 }
-.cpk-temp-btn:active { transform: translateY(0); }
-.cpk-temp-btn svg { transition: transform .18s ease; }
-.cpk-temp-btn:hover svg { transform: translateX(3px); }
+.cpk-bg-btn:active { transform: translateY(0); }
+.cpk-bg-btn svg { transition: transform .18s ease; }
+.cpk-bg-btn:hover svg { transform: translateX(3px); }
 
-.cpk-temp-btn-ghost {
+.cpk-bg-btn-ghost {
   display: inline-flex;
   align-items: center;
-  padding: 15px 26px;
+  padding: 16px 28px;
   border-radius: 999px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(255,255,255,.14);
+  border: 1.5px solid rgba(255,255,255,.42);
   color: #fff;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: .98rem;
+  font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
   transition: background .18s ease, border-color .18s ease, transform .18s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.cpk-temp-btn-ghost:hover,
-.cpk-temp-btn-ghost:focus-visible {
-  background: rgba(255,255,255,.05);
-  border-color: rgba(245,158,11,.5);
+.cpk-bg-btn-ghost:hover,
+.cpk-bg-btn-ghost:focus-visible {
+  background: rgba(255,255,255,.24);
+  border-color: rgba(255,255,255,.65);
   transform: translateY(-2px);
   outline: none;
 }
 
-.cpk-temp-foot {
+.cpk-bg-foot {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 12px;
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: .82rem;
+  font-size: .84rem;
   font-weight: 500;
-  color: rgba(255,255,255,.45);
-  letter-spacing: .005em;
+  color: rgba(255,255,255,.72);
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
-.cpk-temp-foot span {
-  color: rgba(255,255,255,.2);
+.cpk-bg-foot span { color: rgba(255,255,255,.4); }
+
+/* --- Tablet --- */
+@media (max-width: 900px) {
+  .cpk-hero-bg {
+    min-height: 88vh;
+    min-height: 88svh;
+    padding: 40px 22px;
+  }
+  .cpk-bg-image {
+    background-position: center 45%;
+  }
+  .cpk-bg-overlay {
+    background:
+      radial-gradient(
+        ellipse 85% 60% at 50% 55%,
+        rgba(0,0,0,.7) 0%,
+        rgba(0,0,0,.4) 55%,
+        rgba(0,0,0,0) 90%
+      ),
+      linear-gradient(180deg,
+        rgba(10,10,11,.6) 0%,
+        rgba(10,10,11,.2) 25%,
+        rgba(10,10,11,.1) 55%,
+        rgba(10,10,11,.5) 82%,
+        rgba(10,10,11,.92) 100%
+      );
+  }
 }
 
-@media (max-width: 720px) {
-  .cpk-hero-temp {
-    padding: 80px 20px 80px;
+/* --- Mobil --- */
+@media (max-width: 640px) {
+  .cpk-hero-bg {
+    min-height: 92vh;
+    min-height: 92svh;
+    padding: 30px 18px;
   }
-  .cpk-temp-title {
-    font-size: clamp(2rem, 9vw, 3rem);
+  .cpk-bg-image {
+    background-position: center 42%;
+    animation: none;
   }
-  .cpk-temp-lead {
-    font-size: .98rem;
-    margin-bottom: 32px;
+  .cpk-bg-inner { max-width: 100%; }
+  .cpk-bg-eyebrow {
+    font-size: .62rem;
+    letter-spacing: .24em;
+    padding: 7px 14px;
+    margin-bottom: 20px;
   }
-  .cpk-temp-cta {
+  .cpk-bg-title {
+    font-size: clamp(2rem, 9.5vw, 3rem);
+    margin-bottom: 18px;
+  }
+  .cpk-bg-lead {
+    font-size: .96rem;
+    margin-bottom: 30px;
+    max-width: 100%;
+  }
+  .cpk-bg-cta {
     width: 100%;
     flex-direction: column;
-    margin-bottom: 34px;
+    gap: 10px;
+    margin-bottom: 32px;
   }
-  .cpk-temp-btn,
-  .cpk-temp-btn-ghost {
+  .cpk-bg-btn,
+  .cpk-bg-btn-ghost {
     width: 100%;
     justify-content: center;
+    padding: 15px 24px;
+    font-size: .96rem;
   }
-  .cpk-temp-foot {
+  .cpk-bg-foot {
     font-size: .76rem;
     gap: 8px;
   }
-  .cpk-temp-line {
-    opacity: .5;
+}
+
+/* --- Çok kısa ekran (yatay) --- */
+@media (max-height: 560px) and (orientation: landscape) {
+  .cpk-hero-bg {
+    min-height: auto;
+    padding: 60px 24px;
   }
+  .cpk-bg-title { font-size: 2.2rem; }
+  .cpk-bg-cta { margin-bottom: 24px; }
+}
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .cpk-bg-image { animation: none; }
 }
     </style>
   </section>
+
+
 
 
 
