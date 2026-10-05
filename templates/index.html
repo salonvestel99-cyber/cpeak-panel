@@ -1890,6 +1890,192 @@ html.light #iletisim .cpk-contact-list {
   }
 }
 </style>
+<style id="cpk-mobil-fix-v4">
+/* ============================================================
+   1) İLETİŞİM — HER TEMADA KOYU KALIR
+   Beyaz metin her zaman okunur.
+   ============================================================ */
+#iletisim,
+#iletisim.cpk-contact-sec,
+section.cpk-contact-sec {
+  background: #0a0a0b !important;
+  color: #ffffff !important;
+}
+
+/* Başlıklar */
+#iletisim .cpk-eyebrow {
+  color: #f59e0b !important;
+}
+#iletisim .cpk-h2,
+#iletisim h2 {
+  color: #ffffff !important;
+}
+#iletisim .cpk-contact-lead {
+  color: rgba(255,255,255,.62) !important;
+}
+
+/* Satırlar */
+#iletisim .cpk-contact-row {
+  border-color: rgba(255,255,255,.08) !important;
+}
+#iletisim .cpk-contact-list {
+  border-color: rgba(255,255,255,.08) !important;
+}
+#iletisim .cpk-contact-row dt {
+  color: rgba(255,255,255,.45) !important;
+}
+#iletisim .cpk-contact-row dd {
+  color: #ffffff !important;
+}
+#iletisim .cpk-contact-row dd a {
+  color: #ffffff !important;
+}
+#iletisim .cpk-contact-row dd a:hover {
+  color: #f59e0b !important;
+}
+#iletisim .cpk-contact-social a {
+  color: #ffffff !important;
+}
+#iletisim .cpk-sep {
+  color: rgba(255,255,255,.3) !important;
+}
+
+/* Harita alanı çevresi */
+#iletisim .cpk-map-card {
+  border-color: rgba(255,255,255,.08) !important;
+}
+
+/* Ekstra güvence: açık temada bile zorla */
+html[data-theme="light"] #iletisim,
+html.light #iletisim,
+body.light #iletisim,
+body.light-theme #iletisim,
+body[data-theme="light"] #iletisim {
+  background: #0a0a0b !important;
+  color: #ffffff !important;
+}
+html[data-theme="light"] #iletisim *,
+html.light #iletisim *,
+body.light #iletisim *,
+body.light-theme #iletisim *,
+body[data-theme="light"] #iletisim * {
+  text-shadow: none !important;
+}
+html[data-theme="light"] #iletisim .cpk-contact-row dd a,
+html.light #iletisim .cpk-contact-row dd a,
+body.light #iletisim .cpk-contact-row dd a,
+body.light-theme #iletisim .cpk-contact-row dd a,
+body[data-theme="light"] #iletisim .cpk-contact-row dd a {
+  color: #ffffff !important;
+}
+html[data-theme="light"] #iletisim .cpk-h2,
+html.light #iletisim .cpk-h2,
+body.light #iletisim .cpk-h2,
+body.light-theme #iletisim .cpk-h2,
+body[data-theme="light"] #iletisim .cpk-h2 {
+  color: #ffffff !important;
+}
+html[data-theme="light"] #iletisim .cpk-contact-row dd,
+html.light #iletisim .cpk-contact-row dd,
+body.light #iletisim .cpk-contact-row dd,
+body.light-theme #iletisim .cpk-contact-row dd,
+body[data-theme="light"] #iletisim .cpk-contact-row dd {
+  color: #ffffff !important;
+}
+html[data-theme="light"] #iletisim .cpk-contact-social a,
+html.light #iletisim .cpk-contact-social a,
+body.light #iletisim .cpk-contact-social a,
+body.light-theme #iletisim .cpk-contact-social a,
+body[data-theme="light"] #iletisim .cpk-contact-social a {
+  color: #ffffff !important;
+}
+
+
+/* ============================================================
+   2) MOBİL HERO — karakterler alta, küçük
+   ============================================================ */
+@media (max-width: 900px) {
+
+  /* Hero artık iki bölüm: metin (üst) + karakterler (alt) */
+  .cpk-hero-bgchars {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Karakter sarmalayıcı — statik, alta */
+  .cpk-hero-bgchars .cpk-hb-chars {
+    position: relative !important;
+    order: 3 !important;
+    width: 100% !important;
+    height: 200px !important;
+    margin: 0 !important;
+    inset: auto !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+  }
+
+  .cpk-hero-bgchars .cpk-hb-chars img {
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 0 !important;
+    right: auto !important;
+    top: auto !important;
+    transform: translateX(-50%) !important;
+    height: 100% !important;
+    width: auto !important;
+    max-width: 110% !important;
+    opacity: .55 !important;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,.5)) !important;
+    animation: none !important;
+  }
+
+  .cpk-hero-bgchars .cpk-hb-chars::after {
+    display: none !important;
+  }
+
+  /* Metin üstte */
+  .cpk-hero-bgchars .cpk-hb-hero {
+    order: 1 !important;
+    position: relative !important;
+    z-index: 2 !important;
+    padding: 60px 22px 30px !important;
+  }
+
+  .cpk-hero-bgchars .cpk-hb-left {
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  /* Kartlar en altta */
+  .cpk-hero-bgchars .cpk-hb-features {
+    order: 4 !important;
+    position: relative !important;
+    z-index: 2 !important;
+    margin-top: 0 !important;
+    padding: 20px 22px 72px !important;
+    background: transparent !important;
+  }
+
+  .cpk-hero-bgchars .cpk-hb-features-inner {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .cpk-hero-bgchars .cpk-hb-chars {
+    height: 160px !important;
+  }
+  .cpk-hero-bgchars .cpk-hb-chars img {
+    opacity: .5 !important;
+  }
+  .cpk-hero-bgchars .cpk-hb-hero {
+    padding: 52px 20px 22px !important;
+  }
+}
+</style>
 </section>
 
 </main>
