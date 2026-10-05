@@ -111,11 +111,11 @@
 <main class="cpk-main">
 
   <!-- ============== HERO ============== -->
-  <section class="cpk-hero">
+  <section class="cpk-hero cpk-hero-v2">
     <div class="cpk-hero-inner">
       <div class="cpk-hero-brand hero-brand">
         <span class="hero-brand-mark">
-          <img src="{{ url_for('static', filename='logochrome.png') }}" alt="C · Peak English">
+          <img src="/static/logochrome.png" alt="C · Peak English">
         </span>
         <span class="hero-brand-text">
           <span class="hero-brand-title">C · Peak</span>
@@ -123,17 +123,21 @@
         </span>
       </div>
 
-      <h1 class="cpk-hero-title">İngilizceyi <span class="cpk-copper">Zirveye</span> Taşı</h1>
+      <span class="cpk-hero-eyebrow">Bayrampaşa · İstanbul</span>
+
+      <h1 class="cpk-hero-title">
+        İngilizceyi <em class="cpk-copper">zirveye</em> taşı
+      </h1>
 
       <p class="cpk-hero-lead">
-        İstanbul Yıldırım'da küçük sınıflar, deneyimli öğretmenler ve dijital takip sistemiyle
+        Küçük sınıflar, birebir ilgi ve şeffaf takip. İstanbul Bayrampaşa'da
         öğrenci, veli ve öğretmen odaklı İngilizce eğitimi.
       </p>
 
-      <ul class="hero-list cpk-hero-list">
-        <li>Küçük sınıflarda birebir ilgi</li>
-        <li>Deneyimli ve sertifikalı öğretmenler</li>
-        <li>Öğrenci, veli ve öğretmen panelleri ile şeffaf takip</li>
+      <ul class="cpk-hero-points">
+        <li>Küçük sınıflar</li>
+        <li>Sertifikalı öğretmenler</li>
+        <li>Şeffaf veli paneli</li>
       </ul>
 
       <div class="cpk-hero-cta">
@@ -141,25 +145,262 @@
         <a href="/iletisim" class="btn-ghost cpk-btn-lg cpk-btn-ghost-light">Bize Ulaş</a>
       </div>
 
-      <div class="hero-stats cpk-hero-stats">
-        <div class="hero-stat">
-          <strong>150+</strong>
-          <span>Mutlu Öğrenci</span>
+      <div class="cpk-hero-stats">
+        <div class="cpk-hero-stat">
+          <strong>150<span>+</span></strong>
+          <span class="cpk-hero-stat-label">Mutlu Öğrenci</span>
         </div>
-        <div class="hero-stat">
-          <strong>4</strong>
-          <span>Temel Beceri</span>
+        <div class="cpk-hero-stat">
+          <strong>A1—C1</strong>
+          <span class="cpk-hero-stat-label">CEFR Uyumlu</span>
         </div>
-        <div class="hero-stat">
-          <strong>Konuşma</strong>
-          <span>Odaklı Eğitim</span>
+        <div class="cpk-hero-stat">
+          <strong>8—12</strong>
+          <span class="cpk-hero-stat-label">Kişilik Sınıf</span>
         </div>
-        <div class="hero-stat">
-          <strong>A1–C1</strong>
-          <span>CEFR Uyumlu</span>
+        <div class="cpk-hero-stat">
+          <strong>%100</strong>
+          <span class="cpk-hero-stat-label">Konuşma Odaklı</span>
         </div>
       </div>
     </div>
+
+    <style id="cpk-hero-v2-style">
+/* ============================================================
+   C-Peak · Hero — Premium Editorial
+   ============================================================ */
+
+.cpk-hero-v2 {
+  padding: 80px 24px 96px;
+  position: relative;
+}
+
+.cpk-hero-v2 .cpk-hero-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- Brand mark --- */
+.cpk-hero-v2 .cpk-hero-brand {
+  margin-bottom: 32px;
+}
+
+/* --- Eyebrow --- */
+.cpk-hero-eyebrow {
+  display: inline-block;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.42);
+  margin-bottom: 22px;
+  padding: 7px 16px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 999px;
+  background: rgba(255,255,255,.02);
+}
+
+/* --- Başlık --- */
+.cpk-hero-v2 .cpk-hero-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(2.2rem, 6.4vw, 4.2rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  color: #fff;
+  margin: 0 0 22px;
+  max-width: 780px;
+}
+
+.cpk-hero-v2 .cpk-hero-title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.cpk-hero-v2 .cpk-copper {
+  color: #f59e0b;
+}
+
+/* --- Lead --- */
+.cpk-hero-v2 .cpk-hero-lead {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.6vw, 1.1rem);
+  line-height: 1.65;
+  color: rgba(255,255,255,.62);
+  max-width: 620px;
+  margin: 0 0 26px;
+}
+
+/* --- Inline points (maddeler yerine) --- */
+.cpk-hero-points {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 38px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .88rem;
+  color: rgba(255,255,255,.55);
+}
+
+.cpk-hero-points li {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 18px;
+  position: relative;
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+
+.cpk-hero-points li + li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 3px;
+  background: rgba(245,158,11,.65);
+  border-radius: 50%;
+}
+
+/* --- CTA --- */
+.cpk-hero-v2 .cpk-hero-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 64px;
+}
+
+/* --- Stats: editorial row --- */
+.cpk-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  width: 100%;
+  max-width: 860px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.cpk-hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px;
+  position: relative;
+  text-align: center;
+}
+
+.cpk-hero-stat + .cpk-hero-stat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,.08);
+}
+
+.cpk-hero-stat strong {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.018em;
+  color: #fff;
+}
+
+.cpk-hero-stat strong span {
+  color: #f59e0b;
+  font-weight: 400;
+  margin-left: 1px;
+}
+
+.cpk-hero-stat-label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.42);
+  white-space: nowrap;
+}
+
+/* --- Mobile --- */
+@media (max-width: 720px) {
+  .cpk-hero-v2 {
+    padding: 56px 20px 72px;
+  }
+  .cpk-hero-v2 .cpk-hero-brand {
+    margin-bottom: 26px;
+  }
+  .cpk-hero-eyebrow {
+    font-size: .62rem;
+    letter-spacing: .24em;
+    padding: 6px 13px;
+    margin-bottom: 18px;
+  }
+  .cpk-hero-v2 .cpk-hero-lead {
+    font-size: .95rem;
+    margin-bottom: 22px;
+  }
+  .cpk-hero-points {
+    font-size: .78rem;
+    margin-bottom: 32px;
+  }
+  .cpk-hero-points li {
+    padding: 0 12px;
+  }
+  .cpk-hero-v2 .cpk-hero-cta {
+    margin-bottom: 48px;
+    width: 100%;
+    flex-direction: column;
+  }
+  .cpk-hero-v2 .cpk-hero-cta a {
+    width: 100%;
+    justify-content: center;
+  }
+  .cpk-hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 0;
+    padding-top: 32px;
+  }
+  .cpk-hero-stat:nth-child(3)::before,
+  .cpk-hero-stat:nth-child(1)::before {
+    display: none;
+  }
+  .cpk-hero-stat:nth-child(2)::before,
+  .cpk-hero-stat:nth-child(4)::before {
+    display: block;
+  }
+  .cpk-hero-stat:nth-child(3),
+  .cpk-hero-stat:nth-child(4) {
+    /* ikinci satır ayırıcı üst border */
+  }
+  .cpk-hero-stats {
+    position: relative;
+  }
+  .cpk-hero-stat strong {
+    font-size: 1.4rem;
+  }
+  .cpk-hero-stat-label {
+    font-size: .64rem;
+    letter-spacing: .12em;
+  }
+}
+    </style>
   </section>
 
   <!-- ============== HAKKIMIZDA ============== -->
