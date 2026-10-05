@@ -655,4 +655,67 @@
   </div>
 </footer>
 
+<style id="cpk-contact-v3-fix">
+/* ============================================================
+   C-Peak · İletişim v3 — Alignment Düzeltmesi
+   base template'ten gelen text-align: center'ı ezer
+   ============================================================ */
+
+.cpk-contact-v2,
+.cpk-contact-v2 * {
+  text-align: left !important;
+}
+
+.cpk-contact-v2 .cpk-eyebrow,
+.cpk-contact-v2 .cpk-h2,
+.cpk-contact-v2 .cpk-contact-lead,
+.cpk-contact-info {
+  text-align: left !important;
+}
+
+.cpk-contact-row {
+  grid-template-columns: 110px 1fr !important;
+  gap: 20px !important;
+  align-items: baseline !important;
+}
+
+.cpk-contact-row dt,
+.cpk-contact-row dd {
+  text-align: left !important;
+  justify-self: start !important;
+  align-self: baseline !important;
+}
+
+.cpk-contact-row dd a {
+  display: inline-block;
+}
+
+.cpk-contact-social {
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+
+.cpk-contact-lead {
+  max-width: 480px;
+}
+
+.cpk-contact-v2 .cpk-h2 {
+  margin-bottom: 14px;
+}
+
+@media (max-width: 900px) {
+  .cpk-contact-row {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+    padding: 16px 0 !important;
+  }
+  .cpk-contact-row dt {
+    font-size: .66rem !important;
+    letter-spacing: .18em !important;
+  }
+  .cpk-contact-row dd {
+    font-size: .98rem !important;
+  }
+}
+</style>
 {% endblock %}
